@@ -18,4 +18,5 @@ _ide_helper.php
 .styleci.yml
 composer.lock
 package-lock.json
+/.idea
 .idea
