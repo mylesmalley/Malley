@@ -1,0 +1,17 @@
+{
+    "Index": true,
+    "HomePage": true,
+    "Vehicles": true,
+    "BugReport": true,
+    "Syspro": true,
+    "WorkOrder": true,
+    "Announcement": true,
+    "Time": true,
+    "Test": true,
+    "BlueprintBOM": true,
+    "Demo": true,
+    "Labour": true,
+    "Questionnaire": true,
+    "UserManagement": true,
+    "Blueprint": true
+}
