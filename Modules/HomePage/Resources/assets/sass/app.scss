@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'Barlow';
+    src: url("Barlow-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'BarlowBlack';
+    src: url("Barlow-Black.ttf") format("truetype");
+}
+
+
+
+
+$font-family-sans-serif: "Barlow";
+$primary: #2e2e6e;
+$secondary : #72839a;
+$bg_colour: #d3d7df;
+$list-group-bg: rgba(255,255,255, 0.4);
+
+div.megamenu  {
+    background-color: $secondary;
+    color:white;
+
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background:
+        0 0/20px 20px radial-gradient(white 10%, transparent 0),
+        0 0/1px 300px linear-gradient( 0deg, $bg_colour 20%, white 100%) repeat-x,
+        0 0/1px 100% linear-gradient( 0deg, $bg_colour 0%, $bg_colour 100%) repeat-x;
+}
+
+
+.detail-table
+{
+    th {
+        text-align: right;
+    }
+    td {
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+
+
+// Mega Menu styling
+.navbar .megamenu{ padding: 1rem; }
+
+@media all and (min-width: 992px) {
+    .navbar .has-megamenu{position:static!important;}
+    .navbar .megamenu{left:0; right:0; width:100%; margin-top:0;  }
+}
+/* ============ desktop view .end// ============ */
+
+/* ============ mobile view ============ */
+@media(max-width: 991px){
+    .navbar.fixed-top .navbar-collapse, .navbar.sticky-top .navbar-collapse{
+        overflow-y: auto;
+        max-height: 90vh;
+        margin-top:10px;
+    }
+}
+
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+.btn-primary, .btn-secondary {
+    color:white;
+}
+
+$pagination-bg:                     $white;
+$pagination-border-width:           10px;
+$pagination-border-color:           $primary;
+
+@media print {
+    @page {
+        margin: 0.25in;
+    }
+    th, td {
+        font-size: 10pt;
+    }
+
+    .card, html, body, table, .container, .row {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        max-width: none;
+        background: none;
+    }
+
+}

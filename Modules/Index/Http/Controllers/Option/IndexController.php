@@ -1,0 +1,128 @@
+<?php
+
+namespace Modules\Index\Http\Controllers\Option;
+
+
+use App\Http\Controllers\Controller;
+use \App\Models\BaseVan;
+use \App\Models\Option;
+use \App\Models\Tag;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use \Illuminate\View\View;
+use \Illuminate\Http\Request;
+
+class IndexController extends Controller
+{
+    /**
+     * @param BaseVan $baseVan
+     * @return View
+     */
+    public function show( BaseVan $baseVan, Request $request)
+    {
+
+        // $categories = json_decode($baseVan->categories,  JSON_OBJECT_AS_ARRAY);
+
+        $categories = Tag::where('base_van_id', $baseVan->id)
+            ->where('model', 'option')
+            ->orderBy('name', 'ASC')
+            ->pluck('name', 'id')->toArray();
+
+        /**
+         * start building the query...
+         */
+        $db = Option::where('base_van_id', $baseVan->id);
+        $db->with([
+            'tags',
+            // 'errors',
+        ]);
+
+//        if ( isset( $request->filter ) && in_array( $request->filter, array_keys($categories) ) )
+//        {
+//            $filter_string = "{$baseVan->option_prefix}-{$request->filter}%";
+//
+//            $db->where('option_name', 'like', $filter_string );
+//        }
+
+        if (isset($request->filter) && in_array($request->filter, array_keys($categories))) {
+            //      $filter_string = "{$baseVan->option_prefix}-{$request->filter}%";
+            $db->whereHas('tags', function ($q) use ($request) {
+                $q->where('tag_id', $request->filter);
+            });
+//            $db->where('option_name', 'like', $filter_string );
+        }
+
+        /**
+         * filter if the user does not want to see obsolete items
+         */
+        if (isset(Auth::user()->index_show_obsolete_options)
+            && Auth::user()->index_show_obsolete_options == false) {
+            $db->where('obsolete', '!=', true);
+        }
+
+        /**
+         * filter if the user wants to see blueprint only options
+         */
+        if (isset(Auth::user()->index_show_blueprint_only_options)
+            && Auth::user()->index_show_blueprint_only_options == false) {
+            $db->where('option_name', 'not like', '%-Z%');
+        }
+
+
+        /**
+         * order and sort column
+         */
+        if (isset($request->sort)
+            && in_array($request->sort, ['option_name', 'option_description', 'created_at', 'updated_at'])
+            && isset($request->order)
+            && in_array($request->order, ['ASC', 'DESC'])) {
+
+            $db->orderBy($request->sort, $request->order);
+        } else
+        {
+            $db->orderBy('option_name' );
+
+        }
+
+
+
+        $options = $db->get();
+
+
+
+        return view('index::index.show', [
+            'basevan' => $baseVan,
+            'options' => $options,
+            'total' => $options->count(),
+            'categories' => $categories,
+        ]);
+    }
+
+
+
+    public function editPreferences()
+    {
+        return view('index::index.preferences',['user'=>Auth::user() ]);
+    }
+
+
+    public function savePreferences( Request $request )
+    {
+        $user = User::findOrFail( $request->user_id );
+
+        $user->update( $request->only(['index_show_obsolete_options',
+            'index_show_blueprint_only_options',
+            'index_show_id_column',
+            'index_show_phantom_column',
+            'index_show_tags_column',
+            'index_show_errors_column',
+            'index_show_pricing_columns',
+        ]) );
+
+        $user->save();
+
+        return redirect( $request->referer )
+            ->with('message','Saved Preferences');
+    }
+
+}

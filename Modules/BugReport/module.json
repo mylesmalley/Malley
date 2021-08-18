@@ -1,0 +1,13 @@
+{
+    "name": "BugReport",
+    "alias": "bugreport",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BugReport\\Providers\\BugReportServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

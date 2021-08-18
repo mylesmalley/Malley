@@ -1,0 +1,13 @@
+{
+    "name": "BlueprintBOM",
+    "alias": "blueprintbom",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BlueprintBOM\\Providers\\BlueprintBOMServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

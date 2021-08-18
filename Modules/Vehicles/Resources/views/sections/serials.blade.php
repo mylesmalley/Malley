@@ -1,0 +1,26 @@
+<div class="card border-primary">
+    <div class="card-header bg-primary text-white" >
+        Serial Numbers
+        @if( Auth::user()->vdb_modify_info )
+            <a href="{{ url('vehicles/'.$vehicle->id.'/serials' ) }}"
+               class='btn btn-sm btn-secondary float-end'>Edit Serials</a>
+
+        @endif
+    </div>
+
+    <table class="table table-striped table-sm detail-table">
+        @foreach ( App\Models\Vehicle::serialFields() as $serial )
+            @if ( $vehicle->$serial && $vehicle->$serial !== '' )
+                <tr>
+                    <th role="row">
+                        {{ ucwords( str_replace('_', ' ', $serial ) ) }}
+
+                    </th>
+                    <td>{{ $vehicle->$serial }}</td>
+                </tr>
+            @endif
+        @endforeach
+
+    </table>
+</div>
+

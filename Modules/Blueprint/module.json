@@ -1,0 +1,17 @@
+{
+    "name": "Blueprint",
+    "alias": "blueprint",
+    "description": "",
+    "keywords": [],
+    "title" : "Blueprint",
+    "priority": 0,
+    "providers": [
+        "Modules\\Blueprint\\Providers\\BlueprintServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "minimumCoreVersion": "",
+    "version": 0,
+    "authors": []
+}

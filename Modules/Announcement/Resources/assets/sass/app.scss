@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+$theme-colors: (
+    "primary": #2e2e6e,
+    "secondary": #72839a
+);
+
+$primary: #2e2e6e;
+$secondary: #72839a;
+
+//$bannerPath: url(../img/ambulance-banner.jpg);
+
+
+
+
+
+@font-face {
+    font-family: 'Barlow';
+    //src: url("../fonts/Barlow-Regular.ttf") format("truetype");
+    src: url("../../../../../resources/fonts/Barlow-Black.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family: 'BarlowBlack';
+    src: url("../../../../../resources/fonts/Barlow-Black.ttf") format("truetype");
+
+}
+//@import "../../node_modules/rfs/scss";
+
+$font-family-sans-serif: "Barlow";
+
+html, body {
+    font-family: "Barlow", "Arial", sans-serif;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    background: $secondary;
+    background: linear-gradient(white 77%, rgba(255,255,255, 0) 77% ),
+                linear-gradient(-225deg, $secondary 30%, white 30% 31.5%, $primary 31.5%);
+
+    //background: linear-gradient(-225deg, $secondary 7%, white  7%, white  9%, $primary 9%);
+}
+
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.container img
+{
+    max-width: 70%;
+    //max-height: 70%;
+}
+
+.display-1
+{
+    font-family: 'BarlowBlack', "Arial", sans-serif;
+    color: white;
+    font-size: 60em;
+    text-shadow: 0 0 30px rgba(0,0,0, 50),
+    0 0 100px rgba(0,0,0, 25) ;
+
+}
+
+#logo
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /*padding: 30px;*/
+    width: 100%;
+}
+
+#logo img
+{
+    padding: 40px;
+    width: 30%;
+}
+
+
+@import "~bootstrap/scss/bootstrap";

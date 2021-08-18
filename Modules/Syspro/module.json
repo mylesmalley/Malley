@@ -1,0 +1,13 @@
+{
+    "name": "Syspro",
+    "alias": "syspro",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Syspro\\Providers\\SysproServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
