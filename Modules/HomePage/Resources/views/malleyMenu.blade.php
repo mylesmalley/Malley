@@ -18,7 +18,7 @@
 
 
                 @auth
-                    @includeIf("homepage::menus.sales")
+                    @includeIf("homepage::menus.blueprint")
                     @includeIf("homepage::menus.inventory")
                     @includeIf("homepage::menus.engineering")
                     @includeIf("homepage::menus.vehicles")
