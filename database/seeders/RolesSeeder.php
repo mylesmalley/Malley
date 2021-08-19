@@ -205,6 +205,21 @@ class RolesSeeder extends Seeder
 
 
 
+
+
+        try {
+            $use_blueprint = Permission::create(['name' => 'use_blueprint']);
+        } catch (PermissionAlreadyExists $e) {
+            $use_blueprint = 'use_blueprint';
+        }
+
+
+        if (!$blueprint->hasPermissionTo($use_blueprint)) {
+            $blueprint->givePermissionTo($use_blueprint);
+        }
+
+
+
 // labour
       //  $labour->givePermissionTo($labour_clock_in);
         if (!$labour->hasPermissionTo($labour_clock_in)) {

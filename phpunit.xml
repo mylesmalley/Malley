@@ -17,6 +17,10 @@
 <!--                <testsuite name="Feature">-->
 <!--                    <directory suffix="Test.php">./tests/Demo/Feature</directory>-->
 <!--                </testsuite>-->
+        <testsuite name="blueprint">
+            <directory suffix="Test.php">./Modules/Blueprint/Tests/Unit</directory>
+            <directory suffix="Test.php">./Modules/Blueprint/Tests/Feature</directory>
+        </testsuite>
         <testsuite name="labour">
             <directory suffix="Test.php">./Modules/Labour/Tests/Unit</directory>
             <directory suffix="Test.php">./Modules/Labour/Tests/Feature</directory>
@@ -35,6 +39,8 @@
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
+<!--        <server name="EXTERNAL_DOMAIN" value="blueprint.localhost"/>-->
+<!--        <server name="INTERNAL_DOMAIN" value="index.localhost"/>-->
         <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
         <!-- <server name="DB_DATABASE" value=":memory:"/> -->
         <server name="MAIL_MAILER" value="array"/>
