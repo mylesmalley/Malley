@@ -1,9 +1,10 @@
 @extends('blueprint::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1> {{ $title  ?? "My Blueprints"}}</h1>
+        </div>
+    </div>
 
-    <p>
-        This view is loaded from module: {!! config('blueprint.name') !!}
-    </p>
 @endsection
