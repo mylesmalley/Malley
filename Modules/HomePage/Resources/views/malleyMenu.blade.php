@@ -56,6 +56,10 @@
                     @endguest
 
 
+{{--                @if(  env("APP_ENV") != 'production' )--}}
+                    <h1 class="text-white">{{ config('app.env') }} {{ config('database.default') }}</h1>
+{{--                    @endif--}}
+
 {{--                <li class="nav-item dropdown">--}}
 {{--                    <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Dropdown right </a>--}}
 {{--                    <ul class="dropdown-menu dropdown-menu-end">--}}
