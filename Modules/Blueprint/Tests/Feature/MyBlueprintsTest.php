@@ -1,13 +1,11 @@
 <?php
 
-namespace Modules\Labour\Tests\Feature;
+namespace Modules\Blueprint\Tests\Feature;
 
 use App\Models\User;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
+
 
 class MyBlueprintsTest extends TestCase
 {
@@ -38,6 +36,14 @@ class MyBlueprintsTest extends TestCase
 
 
 
+    /** @test */
+    public function user_has_permission_to_see_blueprint()
+    {
+        $this->setUrl();
+
+        $this->assertTrue( $this->user->can('use_blueprint') );
+    }
+
 
 
     /** @test */
@@ -46,12 +52,8 @@ class MyBlueprintsTest extends TestCase
         $this->setUrl();
         $this->actingAs( $this->user )
             ->get('/blueprint/my_blueprints')
-            ->assertSee('My Blueprints')
-            ->assertLocation('/blueprint/my_blueprints');
-//            ->assertLocation('/login');
+            ->assertSee(  str_possessive( $this->user->first_name ) .' Blueprints');
     }
-
-
 
 
 }
