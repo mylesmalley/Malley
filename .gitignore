@@ -13,6 +13,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /keys/
+/storage
 _ide_helper.php
 .editorconfig
 .styleci.yml
@@ -20,3 +21,8 @@ composer.lock
 package-lock.json
 /.idea
 .idea
+/public/css/
+/public/fonts/
+/public/img/
+/public/js/
+/bootstrap/cache/
