@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Modules\UserManagement\Http\Controllers\CompanyController;
 //use Modules\UserManagement\Http\Controllers\UserManagementController;
 use Modules\UserManagement\Http\Controllers\RegularUsersController;
@@ -7,7 +8,7 @@ use Modules\UserManagement\Http\Controllers\StaffUsersController;
 
 Route::middleware('auth')->group( function() {
 
-    Route::prefix('usermanagement')->group(callback: function () {
+    Route::prefix('usermanagement')->group(function () {
      //   Route::get('/', [UserManagementController::class, 'index']);
 
         // regular users, malley non-production staff and dealers

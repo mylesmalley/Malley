@@ -12,18 +12,21 @@ class BlueprintController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function public_index()
     {
-        return view('blueprint::index');
+        dd(" public view only ");
+      //  return view('blueprint::index');
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function private_index()
     {
-        return view('blueprint::create');
+        dd(" PRIVATE view only ");
+
+//        return view('blueprint::create');
     }
 
 
