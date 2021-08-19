@@ -8,6 +8,33 @@ use Illuminate\Support\Facades\DB;
 
 
 
+/**
+ * App\Models\Sheet
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $special_instructions
+ * @property int $base_van_id
+ * @property bool $visibility
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property bool $special
+ * @property-read \App\Models\BaseVan $base_van
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Element[] $components
+ * @property-read int|null $components_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereBaseVanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereSpecial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereSpecialInstructions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sheet whereVisibility($value)
+ * @mixin \Eloquent
+ */
 class Sheet extends BaseModel
 {
 

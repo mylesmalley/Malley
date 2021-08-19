@@ -6,6 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
+/**
+ * App\Models\WizardAction
+ *
+ * @property int $id
+ * @property int $wizard_answer_id
+ * @property int $option_id
+ * @property string $action
+ * @property int $value
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction query()
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereAction($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereOptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereWizardAnswerId($value)
+ * @mixin \Eloquent
+ */
 class WizardAction extends Model
 {
     use HasFactory;

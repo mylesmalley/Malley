@@ -8,6 +8,37 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 
+/**
+ * App\Models\Layout
+ *
+ * @property int $id
+ * @property int $base_van_id
+ * @property bool $visibility
+ * @property string $name
+ * @property string|null $notes
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $associatedOptions
+ * @property-read int|null $associated_options_count
+ * @property-read mixed $platform
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LayoutOption[] $options
+ * @property-read int|null $options_count
+ * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Question[] $questions
+ * @property-read int|null $questions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereBaseVanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Layout whereVisibility($value)
+ * @mixin \Eloquent
+ */
 class Layout extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;

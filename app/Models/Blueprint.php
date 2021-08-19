@@ -14,6 +14,101 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
 
+/**
+ * App\Models\Blueprint
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
+ * @property string|null $customer_name
+ * @property int $user_id
+ * @property int $base_van_id
+ * @property string|null $customer_address_1
+ * @property string|null $customer_address_2
+ * @property string|null $customer_address_3
+ * @property string|null $customer_city
+ * @property string|null $customer_province
+ * @property string|null $customer_country
+ * @property string|null $customer_postalcode
+ * @property string|null $customer_phone
+ * @property string|null $customer_fax
+ * @property string|null $customer_website
+ * @property string|null $customer_logo
+ * @property mixed|string $status
+ * @property string|null $number
+ * @property array|null $notes
+ * @property string $currency
+ * @property float $exchange_rate
+ * @property bool $is_locked
+ * @property bool|null $has_custom_layout
+ * @property string|null $custom_layout
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $layout_id
+ * @property bool $quotes_visible
+ * @property bool $renders_visible
+ * @property int $terms
+ * @property string|null $quote_number
+ * @property string|null $customer_email
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Configuration[] $configuration
+ * @property-read int|null $configuration_count
+ * @property-read array $drawings
+ * @property-read array $selected
+ * @property-read mixed $status_id
+ * @property-read string $url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Element[] $imageElements
+ * @property-read int|null $image_elements_count
+ * @property-read \App\Models\Layout|null $layout
+ * @property-read \App\Models\LightPod|null $lightPods
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintLog[] $log
+ * @property-read int|null $log_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \App\Models\BaseVan $platform
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Render[] $renders
+ * @property-read int|null $renders_count
+ * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vehicle[] $vehicles
+ * @property-read int|null $vehicles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint searchByKeyword($keyword)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereBaseVanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomLayout($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerAddress1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerAddress2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerAddress3($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerFax($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerLogo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerPhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerPostalcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerProvince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCustomerWebsite($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereExchangeRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereHasCustomLayout($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereIsLocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereLayoutId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereQuoteNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereQuotesVisible($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereRendersVisible($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereTerms($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Blueprint extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;

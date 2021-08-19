@@ -4,6 +4,39 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
+/**
+ * App\Models\FormElement
+ *
+ * @property int $id
+ * @property int $form_id
+ * @property string $type
+ * @property string|null $label
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $position
+ * @property string|null $option_id_requirement
+ * @property int|null $indent
+ * @property string|null $comments
+ * @property-read \App\Models\Form $form
+ * @property-read string $affected_options_j_s_o_n
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormElementItem[] $items
+ * @property-read int|null $items_count
+ * @property-read \App\Models\FormElementRule|null $rule
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereComments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereFormId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereIndent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereLabel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereOptionIdRequirement($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElement whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class FormElement extends BaseModel
 {
 	protected $table = "form_elements";

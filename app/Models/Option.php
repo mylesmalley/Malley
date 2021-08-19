@@ -10,6 +10,131 @@ use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Collection;
 
 
+/**
+ * App\Models\Option
+ *
+ * @property int $id
+ * @property string $option_name
+ * @property string|null $option_description
+ * @property int $base_van_id
+ * @property string|null $option_syspro_phantom
+ * @property float $option_price_tier_1
+ * @property float $option_price_tier_2
+ * @property float $option_price_tier_3
+ * @property bool $option_value
+ * @property string|null $option_positive_requirements
+ * @property string|null $option_negative_requirements
+ * @property bool $option_long_lead_time
+ * @property bool $option_show_on_quote
+ * @property string|null $option_short_description
+ * @property bool $option_light_component
+ * @property bool $option_locked
+ * @property int $option_location
+ * @property string|null $fingerprint
+ * @property float $option_labour_cost
+ * @property float $option_labour_qty
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $image_path
+ * @property bool $validated
+ * @property bool $nbems
+ * @property bool $blueprint_only
+ * @property float $option_price_base_offset
+ * @property float $option_price_dealer_offset
+ * @property float $option_price_msrp_offset
+ * @property bool $show_on_pricelist
+ * @property string|null $engineering_notes
+ * @property string|null $drawing_notes
+ * @property string|null $blueprint_notes
+ * @property bool $retired
+ * @property bool|null $no_components
+ * @property bool|null $obsolete
+ * @property bool|null $index_show_phantom_column
+ * @property bool $revisionable
+ * @property int $revision
+ * @property int|null $user_id
+ * @property bool|null $has_pricing
+ * @property bool|null $show_on_templates
+ * @property bool|null $show_on_forms
+ * @property-read \App\Models\BaseVan $base_van
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Component[] $components
+ * @property-read int|null $components_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Configuration[] $configurations
+ * @property-read int|null $configurations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FormElementItem[] $formElementItems
+ * @property-read int|null $form_element_items_count
+ * @property-read mixed $full_name
+ * @property-read bool $has_components
+ * @property-read string $name_identifier
+ * @property-read string $name_prefix
+ * @property-read string $name_revision
+ * @property-read null $next_i_d
+ * @property-read null $previous_i_d
+ * @property-read mixed $price_tier1
+ * @property-read mixed $price_tier2
+ * @property-read mixed $price_tier3
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OptionLog[] $log
+ * @property-read int|null $log_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OptionRule[] $relatedRules
+ * @property-read int|null $related_rules_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OptionRule[] $rules
+ * @property-read int|null $rules_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
+ * @property-read int|null $tags_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
+ * @property-read int|null $templates_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Option newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option searchByKeyword($keyword)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereBaseVanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereBlueprintNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereBlueprintOnly($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereDrawingNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereEngineeringNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereFingerprint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereHasPricing($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereImagePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereIndexShowPhantomColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereNbems($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereNoComponents($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereObsolete($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionLabourCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionLabourQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionLightComponent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionLocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionLongLeadTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionNegativeRequirements($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPositiveRequirements($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPriceBaseOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPriceDealerOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPriceMsrpOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPriceTier1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPriceTier2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionPriceTier3($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionShowOnQuote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionSysproPhantom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereOptionValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereRetired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereRevision($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereRevisionable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereShowOnForms($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereShowOnPricelist($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereShowOnTemplates($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Option whereValidated($value)
+ * @mixin \Eloquent
+ */
 class Option extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;

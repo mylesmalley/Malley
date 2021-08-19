@@ -4,6 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\OptionRule
+ *
+ * @property int $id
+ * @property int $option_id
+ * @property string $rule_type
+ * @property int $related_option_id
+ * @property-read \App\Models\Option $option
+ * @property-read \App\Models\Option $relatedOption
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule whereOptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule whereRelatedOptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OptionRule whereRuleType($value)
+ * @mixin \Eloquent
+ */
 class OptionRule extends Model
 {
 	

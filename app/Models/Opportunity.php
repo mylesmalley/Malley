@@ -6,6 +6,92 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * App\Models\Opportunity
+ *
+ * @property int $id
+ * @property string $description description of the project or opportunity
+ * @property string $customer end customer if known
+ * @property int $user_id
+ * @property int|null $company_id dealer who sold the job if available. referencing companies table and dealers
+ * @property int|null $base_van_id category of the job, if known. references the base van table and option index
+ * @property int|null $blueprint_id link the opportunity to a blueprint if available
+ * @property int $funnel_status_id funnel location
+ * @property string|null $syspro_job_number
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $salesperson_number used by salesperson for their personal reference
+ * @property int $value estimated sale price of the opportunity
+ * @property int $chance_of_success
+ * @property int $labour_hours
+ * @property int $quantity number of units of product - probably will expand to individual lines hwen a job advances past the sales funnel
+ * @property bool $paid have we been paid for the job?
+ * @property string $currency currency to deal with
+ * @property \Illuminate\Support\Carbon|null $chassis_order_date
+ * @property \Illuminate\Support\Carbon|null $chassis_arrival_date
+ * @property \Illuminate\Support\Carbon|null $material_needed_date
+ * @property \Illuminate\Support\Carbon|null $material_order_date
+ * @property \Illuminate\Support\Carbon|null $production_start_date
+ * @property \Illuminate\Support\Carbon|null $production_completion_date
+ * @property \Illuminate\Support\Carbon|null $shipping_date
+ * @property \Illuminate\Support\Carbon|null $expected_win_date
+ * @property int $production_priority
+ * @property int|null $opportunity_category_id
+ * @property string|null $city
+ * @property string|null $province
+ * @property string|null $country
+ * @property int|null $material_cost
+ * @property int|null $chassis_cost
+ * @property int|null $other_cost
+ * @property int $department_id
+ * @property-read \App\Models\Blueprint|null $blueprint
+ * @property-read \App\Models\BaseVan|null $category
+ * @property-read \App\Models\Company|null $dealer
+ * @property-read \App\Models\Department $department
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OpportunityNote[] $notes
+ * @property-read int|null $notes_count
+ * @property-read \App\Models\FunnelStatus $status
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereBaseVanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereBlueprintId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereChanceOfSuccess($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereChassisArrivalDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereChassisCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereChassisOrderDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereCustomer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereDepartmentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereExpectedWinDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereFunnelStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereLabourHours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereMaterialCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereMaterialNeededDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereMaterialOrderDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereOpportunityCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereOtherCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity wherePaid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereProductionCompletionDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereProductionPriority($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereProductionStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereProvince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereSalespersonNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereShippingDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereSysproJobNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Opportunity whereValue($value)
+ * @mixin \Eloquent
+ */
 class Opportunity extends Model
 {
 	/**

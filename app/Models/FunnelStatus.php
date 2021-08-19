@@ -4,6 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\FunnelStatus
+ *
+ * @property int $id
+ * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Opportunity[] $opportunities
+ * @property-read int|null $opportunities_count
+ * @method static \Illuminate\Database\Eloquent\Builder|FunnelStatus newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FunnelStatus newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FunnelStatus query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FunnelStatus whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FunnelStatus whereName($value)
+ * @mixin \Eloquent
+ */
 class FunnelStatus extends Model
 {
 	/**

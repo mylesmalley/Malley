@@ -6,6 +6,521 @@ use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+/**
+ * App\Models\Vehicle
+ *
+ * @property int $id
+ * @property int $company_id
+ * @property int $user_id
+ * @property int|null $blueprint_id
+ * @property string|null $vin
+ * @property string|null $malley_number
+ * @property string|null $customer_number
+ * @property string|null $make
+ * @property string|null $model
+ * @property int|null $year
+ * @property string|null $exterior_colour
+ * @property string|null $interior_colour
+ * @property string|null $fuel
+ * @property string|null $engine
+ * @property string|null $drive
+ * @property string|null $notes
+ * @property string|null $manufacturer_code
+ * @property string|null $raw_nhtsa_data
+ * @property string|null $location
+ * @property string|null $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $customer_name
+ * @property string|null $suction_regulator_serial
+ * @property string|null $suction_pump_serial
+ * @property string|null $stretcher_serial
+ * @property string|null $stretcher_mount_serial
+ * @property string|null $o2_regulator_serial
+ * @property string|null $flow_meter_1_serial
+ * @property string|null $flow_meter_2_serial
+ * @property string|null $fast_idle_serial
+ * @property string|null $acetech_installer
+ * @property string|null $acetech_serial
+ * @property string|null $rctronics_serial
+ * @property string|null $rctronics_installer
+ * @property string|null $flow_meter_3_serial
+ * @property string|null $acetech_ambulance_file
+ * @property string|null $acetech_unique_number
+ * @property string|null $wheelchair_lift_serial
+ * @property string|null $wheelchair_lift_model
+ * @property string|null $wheelchair_lift_manufacturer
+ * @property string|null $qstraint_serial_1
+ * @property string|null $qstraint_serial_2
+ * @property string|null $qstraint_serial_3
+ * @property string|null $qstraint_serial_4
+ * @property string|null $interlock_serial
+ * @property string|null $torque_tools_used
+ * @property string $work_order
+ * @property string|null $battery_1_serial
+ * @property string|null $battery_2_serial
+ * @property string|null $amplifier_serial
+ * @property string|null $inverter_serial
+ * @property string|null $siren_date
+ * @property string|null $FCA_T24
+ * @property string|null $FORD_17S15
+ * @property string|null $Ford_15E05
+ * @property string|null $FCA_VB2
+ * @property string|null $FCA_W00
+ * @property string|null $CAAS_GVS_label_serial
+ * @property string|null $roof_height
+ * @property string|null $wheelbase
+ * @property int|null $tank_volume
+ * @property int|null $base_weight_lf
+ * @property int|null $base_weight_rf
+ * @property int|null $base_weight_lr
+ * @property int|null $base_weight_rr
+ * @property int|null $base_raised_weight_lf
+ * @property int|null $base_raised_weight_rf
+ * @property int|null $base_raised_weight_lr
+ * @property int|null $base_raised_weight_rr
+ * @property int|null $base_fueled_weight_lf
+ * @property int|null $base_fueled_weight_rf
+ * @property int|null $base_fueled_weight_lr
+ * @property int|null $base_fueled_weight_rr
+ * @property int|null $base_raised_fueled_weight_lf
+ * @property int|null $base_raised_fueled_weight_rf
+ * @property int|null $base_raised_fueled_weight_lr
+ * @property int|null $base_raised_fueled_weight_rr
+ * @property int|null $tank_starting_fill_percent
+ * @property int|null $oem_gvwr
+ * @property int|null $oem_front_gawr
+ * @property int|null $oem_rear_gawr
+ * @property float|null $cab_seat_1_axel
+ * @property float|null $cab_seat_1_wheel
+ * @property bool|null $cab_seat_1_used
+ * @property string|null $cab_seat_1_desc
+ * @property float|null $cab_seat_2_axel
+ * @property float|null $cab_seat_2_wheel
+ * @property bool|null $cab_seat_2_used
+ * @property string|null $cab_seat_2_desc
+ * @property float|null $passenger_seat_1_axel
+ * @property float|null $passenger_seat_1_wheel
+ * @property bool|null $passenger_seat_1_used
+ * @property string|null $passenger_seat_1_desc
+ * @property float|null $passenger_seat_2_axel
+ * @property float|null $passenger_seat_2_wheel
+ * @property bool|null $passenger_seat_2_used
+ * @property string|null $passenger_seat_2_desc
+ * @property float|null $passenger_seat_3_axel
+ * @property float|null $passenger_seat_3_wheel
+ * @property bool|null $passenger_seat_3_used
+ * @property string|null $passenger_seat_3_desc
+ * @property float|null $passenger_seat_4_axel
+ * @property float|null $passenger_seat_4_wheel
+ * @property bool|null $passenger_seat_4_used
+ * @property string|null $passenger_seat_4_desc
+ * @property string|null $wheel_size
+ * @property string|null $tire_size
+ * @property float|null $tire_diameter
+ * @property float|null $front_tread_width
+ * @property float|null $rear_tread_width
+ * @property float|null $front_tire_pressure
+ * @property float|null $rear_tire_pressure
+ * @property float|null $spare_tire_pressure
+ * @property string|null $o2_test_date
+ * @property float|null $o2_test_temperature
+ * @property float|null $os_test_start_pressure
+ * @property float|null $os_test_final_pressure
+ * @property string|null $ambulance_model
+ * @property string|null $ambulance_type
+ * @property int|null $alternator_amperage
+ * @property float|null $load_test_2_highest
+ * @property float|null $load_test_1_highest
+ * @property float|null $load_test_2_lowest
+ * @property float|null $load_test_1_lowest
+ * @property string|null $load_test_date
+ * @property float|null $passenger_seat_5_axel
+ * @property float|null $passenger_seat_5_wheel
+ * @property bool|null $passenger_seat_5_used
+ * @property string|null $passenger_seat_5_desc
+ * @property float|null $passenger_seat_6_axel
+ * @property float|null $passenger_seat_6_wheel
+ * @property bool|null $passenger_seat_6_used
+ * @property string|null $passenger_seat_6_desc
+ * @property float|null $passenger_seat_7_axel
+ * @property float|null $passenger_seat_7_wheel
+ * @property bool|null $passenger_seat_7_used
+ * @property string|null $passenger_seat_7_desc
+ * @property float|null $passenger_seat_8_axel
+ * @property float|null $passenger_seat_8_wheel
+ * @property bool|null $passenger_seat_8_used
+ * @property string|null $passenger_seat_8_desc
+ * @property float|null $passenger_seat_9_axel
+ * @property float|null $passenger_seat_9_wheel
+ * @property bool|null $passenger_seat_9_used
+ * @property string|null $passenger_seat_9_desc
+ * @property float|null $passenger_seat_10_axel
+ * @property float|null $passenger_seat_10_wheel
+ * @property bool|null $passenger_seat_10_used
+ * @property string|null $passenger_seat_10_desc
+ * @property float|null $passenger_seat_11_axel
+ * @property float|null $passenger_seat_11_wheel
+ * @property bool|null $passenger_seat_11_used
+ * @property string|null $passenger_seat_11_desc
+ * @property float|null $passenger_seat_12_axel
+ * @property float|null $passenger_seat_12_wheel
+ * @property bool|null $passenger_seat_12_used
+ * @property string|null $passenger_seat_12_desc
+ * @property float|null $passenger_seat_13_axel
+ * @property float|null $passenger_seat_13_wheel
+ * @property bool|null $passenger_seat_13_used
+ * @property string|null $passenger_seat_13_desc
+ * @property float|null $passenger_seat_14_axel
+ * @property float|null $passenger_seat_14_wheel
+ * @property bool|null $passenger_seat_14_used
+ * @property string|null $passenger_seat_14_desc
+ * @property float|null $passenger_seat_15_axel
+ * @property float|null $passenger_seat_15_wheel
+ * @property bool|null $passenger_seat_15_used
+ * @property string|null $passenger_seat_15_desc
+ * @property float|null $passenger_seat_16_axel
+ * @property float|null $passenger_seat_16_wheel
+ * @property bool|null $passenger_seat_16_used
+ * @property string|null $passenger_seat_16_desc
+ * @property string|null $country
+ * @property string|null $date_arrival
+ * @property string|null $date_arrival_notes
+ * @property string|null $date_delivery
+ * @property string|null $date_delivery_notes
+ * @property string|null $date_warranty_expiry
+ * @property string|null $date_warranty_expiry_notes
+ * @property string|null $date_lease_expired
+ * @property string|null $date_lease_expired_notes
+ * @property string|null $date_entry_to_canada
+ * @property string|null $date_entry_to_canada_notes
+ * @property string|null $date_exit_from_canada
+ * @property string|null $date_exit_from_canada_notes
+ * @property string|null $date_at_york_or_thornton
+ * @property string|null $date_at_york_or_thornton_notes
+ * @property string|null $date_in_service
+ * @property string|null $date_in_service_notes
+ * @property string|null $date_lease_expiry_of_refurb
+ * @property string|null $date_lease_expiry_of_refurb_notes
+ * @property string|null $date_warranty_expires
+ * @property string|null $date_warranty_expires_notes
+ * @property string|null $date_next_renewal
+ * @property string|null $date_next_renewal_notes
+ * @property int|null $front_axel_weight_with_fuel
+ * @property int|null $rear_axel_weight_with_fuel
+ * @property int|null $total_weight
+ * @property int|null $payload
+ * @property string|null $date_chassis_manufactured
+ * @property string|null $date_chassis_manufactured_notes
+ * @property bool|null $warranty_submitted
+ * @property int|null $warranty_odometer
+ * @property string|null $warranty_selling_dealer
+ * @property string|null $customer_email
+ * @property string|null $customer_phone
+ * @property string|null $customer_address_1
+ * @property string|null $customer_address_2
+ * @property string|null $customer_city
+ * @property string|null $customer_province
+ * @property string|null $customer_postalcode
+ * @property string|null $date_warranty_registered
+ * @property string|null $date_warranty_registered_notes
+ * @property bool|null $cab_seat_3_used
+ * @property string|null $date_of_purchase
+ * @property string|null $date_of_purchase_notes
+ * @property float|null $cab_seat_3_axel
+ * @property float|null $cab_seat_3_wheel
+ * @property string|null $cab_seat_3_desc
+ * @property string|null $refurb_number
+ * @property string|null $danhard_serial
+ * @property string|null $danhard_model
+ * @property string|null $date_malley_finished_conversion
+ * @property string|null $date_malley_finished_conversion_notes
+ * @property string|null $finance_invoice_number
+ * @property float|null $finance_pretax_invoice_value
+ * @property float|null $finance_invoice_total_tax
+ * @property string|null $finance_lease_number
+ * @property float|null $finance_monthly_lease_pretax
+ * @property float|null $finance_monthly_lease_tax
+ * @property string|null $stayco_step_serial
+ * @property string|null $stayco_step_model
+ * @property string|null $FORD_20B31
+ * @property string|null $link_seat_serial
+ * @property string|null $computed_vehicle_number
+ * @property string|null $first_work_order
+ * @property string|null $oem_dealer
+ * @property string|null $FORD_20B53
+ * @property string|null $date_leaving_malley_facility
+ * @property string|null $date_leaving_malley_facility_notes
+ * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Album[] $albums
+ * @property-read int|null $albums_count
+ * @property-read \App\Models\Blueprint|null $blueprint
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
+ * @property-read int|null $contacts_count
+ * @property-read \App\Models\User $creator
+ * @property-read \App\Models\Company $dealer
+ * @property-read int $cab_seats_used
+ * @property-read mixed $customer
+ * @property-read string $identifier
+ * @property-read null $next
+ * @property-read int $passenger_seats_used
+ * @property-read string $pin
+ * @property-read null $prev
+ * @property-read bool $valid_vin
+ * @property-read string $vehicle_tile
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Inspection[] $inspections
+ * @property-read int|null $inspections_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkOrder[] $work_orders
+ * @property-read int|null $work_orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle searchByKeyword($keyword)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAcetechAmbulanceFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAcetechInstaller($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAcetechSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAcetechUniqueNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAlternatorAmperage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAmbulanceModel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAmbulanceType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereAmplifierSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseFueledWeightLf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseFueledWeightLr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseFueledWeightRf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseFueledWeightRr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedFueledWeightLf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedFueledWeightLr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedFueledWeightRf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedFueledWeightRr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedWeightLf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedWeightLr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedWeightRf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseRaisedWeightRr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseWeightLf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseWeightLr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseWeightRf($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBaseWeightRr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBattery1Serial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBattery2Serial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereBlueprintId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCAASGVSLabelSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat1Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat1Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat1Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat1Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat2Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat2Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat2Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat2Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat3Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat3Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat3Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCabSeat3Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereComputedVehicleNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerAddress1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerAddress2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerPhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerPostalcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereCustomerProvince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDanhardModel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDanhardSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateArrival($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateArrivalNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateAtYorkOrThornton($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateAtYorkOrThorntonNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateChassisManufactured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateChassisManufacturedNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateDelivery($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateDeliveryNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateEntryToCanada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateEntryToCanadaNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateExitFromCanada($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateExitFromCanadaNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateInService($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateInServiceNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateLeaseExpired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateLeaseExpiredNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateLeaseExpiryOfRefurb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateLeaseExpiryOfRefurbNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateLeavingMalleyFacility($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateLeavingMalleyFacilityNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateMalleyFinishedConversion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateMalleyFinishedConversionNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateNextRenewal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateNextRenewalNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateOfPurchase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateOfPurchaseNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateWarrantyExpires($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateWarrantyExpiresNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateWarrantyExpiry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateWarrantyExpiryNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateWarrantyRegistered($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDateWarrantyRegisteredNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereDrive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereEngine($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereExteriorColour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFCAT24($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFCAVB2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFCAW00($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFORD17S15($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFORD20B31($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFORD20B53($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFastIdleSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFinanceInvoiceNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFinanceInvoiceTotalTax($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFinanceLeaseNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFinanceMonthlyLeasePretax($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFinanceMonthlyLeaseTax($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFinancePretaxInvoiceValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFirstWorkOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFlowMeter1Serial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFlowMeter2Serial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFlowMeter3Serial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFord15E05($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFrontAxelWeightWithFuel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFrontTirePressure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFrontTreadWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereFuel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereInteriorColour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereInterlockSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereInverterSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLinkSeatSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLoadTest1Highest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLoadTest1Lowest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLoadTest2Highest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLoadTest2Lowest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLoadTestDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereMake($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereMalleyNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereManufacturerCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereModel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereO2RegulatorSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereO2TestDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereO2TestTemperature($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereOemDealer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereOemFrontGawr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereOemGvwr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereOemRearGawr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereOsTestFinalPressure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereOsTestStartPressure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat10Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat10Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat10Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat10Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat11Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat11Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat11Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat11Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat12Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat12Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat12Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat12Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat13Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat13Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat13Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat13Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat14Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat14Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat14Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat14Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat15Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat15Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat15Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat15Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat16Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat16Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat16Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat16Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat1Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat1Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat1Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat1Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat2Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat2Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat2Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat2Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat3Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat3Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat3Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat3Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat4Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat4Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat4Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat4Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat5Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat5Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat5Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat5Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat6Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat6Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat6Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat6Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat7Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat7Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat7Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat7Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat8Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat8Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat8Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat8Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat9Axel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat9Desc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat9Used($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePassengerSeat9Wheel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle wherePayload($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereQstraintSerial1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereQstraintSerial2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereQstraintSerial3($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereQstraintSerial4($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRawNhtsaData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRctronicsInstaller($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRctronicsSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRearAxelWeightWithFuel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRearTirePressure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRearTreadWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRefurbNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereRoofHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereSirenDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereSpareTirePressure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereStaycoStepModel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereStaycoStepSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereStretcherMountSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereStretcherSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereSuctionPumpSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereSuctionRegulatorSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereTankStartingFillPercent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereTankVolume($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereTireDiameter($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereTireSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereTorqueToolsUsed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereTotalWeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereVin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWarrantyOdometer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWarrantySellingDealer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWarrantySubmitted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWheelSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWheelbase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWheelchairLiftManufacturer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWheelchairLiftModel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWheelchairLiftSerial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereWorkOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Vehicle whereYear($value)
+ * @mixin \Eloquent
+ */
 class Vehicle extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;

@@ -8,6 +8,33 @@ use Image;
 use Storage;
 use Cache;
 
+/**
+ * App\Models\Drawing
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $base_van
+ * @property string $path
+ * @property string $raw_path
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $height
+ * @property-read mixed $thumbnail_url
+ * @property-read mixed $url
+ * @property-read mixed $width
+ * @property-read \App\Models\BaseVan $platform
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing whereBaseVan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing whereRawPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Drawing whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Drawing extends BaseModel
 {
     protected $table = "drawings";

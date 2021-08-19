@@ -12,9 +12,158 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
+ * App\Models\User
+ *
  * @method static find(mixed $user_id)
  * @method static where(string $string, bool $true)
  * @method static role(string $string)
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $password
+ * @property string|null $remember_token
+ * @property int $company_id
+ * @property string $role
+ * @property bool $is_administrator
+ * @property bool $can_create_template
+ * @property bool $can_create_quote
+ * @property bool $can_upload_file
+ * @property bool $can_delete_file
+ * @property bool $is_enabled
+ * @property bool $can_edit_options
+ * @property bool $can_edit_forms
+ * @property bool $is_admin
+ * @property bool $email_when_user_created
+ * @property bool $email_when_blueprint_created
+ * @property int $quote_permission_level
+ * @property string|null $temp_data
+ * @property bool $email_when_warranty_registered
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property bool $mobility_access
+ * @property bool $ambulance_access
+ * @property bool $plastics_access
+ * @property bool $show_blueprint_options
+ * @property bool $show_question_tree
+ * @property bool $show_option_pricing_in_index
+ * @property bool $show_image_count_in_index
+ * @property bool $email_when_quote_requested
+ * @property bool $blank_access
+ * @property bool $show_sales_in_index
+ * @property bool $pricing_mode
+ * @property bool $demo_mode
+ * @property int $department_id
+ * @property bool $can_edit_purchase_requests
+ * @property bool|null $vdb_modify_dates
+ * @property bool|null $vdb_modify_inspections
+ * @property bool|null $vdb_modify_files
+ * @property bool|null $vdb_modify_photos
+ * @property bool|null $vdb_modify_info
+ * @property bool|null $email_when_warranty_submitted
+ * @property bool|null $vbd_modify_documents
+ * @property bool|null $vbd_modify_finance
+ * @property bool|null $vdb_work_orders
+ * @property bool|null $email_when_requesting_incomplete_options
+ * @property bool $bug_report_assignable
+ * @property bool $bug_report_editor
+ * @property bool|null $index_show_id_column
+ * @property bool|null $index_show_obsolete_options
+ * @property bool|null $index_show_blueprint_only_options
+ * @property bool|null $index_show_phantom_column
+ * @property bool|null $index_show_tags_column
+ * @property bool|null $index_show_errors_column
+ * @property bool|null $inventory_admin
+ * @property bool|null $vdb_work_order_from_warranty_claim
+ * @property bool|null $index_show_pricing_columns
+ * @property array|null $preferences
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BugReport[] $assignedBugReports
+ * @property-read int|null $assigned_bug_reports_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprint[] $blueprints
+ * @property-read int|null $blueprints_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BugReportActivity[] $bugReportTasks
+ * @property-read int|null $bug_report_tasks_count
+ * @property-read \App\Models\Company $company
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BugReport[] $createdBugReports
+ * @property-read int|null $created_bug_reports_count
+ * @property-read \App\Models\Department $department
+ * @property-read array $access
+ * @property-read bool $has_active_labour
+ * @property-read mixed $is_malley_staff
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Labour[] $labour
+ * @property-read int|null $labour_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read int|null $roles_count
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAmbulanceAccess($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBlankAccess($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBugReportAssignable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBugReportEditor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanCreateQuote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanCreateTemplate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanDeleteFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEditForms($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEditOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanEditPurchaseRequests($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCanUploadFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDemoMode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDepartmentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailWhenBlueprintCreated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailWhenQuoteRequested($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailWhenRequestingIncompleteOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailWhenUserCreated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailWhenWarrantyRegistered($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailWhenWarrantySubmitted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowBlueprintOnlyOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowErrorsColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowIdColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowObsoleteOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowPhantomColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowPricingColumns($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIndexShowTagsColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereInventoryAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsAdministrator($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereMobilityAccess($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePlasticsAccess($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePreferences($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePricingMode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereQuotePermissionLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereShowBlueprintOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereShowImageCountInIndex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereShowOptionPricingInIndex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereShowQuestionTree($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereShowSalesInIndex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTempData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVbdModifyDocuments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVbdModifyFinance($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbModifyDates($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbModifyFiles($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbModifyInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbModifyInspections($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbModifyPhotos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbWorkOrderFromWarrantyClaim($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVdbWorkOrders($value)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {

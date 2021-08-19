@@ -7,6 +7,77 @@ namespace App\Models;
 
 
 
+/**
+ * App\Models\Configuration
+ *
+ * @property int $id
+ * @property int $blueprint_id
+ * @property string $name
+ * @property string|null $description
+ * @property int $base_van_id
+ * @property string|null $syspro_phantom
+ * @property string $cost
+ * @property float $price_tier_1
+ * @property float $price_tier_2
+ * @property float $price_tier_3
+ * @property bool $value
+ * @property string|null $positive_requirements
+ * @property string|null $negative_requirements
+ * @property bool $long_lead_time
+ * @property bool $show_on_quote
+ * @property bool $light_component
+ * @property bool $locked
+ * @property int $location
+ * @property int|null $option_id
+ * @property string|null $fingerprint
+ * @property int $quantity
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property float $price_base_offset
+ * @property float $price_dealer_offset
+ * @property float $price_msrp_offset
+ * @property string|null $notes
+ * @property bool $retired
+ * @property int|null $revision
+ * @property bool|null $obsolete
+ * @property-read \App\Models\Blueprint $blueprint
+ * @property-read bool $is_current
+ * @property-read \App\Models\Option|null $option
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereBaseVanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereBlueprintId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereFingerprint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereLightComponent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereLocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereLongLeadTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereNegativeRequirements($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereObsolete($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereOptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePositiveRequirements($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePriceBaseOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePriceDealerOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePriceMsrpOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePriceTier1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePriceTier2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration wherePriceTier3($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereRetired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereRevision($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereShowOnQuote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereSysproPhantom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereValue($value)
+ * @mixin \Eloquent
+ */
 class Configuration extends BaseModel
 {
 

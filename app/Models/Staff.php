@@ -6,6 +6,111 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 
+/**
+ * App\Models\Staff
+ *
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $first_name
+ * @property string $last_name
+ * @property string|null $login_route
+ * @property string $pin
+ * @property string|null $work_centre
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $enabled
+ * @property string $day_0_start
+ * @property string $day_0_end
+ * @property string $day_1_start
+ * @property string $day_1_end
+ * @property string $day_2_start
+ * @property string $day_2_end
+ * @property string $day_3_start
+ * @property string $day_3_end
+ * @property string $day_4_start
+ * @property string $day_4_end
+ * @property string $day_5_start
+ * @property string $day_5_end
+ * @property string $day_6_start
+ * @property string $day_6_end
+ * @property int $group
+ * @property int $max_concurrent_jobs
+ * @property string $started_employment
+ * @property string $ended_employment
+ * @property string $lunch_0_start
+ * @property string $lunch_1_start
+ * @property string $lunch_2_start
+ * @property string $lunch_3_start
+ * @property string $lunch_4_start
+ * @property string $lunch_5_start
+ * @property string $lunch_6_start
+ * @property string $lunch_0_end
+ * @property string $lunch_1_end
+ * @property string $lunch_2_end
+ * @property string $lunch_3_end
+ * @property string $lunch_4_end
+ * @property string $lunch_5_end
+ * @property string $lunch_6_end
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Labour[] $activeLabour
+ * @property-read int|null $active_labour_count
+ * @property-read \App\Models\Payroll|null $activePayroll
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Labour[] $labour
+ * @property-read int|null $labour_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payroll[] $payroll
+ * @property-read int|null $payroll_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay0End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay0Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay1End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay1Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay2End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay2Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay3End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay3Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay4End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay4Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay5End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay5Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay6End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereDay6Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereEndedEmployment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereGroup($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLoginRoute($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch0End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch0Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch1End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch1Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch2End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch2Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch3End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch3Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch4End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch4Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch5End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch5Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch6End($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereLunch6Start($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereMaxConcurrentJobs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff wherePin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereStartedEmployment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Staff whereWorkCentre($value)
+ * @mixin \Eloquent
+ */
 class Staff extends Authenticatable
 {
 	use Notifiable;

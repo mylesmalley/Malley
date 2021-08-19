@@ -8,6 +8,47 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 
+/**
+ * App\Models\BaseVan
+ *
+ * @property int $id
+ * @property string $name
+ * @property bool $visibility
+ * @property string|null $thumbnail
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $option_prefix
+ * @property string $categories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Drawing[] $drawings
+ * @property-read int|null $drawings_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Element[] $elements
+ * @property-read int|null $elements_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Form[] $forms
+ * @property-read int|null $forms_count
+ * @property-read mixed $thumbnail_image
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Layout[] $layouts
+ * @property-read int|null $layouts_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $options
+ * @property-read int|null $options_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sheet[] $sheets
+ * @property-read int|null $sheets_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Template[] $templates
+ * @property-read int|null $templates_count
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereCategories($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereOptionPrefix($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereThumbnail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseVan whereVisibility($value)
+ * @mixin \Eloquent
+ */
 class BaseVan extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;

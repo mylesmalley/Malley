@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
+/**
+ * App\Models\StockCode
+ *
+ * @property-read float $c_a_d_cost
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StockCodePrice[] $history
+ * @property-read int|null $history_count
+ * @property-read \App\Models\StockCodePrice|null $latestPricing
+ * @method static \Illuminate\Database\Eloquent\Builder|StockCode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockCode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StockCode query()
+ * @mixin \Eloquent
+ */
 class StockCode extends Model
 {
 	use ReadOnlyModelTrait;

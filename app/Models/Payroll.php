@@ -6,6 +6,42 @@ use \App\Models\BaseModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Payroll
+ *
+ * @property int $id
+ * @property int $staff_id
+ * @property string $start
+ * @property string $end
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $elapsed
+ * @property bool $locked
+ * @property bool $approved
+ * @property int|null $error
+ * @property bool $on_shift
+ * @property bool $group_start
+ * @property bool $group_end
+ * @property-read mixed $date
+ * @property-read \App\Models\Staff $staff
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereElapsed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereError($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereGroupEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereGroupStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereLocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereOnShift($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereStaffId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payroll whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Payroll extends BaseModel
 {
 	/**

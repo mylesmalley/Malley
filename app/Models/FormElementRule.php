@@ -10,6 +10,25 @@ namespace App\Models;
 use App\Models\BaseModel;
 
 
+/**
+ * App\Models\FormElementRule
+ *
+ * @property int $id
+ * @property int $form_element_id
+ * @property string|null $options
+ * @property string $operator
+ * @property-read \App\Models\FormElement $formElement
+ * @property-write mixed $created_at
+ * @property-write mixed $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule whereFormElementId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule whereOperator($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FormElementRule whereOptions($value)
+ * @mixin \Eloquent
+ */
 class FormElementRule extends BaseModel
 {
 	/**

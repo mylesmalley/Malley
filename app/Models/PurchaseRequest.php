@@ -5,6 +5,47 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\PurchaseRequest
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string|null $part_number
+ * @property string $description
+ * @property float $quantity
+ * @property string $unit_of_measure
+ * @property string|null $job
+ * @property int $urgency
+ * @property string|null $notes
+ * @property bool $ordered
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $status
+ * @property string|null $supplier_name
+ * @property string|null $purchase_order
+ * @property bool|null $stock
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereJob($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereOrdered($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest wherePartNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest wherePurchaseOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereStock($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereSupplierName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereUnitOfMeasure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereUrgency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PurchaseRequest whereUserId($value)
+ * @mixin \Eloquent
+ */
 class PurchaseRequest extends BaseModel
 {
 

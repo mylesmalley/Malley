@@ -5,6 +5,17 @@ namespace App\Models;
 use \App\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Syspro
+ *
+ * @property-write mixed $created_at
+ * @property-write mixed $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Syspro newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Syspro newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Syspro open()
+ * @method static \Illuminate\Database\Eloquent\Builder|Syspro query()
+ * @mixin \Eloquent
+ */
 class Syspro extends BaseModel
 {
 

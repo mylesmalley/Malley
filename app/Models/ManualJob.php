@@ -7,6 +7,26 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
+/**
+ * App\Models\ManualJob
+ *
+ * @property int $id
+ * @property string $job
+ * @property string $description
+ * @property string $available_from
+ * @property string $available_until
+ * @property-write mixed $created_at
+ * @property-write mixed $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob whereAvailableFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob whereAvailableUntil($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ManualJob whereJob($value)
+ * @mixin \Eloquent
+ */
 class ManualJob extends BaseModel
 {
 	/**

@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Model;
  * Class LightPod
  *
  * @package App\Models
+ * @property int $id
+ * @property int $blueprint_id
+ * @property string|null $data
+ * @property string|null $instructions
+ * @property-read \App\Models\Blueprint $blueprint
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod query()
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod whereBlueprintId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LightPod whereInstructions($value)
+ * @mixin \Eloquent
  */
 class LightPod extends Model
 {
