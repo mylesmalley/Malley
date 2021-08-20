@@ -38,14 +38,14 @@ class AuthServiceProvider extends ServiceProvider
 
         // super admin user role should always get a pass.
         Gate::before(function ($user, $ability) {
-            return $user->hasRole('super_admin') ? true : null;
+            if ( $user->hasRole('super_admin') ) return true;
+
+            if ( $user->hasRole('disabled_user_account')
+                || $user->hasRole('disabled_staff_account') ) return false;
+
+            return null;
         });
 
-        Gate::before(function ($user, $ability) {
-            return $user->hasRole('disabled_user_account') ? false :false ;
-        });
-        Gate::before(function ($user, $ability) {
-            return $user->hasRole('disabled_staff_account') ? false :false ;
-        });
+
     }
 }

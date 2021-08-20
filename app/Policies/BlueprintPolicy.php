@@ -5,20 +5,22 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Blueprint;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
+
 
 class BlueprintPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+//    /**
+//     * Create a new policy instance.
+//     *
+//     * @return void
+//     */
+//    public function __construct()
+//    {
+//        //
+//    }
 
 
     /**
@@ -33,6 +35,7 @@ class BlueprintPolicy
 //            abort(403, "Your account has not yet been enabled.");
 //            return false;
 //        }
+    //    die('here');
 
 //        if (!$user->can('use_blueprint'))
 //        {
@@ -53,29 +56,36 @@ class BlueprintPolicy
         return true;
     }
 
+//
+//    public function testtest( User $user )
+//    {
+//        return $user->id
+//            ? Response::allow()
+//            : Response::deny('You do not own this post.');
+//    }
 
-    /**
-     * @param User $user
-     * @param Blueprint $blueprint
-     * @return bool
-     */
-    public function home( User $user, Blueprint $blueprint ): bool
-    {
 
-        return true;
-        // they own the blueprint
-        if ($user->id === $blueprint->user_id) return true;
-
-        // user is malley staff
-        if ($user->is_malley_staff) return true;
-
-        // user is of the same company
-        if ($user->company->id === $blueprint->user->company_id ) return true;
-
-        abort(403, "You don't have permission to see this Blueprint.");
-        return false;
-
-    }
+//    /**
+//     * @param User $user
+//     * @return bool
+//     */
+//    public function home( User $user ): bool
+//    {
+//
+//        return true;
+//        // they own the blueprint
+//        if ($user->id === $blueprint->user_id) return true;
+//
+//        // user is malley staff
+//        if ($user->is_malley_staff) return true;
+//
+//        // user is of the same company
+//        if ($user->company->id === $blueprint->user->company_id ) return true;
+//
+//        abort(403, "You don't have permission to see this Blueprint.");
+//        return false;
+//
+//    }
 
 
     /**

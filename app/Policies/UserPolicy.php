@@ -4,10 +4,13 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
     use HandlesAuthorization;
+
+
 
 
     /**
@@ -39,5 +42,11 @@ class UserPolicy
         return $user->can('manage_production_staff');
     }
 
+
+
+    public function see_user_blueprints( User $user, User $target )
+    {
+        return true;
+    }
 
 }

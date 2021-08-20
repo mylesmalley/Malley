@@ -16,8 +16,12 @@ Route::domain( config('malley.external_domain') )->group(function() {
             Route::get('my_blueprints/{user?}', [ HomeController::class, 'my_blueprints' ])
                 ->name('my_blueprints');
 
+        Route::get('test', [ HomeController::class, 'testroute' ])
+            ->name('my_blueprints_test');
 
-            // My Blueprint Home Page
+
+
+        // My Blueprint Home Page
             Route::get('create', [ HomeController::class, 'my_blueprints' ])
                 ->name('blueprint_create');
 

@@ -21,9 +21,15 @@ class HomeController extends Controller
     {
         $user = $user ?? Auth::user();
 
-       // $this->authorize( 'home', Blueprint::class );
+        if ( ! Auth::user()->is_malley_staff() )
+        {
+            if ($user->company_id === Auth::user()->company_id)
+                abort("You can only see your or your coworker's Blueprints");
+        }
 
-        $title = ( $user ) ? str_possessive( $user->first_name ) . " Blueprints" : 'My Blueprints';
+        $title = ( Auth::user() !== $user )
+            ? str_possessive( $user->first_name ) . " Blueprints"
+            : 'My Blueprints';
 
         $blueprints = $user
             ->blueprints()
@@ -39,5 +45,16 @@ class HomeController extends Controller
 
 
 
+
+
+    public function testroute()
+    {
+            $this->authorize('see_user_blueprints', User::find(15));
+//       dd( $this->authorize('test2', User::find(2)) );
+
+       // $this->authorizeForUser( Auth::user(), 'letIn', [User::class]);
+//        request()->user()->can('letIn'. User::class );
+        dd(Auth::user(), 'route');
+    }
 
 }
