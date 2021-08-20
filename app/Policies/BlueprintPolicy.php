@@ -28,17 +28,17 @@ class BlueprintPolicy
      */
     public function before($user, $ability): bool|null
     {
-        if (!$user->is_enabled)
-        {
-            abort(403, "Your account has not yet been enabled.");
-            return false;
-        }
+//        if (!$user->is_enabled)
+//        {
+//            abort(403, "Your account has not yet been enabled.");
+//            return false;
+//        }
 
-        if (!$user->hasRole('blueprint'))
-        {
-            abort(403, "You don't have permission to use Blueprint.");
-            return false;
-        }
+//        if (!$user->can('use_blueprint'))
+//        {
+//            abort(403, "You don't have permission to use Blueprint.");
+//            return false;
+//        }
 
         return null;
     }
@@ -61,6 +61,8 @@ class BlueprintPolicy
      */
     public function home( User $user, Blueprint $blueprint ): bool
     {
+
+        return true;
         // they own the blueprint
         if ($user->id === $blueprint->user_id) return true;
 

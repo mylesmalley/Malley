@@ -16,7 +16,7 @@ class MyBlueprintsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->user =  User::permission('use_blueprint')->get()->random();
+        $this->dealer =  User::permission('use_blueprint')->get()->random();
     }
 
 
@@ -41,7 +41,7 @@ class MyBlueprintsTest extends TestCase
     {
         $this->setUrl();
 
-        $this->assertTrue( $this->user->can('use_blueprint') );
+        $this->assertTrue( $this->dealer->can('use_blueprint') );
     }
 
 
@@ -50,10 +50,40 @@ class MyBlueprintsTest extends TestCase
     public function see_name_if_logged_in()
     {
         $this->setUrl();
-        $this->actingAs( $this->user )
-            ->get('/blueprint/my_blueprints')
-            ->assertSee(  str_possessive( $this->user->first_name ) .' Blueprints');
+        $this->actingAs( $this->dealer )
+            ->get('/blueprint/my_blueprints/'. $this->dealer->id )
+//            ->assertSee(  str_possessive( $this->dealer->first_name ) .' Blueprints');
+            ->assertSee("My Blueprints");
     }
 
 
+    /** @test */
+    public function dealer_can_see_their_own_blueprints()
+    {
+
+    }
+
+    /** @test */
+    public function dealer_can_see_their_coworkers_blueprints()
+    {
+
+    }
+
+    /** @test */
+    public function dealer_cant_see_non_coworker_blueprints()
+    {
+
+    }
+
+    /** @test */
+    public function malley_staff_can_see_their_own_blueprint()
+    {
+
+    }
+
+    /** @test */
+    public function malley_staff_can_see_anyone_blueprint()
+    {
+
+    }
 }

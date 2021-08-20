@@ -21,7 +21,7 @@ class HomeController extends Controller
     {
         $user = $user ?? Auth::user();
 
-      //  $this->authorize( 'home', Blueprint::class );
+       // $this->authorize( 'home', Blueprint::class );
 
         $title = ( $user ) ? str_possessive( $user->first_name ) . " Blueprints" : 'My Blueprints';
 

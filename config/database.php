@@ -79,7 +79,7 @@ return [
 //        ],
 
         'mssql' => [
-            'driver' => env('DB_DRIVER','sqlsrv'),
+            'driver' => env('DB_DRIVER'),
             'host' => env('DB_HOST'),
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME' ),
@@ -93,7 +93,7 @@ return [
 
 
         'blueprint_testing' => [
-            'driver' => env('DB_DRIVER','sqlsrv'),
+            'driver' => env('DB_DRIVER'),
             'host' => env('DB_HOST'),
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME' ),
@@ -106,7 +106,7 @@ return [
 
 
         'syspro' => [
-            'driver' => env('DB_DRIVER','sqlsrv'),
+            'driver' => env('DB_DRIVER'),
             'host' => env('DB_HOST'),
             'database' => env('DB_DATABASE_SYSPRO'),
             'username' => env('DB_USERNAME' ),
