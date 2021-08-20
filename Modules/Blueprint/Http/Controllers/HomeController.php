@@ -21,11 +21,7 @@ class HomeController extends Controller
     {
         $user = $user ?? Auth::user();
 
-        if ( ! Auth::user()->is_malley_staff() )
-        {
-            if ($user->company_id === Auth::user()->company_id)
-                abort("You can only see your or your coworker's Blueprints");
-        }
+        $this->authorize('see_user_blueprints', $user);
 
         $title = ( Auth::user() !== $user )
             ? str_possessive( $user->first_name ) . " Blueprints"

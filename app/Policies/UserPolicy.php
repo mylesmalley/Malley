@@ -46,7 +46,16 @@ class UserPolicy
 
     public function see_user_blueprints( User $user, User $target )
     {
-        return true;
+        // my own blueprints
+        if ( $user === $target ) return true;
+
+        // malley staff
+        if ( $user->is_malley_staff() ) return true;
+
+        // co-workers
+        if ( $user->company_id === $target->company_id) return true;
+
+        return false;
     }
 
 }
