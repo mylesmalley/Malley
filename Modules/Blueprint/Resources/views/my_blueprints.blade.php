@@ -23,7 +23,7 @@
             <tbody>
 
                 @forelse( $blueprints as $blueprint )
-                    <tr onclick="window.location = '{{ route('blueprint_home', [ $blueprint->id ]) }}'">
+                    <tr onclick="window.location = '{{ route('blueprint.home', [ $blueprint->id ]) }}'">
                         <td>B-{{ $blueprint->id }}</td>
                         <td>
                             <span class="fw-bolder text-primary">{{ $blueprint->name }}</span> <br>

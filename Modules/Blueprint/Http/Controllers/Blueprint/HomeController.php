@@ -18,7 +18,7 @@ class HomeController extends Controller
      * @return View
      * @throws AuthorizationException
      */
-    public function blueprint_home( Blueprint $blueprint ): View
+    public function show( Blueprint $blueprint ): View
     {
         $this->authorize('home', $blueprint );
 
