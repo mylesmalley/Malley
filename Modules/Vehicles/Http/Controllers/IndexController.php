@@ -38,10 +38,10 @@ class IndexController extends Controller
     {
 
         // double check that only letters are numbers are submitted - no symbols
-        if (!ctype_alnum($prefix)) die('only letters and numbers are acccepted');
+        if (!ctype_alnum($prefix)) die('only letters and numbers are accepted');
         if ( $prefix2 )
         {
-            if (!ctype_alnum($prefix2)) die('only letters and numbers are acccepted');
+            if (!ctype_alnum($prefix2)) die('only letters and numbers are accepted');
         }
 
         $title = $reportTitle ??  "All {$prefix} Vehicles";

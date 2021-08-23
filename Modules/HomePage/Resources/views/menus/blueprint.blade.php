@@ -10,7 +10,7 @@
                 <div class="col-md-3">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action"
-                           href="{{ route('my_blueprints') }}">My Blueprintss</a>
+                           href="{{ route('my_blueprints') }}">My Blueprints</a>
                     </div>
                 </div>
             </div>
