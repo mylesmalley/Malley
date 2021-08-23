@@ -8,17 +8,11 @@
 
             <div class="row">
                 <div class="col-md-3">
-                    <h3>Create</h3>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action"
+                           href="{{ route('my_blueprints') }}">My Blueprintss</a>
+                    </div>
                 </div>
-
-{{--    --}}
-{{--                <div class="col-md-3">--}}
-{{--                    <h3>Create</h3>--}}
-{{--                </div>--}}
-{{--    --}}
-{{--                <div class="col-md-3">--}}
-{{--                    <h3>Manage</h3>--}}
-{{--                </div>--}}
             </div>
 
 

@@ -6,13 +6,14 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\User;
-use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 
 
 class HomeController extends Controller
 {
     /**
+     * Index page of a user's blueprints
+     *
      * @param User|null $user
      * @return View
      * @throws AuthorizationException
@@ -40,17 +41,5 @@ class HomeController extends Controller
     }
 
 
-
-
-
-    public function testroute()
-    {
-            $this->authorize('see_user_blueprints', User::find(15));
-//       dd( $this->authorize('test2', User::find(2)) );
-
-       // $this->authorizeForUser( Auth::user(), 'letIn', [User::class]);
-//        request()->user()->can('letIn'. User::class );
-        dd(Auth::user(), 'route');
-    }
 
 }

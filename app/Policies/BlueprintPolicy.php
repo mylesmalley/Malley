@@ -65,27 +65,26 @@ class BlueprintPolicy
 //    }
 
 
-//    /**
-//     * @param User $user
-//     * @return bool
-//     */
-//    public function home( User $user ): bool
-//    {
-//
-//        return true;
-//        // they own the blueprint
-//        if ($user->id === $blueprint->user_id) return true;
-//
-//        // user is malley staff
-//        if ($user->is_malley_staff) return true;
-//
-//        // user is of the same company
-//        if ($user->company->id === $blueprint->user->company_id ) return true;
-//
-//        abort(403, "You don't have permission to see this Blueprint.");
-//        return false;
-//
-//    }
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function home( User $user, Blueprint $blueprint ): bool
+    {
+
+        // they own the blueprint
+        if ($user->id === $blueprint->user_id) return true;
+
+        // user is malley staff
+        if ($user->is_malley_staff) return true;
+
+        // user is of the same company
+        if ($user->company->id === $blueprint->user->company_id ) return true;
+
+        abort(403, "You don't have permission to see this Blueprint.");
+        return false;
+
+    }
 
 
     /**

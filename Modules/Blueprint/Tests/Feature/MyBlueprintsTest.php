@@ -126,8 +126,6 @@ class MyBlueprintsTest extends TestCase
         $this->actingAs( $staff )
             ->get('/blueprint/my_blueprints/'. $dealer->id )
             ->assertSee(  str_possessive( $dealer->first_name ) .' Blueprints')
-         //  ->assertLocation('/blueprint/my_blueprints/'. $dealer->id )
-
             ->assertStatus(200);
     }
 }
