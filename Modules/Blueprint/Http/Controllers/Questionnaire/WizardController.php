@@ -11,7 +11,7 @@ use App\Models\Wizard;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 
-class QuestionnaireController extends Controller
+class WizardController extends Controller
 {
 
 
@@ -25,5 +25,11 @@ class QuestionnaireController extends Controller
         return view('blueprint::questionnaire.show',
             compact(['blueprint','wizard'])
         );
+    }
+
+
+    public function process()
+    {
+        dd('run through the form and make the changes');
     }
 }

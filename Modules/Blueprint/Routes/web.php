@@ -4,7 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
-use Modules\Blueprint\Http\Controllers\Questionnaire\QuestionnaireController;
+use Modules\Blueprint\Http\Controllers\Questionnaire\WizardController;
 
 Route::domain( config('malley.external_domain') )->group(function() {
     Route::middleware(['auth'])->group( function(){
@@ -17,15 +17,18 @@ Route::domain( config('malley.external_domain') )->group(function() {
 
         // My Blueprint Home Page
         Route::get('create', [ HomeController::class, 'my_blueprints' ])
-            ->name('blueprint_create');
+            ->name('blueprint.create');
 
 
 
 
             Route::prefix('{blueprint}')->group(function() {
 
-                Route::get('wizard/{wizard}', [QuestionnaireController::class, 'show'])
-                    ->name('blueprint.questionnaire');
+                Route::get('wizard/{wizard}', [WizardController::class, 'show'])
+                    ->name('blueprint.wizard');
+
+                Route::post('wizard/{wizard}', [WizardController::class, 'process'])
+                    ->name('blueprint.wizard.submit');
 
 
                 // home page for individual blueprints

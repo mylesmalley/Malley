@@ -97,6 +97,11 @@ class Question extends Component
 
         $this->updateProgress();
         $this->updateQuestion();
+
+        return redirect()->route('blueprint.questionnaire', [
+            $this->blueprint->id,
+            $this->wizard->id
+        ]);
     }
 
 

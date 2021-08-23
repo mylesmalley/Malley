@@ -34,7 +34,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4"> You haven't created a Blueprint yet! Get started by clicking <a href="{{ route('blueprint_create') }}">Here</a></td>
+                        <td colspan="4"> You haven't created a Blueprint yet! Get started by clicking <a href="{{ route('blueprint.create') }}">Here</a></td>
                     </tr>
                 @endforelse
             </tbody>
