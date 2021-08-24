@@ -1,18 +1,22 @@
 <div>
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            Progress
+    <div class="card border-secondary">
+        <div class="card-header bg-secondary text-white">
+            Progress So Far
         </div>
         <table class="table table-striped">
             <tbody>
-            @foreach( $progress as $p )
+            @forelse( $progress as $p )
                 <tr>
                     <td> {{ $p->question }}</td>
-                    <td>  {{ $p->answer }}
-                    <!--                                ({{ $p->wizard_answer_id }}) -->
+                    <td> {{ $p->answer }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="2">
+                        As you answer questions, you will see them appear here.
                     </td>
                 </tr>
-            @endforeach
+            @endforelse
             </tbody>
         </table>
 

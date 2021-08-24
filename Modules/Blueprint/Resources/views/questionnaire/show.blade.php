@@ -9,14 +9,17 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 offset-3">
             @livewire("blueprint::question", ['blueprint'=>$blueprint, 'wizard'=>$wizard ]  )
 
         </div>
-        <div class="col-6">
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6 offset-3">
             @livewire("blueprint::progress", ['blueprint'=>$blueprint,  'wizard'=>$wizard  ] )
         </div>
     </div>
 
-
+    <br><br>
 @endsection
