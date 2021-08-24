@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -14,15 +17,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $option_id
  * @property string $action
  * @property int $value
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction query()
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereAction($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereOptionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WizardAction whereWizardAnswerId($value)
- * @mixin \Eloquent
+ * @method static Builder|WizardAction newModelQuery()
+ * @method static Builder|WizardAction newQuery()
+ * @method static Builder|WizardAction query()
+ * @method static Builder|WizardAction whereAction($value)
+ * @method static Builder|WizardAction whereId($value)
+ * @method static Builder|WizardAction whereOptionId($value)
+ * @method static Builder|WizardAction whereValue($value)
+ * @method static Builder|WizardAction whereWizardAnswerId($value)
+ * @mixin Eloquent
  */
 class WizardAction extends Model
 {

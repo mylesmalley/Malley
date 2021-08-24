@@ -12,6 +12,9 @@
         @endif
 
         @if ( $wizard->end && ( $wizard->end == $question->id)  )
+            {{--
+                what happens when the wizard is complete
+             --}}
             <div class="card-body text-center">
                 {!! $wizard->end_notes ?? '' !!}
                 <br><br>
@@ -73,13 +76,18 @@
                         @if ( $wizard->start != $question->id )
                             <div class="list-group-item">
                                 <span class="float-start">
-                                      <button
-                                              wire:click="restart"
-                                              class="btn btn-sm btn-outline-danger ">Restart Wizard</button>
+                                    <button
+                                        wire:click="restart"
+                                        class="btn btn-sm btn-outline-danger ">
+                                        Restart Wizard
+                                    </button>
+
                                          &nbsp;
                                     <button
                                           wire:click="back"
-                                          class="btn btn-sm btn-outline-secondary">Previous Question</button>
+                                          class="btn btn-sm btn-outline-secondary">
+                                        Previous Question
+                                    </button>
                                 </span>
                                 <a href="{{ route('blueprint.home', [ $blueprint->id ]) }}"
                                    class="btn btn-sm btn-secondary float-end">Save and Come Back Later</a>
