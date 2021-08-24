@@ -276,6 +276,21 @@ class RevisionController extends Controller
         // if required, update all appropriate blueprint configurations
         $this->copyConfigurationsAndUpdateReferences( $old, $new );
 
+
+
+
+
+
+        // wizard actions
+        DB::table('wizard_actions')
+            ->where('option_id', $old->id )
+            ->update(['option_id' => $new->id]);
+
+
+
+
+
+
         return $new;
     }
 
