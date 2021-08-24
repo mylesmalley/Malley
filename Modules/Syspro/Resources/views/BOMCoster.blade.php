@@ -20,82 +20,108 @@
 @extends('syspro::template')
 
 @section('content')
-    <h1>BOM Cost Tool</h1>
-    <form method="get" class="form form-wrapper" action="{{ url('syspro/BOMCoster') }}">
-        <div class="row">
-            <div class="col-md-4">
-                <input type="text"
-                       class="form-control"
-                       name="stockCode" value="{{ $stockCode ?? '' }}">
-            </div>
-            <div class="col-md-3">
-                <input class="form-control btn btn-primary"
-                       type="submit">
-            </div>
+    <h1 class="text-center">BOM Cost Tool</h1>
 
-         </div>
+    <div class="card border-primary col-8 offset-2">
+        <div class="card-body">
+            <form method="get" action="{{ url('syspro/BOMCoster') }}">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="stockCode">Enter a Stock Code</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text"
+                               id="stockCode"
+                               class="form-control"
+                               name="stockCode" value="{{ $stockCode ?? '' }}">
+                    </div>
+                    <div class="col-md-3">
+                        <input class=" btn btn-primary"
+                               value="Search"
+                               type="submit">
+                    </div>
 
-    </form>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <br>
+
     @if ($parts)
 {{--    <h1>Closed Job Review for {{ $parent->Job }}</h1>--}}
 
-    <h2>Components of {{ $stockCode }}</h2>
 
-<table class="table table-striped">
-    <tbody>
-    <tr>
-        <td>Material</td>
-        <td>${{ $materials }}</td>
-    </tr>
-    <tr>
-        <td>Labour</td>
-        <td>${{ $labour }}</td>
-    </tr>
-    <tr>
-        <td>Total</td>
-        <td>${{ $labour + $materials }}</td>
-    </tr>
-    </tbody>
-</table>
+    <div class="card border-primary col-6 offset-3">
+        <div class="card-header bg-primary text-white">
+           Breakdown of  {{ $stockCode }}
+        </div>
 
-    <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-{{--                <th>Level</th>--}}
-                <th>Component</th>
-                <th>Description</th>
-                <th>Warehouse</th>
-                <th>Cost Type</th>
-                <th>Unit Qty</th>
-                <th>Cost</th>
-                <th>Line Total</th>
-                <th>Message</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach( $parts as $part)
-                @php
-                    $tree = explode('\\', $part->SRC);
-                    $val = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $part->Level ) . end( $tree );
-                @endphp
+
+            <table class="table table-striped">
+                <tbody>
                 <tr>
-{{--                    <td>{{ $part->Level }}</td>--}}
-                    <td class="text-nowrap"> <a href="{{ url('/syspro/BOMCoster').'/'. end( $tree ) }}">{!!  $val !!}</a></td>
-                    <td>{{ $part->Description }}</td>
-                    <td>{{ $part->Whs }}</td>
-                    <td>{{ $part->{"Cost Type"} }}</td>
-                    <td>{{ $part->Qty }}</td>
-                    <td>{{ $part->Cost }}</td>
-                    <td>{{ $part->TotalCost }}</td>
-
-                    <td>{{ $part->MSG }}</td>
+                    <td>Material</td>
+                    <td>${{ $materials }}</td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                <tr>
+                    <td>Labour</td>
+                    <td>${{ $labour }}</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>${{ $labour + $materials }}</td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+<br>
 
 
-    @else
-        Enter a Stock Code to start.
-    @endif
+        <div class="card border-primary ">
+            <div class="card-header bg-primary text-white">
+                Components of {{ $stockCode }}
+            </div>
+
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+        {{--                <th>Level</th>--}}
+                        <th>Component</th>
+                        <th>Description</th>
+                        <th>Warehouse</th>
+                        <th>Cost Type</th>
+                        <th>Unit Qty</th>
+                        <th>Cost</th>
+                        <th>Line Total</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( $parts as $part)
+                        @php
+                            $tree = explode('\\', $part->SRC);
+                            $val = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $part->Level ) . end( $tree );
+                        @endphp
+                        <tr>
+        {{--                    <td>{{ $part->Level }}</td>--}}
+                            <td class="text-nowrap"> <a href="{{ url('/syspro/BOMCoster').'/'. end( $tree ) }}">{!!  $val !!}</a></td>
+                            <td>{{ $part->Description }}</td>
+                            <td>{{ $part->Whs }}</td>
+                            <td>{{ $part->{"Cost Type"} }}</td>
+                            <td>{{ $part->Qty }}</td>
+                            <td>{{ $part->Cost }}</td>
+                            <td>{{ $part->TotalCost }}</td>
+
+                            <td>{{ $part->MSG }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+        @else
+            Enter a Stock Code to start.
+        @endif
 @endsection
