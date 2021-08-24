@@ -62,6 +62,22 @@
     <hr>
 
 
+    <div class="row">
+        <div class="col-4">
+
+            <div class="card border-secondary">
+                <div class="card-header bg-secondary text-white">
+                    Configuration
+                </div>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action"
+                       href="{{ route('blueprint.configuration', [$blueprint]) }}">Configuration</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 
 
 @endsection

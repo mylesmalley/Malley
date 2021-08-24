@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Blueprint\Http\Controllers\Questionnaire;
+namespace Modules\Blueprint\Http\Controllers\Wizard;
 
 use App\Models\WizardQuestion;
 use Illuminate\Routing\Controller;

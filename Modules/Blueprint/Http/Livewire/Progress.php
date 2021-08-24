@@ -50,6 +50,6 @@ class Progress extends Component
 
     public function render()
     {
-        return view('blueprint::questionnaire.progress_component');
+        return view('blueprint::wizard.progress_component');
     }
 }

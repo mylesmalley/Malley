@@ -189,6 +189,6 @@ class Question extends Component
 
     public function render()
     {
-        return view('blueprint::questionnaire.question_component');
+        return view('blueprint::wizard.question_component');
     }
 }
