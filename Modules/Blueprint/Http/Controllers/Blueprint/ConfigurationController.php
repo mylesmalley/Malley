@@ -25,12 +25,17 @@ class ConfigurationController extends Controller
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
-            ->with('option')
+            ->select([
+                'id','name','description','obsolete','value','price_tier_3','price_tier_2'
+            ])
+//            ->with(['option' => function( $query ){
+//                $query->select('id','revision','option_name','option_description');
+//            }])
+            ->orderBy('name')
             ->get();
        //     ->distinct('name');
 
 
-        /* TODO */
       //  $this->authorize('home', $blueprint );
 
 //        $configuration = $blueprint->c
