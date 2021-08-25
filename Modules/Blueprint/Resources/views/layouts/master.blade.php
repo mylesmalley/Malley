@@ -15,6 +15,11 @@
 
         @yield('stylesheet')
 
+        <!-- Header Script Stack -->
+            @stack('header_scripts')
+        <!-- END Header Script Stack -->
+
+
     </head>
     <body>
 

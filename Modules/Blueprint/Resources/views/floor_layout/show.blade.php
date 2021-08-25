@@ -1,6 +1,11 @@
 @extends('blueprint::layouts.master')
 
+@push('header_scripts')
+    <script href="{{ mix('js/blueprint/floor_layout.js') }}"></script>
+@endpush
+
 @section('content')
+    {{ mix('js/blueprint/floor_layout.js') }}
     <div class="row">
         <div class="col-12 text-center">
             <h1> {{ $blueprint->name }} </h1>
