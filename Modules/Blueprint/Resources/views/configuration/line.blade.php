@@ -1,14 +1,27 @@
-<tr
+<tbody
     wire:key="{{ $configuration->id }}"
     class="{{ $configuration->value ? 'table-success' : '' }}">
-    <td>
-        {{ $configuration->name }}
-    </td>
-    <td>
-        {{ $configuration->description }}
-    </td>
-    <td>
-        <a class="btn btn-sm btn-info" wire:click="toggle">Toggle</a>
-        {{ $configuration->value }}
-    </td>
-</tr>
+    <tr wire:click="details">
+        <td>
+            {{ $configuration->name }}
+        </td>
+        <td>
+            {{ $configuration->description }}
+        </td>
+
+    </tr>
+
+    @if( $details )
+        <tr>
+            <td>
+                @if ( $configuration->value )
+                    <a wire:click="toggle"
+                       class="btn btn-sm btn-danger">Turn Off</a>
+                @else
+                    <a wire:click="toggle"
+                       class="btn btn-sm btn-success">Turn On</a>
+                @endif
+            </td>
+        </tr>
+    @endif
+</tbody>

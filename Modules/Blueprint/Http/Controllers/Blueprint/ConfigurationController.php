@@ -44,28 +44,28 @@ class ConfigurationController extends Controller
 
         $showAll = $request->has('showAll');
         $orderBy = $request->has('orderBy') ? $request->input('orderBy') : 'name';
-        $sortOrder = $request->has('order') ? $request->input('order') : 'DESC';
+        $sortOrder = $request->has('order') ? $request->input('order') : 'ASC';
 
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
+            // narrow things down a bit...
             ->select([
                 'id','name','description','obsolete','value','price_tier_3','price_tier_2'
             ])
-            ->when($showAll, function( $query ) {
-
-            })
+            // don't filter at all if showAll is present
+            ->when($showAll, function( $query ) {  })
+            // filter all but value > 0 if showAll not present
             ->when(!$showAll, function( $query ) {
                 return $query->where('value', '>', 0);
-
             })
+            // handle sort order and direction if present
             ->when($orderBy, function( $query, $orderBy ) use ($sortOrder) {
                 return $query->orderBy( $orderBy, $sortOrder );
             })
-
             ->get();
 
-
+        // lets role!
         return view('blueprint::configuration.show', [
             'blueprint' => $blueprint,
             'configurations' => $configs,
@@ -74,6 +74,9 @@ class ConfigurationController extends Controller
 
 
     /**
+     * reset the blueprint's configuration to have everything
+     * turned off. also clears out selected answers from wizards.
+     *
      * @param Blueprint $blueprint
      * @return RedirectResponse
      * @throws AuthorizationException

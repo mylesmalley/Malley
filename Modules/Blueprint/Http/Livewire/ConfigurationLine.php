@@ -11,6 +11,7 @@ class ConfigurationLine extends Component
 {
 
     public Configuration $configuration;
+    public bool $details = false;
 
     /**
      * @param Configuration $configuration
@@ -20,6 +21,14 @@ class ConfigurationLine extends Component
         $this->configuration = $configuration;
     }
 
+
+    /**
+     * toggles if teh detail view is on or not
+     */
+    public function details(): void
+    {
+        $this->details = ! $this->details;
+    }
 
     public function toggle()
     {

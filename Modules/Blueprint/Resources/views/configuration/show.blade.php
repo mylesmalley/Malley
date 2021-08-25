@@ -8,23 +8,22 @@
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white text-center">
+            {{ $title ?? "Configuration of Blueprint B-". $blueprint->id }}
         </div>
         <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>ID</th>
+{{--                    <th>ID</th>--}}
                 </tr>
             </thead>
-            <tbody>
-                @foreach( $configurations as $config )
-                    @livewire("blueprint::configuration-line", [ 'configuration' => $config ]  )
-                @endforeach
-            </tbody>
+
+            @foreach( $configurations as $config )
+                @livewire("blueprint::configuration-line", [ 'configuration' => $config ]  )
+            @endforeach
         </table>
     </div>
 
