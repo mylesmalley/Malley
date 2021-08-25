@@ -169,7 +169,8 @@ Route::group(["prefix" => "index"], function(){
 
 
         Route::group(['prefix' => 'option'], function () {
-        Route::get('{option}/home','Option\HomeController@show');
+        Route::get('{option}/home','Option\HomeController@show')
+        ->name('option.home');
 
         // index2 option revision
         Route::get('{option}/revision','Option\RevisionController@create');
