@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
+use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
 {
@@ -17,19 +18,34 @@ class ConfigurationController extends Controller
      * show all active configurations
      *
      * @param Blueprint $blueprint
+     * @param Request $request
      * @return View
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint ): View
+    public function show( Blueprint $blueprint, Request $request ): View
     {
         $this->authorize('edit_configuration', $blueprint);
+
+        $showAll = $request->has('showAll');
+        $orderBy = $request->has('orderBy') ? $request->input('orderBy') : 'name';
+        $sortOrder = $request->has('order') ? $request->input('order') : 'DESC';
+
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
             ->select([
                 'id','name','description','obsolete','value','price_tier_3','price_tier_2'
             ])
-            ->orderBy('name')
+            ->when($showAll, function( $query ) {
+                return $query->where('value', '>', 0);
+            })
+            ->when($orderBy, function( $query, $orderBy ) use ($sortOrder) {
+                return $query->orderBy( $orderBy, $sortOrder );
+            })
+//            ->when($sortOrder, function( $query, $sortOrder ) {
+//                return $query->sort( $sortOrder );
+//            })
+           // ->orderBy('name')
             ->get();
 
 
