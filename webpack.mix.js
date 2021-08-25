@@ -16,6 +16,9 @@ const mix = require('laravel-mix');
 //     require('autoprefixer'),
 // ]);
 
+let BlueprintAssets = '/Modules/Blueprint/Resources/'
+
+
 mix.setPublicPath('public')
     .version()
     .vue()
@@ -37,6 +40,18 @@ mix.setPublicPath('public')
 
     // VEHICLE DATABASE
     .js(__dirname + '/Modules/Vehicles/Resources/assets/js/inspectionReport.js', 'js/vehicles/inspectionReport.js')
+
+
+    // BLUEPRINT STUFF
+
+    .copy(__dirname +  BlueprintAssets + "img/floors/transit130.png", 'public/img/blueprint/floors/transit130.png')
+    .copy(__dirname +  BlueprintAssets + "img/floors/transit148.png", 'public/img/blueprint/floors/transit148.png')
+    .copy(__dirname +  BlueprintAssets + "img/floors/transit148ext.png", 'public/img/blueprint/floors/transit148ext.png')
+
+
+
+
+
 
     // SHARED STUFF
     .copy(__dirname + '/Modules/Labour/Resources/assets/img/search.gif', 'public/img/search.gif' )
