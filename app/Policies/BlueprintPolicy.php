@@ -53,7 +53,9 @@ class BlueprintPolicy
      */
     public function create( User $user ): bool
     {
-        return true;
+        if ( $user->hasPermissionTo('blueprint.create')) return true;
+
+            return false;
     }
 
 //
@@ -71,6 +73,7 @@ class BlueprintPolicy
      */
     public function home( User $user, Blueprint $blueprint ): bool
     {
+
 
         // they own the blueprint
         if ($user->id === $blueprint->user_id) return true;
@@ -138,6 +141,36 @@ class BlueprintPolicy
 
     }
 
+
+    /**
+     * includes if the user can make changes to the quote or not
+     *
+     * @param User $user
+     * @param Blueprint $blueprint
+     * @return bool
+     */
+    public function edit_configuration( User $user, Blueprint $blueprint ): bool
+    {
+
+        if ( $blueprint->is_locked ) return false;
+
+        if ($user->hasPermissionTo('blueprint.quote')) return true;
+
+        return false;
+    }
+
+
+
+    public function reset_configuration( User $user, Blueprint $blueprint ): bool
+    {
+
+        if ( $blueprint->is_locked ) return false;
+
+        // user is malley staff
+        if ($user->hasPermissionTo('blueprint.reset')) return true;
+
+        return false;
+    }
 
 
 
