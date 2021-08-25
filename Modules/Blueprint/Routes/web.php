@@ -6,6 +6,7 @@ use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
 use Modules\Blueprint\Http\Controllers\Wizard\WizardController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ConfigurationController;
+use Modules\Blueprint\Http\Controllers\Blueprint\FloorLayoutController;
 
 Route::domain( config('malley.external_domain') )->group(function() {
     Route::middleware(['auth'])->group( function(){
@@ -16,10 +17,9 @@ Route::domain( config('malley.external_domain') )->group(function() {
         Route::get('my_blueprints/{user?}', [ HomeController::class, 'my_blueprints' ])
             ->name('my_blueprints');
 
-        // My Blueprint Home Page
+        // LINK TO CREATE A NEW BLUEPRINT
         Route::get('create', [ HomeController::class, 'my_blueprints' ])
             ->name('blueprint.create');
-
 
 
 
@@ -35,6 +35,7 @@ Route::domain( config('malley.external_domain') )->group(function() {
                     ->name('blueprint.wizard.submit');
 
 
+
                 /**
                  * Configuration Stuff
                  */
@@ -46,9 +47,20 @@ Route::domain( config('malley.external_domain') )->group(function() {
 
 
 
-                // home page for individual blueprints
+                /**
+                 * FLOOR LAYOUT
+                 */
+                Route::get('/floor_layout', [FloorLayoutController::class, 'show'])
+                    ->name('blueprint.floor_layout');
+
+
+
+                /**
+                 * HOME PAGE
+                 */
                 Route::get('/', [ BlueprintHome::class, 'show' ])
                     ->name('blueprint.home');
+
             }); // individual blueprint routes
 
 

@@ -7,6 +7,13 @@
             <h3 class="text-secondary">Configuration</h3>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <a class="btn btn-secondary float-end"
+               href="{{ route('blueprint.home', [ $blueprint ]) }}"> Back to Blueprint</a>
+        </div>
+    </div>
+    <br>
 
     <div class="card border-primary">
         <div class="card-header bg-primary text-white text-center">
