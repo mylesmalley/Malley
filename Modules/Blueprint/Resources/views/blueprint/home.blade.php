@@ -72,6 +72,17 @@
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action"
                        href="{{ route('blueprint.configuration', [$blueprint]) }}">Configuration</a>
+
+{{--                    <div class="list-group-item list-group-item-action list-group-item-danger">--}}
+                        <form method="POST"
+                                action="{{ route('blueprint.configuration.reset', [$blueprint]) }}">
+                            @csrf
+                            {{ method_field('PUT') }}
+                            <input type="submit"
+                                   value="Turn off All Options"
+                                   class="list-group-item list-group-item-action list-group-item-danger">
+                        </form>
+{{--                      </div>--}}
                 </div>
             </div>
         </div>

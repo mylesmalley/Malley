@@ -24,7 +24,7 @@ class WizardController extends Controller
      */
     public function show(Blueprint $blueprint, Wizard $wizard ): View
     {
-        return view('blueprint::questionnaire.show',
+        return view('blueprint::wizard.show',
             compact(['blueprint','wizard'])
         );
     }

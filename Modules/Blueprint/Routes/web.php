@@ -41,6 +41,8 @@ Route::domain( config('malley.external_domain') )->group(function() {
                 Route::get('/configuration', [ConfigurationController::class, 'show'])
                     ->name('blueprint.configuration');
 
+                Route::put('/configuration', [ConfigurationController::class, 'reset'])
+                    ->name('blueprint.configuration.reset');
 
 
 

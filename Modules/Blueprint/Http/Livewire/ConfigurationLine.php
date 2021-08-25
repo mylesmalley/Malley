@@ -21,6 +21,13 @@ class ConfigurationLine extends Component
     }
 
 
+    public function toggle()
+    {
+        $this->configuration->value = ! $this->configuration->value;
+        $this->configuration->save();
+    }
+
+
     /**
      * @return View
      */
