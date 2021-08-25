@@ -5,6 +5,7 @@ namespace Modules\Blueprint\Http\Controllers\Blueprint;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\BlueprintWizardAnswer;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
@@ -26,6 +27,21 @@ class ConfigurationController extends Controller
     {
         $this->authorize('edit_configuration', $blueprint);
 
+        $request->validate([
+            'showAll' => [
+                'sometimes'
+            ],
+            'orderBy' => [
+               'sometimes',
+                Rule::in(['id','name','description','obsolete','value','price_tier_3','price_tier_2'])
+            ],
+            'order' => [
+                'sometimes',
+                Rule::in(['ASC','DESC'])
+            ]
+        ]);
+
+
         $showAll = $request->has('showAll');
         $orderBy = $request->has('orderBy') ? $request->input('orderBy') : 'name';
         $sortOrder = $request->has('order') ? $request->input('order') : 'DESC';
@@ -37,15 +53,16 @@ class ConfigurationController extends Controller
                 'id','name','description','obsolete','value','price_tier_3','price_tier_2'
             ])
             ->when($showAll, function( $query ) {
+
+            })
+            ->when(!$showAll, function( $query ) {
                 return $query->where('value', '>', 0);
+
             })
             ->when($orderBy, function( $query, $orderBy ) use ($sortOrder) {
                 return $query->orderBy( $orderBy, $sortOrder );
             })
-//            ->when($sortOrder, function( $query, $sortOrder ) {
-//                return $query->sort( $sortOrder );
-//            })
-           // ->orderBy('name')
+
             ->get();
 
 
@@ -75,6 +92,6 @@ class ConfigurationController extends Controller
 
         return redirect()
             ->route('blueprint.home', [ $blueprint ])
-            ->with('message','Successfully reset this blueprint\'s configuration');
+            ->with('success','Successfully reset this blueprint\'s configuration');
     }
 }

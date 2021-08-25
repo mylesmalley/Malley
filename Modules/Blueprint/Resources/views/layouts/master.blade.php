@@ -25,7 +25,27 @@
 
     <h4 class="text-secondary text-center">Malley Blueprint</h4>
 
-        @if( session('success') )
+        @if ($errors->any() )
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <div class="card border-danger text-white bg-danger">
+                        <div class="card-header">
+                            Ran into some issues...
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+
+    @if( session('success') )
             <div class="row">
                 <div class="col-6 offset-3">
                     <div class="card border-success text-white bg-success">
