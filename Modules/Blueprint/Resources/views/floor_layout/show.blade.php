@@ -143,25 +143,25 @@
         let options = {
             // no extension
             single_fixed_passenger_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             single_folding_passenger_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P007-001', 	//FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
                 ],
             },
             double_fixed_passenger_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             double_folding_passenger_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P008-001', // passenger double fold
                 ],
@@ -169,28 +169,28 @@
 
             // 8" extension
             single_fixed_passenger_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P009-001',  // seat belt extension
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             single_folding_passenger_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P009-001', // seat belt extension
                     'FTM-P007-001', 	//FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
                 ],
             },
             double_fixed_passenger_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P009-001', // seat belt extension
                     'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             double_folding_passenger_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P009-001', // seat belt extension
                     'FTM-P008-001', // passenger double fold
@@ -200,28 +200,28 @@
 
             // 12 in extension
             single_fixed_passenger_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             single_folding_passenger_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P007-001', 	//FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
                 ],
             },
             double_fixed_passenger_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             double_folding_passenger_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P008-001', // passenger double fold
@@ -231,28 +231,28 @@
 
             // 18" extension
             single_fixed_passenger_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             single_folding_passenger_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P007-001', //FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
                 ],
             },
             double_fixed_passenger_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P004-001', // FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
                 ],
             },
             double_folding_passenger_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P008-001', // passenger double fold
@@ -264,25 +264,25 @@
             * DRIVER SIDE
             * */
             single_fixed_driver_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                 ],
             },
             single_folding_driver_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
                 ],
             },
             double_fixed_driver_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
                 ],
             },
             double_folding_driver_no_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P006-001', // driver double fold
                 ],
@@ -291,28 +291,28 @@
 
             // 8" extension
             single_fixed_driver_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                 ],
             },
             single_folding_driver_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P009-001', // seat belt extension
                     'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
                 ],
             },
             double_fixed_driver_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P009-001', // seat belt extension
                     'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
                 ],
             },
             double_folding_driver_8in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P009-001', // seat belt extension
                     'FTM-P006-001', // driver double fold
@@ -322,28 +322,28 @@
 
             // 12 in extension
             single_fixed_driver_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                 ],
             },
             single_folding_driver_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
                 ],
             },
             double_fixed_driver_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
                 ],
             },
             double_folding_driver_12in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P010-001', // seat belt extension
                     'FTM-P006-001', // driver double fold
@@ -353,28 +353,28 @@
 
             // 18" extension
             single_fixed_driver_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                     'FTM-P003-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
                 ],
             },
             single_folding_driver_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
                 ],
             },
             double_fixed_driver_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
                 ],
             },
             double_folding_driver_18in_extension: {
-                image: '',
+                image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
                 options: [
                     'FTM-P011-001', // seat belt extension
                     'FTM-P006-001', // driver double fold
@@ -460,18 +460,141 @@
             // alert( options[list] )
         //    alert(tracked_x + ' ' + tracked_y)
 
-            var newShape = new Konva.Circle({
-                x: tracked_x,
-                y: tracked_y,
-                radius: 10 + Math.random() * 30,
-                fill: Konva.Util.getRandomColor(),
-                shadowBlur: 10,
-                draggable: true,
+            // var newShape = new Konva.Circle({
+            //     x: tracked_x,
+            //     y: tracked_y,
+            //     radius: 10 + Math.random() * 30,
+            //     fill: Konva.Util.getRandomColor(),
+            //     shadowBlur: 10,
+            //     draggable: true,
+            // });
+            // floorLayer.add(newShape);
+            //
+            //
+            // floorLayer.draw();
+
+
+
+            Konva.Image.fromURL( options[list].image, function (image )  {
+                seatLayer.add(image);
+
+                // image.x = tracked_x;
+                // image.y = tracked_y;
+                    image.position({
+                        x: tracked_x,
+                        y: tracked_y,
+                    });
+                // associate to the seat or wheelchair the name from the toybox object for info retrieval
+             //   image.setAttr('toyName', selectedToy);
+
+
+                // assign the new object an id
+             //   image.setAttr('id', nodeId );
+
+
+                // // if the node id already exists, draw from storage. otherwise create a new one.
+                // if (locations.parts.hasOwnProperty( nodeId ))
+                // {
+                //     // set the position from storage
+                //     image.position({
+                //         x: locations.parts[nodeId].x,
+                //         y: locations.parts[nodeId].y,
+                //     });
+                //
+                //     // rotate a loaded node if required
+                //     if( locations.parts[nodeId].hasOwnProperty('rotate' ) )
+                //     {
+                //         image.rotate( locations.parts[nodeId].rotate );
+                //     }
+                // }
+                // // the node doesn't exist so create a new one.
+                // else
+                // {
+                //     // snap to grid on initial drop
+                //     image.position(stage.getPointerPosition())
+                //     image.position({
+                //         x: Math.round( image.x() / GRID_SIZE) * GRID_SIZE,
+                //         y: Math.round( image.y() / GRID_SIZE) * GRID_SIZE,
+                //     });
+                // }
+
+                image.draggable(true);
+
+
+                // create a new node in the locations object for use in rebuilding
+                // will overwrite if it already exists but doesn't matter since it's being re-drawn
+                // locations.parts[nodeId] = {
+                //     x: image.x(),
+                //     y: image.y(),
+                //     toyName: image.getAttr('toyName'),
+                //     rotate: image.getRotation()
+                // }
+
+
+
+                // // should the object be rotate-able?
+                // if ( toys[ image.getAttr('toyName') ].hasOwnProperty('rotate')
+                //     && toys[ image.getAttr('toyName')].rotate)
+                // {
+                //     image.addEventListener('click', function(){
+                //         locations.parts[nodeId].rotate += 45;
+                //         image.rotate(45);
+                //         layer.draw();
+                //     });
+                // }
+
+
+                // round the object's position to snap to grid
+                image.addEventListener('dragend', function( ){
+
+
+                    // snap the location to the bounding box of the stage to make sure nothing gets hidden
+                    if ( image.x() < 0 ) image.x(0);
+                    if ( image.y() < 0 ) image.y(0);
+                    if ( ( image.x() + image.width()) > width ) image.x(width  - image.width());
+                    if ( ( image.y() + image.height()) > height ) image.y(width  - image.height());
+
+                    image.position({
+                        x: Math.round( image.x() / GRID_SIZE) * GRID_SIZE,
+                        y: Math.round( image.y() / GRID_SIZE) * GRID_SIZE,
+                    });
+
+
+                    // // update node location in locations object
+                    // locations.parts[nodeId].x = image.x();
+                    // locations.parts[nodeId].y = image.y();
+
+
+
+                    // // determine if it lands in the delete box bounds
+                    // if (
+                    //     (image.x() >= deleteBoxX +10) &&
+                    //     (image.x() <= deleteBoxX + deleteBoxWidth- 10) &&
+                    //     (image.y() >=  deleteBoxY + 10) &&
+                    //     (image.y() <= deleteBoxY + deleteBoxHeight - 10 )
+                    // )
+                    // {
+                    //
+                    //     // delete the object if true
+                    //     // decrease quantity in manifest
+                    //     //     locations.quantities[ toys[ selectedToy ].code ] --;
+                    //
+                    //     image.destroy();
+                    //
+                    //     // unset the location
+                    //     delete locations.parts[nodeId];
+                    // }
+
+                    seatLayer.draw();
+                });
+
+
+
+                seatLayer.draw();
             });
-            floorLayer.add(newShape);
 
 
-            floorLayer.draw();
+
         }
 
 
