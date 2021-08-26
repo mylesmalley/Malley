@@ -47,7 +47,84 @@
 
 
     <div id="menu" class="card border-danger">
-        asdfsd
+        <div class="card-header">
+            Add a new Item
+        </div>
+        <div class="card-body">
+
+        <table>
+            <thead>
+
+                <tr>
+                    <th>Seat</th>
+                    <th colspan="4">Belt extension</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+
+                <tr>
+                    <td>Single Fixed, Passenger</td>
+                    <td> <button onclick="add('single_fixed_passenger_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('single_fixed_passenger_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('single_fixed_passenger_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('single_fixed_passenger_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+                <tr>
+                    <td>Single Folding, Passenger</td>
+                    <td> <button onclick="add('single_folding_passenger_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('single_folding_passenger_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('single_folding_passenger_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('single_folding_passenger_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+                <tr>
+                    <td>Double Fixed, Passenger</td>
+                    <td> <button onclick="add('double_fixed_passenger_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('double_fixed_passenger_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('double_fixed_passenger_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('double_fixed_passenger_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+                <tr>
+                    <td>Double Folding, Passenger</td>
+                    <td> <button onclick="add('double_folding_passenger_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('double_folding_passenger_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('double_folding_passenger_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('double_folding_passenger_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+
+                <tr>
+                    <td>Single Fixed, Driver</td>
+                    <td> <button onclick="add('single_fixed_driver_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('single_fixed_driver_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('single_fixed_driver_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('single_fixed_driver_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+                <tr>
+                    <td>Single Folding, Driver</td>
+                    <td> <button onclick="add('single_folding_driver_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('single_folding_driver_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('single_folding_driver_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('single_folding_driver_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+                <tr>
+                    <td>Double Fixed, Driver</td>
+                    <td> <button onclick="add('double_fixed_driver_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('double_fixed_driver_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('double_fixed_driver_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('double_fixed_driver_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+                <tr>
+                    <td>Double Folding, Driver</td>
+                    <td> <button onclick="add('double_folding_driver_no_extension')" class="btn btn-sm action-button  btn-dark">None</button>  </td>
+                    <td> <button onclick="add('double_folding_driver_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>
+                    <td> <button onclick="add('double_folding_driver_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>
+                    <td> <button onclick="add('double_folding_driver_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>
+                </tr>
+            
+            </tbody>
+        </table>
+        </div>
 
     </div>
 
@@ -61,6 +138,167 @@
     <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>
 
     <script>
+
+
+        let options = {
+            // no extension
+           single_fixed_passenger_no_extension: [
+               'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
+           ],
+            single_folding_passenger_no_extension: [
+                'FTM-P007-001', 	//FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
+            ],
+            double_fixed_passenger_no_extension: [
+                'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
+            ],
+            double_folding_passenger_no_extension: [
+                'FTM-P008-001', // passenger double fold
+            ],
+
+
+            // 8" extension
+            single_fixed_passenger_8in_extension: [
+                'FTM-P009-001',  // seat belt extension
+                'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
+            ],
+            single_folding_passenger_8in_extension: [
+                'FTM-P009-001', // seat belt extension
+                'FTM-P007-001', 	//FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
+            ],
+            double_fixed_passenger_8in_extension: [
+                'FTM-P009-001', // seat belt extension
+                'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
+            ],
+            double_folding_passenger_8in_extension: [
+                'FTM-P009-001', // seat belt extension
+                'FTM-P008-001', // passenger double fold
+
+            ],
+
+
+
+            // 12 in extension
+            single_fixed_passenger_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
+            ],
+            single_folding_passenger_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P007-001', 	//FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
+            ],
+            double_fixed_passenger_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
+            ],
+            double_folding_passenger_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P008-001', // passenger double fold
+
+            ],
+
+
+
+            // 18" extension
+            single_fixed_passenger_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
+            ],
+            single_folding_passenger_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P007-001', //FREEDMAN SINGLE SEAT - PASSENGER SIDE - FOLD
+            ],
+            double_fixed_passenger_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P004-001', // FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
+            ],
+            double_folding_passenger_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P008-001', // passenger double fold
+            ],
+            
+            
+            
+            
+            
+            /*
+            * DRIVER SIDE
+            * */
+            single_fixed_driver_no_extension: [
+                'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+            ],
+            single_folding_driver_no_extension: [
+                'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
+            ],
+            double_fixed_driver_no_extension: [
+                'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
+            ],
+            double_folding_driver_no_extension: [
+                'FTM-P006-001', // driver double fold
+            ],
+
+
+            // 8" extension
+            single_fixed_driver_8in_extension: [
+                'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+                'FTM-P003-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+            ],
+            single_folding_driver_8in_extension: [
+                'FTM-P009-001', // seat belt extension
+                'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
+            ],
+            double_fixed_driver_8in_extension: [
+                'FTM-P009-001', // seat belt extension
+                'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
+            ],
+            double_folding_driver_8in_extension: [
+                'FTM-P009-001', // seat belt extension
+                'FTM-P006-001', // driver double fold
+
+            ],
+
+
+
+            // 12 in extension
+            single_fixed_driver_12in_extension: [
+                'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+                'FTM-P003-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+            ],
+            single_folding_driver_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
+            ],
+            double_fixed_driver_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
+            ],
+            double_folding_driver_12in_extension: [
+                'FTM-P010-001', // seat belt extension
+                'FTM-P006-001', // driver double fold
+
+            ],
+
+
+
+            // 18" extension
+            single_fixed_driver_18in_extension: [
+                'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+                'FTM-P003-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+            ],
+            single_folding_driver_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
+            ],
+            double_fixed_driver_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
+            ],
+            double_folding_driver_18in_extension: [
+                'FTM-P011-001', // seat belt extension
+                'FTM-P006-001', // driver double fold
+            ],
+        };
+
+
 
         const width = 1100;
         const height = 450;
@@ -104,16 +342,25 @@
 
         let currentShape;
         let menuNode = document.getElementById('menu');
-        // document.getElementById('pulse-button').addEventListener('click', () => {
-        //     alert('clicked')
-        //     // currentShape.to({
-        //     //     scaleX: 2,
-        //     //     scaleY: 2,
-        //     //     onFinish: () => {
-        //     //         currentShape.to({ scaleX: 1, scaleY: 1 });
-        //     //     },
-        //     // });
-        // });
+        let action_buttons = document.getElementsByClassName('action-button')
+
+        for(let i = 0; i < action_buttons.length; i++ )
+        {
+            action_buttons[i].addEventListener('click', () => {
+                alert('clicked')
+                // currentShape.to({
+                //     scaleX: 2,
+                //     scaleY: 2,
+                //     onFinish: () => {
+                //         currentShape.to({ scaleX: 1, scaleY: 1 });
+                //     },
+                // });
+            });
+        }
+
+
+
+
 
         window.addEventListener('click', () => {
             // hide menu
