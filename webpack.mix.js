@@ -47,6 +47,12 @@ mix.setPublicPath('public')
     .copy(__dirname +  BlueprintAssets + "img/floors/transit130.png", 'public/img/blueprint/floors/transit130.png')
     .copy(__dirname +  BlueprintAssets + "img/floors/transit148.png", 'public/img/blueprint/floors/transit148.png')
     .copy(__dirname +  BlueprintAssets + "img/floors/transit148ext.png", 'public/img/blueprint/floors/transit148ext.png')
+
+    .copy(__dirname +  BlueprintAssets + "img/seats/double-passenger.png", 'public/img/blueprint/seats/double-passenger.png')
+    .copy(__dirname +  BlueprintAssets + "img/seats/single-passenger.png", 'public/img/blueprint/seats/single-passenger.png')
+    .copy(__dirname +  BlueprintAssets + "img/seats/double-driver.png", 'public/img/blueprint/seats/double-driver.png')
+    .copy(__dirname +  BlueprintAssets + "img/seats/single-driver.png", 'public/img/blueprint/seats/single-driver.png')
+
     .js(__dirname + BlueprintAssets + '/js/floor_layout.js', 'js/blueprint/floor_layout.js')
 
 
