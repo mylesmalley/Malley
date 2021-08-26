@@ -320,6 +320,11 @@
         stage.add(floorLayer);
 
 
+        let seatLayer = new Konva.Layer();
+        stage.add(seatLayer);
+
+
+
          function drawFloor( url )
         {
             floorLayer.destroyChildren();
@@ -338,24 +343,51 @@
 
 
 
+        let tracked_x;
+        let tracked_y;
 
 
         let currentShape;
         let menuNode = document.getElementById('menu');
-        let action_buttons = document.getElementsByClassName('action-button')
+       // let action_buttons = document.getElementsByClassName('action-button')
+       //
+       //  for(let i = 0; i < action_buttons.length; i++ )
+       //  {
+       //      action_buttons[i].addEventListener('click', () => {
+       //
+       //
+       //
+       //         // alert('clicked')
+       //          // currentShape.to({
+       //          //     scaleX: 2,
+       //          //     scaleY: 2,
+       //          //     onFinish: () => {
+       //          //         currentShape.to({ scaleX: 1, scaleY: 1 });
+       //          //     },
+       //          // });
+       //      });
+       //  }
 
-        for(let i = 0; i < action_buttons.length; i++ )
+
+
+
+        function add( list )
         {
-            action_buttons[i].addEventListener('click', () => {
-                alert('clicked')
-                // currentShape.to({
-                //     scaleX: 2,
-                //     scaleY: 2,
-                //     onFinish: () => {
-                //         currentShape.to({ scaleX: 1, scaleY: 1 });
-                //     },
-                // });
+            // alert( options[list] )
+        //    alert(tracked_x + ' ' + tracked_y)
+
+            var newShape = new Konva.Circle({
+                x: tracked_x,
+                y: tracked_y,
+                radius: 10 + Math.random() * 30,
+                fill: Konva.Util.getRandomColor(),
+                shadowBlur: 10,
+                draggable: true,
             });
+            floorLayer.add(newShape);
+
+
+            floorLayer.draw();
         }
 
 
@@ -371,6 +403,9 @@
         stage.on('contextmenu', function (e) {
             // prevent default behavior
             e.evt.preventDefault();
+            tracked_x = stage.getPointerPosition().x;
+            tracked_y = stage.getPointerPosition().y;
+            console.log(tracked_x + ' ' + tracked_y)
             // if (e.target === stage) {
             //     // if we are on empty place of the stage we will do nothing
             //     return;
