@@ -7,9 +7,19 @@
             position: absolute;
             z-index: 10000;
             /*width: 60px;*/
-            background-color: white;
+            /*background-color: white;*/
             box-shadow: 0 0 5px grey;
-            border-radius: 3px;
+            /*border-radius: 3px;*/
+        }
+
+        #object_menu {
+            display: none;
+            position: absolute;
+            z-index: 10000;
+            /*width: 60px;*/
+            /*background-color: white;*/
+            box-shadow: 0 0 5px grey;
+            /*border-radius: 3px;*/
         }
 
         /*#menu button {*/
@@ -45,8 +55,17 @@
 
 
 
+    <div id="object_menu" class="card border-success">
+        <div class="card-header">
+            Delete This Item?
+        </div>
+        <div class="card-body">
+            asdfdsaf
+        </div>
+    </div>
 
-    <div id="menu" class="card border-danger">
+
+        <div id="menu" class="card border-danger">
         <div class="card-header">
             Add a new Item
         </div>
@@ -409,20 +428,21 @@
 
 
 
-         function drawFloor( url )
-        {
-            floorLayer.destroyChildren();
-            Konva.Image.fromURL(  url , function (bg) {
+        //  function drawFloor( url )
+        // {
+        //     floorLayer.destroyChildren();
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
                 bg.setAttrs({
                     x: 0,
                     y: 0,
                 });
+                bg.setAttr('source', `{{ mix('img/blueprint/floors/transit130.png') }}`);
                 floorLayer.add(bg);
                 floorLayer.draw();
             });
 
-        }
-            drawFloor( `{{ mix('img/blueprint/floors/transit130.png') }}`  );
+        // }
+        //    drawFloor( `{{ mix('img/blueprint/floors/transit130.png') }}`  );
 
 
 
@@ -431,8 +451,9 @@
         let tracked_y;
 
 
-        let currentShape;
+      //  let currentShape;
         let menuNode = document.getElementById('menu');
+        let objectMenu = document.getElementById('object_menu');
        // let action_buttons = document.getElementsByClassName('action-button')
        //
        //  for(let i = 0; i < action_buttons.length; i++ )
@@ -451,6 +472,16 @@
        //          // });
        //      });
        //  }
+
+
+        let clientx;
+        let clienty;
+        window.addEventListener('mousemove', function(e){
+            clientx = e.pageX;
+            clienty = e.pageY;
+
+         // console.error( e.pageX, e.pageY );
+        });
 
 
 
@@ -489,8 +520,9 @@
 
 
                 // assign the new object an id
-             //   image.setAttr('id', nodeId );
-
+                image.setAttr('options', options[list].options );
+                image.setAttr('grouping', list );
+                image.setAttr('source', options[list].image);
 
                 // // if the node id already exists, draw from storage. otherwise create a new one.
                 // if (locations.parts.hasOwnProperty( nodeId ))
@@ -544,7 +576,34 @@
                 // }
 
 
-                // round the object's position to snap to grid
+                image.on('dblclick', function (event) {
+
+                    // stops the contextmnu event from propagating up to the canvas event
+                    event.cancelBubble = true;
+
+                    if( window.confirm("Delete this object?") )
+                    {
+                        console.log( image.getAttr('options') );
+
+                        console.log( stage.toJSON() );
+
+                        image.destroy();
+                    }
+
+                    //console.log( 'show it!' );
+
+                //     objectMenu.style.display = 'initial';
+                // //    let containerRect = stage.container().getBoundingClientRect();
+                //     objectMenu.style.top = clienty + "px";
+                //     // objectMenu.style.top = parseInt(imgpos.y + imgsize.height + 4) + "px";
+                //     //    containerRect.top + tracked_y + 4 + 'px';
+                //     // objectMenu.style.left = parseInt(imgpos.x + imgsize.width + 4) + "px";
+                //     objectMenu.style.left = clientx + "px";
+                    //    containerRect.left + tracked_x + 4 + 'px';
+                });
+
+
+                    // round the object's position to snap to grid
                 image.addEventListener('dragend', function( ){
 
 
@@ -604,28 +663,38 @@
         window.addEventListener('click', () => {
             // hide menu
             menuNode.style.display = 'none';
+            objectMenu.style.display = 'none';
         });
 
 
-        stage.on('contextmenu', function (e) {
-            // prevent default behavior
-            e.evt.preventDefault();
-            tracked_x = stage.getPointerPosition().x;
-            tracked_y = stage.getPointerPosition().y;
-            console.log(tracked_x + ' ' + tracked_y)
-            // if (e.target === stage) {
-            //     // if we are on empty place of the stage we will do nothing
-            //     return;
-            // }
-      //      currentShape = e.target;
-            // show menu
-            menuNode.style.display = 'initial';
-            var containerRect = stage.container().getBoundingClientRect();
-            menuNode.style.top =
-                containerRect.top + stage.getPointerPosition().y + 4 + 'px';
-            menuNode.style.left =
-                containerRect.left + stage.getPointerPosition().x + 4 + 'px';
-        });
+
+
+            stage.on('contextmenu', function (e) {
+                // prevent default behavior
+                e.evt.preventDefault();
+
+                // console.log('context menu')
+
+                tracked_x = stage.getPointerPosition().x;
+                tracked_y = stage.getPointerPosition().y;
+             //   console.log(tracked_x + ' ' + tracked_y)
+                // if (e.target === stage) {
+                //     // if we are on empty place of the stage we will do nothing
+                //     return;
+                // }
+                //      currentShape = e.target;
+                // show menu
+                menuNode.style.display = 'initial';
+                let containerRect = stage.container().getBoundingClientRect();
+                menuNode.style.top =
+                    containerRect.top + stage.getPointerPosition().y + 4 + 'px';
+                menuNode.style.left =
+                    containerRect.left + stage.getPointerPosition().x + 4 + 'px';
+            });
+
+
+
+
 
 
     </script>
