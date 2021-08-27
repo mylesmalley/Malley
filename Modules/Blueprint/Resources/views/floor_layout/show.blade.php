@@ -401,6 +401,24 @@
             },
         };
 
+ //   alert('{{ route('blueprint.floor_layout.store', [$blueprint]) }}')
+
+        function sture()
+        {
+
+            fetch('{{ route('blueprint.floor_layout.store', [$blueprint]) }}', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    layout: stage.toJSON(),
+                    '_token': document.head.querySelector('meta[name="csrf-token"]').content
+                }),
+            });
+
+        }
+
 
         function add_image( list, stored_x = null, stored_y = null )
         {
@@ -440,11 +458,12 @@
 
                     if( window.confirm("Delete this object?") )
                     {
-                        console.log( image.getAttr('options') );
+                        //console.log( image.getAttr('options') );
 
-                        console.log( stage.toJSON() );
+                        //onsole.log( stage.toJSON() );
 
                         image.destroy();
+                        sture();
                     }
 
                 });
@@ -468,6 +487,7 @@
                 });
 
 
+                sture();
 
                 seatLayer.draw();
 
@@ -479,15 +499,18 @@
 
 
 
-
         const width = 1100;
         const height = 450;
         const GRID_SIZE = 10;
 
 
-        let preset = {"attrs":{"width":1100,"height":450},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"source":"/img/blueprint/floors/transit130.png?id=27587723ec9081533846"},"className":"Image"}]},{"attrs":{},"className":"Layer","children":[{"attrs":{"x":449.5,"y":125.85000610351562,"options":["FTM-P001-001"],"grouping":"single_fixed_driver_no_extension","source":"/img/blueprint/seats/single-driver.png?id=5b55c8aa20305dedb6a7","draggable":true},"className":"Image"},{"attrs":{"x":588.5,"y":223.85000610351562,"options":["FTM-P011-001","FTM-P003-001"],"grouping":"single_fixed_passenger_18in_extension","source":"/img/blueprint/seats/single-passenger.png?id=02dde1faa6744ac88303","draggable":true},"className":"Image"},{"attrs":{"x":270,"y":120,"options":["FTM-P006-001"],"grouping":"double_folding_driver_no_extension","source":"/img/blueprint/seats/double-driver.png?id=cc04a677e568c6845c70","draggable":true},"className":"Image"}]}]};
 
-
+@if( $blueprint->custom_layout )
+      //  let preset = {"attrs":{"width":1100,"height":450},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"source":"/img/blueprint/floors/transit130.png?id=27587723ec9081533846"},"className":"Image"}]},{"attrs":{},"className":"Layer","children":[{"attrs":{"x":449.5,"y":125.85000610351562,"options":["FTM-P001-001"],"grouping":"single_fixed_driver_no_extension","source":"/img/blueprint/seats/single-driver.png?id=5b55c8aa20305dedb6a7","draggable":true},"className":"Image"},{"attrs":{"x":588.5,"y":223.85000610351562,"options":["FTM-P011-001","FTM-P003-001"],"grouping":"single_fixed_passenger_18in_extension","source":"/img/blueprint/seats/single-passenger.png?id=02dde1faa6744ac88303","draggable":true},"className":"Image"},{"attrs":{"x":270,"y":120,"options":["FTM-P006-001"],"grouping":"double_folding_driver_no_extension","source":"/img/blueprint/seats/double-driver.png?id=cc04a677e568c6845c70","draggable":true},"className":"Image"}]}]};
+    let preset = {!!  $blueprint->custom_layout  !!};
+@else
+    let preset;
+@endif
 
         let stage;
 
@@ -522,15 +545,21 @@
         stage.add(seatLayer);
 
 
-        Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
-            bg.setAttrs({
-                x: 0,
-                y: 0,
+        // if ( !preset )
+        // {
+
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 0,
+                    y: 0,
+                });
+                bg.setAttr('source', `{{ mix('img/blueprint/floors/transit130.png') }}`);
+                floorLayer.add(bg);
+                floorLayer.draw();
             });
-            bg.setAttr('source', `{{ mix('img/blueprint/floors/transit130.png') }}`);
-            floorLayer.add(bg);
-            floorLayer.draw();
-        });
+        // }
+        //
+
 
 
         let tracked_x;

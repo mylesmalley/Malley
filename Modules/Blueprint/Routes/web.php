@@ -52,6 +52,8 @@ Route::domain( config('malley.external_domain') )->group(function() {
                  */
                 Route::get('/floor_layout', [FloorLayoutController::class, 'show'])
                     ->name('blueprint.floor_layout');
+                Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
+                    ->name('blueprint.floor_layout.store');
 
 
 
