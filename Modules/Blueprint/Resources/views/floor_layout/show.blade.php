@@ -401,30 +401,109 @@
             },
         };
 
- //   alert('{{ route('blueprint.floor_layout.store', [$blueprint]) }}')
 
-        function sture()
+
+        const width = 1100;
+        const height = 450;
+        const GRID_SIZE = 10;
+
+
+
+@if( $blueprint->custom_layout )
+      //  let preset = {"attrs":{"width":1100,"height":450},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"source":"/img/blueprint/floors/transit130.png?id=27587723ec9081533846"},"className":"Image"}]},{"attrs":{},"className":"Layer","children":[{"attrs":{"x":449.5,"y":125.85000610351562,"options":["FTM-P001-001"],"grouping":"single_fixed_driver_no_extension","source":"/img/blueprint/seats/single-driver.png?id=5b55c8aa20305dedb6a7","draggable":true},"className":"Image"},{"attrs":{"x":588.5,"y":223.85000610351562,"options":["FTM-P011-001","FTM-P003-001"],"grouping":"single_fixed_passenger_18in_extension","source":"/img/blueprint/seats/single-passenger.png?id=02dde1faa6744ac88303","draggable":true},"className":"Image"},{"attrs":{"x":270,"y":120,"options":["FTM-P006-001"],"grouping":"double_folding_driver_no_extension","source":"/img/blueprint/seats/double-driver.png?id=cc04a677e568c6845c70","draggable":true},"className":"Image"}]}]};
+    let preset = {!!  $blueprint->custom_layout  !!};
+@else
+    let preset;
+@endif
+
+
+        let stage = new Konva.Stage({
+            container: 'konvaStage',
+            width: width,
+            height: height,
+        });
+
+
+
+        let floorLayer = new Konva.Layer();
+        stage.add(floorLayer);
+
+        Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
+            bg.setAttrs({
+                x: 0,
+                y: 0,
+            });
+            floorLayer.add(bg);
+            floorLayer.draw();
+        });
+
+
+
+        let seatLayer = new Konva.Layer();
+
+        let rect = Konva.Rect
+        stage.add(seatLayer);
+
+
+        let menuNode = document.getElementById('menu');
+
+
+        let page_x;
+        let page_y;
+        let canvas_x;
+        let canvas_y;
+
+        window.addEventListener('mousemove', function(e){
+            page_x = e.pageX;
+            page_y = e.pageY;
+        });
+
+        window.addEventListener('click', () => {
+            // hide menu
+            menuNode.style.display = 'none';
+        });
+
+
+        stage.on('contextmenu', function (e) {
+            // prevent default behavior
+            e.evt.preventDefault();
+
+            canvas_x = stage.getPointerPosition().x;
+            canvas_y = stage.getPointerPosition().y;
+            menuNode.style.display = 'initial';
+            menuNode.style.top = page_y  + 'px';
+            menuNode.style.left = page_x  + 'px';
+        });
+
+
+        {{--Konva.Image.fromURL('{{ mix('img/blueprint/seats/single-passenger.png') }}', function (image )  {--}}
+
+        {{--    seatLayer.add(image);--}}
+
+        {{--});--}}
+
+
+            function sture()
         {
 
-            fetch('{{ route('blueprint.floor_layout.store', [$blueprint]) }}', {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    layout: stage.toJSON(),
-                    '_token': document.head.querySelector('meta[name="csrf-token"]').content
-                }),
-            });
+            {{--fetch('{{ route('blueprint.floor_layout.store', [$blueprint]) }}', {--}}
+            {{--    method: 'POST', // or 'PUT'--}}
+            {{--    headers: {--}}
+            {{--        'Content-Type': 'application/json',--}}
+            {{--    },--}}
+            {{--    body: JSON.stringify({--}}
+            {{--        layout: stage.toJSON(),--}}
+            {{--        '_token': document.head.querySelector('meta[name="csrf-token"]').content--}}
+            {{--    }),--}}
+            {{--});--}}
 
         }
 
 
         function add_image( list, stored_x = null, stored_y = null )
         {
-            Konva.Image.fromURL( options[list].image, function (image )  {
 
-                seatLayer.add(image);
+            Konva.Image.fromURL( options[list].image, function (image )  {
 
                 if( stored_x !== null && stored_y !== null)
                 {
@@ -436,8 +515,8 @@
                 else
                 {
                     image.position({
-                        x: tracked_x,
-                        y: tracked_y,
+                        x: canvas_x,
+                        y: canvas_y,
                     });
                 }
 
@@ -483,126 +562,105 @@
                         y: Math.round( image.y() / GRID_SIZE) * GRID_SIZE,
                     });
 
-            //        seatLayer.draw();
+                           seatLayer.draw();
                 });
 
 
-                sture();
+             //   sture();
+               seatLayer.add(image);
 
-                seatLayer.draw();
+             //   seatLayer.draw();
 
             });
 
+         //   seatLayer.add( added_image);
+            seatLayer.draw();
+
+            //    console.log('updated')
         }
 
 
+     //   let stage;
 
-
-
-        const width = 1100;
-        const height = 450;
-        const GRID_SIZE = 10;
-
-
-
-@if( $blueprint->custom_layout )
-      //  let preset = {"attrs":{"width":1100,"height":450},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"source":"/img/blueprint/floors/transit130.png?id=27587723ec9081533846"},"className":"Image"}]},{"attrs":{},"className":"Layer","children":[{"attrs":{"x":449.5,"y":125.85000610351562,"options":["FTM-P001-001"],"grouping":"single_fixed_driver_no_extension","source":"/img/blueprint/seats/single-driver.png?id=5b55c8aa20305dedb6a7","draggable":true},"className":"Image"},{"attrs":{"x":588.5,"y":223.85000610351562,"options":["FTM-P011-001","FTM-P003-001"],"grouping":"single_fixed_passenger_18in_extension","source":"/img/blueprint/seats/single-passenger.png?id=02dde1faa6744ac88303","draggable":true},"className":"Image"},{"attrs":{"x":270,"y":120,"options":["FTM-P006-001"],"grouping":"double_folding_driver_no_extension","source":"/img/blueprint/seats/double-driver.png?id=cc04a677e568c6845c70","draggable":true},"className":"Image"}]}]};
-    let preset = {!!  $blueprint->custom_layout  !!};
-@else
-    let preset;
-@endif
-
-        let stage;
-
-        if ( preset )
-        {
-            stage = Konva.Node.create(preset, 'konvaStage');
-
-            stage.find('Image').forEach( function( el ){
-
-                if( el.getAttr( 'grouping' ) )
-                {
-                    add_image( el.getAttr( 'grouping'), el.x(), el.y() );
-                }
-
-            });
-        }
-        else
-        {
-            stage = new Konva.Stage({
-                container: 'konvaStage',
-                width: width,
-                height: height,
-            });
-        }
-
-
-        let floorLayer = new Konva.Layer();
-        stage.add(floorLayer);
-
-
-        let seatLayer = new Konva.Layer();
-        stage.add(seatLayer);
+        // if ( preset )
+        // {
+        //     stage = Konva.Node.create(preset, 'konvaStage');
+        //
+        //     stage.find('Image').forEach( function( el ){
+        //
+        //         if( el.getAttr( 'grouping' ) )
+        //         {
+        //             add_image( el.getAttr( 'grouping'), el.x(), el.y() );
+        //         }
+        //
+        //     });
+        // }
+        // else
+        // {
+        //     stage = new Konva.Stage({
+        //         container: 'konvaStage',
+        //         width: width,
+        //         height: height,
+        //     });
+        // }
+        //
+        //
+        // let floorLayer = new Konva.Layer();
+        // stage.add(floorLayer);
+        //
+        //
+        // let seatLayer = new Konva.Layer();
+        // stage.add(seatLayer);
 
 
         // if ( !preset )
         // {
 
-            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
-                bg.setAttrs({
-                    x: 0,
-                    y: 0,
-                });
-                bg.setAttr('source', `{{ mix('img/blueprint/floors/transit130.png') }}`);
-                floorLayer.add(bg);
-                floorLayer.draw();
-            });
+            {{--Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {--}}
+            {{--    bg.setAttrs({--}}
+            {{--        x: 0,--}}
+            {{--        y: 0,--}}
+            {{--    });--}}
+            {{--    bg.setAttr('source', `{{ mix('img/blueprint/floors/transit130.png') }}`);--}}
+            {{--    floorLayer.add(bg);--}}
+            {{--    floorLayer.draw();--}}
+            {{--});--}}
         // }
         //
-
-
-
-        let tracked_x;
-        let tracked_y;
-
-        let menuNode = document.getElementById('menu');
-        let objectMenu = document.getElementById('object_menu');
-
-
-        let clientx;
-        let clienty;
-
-        window.addEventListener('mousemove', function(e){
-            clientx = e.pageX;
-            clienty = e.pageY;
-
-        });
-
-
-
-        window.addEventListener('click', () => {
-            // hide menu
-            menuNode.style.display = 'none';
-            objectMenu.style.display = 'none';
-        });
-
-
-
-        stage.on('contextmenu', function (e) {
-            // prevent default behavior
-            e.evt.preventDefault();
-
-            tracked_x = stage.getPointerPosition().x;
-            tracked_y = stage.getPointerPosition().y;
-
-            menuNode.style.display = 'initial';
-            let containerRect = stage.container().getBoundingClientRect();
-            menuNode.style.top =
-                containerRect.top + stage.getPointerPosition().y + 4 + 'px';
-            menuNode.style.left =
-                containerRect.left + stage.getPointerPosition().x + 4 + 'px';
-        });
-
+        //
+        //
+        //
+        // let menuNode = document.getElementById('menu');
+        //
+        // let page_x;
+        // let page_y;
+        //
+        //
+        // window.addEventListener('mousemove', function(e){
+        //     page_x = e.pageX;
+        //     page_y = e.pageY;
+        // });
+        //
+        // window.addEventListener('click', () => {
+        //     // hide menu
+        //     menuNode.style.display = 'none';
+        //     objectMenu.style.display = 'none';
+        // });
+        //
+        //
+        //
+        // stage.on('contextmenu', function (e) {
+        //     // prevent default behavior
+        //     e.evt.preventDefault();
+        //
+        //     menuNode.style.display = 'initial';
+        //     let containerRect = stage.container().getBoundingClientRect();
+        //     menuNode.style.top =
+        //         containerRect.top + page_y + 4 + 'px';
+        //     menuNode.style.left =
+        //         containerRect.left + page_x + 4 + 'px';
+        // });
+        //
 
 
 
