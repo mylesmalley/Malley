@@ -2,7 +2,9 @@
 
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
+use App\Models\Configuration;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Blueprint;
@@ -28,7 +30,17 @@ class FloorLayoutController extends Controller
         ]);
     }
 
-    public function store(Blueprint $blueprint, Request $request )
+
+
+    /**
+     * handle the changes made to the floor
+     * layout as they happen. mostly just staging
+     *
+     * @param Blueprint $blueprint
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function change(Blueprint $blueprint, Request $request ):  JsonResponse
     {
         $blueprint->update([
             'custom_layout' => $request->input('layout'),
@@ -37,6 +49,38 @@ class FloorLayoutController extends Controller
         return response()->json([
             'message' => 'Success'
         ], 200);
+    }
+
+
+    /**
+     * actually adds the staged configuration to the
+     * blueprint based on the custom layout stored.
+     *
+     * @param Blueprint $blueprint
+     */
+    public function store( Blueprint $blueprint )
+    {
+        $layout = json_decode( $blueprint->custom_layout );
+
+        foreach( $layout->children as $c )
+        {
+            foreach( $c->attrs->options as $o)
+            {
+                 $config = Configuration::where('blueprint_id', $blueprint->id)
+                    ->where('name', $o )
+                    ->where('obsolete', false)
+                    ->first();
+
+                 $config->update([
+                     'value' => 1,
+                     'quantity' => $config->quantity + 1,
+                 ]);
+            }
+        }
+
+        return redirect()
+            ->route('blueprint.home', [$blueprint])
+            ->with('success','Floor layout added to this Blueprint');
     }
 
 }

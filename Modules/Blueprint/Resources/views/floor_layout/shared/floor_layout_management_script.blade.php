@@ -48,8 +48,8 @@
 
     function store_layout()
     {
-        fetch('{{ route('blueprint.floor_layout.store', [$blueprint]) }}', {
-            method: 'POST', // or 'PUT'
+        fetch('{{ route('blueprint.floor_layout.change', [$blueprint]) }}', {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },

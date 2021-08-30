@@ -50,11 +50,15 @@ Route::domain( config('malley.external_domain') )->group(function() {
                 /**
                  * FLOOR LAYOUT
                  */
+                // show the form, varied by the floor layout and other options
                 Route::get('/floor_layout', [FloorLayoutController::class, 'show'])
                     ->name('blueprint.floor_layout');
+                // for adding and removing parts, moving them etc. staged changes stored on blueprint model
+                Route::patch('/floor_layout', [FloorLayoutController::class, 'change'])
+                    ->name('blueprint.floor_layout.change');
+                // committing staged options to the blueprint configuration.
                 Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
                     ->name('blueprint.floor_layout.store');
-
 
 
                 /**
