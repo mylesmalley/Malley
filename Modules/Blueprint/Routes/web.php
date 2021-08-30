@@ -7,6 +7,7 @@ use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome
 use Modules\Blueprint\Http\Controllers\Wizard\WizardController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ConfigurationController;
 use Modules\Blueprint\Http\Controllers\Blueprint\FloorLayoutController;
+use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
 
 Route::domain( config('malley.external_domain') )->group(function() {
     Route::middleware(['auth'])->group( function(){
@@ -59,6 +60,18 @@ Route::domain( config('malley.external_domain') )->group(function() {
                 // committing staged options to the blueprint configuration.
                 Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
                     ->name('blueprint.floor_layout.store');
+
+
+
+                /**
+                 * QUOTATION
+                 */
+                // show the form, varied by the floor layout and other options
+                Route::get('/quotation', [QuoteController::class, 'show'])
+                    ->name('blueprint.quote');
+
+
+
 
 
                 /**

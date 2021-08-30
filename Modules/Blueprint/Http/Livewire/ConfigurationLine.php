@@ -12,12 +12,14 @@ class ConfigurationLine extends Component
 
     public Configuration $configuration;
     public bool $details = false;
+    public bool $pricing = false;
 
     /**
      * @param Configuration $configuration
      */
-    public function mount(Configuration $configuration): void
+    public function mount(Configuration $configuration, bool $pricing = false): void
     {
+        $this->pricing = $pricing;
         $this->configuration = $configuration;
     }
 

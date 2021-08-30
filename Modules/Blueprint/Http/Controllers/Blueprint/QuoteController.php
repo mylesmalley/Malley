@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Configuration;
 use Illuminate\Http\Request;
 
-class ConfigurationController extends Controller
+class QuoteController extends Controller
 {
 
     /**
@@ -27,46 +27,47 @@ class ConfigurationController extends Controller
     {
         $this->authorize('edit_configuration', $blueprint);
 
-        $request->validate([
-            'showAll' => [
-                'sometimes'
-            ],
-            'orderBy' => [
-               'sometimes',
-                Rule::in(['id','name','description','obsolete','value','price_tier_3','price_tier_2'])
-            ],
-            'order' => [
-                'sometimes',
-                Rule::in(['ASC','DESC'])
-            ]
-        ]);
+//        $request->validate([
+//            'showAll' => [
+//                'sometimes'
+//            ],
+//            'orderBy' => [
+//               'sometimes',
+//                Rule::in(['id','name','description','obsolete','value','price_tier_3','price_tier_2'])
+//            ],
+//            'order' => [
+//                'sometimes',
+//                Rule::in(['ASC','DESC'])
+//            ]
+//        ]);
 
 
-        $showAll = $request->has('showAll');
-        $orderBy = $request->has('orderBy') ? $request->input('orderBy') : 'name';
-        $sortOrder = $request->has('order') ? $request->input('order') : 'ASC';
-
+//        $showAll = $request->has('showAll');
+//        $orderBy = $request->has('orderBy') ? $request->input('orderBy') : 'name';
+//        $sortOrder = $request->has('order') ? $request->input('order') : 'ASC';
+//
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
+            ->where('value', 1)
             // narrow things down a bit...
             ->select([
-                'id','name','description','obsolete','value','price_tier_3','price_tier_2'
+                'id','name','description','obsolete','value', 'quantity','price_tier_3','price_tier_2'
             ])
             // don't filter at all if showAll is present
-            ->when($showAll, function( $query ) {  })
-            // filter all but value > 0 if showAll not present
-            ->when(!$showAll, function( $query ) {
-                return $query->where('value', '>', 0);
-            })
-            // handle sort order and direction if present
-            ->when($orderBy, function( $query, $orderBy ) use ($sortOrder) {
-                return $query->orderBy( $orderBy, $sortOrder );
-            })
+//            ->when($showAll, function( $query ) {  })
+//            // filter all but value > 0 if showAll not present
+//            ->when(!$showAll, function( $query ) {
+//                return $query->where('value', '>', 0);
+//            })
+//            // handle sort order and direction if present
+//            ->when($orderBy, function( $query, $orderBy ) use ($sortOrder) {
+//                return $query->orderBy( $orderBy, $sortOrder );
+//            })
             ->get();
 
         // lets role!
-        return view('blueprint::configuration.show', [
+        return view('blueprint::quote.show', [
             'blueprint' => $blueprint,
             'configurations' => $configs,
         ]);

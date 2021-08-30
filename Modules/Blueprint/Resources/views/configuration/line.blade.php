@@ -8,7 +8,13 @@
         <td>
             {{ $configuration->description }}
         </td>
+        @if ( $pricing )
 
+            <td>{{ $configuration->quantity }}</td>
+            <td>{{ $configuration->price_tier_2 }}</td>
+            <td>{{ $configuration->price_tier_3 }}</td>
+
+        @endif
     </tr>
 
     @if( $details )
