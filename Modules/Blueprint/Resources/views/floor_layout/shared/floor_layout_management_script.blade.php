@@ -59,6 +59,9 @@
             }),
         });
 
+
+        // fire off livewire event to update progress box
+        Livewire.emit('update_floor_layout_progress');
     }
 
     function add_image( list, stored_x = null, stored_y = null )

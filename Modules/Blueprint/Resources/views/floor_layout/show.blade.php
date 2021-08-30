@@ -54,7 +54,7 @@
 
     <div class="row">
         <div class="col-6">
-            @livewire("blueprint::floor-layout-progress" )
+            @livewire("blueprint::floor-layout-progress", [$blueprint] )
 
         </div>
     </div>
