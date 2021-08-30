@@ -52,6 +52,13 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-6">
+            @livewire("blueprint::floor-layout-progress" )
+
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')
