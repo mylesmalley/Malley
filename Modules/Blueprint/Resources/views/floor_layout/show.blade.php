@@ -147,7 +147,27 @@
 
     </div>
 
-    <div id="konvaStage"></div>
+    <div class="row">
+        <div class="col-9">
+            <div id="konvaStage"></div>
+
+        </div>
+        <div class="col-3">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    Instructions
+                </div>
+                <div class="card-body">
+                    <p>Right click anywhere on the floor diagram to open up a box with options. Click on a button next to any option to add it to the layout.</p>
+                    <p>Drag any item you have added to the floor layout around to wherever you'd like it positioned.</p>
+                    <p>Double-click on any item on the floor layout to delete it.</p>
+                    <p>Any changes you make are saved automatically. You can leave this form and come back later.</p>
+                    <p>Click "Confirm Seat Layout" when you are done.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -408,12 +428,10 @@
         const GRID_SIZE = 10;
 
 
+let preset;
 
 @if( $blueprint->custom_layout )
-      //  let preset = {"attrs":{"width":1100,"height":450},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"source":"/img/blueprint/floors/transit130.png?id=27587723ec9081533846"},"className":"Image"}]},{"attrs":{},"className":"Layer","children":[{"attrs":{"x":449.5,"y":125.85000610351562,"options":["FTM-P001-001"],"grouping":"single_fixed_driver_no_extension","source":"/img/blueprint/seats/single-driver.png?id=5b55c8aa20305dedb6a7","draggable":true},"className":"Image"},{"attrs":{"x":588.5,"y":223.85000610351562,"options":["FTM-P011-001","FTM-P003-001"],"grouping":"single_fixed_passenger_18in_extension","source":"/img/blueprint/seats/single-passenger.png?id=02dde1faa6744ac88303","draggable":true},"className":"Image"},{"attrs":{"x":270,"y":120,"options":["FTM-P006-001"],"grouping":"double_folding_driver_no_extension","source":"/img/blueprint/seats/double-driver.png?id=cc04a677e568c6845c70","draggable":true},"className":"Image"}]}]};
-    let preset = {!!  $blueprint->custom_layout  !!};
-@else
-    let preset;
+     preset = {!!  $blueprint->custom_layout  !!};
 @endif
 
 
@@ -441,21 +459,14 @@
 
 
         let seatLayer = new Konva.Layer();
-
-        let rect = Konva.Rect
         stage.add(seatLayer);
 
         if ( preset )
         {
-            //console.log( preset.children );
             for (let i = 0; i < preset.children.length; i++ )
             {
-                // console.log( preset.children[i].attrs.x);
-
                 add_image(  preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y )
             }
-
-          //  store_layout();
         }
 
 
