@@ -425,6 +425,7 @@
 
 
 
+
         let floorLayer = new Konva.Layer();
         stage.add(floorLayer);
 
@@ -443,6 +444,22 @@
 
         let rect = Konva.Rect
         stage.add(seatLayer);
+
+        if ( preset )
+        {
+            //console.log( preset.children );
+            for (let i = 0; i < preset.children.length; i++ )
+            {
+                // console.log( preset.children[i].attrs.x);
+
+                add_image(  preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y )
+            }
+
+          //  store_layout();
+        }
+
+
+
 
 
         let menuNode = document.getElementById('menu');
@@ -476,26 +493,21 @@
         });
 
 
-        {{--Konva.Image.fromURL('{{ mix('img/blueprint/seats/single-passenger.png') }}', function (image )  {--}}
 
-        {{--    seatLayer.add(image);--}}
-
-        {{--});--}}
-
-
-            function sture()
+        function store_layout()
         {
 
-            {{--fetch('{{ route('blueprint.floor_layout.store', [$blueprint]) }}', {--}}
-            {{--    method: 'POST', // or 'PUT'--}}
-            {{--    headers: {--}}
-            {{--        'Content-Type': 'application/json',--}}
-            {{--    },--}}
-            {{--    body: JSON.stringify({--}}
-            {{--        layout: stage.toJSON(),--}}
-            {{--        '_token': document.head.querySelector('meta[name="csrf-token"]').content--}}
-            {{--    }),--}}
-            {{--});--}}
+
+            fetch('{{ route('blueprint.floor_layout.store', [$blueprint]) }}', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    layout: seatLayer.toJSON(),
+                    '_token': document.head.querySelector('meta[name="csrf-token"]').content
+                }),
+            });
 
         }
 
@@ -537,12 +549,10 @@
 
                     if( window.confirm("Delete this object?") )
                     {
-                        //console.log( image.getAttr('options') );
 
-                        //onsole.log( stage.toJSON() );
 
                         image.destroy();
-                        sture();
+                        store_layout();
                     }
 
                 });
@@ -563,104 +573,21 @@
                     });
 
                            seatLayer.draw();
+
+                    store_layout();
                 });
 
 
-             //   sture();
                seatLayer.add(image);
+                store_layout();
 
-             //   seatLayer.draw();
 
             });
 
-         //   seatLayer.add( added_image);
-            seatLayer.draw();
 
-            //    console.log('updated')
         }
 
 
-     //   let stage;
-
-        // if ( preset )
-        // {
-        //     stage = Konva.Node.create(preset, 'konvaStage');
-        //
-        //     stage.find('Image').forEach( function( el ){
-        //
-        //         if( el.getAttr( 'grouping' ) )
-        //         {
-        //             add_image( el.getAttr( 'grouping'), el.x(), el.y() );
-        //         }
-        //
-        //     });
-        // }
-        // else
-        // {
-        //     stage = new Konva.Stage({
-        //         container: 'konvaStage',
-        //         width: width,
-        //         height: height,
-        //     });
-        // }
-        //
-        //
-        // let floorLayer = new Konva.Layer();
-        // stage.add(floorLayer);
-        //
-        //
-        // let seatLayer = new Konva.Layer();
-        // stage.add(seatLayer);
-
-
-        // if ( !preset )
-        // {
-
-            {{--Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {--}}
-            {{--    bg.setAttrs({--}}
-            {{--        x: 0,--}}
-            {{--        y: 0,--}}
-            {{--    });--}}
-            {{--    bg.setAttr('source', `{{ mix('img/blueprint/floors/transit130.png') }}`);--}}
-            {{--    floorLayer.add(bg);--}}
-            {{--    floorLayer.draw();--}}
-            {{--});--}}
-        // }
-        //
-        //
-        //
-        //
-        // let menuNode = document.getElementById('menu');
-        //
-        // let page_x;
-        // let page_y;
-        //
-        //
-        // window.addEventListener('mousemove', function(e){
-        //     page_x = e.pageX;
-        //     page_y = e.pageY;
-        // });
-        //
-        // window.addEventListener('click', () => {
-        //     // hide menu
-        //     menuNode.style.display = 'none';
-        //     objectMenu.style.display = 'none';
-        // });
-        //
-        //
-        //
-        // stage.on('contextmenu', function (e) {
-        //     // prevent default behavior
-        //     e.evt.preventDefault();
-        //
-        //     menuNode.style.display = 'initial';
-        //     let containerRect = stage.container().getBoundingClientRect();
-        //     menuNode.style.top =
-        //         containerRect.top + page_y + 4 + 'px';
-        //     menuNode.style.left =
-        //         containerRect.left + page_x + 4 + 'px';
-        // });
-        //
 
 
 
