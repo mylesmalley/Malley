@@ -3,6 +3,7 @@
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\View as PreView;
 use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
@@ -10,6 +11,9 @@ use App\Models\Configuration;
 
 class QuoteController extends Controller
 {
+
+    // container for the blueprint used in quote generation
+    public Blueprint $blueprint;
 
     /**
      * shows a page that allows for the creation and editing of quotes for blueprints
@@ -21,7 +25,6 @@ class QuoteController extends Controller
     public function show( Blueprint $blueprint ): View
     {
         $this->authorize('edit_configuration', $blueprint);
-
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
@@ -51,14 +54,42 @@ class QuoteController extends Controller
 
 
 
+    /**
+     * @return string
+     */
+    private function header(): string
+    {
+        $user = $this->blueprint->user;
+        $dealer = $user->company;
+        return PreView::make('blueprint::quote.pdf.header',[
+            'blueprint' => $this->blueprint,
+            'dealer' => $dealer,
+        ]);
+    }
 
 
+    /**
+     * @return string
+     */
+    private function footer(): string
+    {
+        return View::make('blueprint::quote.pdf.footer',[
+            'blueprint' => $this->blueprint,
+        ]);
+    }
 
 
-
+    /**
+     * @param Blueprint $blueprint
+     * @param string $type
+     */
     public function output_to_pdf( Blueprint $blueprint, string $type = 'no_pricing' )
     {
-        dd( $blueprint );
+        $this->blueprint = $blueprint;
+
+        dd( $this->header());
+
+        //dd( $blueprint );
     }
 
 
