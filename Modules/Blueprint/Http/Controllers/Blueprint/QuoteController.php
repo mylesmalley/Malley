@@ -3,49 +3,25 @@
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
 use Illuminate\Auth\Access\AuthorizationException;
-use App\Models\BlueprintWizardAnswer;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
-use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
 
     /**
-     * show all active configurations
+     * shows a page that allows for the creation and editing of quotes for blueprints
      *
      * @param Blueprint $blueprint
-     * @param Request $request
      * @return View
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint, Request $request ): View
+    public function show( Blueprint $blueprint ): View
     {
         $this->authorize('edit_configuration', $blueprint);
 
-//        $request->validate([
-//            'showAll' => [
-//                'sometimes'
-//            ],
-//            'orderBy' => [
-//               'sometimes',
-//                Rule::in(['id','name','description','obsolete','value','price_tier_3','price_tier_2'])
-//            ],
-//            'order' => [
-//                'sometimes',
-//                Rule::in(['ASC','DESC'])
-//            ]
-//        ]);
-
-
-//        $showAll = $request->has('showAll');
-//        $orderBy = $request->has('orderBy') ? $request->input('orderBy') : 'name';
-//        $sortOrder = $request->has('order') ? $request->input('order') : 'ASC';
-//
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
@@ -74,29 +50,8 @@ class QuoteController extends Controller
     }
 
 
-    /**
-     * reset the blueprint's configuration to have everything
-     * turned off. also clears out selected answers from wizards.
-     *
-     * @param Blueprint $blueprint
-     * @return RedirectResponse
-     * @throws AuthorizationException
-     */
-    public function reset( Blueprint $blueprint ): RedirectResponse
-    {
-        $this->authorize('reset_configuration', $blueprint );
 
-        Configuration::where('blueprint_id', $blueprint->id )
-            ->update([
-                'value' => 0,
-                'quantity' => 1
-            ]);
 
-        // clear out the selected answers so the forms are reset too.
-        BlueprintWizardAnswer::where('blueprint_id', $blueprint->id)->delete();
 
-        return redirect()
-            ->route('blueprint.home', [ $blueprint ])
-            ->with('success','Successfully reset this blueprint\'s configuration');
-    }
+
 }

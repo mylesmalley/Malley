@@ -28,6 +28,17 @@ class QuoteDetails extends Component
         'blueprint.customer_name' => 'string|max:255',
         'blueprint.customer_address_1' => 'string|max:255',
         'blueprint.customer_address_2' => 'string|max:255',
+        'blueprint.customer_city' => 'string|max:50',
+        'blueprint.customer_province' => 'string|max:20',
+        'blueprint.customer_country' => 'string|max:20',
+        'blueprint.customer_postalcode' => 'string|max:10',
+
+
+        'blueprint.exchange_rate' => 'numeric',
+        'blueprint.currency' => 'string|max:3',
+        'blueprint.quote_number' => 'string|max:20',
+        'blueprint.terms' => 'integer',
+
     ];
 
     /**
