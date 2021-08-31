@@ -15,6 +15,9 @@
     </div>
     <br>
 
+    @livewire("blueprint::quote-details", [ $blueprint  ]  )
+
+
     <div class="card border-primary">
         <div class="card-header bg-primary text-white text-center">
             {{ $title ?? "Configuration of Blueprint B-". $blueprint->id }}

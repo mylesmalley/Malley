@@ -18,11 +18,16 @@ class QuoteTotalLine extends Component
     public float $dealer;
     public float $msrp;
 
+    public $listeners = [
+        'update_totals',
+    ];
+
+
 
     /**
      *
      */
-    public function update(): void
+    public function update_totals(): void
     {
         $this->cost = 0;
         $this->dealer = 0;
@@ -54,7 +59,7 @@ class QuoteTotalLine extends Component
         $this->padding_columns = $padding_columns;
         $this->blueprint = $blueprint;
 
-        $this->update();
+        $this->update_totals();
     }
 
 
