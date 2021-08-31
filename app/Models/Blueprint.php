@@ -698,24 +698,24 @@ class Blueprint extends BaseModel implements HasMedia
         return true;
     }
 
-	/**
-	 * @return float
-	 */
-	public function getExchangeRateAttribute(): float
-	{
-		return number_format($this->attributes['exchange_rate'],3);
-	}
-
-
-	/**
-	 * @param float $value
-	 * @return float
-	 */
-	public function setExchangeRateAttribute( float $value ): float
-	{
-		$this->attributes['exchange_rate'] = number_format( $value, 3);
-		return $this->attributes['exchange_rate'];
-	}
+//	/**
+//	 * @return float
+//	 */
+//	public function getExchangeRateAttribute(): float
+//	{
+//		return number_format($this->attributes['exchange_rate'],3);
+//	}
+//
+//
+//	/**
+//	 * @param float $value
+//	 * @return float
+//	 */
+//	public function setExchangeRateAttribute( float $value ): float
+//	{
+//		$this->attributes['exchange_rate'] = number_format( $value, 3);
+//		return $this->attributes['exchange_rate'];
+//	}
 
 
 

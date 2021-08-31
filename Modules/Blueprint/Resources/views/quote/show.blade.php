@@ -25,14 +25,17 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Qty</th>
-                <th>Dealer Price</th>
-                <th>MSRP</th>
+                <th class="text-end">Dealer Price</th>
+                <th class="text-end">MSRP</th>
             </tr>
             </thead>
 
             @foreach( $configurations as $config )
                 @livewire("blueprint::configuration-line", [ 'configuration' => $config, 'pricing' => true ]  )
             @endforeach
+
+            @livewire("blueprint::quote-total-line", [ $blueprint, 3 ]  )
+
         </table>
     </div>
 

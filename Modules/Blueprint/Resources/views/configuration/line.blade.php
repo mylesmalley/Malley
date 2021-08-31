@@ -11,8 +11,8 @@
         @if ( $pricing )
 
             <td>{{ $configuration->quantity }}</td>
-            <td>{{ $configuration->price_tier_2 }}</td>
-            <td>{{ $configuration->price_tier_3 }}</td>
+            <td class="text-end">{{ $configuration->price_tier_2 }}</td>
+            <td class="text-end">{{ $configuration->price_tier_3 }}</td>
 
         @endif
     </tr>
