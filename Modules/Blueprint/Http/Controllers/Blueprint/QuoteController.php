@@ -54,4 +54,13 @@ class QuoteController extends Controller
 
 
 
+
+
+    public function output_to_pdf( Blueprint $blueprint, string $type = 'no_pricing' )
+    {
+        dd( $blueprint );
+    }
+
+
+
 }

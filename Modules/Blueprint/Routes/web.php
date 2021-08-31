@@ -67,9 +67,11 @@ Route::domain( config('malley.external_domain') )->group(function() {
                  * QUOTATION
                  */
                 // show the form, varied by the floor layout and other options
-                Route::get('/quotation', [QuoteController::class, 'show'])
+                Route::get('/quotation/create', [QuoteController::class, 'show'])
                     ->name('blueprint.quote');
 
+                Route::get('/quotation/{type?}', [QuoteController::class, 'output_to_pdf'])
+                    ->name('blueprint.quote.output_to_pdf');
 
 
 

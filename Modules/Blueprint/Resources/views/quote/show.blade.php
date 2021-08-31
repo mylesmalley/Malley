@@ -42,4 +42,16 @@
         </table>
     </div>
 
+    <br>
+
+    <div class="card border-secondary">
+        <div class="card-header bg-secondary text-white">
+            Get PDF of Quote
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary"
+               href="{{ route('blueprint.quote.output_to_pdf', [$blueprint]) }}">No Pricing</a>
+        </div>
+    </div>
+
 @endsection
