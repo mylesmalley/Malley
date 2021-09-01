@@ -27,6 +27,7 @@ class ConfigurationLine extends Component
     public array $rules = [
         'configuration.value' => 'sometimes|boolean',
         'configuration.show_on_quote' => 'sometimes|boolean',
+        'configuration.lock_pricing' => 'sometimes|boolean',
     ];
 
 

@@ -63,6 +63,20 @@
                         </div>
                     </div>
 
+                    <div class="col-2">
+
+                        <div class="form-group">
+                            <label for="lock_pricing">Lock Pricing</label>
+                            <select name="lock_pricing"
+                                    class="form-control form-control-sm"
+                                    wire:model="configuration.lock_pricing"
+                                    wire:change="save"
+                                    id="lock_pricing">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
 
 
                     <div class="col-2">
