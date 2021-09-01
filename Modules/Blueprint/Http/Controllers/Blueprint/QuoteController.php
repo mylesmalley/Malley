@@ -44,6 +44,7 @@ class QuoteController extends Controller
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
             ->where('value', 1)
+            ->orderBy('name', 'ASC')
             ->get();
 
         // lets roll!
