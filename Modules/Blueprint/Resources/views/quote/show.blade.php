@@ -17,6 +17,7 @@
 
     @livewire("blueprint::quote-details", [ $blueprint  ]  )
 
+    <br />
 
     <div class="card border-primary">
         <div class="card-header bg-primary text-white text-center">
@@ -42,28 +43,31 @@
         </table>
     </div>
 
-    <br>
+    <br />
 
     <div class="card border-secondary">
         <div class="card-header bg-secondary text-white">
             Get PDF of Quote
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
             <a class="btn btn-primary"
                href="{{ route('blueprint.quote.output_to_pdf', [$blueprint]) }}">No Pricing</a>
 
-            <a class="btn btn-primary"
+            <a class="btn btn-info"
                href="{{ route('blueprint.quote.output_to_pdf', [$blueprint, 'dealer']) }}">Dealer Pricing</a>
 
-            <a class="btn btn-primary"
+            <a class="btn btn-dark"
                href="{{ route('blueprint.quote.output_to_pdf', [$blueprint,'dealer_total_only']) }}">Dealer Total Only</a>
 
-            <a class="btn btn-primary"
+            <a class="btn btn-success"
                href="{{ route('blueprint.quote.output_to_pdf', [$blueprint, 'msrp']) }}">MSRP</a>
 
-            <a class="btn btn-primary"
+            <a class="btn btn-secondary"
                href="{{ route('blueprint.quote.output_to_pdf', [$blueprint,'msrp_total_only']) }}">MSRP Total Only</a>
+
+            <p>The quote will be emailed to you at {{ Auth::user()->email }}</p>
         </div>
     </div>
+    <br /><br /><br /><br />
 
 @endsection

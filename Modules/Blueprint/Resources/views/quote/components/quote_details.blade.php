@@ -1,9 +1,9 @@
 <div class="card border-secondary">
-    <form wire:submit.prevent="">
-        <div class="card-header bg-secondary text-white">
-            Quote Details
-        </div>
-        <div class="card-body">
+    <div class="card-header bg-secondary text-white">
+        Quote Details
+    </div>
+    <div class="card-body">
+        <form wire:submit.prevent="">
 
             <div class="row">
 
@@ -140,7 +140,8 @@
                                    placeholder="USA">
                         </div>
                     </div>
-            </div>
         </div>
+            </div>
     </form>
+</div>
 </div>

@@ -308,14 +308,18 @@ class QuoteController extends Controller
         }
 
 
-        try {
-
-            Mail::to( Auth::user()->email )
-                ->send( new QuoteMailer( $blueprint, $media ) );
-        } catch ( \Exception $e )
+        if (Auth::user()->email )
         {
-            dd( $e );
+            try {
+
+                Mail::to( Auth::user()->email )
+                    ->send( new QuoteMailer( $blueprint, $media ) );
+            } catch ( \Exception $e )
+            {
+            }
         }
+
+
 
 
         return redirect( $media->cdnUrl() );
