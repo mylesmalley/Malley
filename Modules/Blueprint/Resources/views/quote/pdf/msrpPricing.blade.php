@@ -1,6 +1,3 @@
-@php
-	$total = 0;
-@endphp
 <table id="quoteBody">
 	<thead>
 	<tr>
@@ -12,34 +9,22 @@
 	</thead>
 	<tbody>
 	<tr><td colspan="4"></td></tr>
-	
 	@foreach ($configuration as $config)
-		@if ( $config->value  &&  $config->show_on_quote )
-			@php
-				$linePrice = $config->MSRPPrice( $blueprint->exchange_rate ) * $config->quantity;
-				$total += $linePrice;
-			@endphp
-			<tr>
-				<td>{{ $config->name }}</td>
-				<td>{{ $config->description }}</td>
-				<td>{{ $config->quantity }}</td>
-				<td style="text-align:right;">
-					{{ ($linePrice != 0 ) ? number_format($linePrice,0) : '' }}
-				</td>
-			</tr>
-		@endif
-	
-	
-	
-	
-	
+		<tr>
+			<td>{{ $config->name }}</td>
+			<td>{{ $config->description }}</td>
+			<td>{{ $config->quantity }}</td>
+			<td style="text-align:right;">
+				{{ number_format( $config->quantity * $config->price_tier_3 * $blueprint->exchange_rate, 2 ) }}
+			</td>
+		</tr>
 	@endforeach
 	</tbody>
 	<tfoot>
-		<tr>
-			<td colspan="2"></td>
-			<td style="font-size: 15pt; color:white; ">{{ $blueprint->currency }}</td>
-			<td style="font-size: 15pt; color:white; ">${{ number_format( $total, 0 ) }}*</td>
-		</tr>
+	<tr>
+		<td colspan="2"></td>
+		<td style="font-size: 15pt; color:white; ">{{ $blueprint->currency }}</td>
+		<td style="font-size: 15pt; color:white; ">${{ number_format( $total, 0 ) }}*</td>
+	</tr>
 	</tfoot>
 </table>

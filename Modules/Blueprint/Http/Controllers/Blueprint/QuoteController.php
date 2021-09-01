@@ -138,11 +138,37 @@ class QuoteController extends Controller
     /**
      * @return string
      */
+    private function dealerPricingTotalOnly(): string
+    {
+        return PreView::make('blueprint::quote.pdf.totalOnly',[
+            'blueprint' => $this->blueprint,
+            'configuration' => $this->configuration,
+            'total' => $this->dealer_total,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    private function MSRPTotalPricing(): string
+    {
+        return PreView::make('blueprint::quote.pdf.totalOnly',[
+            'blueprint' => $this->blueprint,
+            'configuration' => $this->configuration,
+            'total' => $this->msrp_total,
+        ]);
+    }
+
+
+    /**
+     * @return string
+     */
     private function MSRPPricing(): string
     {
         return PreView::make('blueprint::quote.pdf.msrpPricing',[
             'blueprint' => $this->blueprint,
-            'configuration' => $this->blueprint->configuration,
+            'configuration' => $this->configuration,
+            'total' => $this->msrp_total,
         ]);
     }
 
@@ -218,7 +244,7 @@ class QuoteController extends Controller
                     $mpdf->WriteHTML( $this->MSRPPricing() );
                     break;
                 case("dealer_total_only"):
-                    $mpdf->WriteHTML( $this->DealerTotalPricing() );
+                    $mpdf->WriteHTML( $this->DealerPricingTotalOnly() );
                     break;
                 case("msrp_total_only"):
                     $mpdf->WriteHTML( $this->MSRPTotalPricing() );
