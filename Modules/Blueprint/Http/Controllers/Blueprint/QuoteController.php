@@ -5,11 +5,14 @@ namespace Modules\Blueprint\Http\Controllers\Blueprint;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View as PreView;
 use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
+use Modules\Blueprint\Emails\QuoteMailer;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\MpdfException;
@@ -303,6 +306,18 @@ class QuoteController extends Controller
         } catch ( MpdfException | FileDoesNotExist | FileIsTooBig $e ) {
             echo $e;
         }
+
+
+        try {
+
+            Mail::to( Auth::user()->email )
+                ->send( new QuoteMailer( $blueprint, $media ) );
+        } catch ( \Exception $e )
+        {
+            dd( $e );
+        }
+
+
         return redirect( $media->cdnUrl() );
 
 
