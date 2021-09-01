@@ -359,22 +359,54 @@ class RevisionController extends Controller
         // duplicate the existing configuration references
         foreach( $configurations as $config )
         {
-            $newconfig = $config->replicate()
-            ->fill( [
-                "name" => $new->option_name,
-                "description" => $new->option_description,
-                "syspro_phantom" => $new->option_syspro_phantom,
-                "price_tier_2" => $new->option_price_tier_2,
-                "price_tier_3" => $new->option_price_tier_3,
-                "price_dealer_offset" => $new->option_price_dealer_offset,
-                "price_msrp_offset" => $new->option_price_msrp_offset,
-                'long_lead_time' => $new->option_long_lead_time,
-                'show_on_quote' => $new->option_show_on_quote,
-                'light_component' => $new->option_light_component,
-                'fingerprint' => $new->fingerprint,
-                'obsolete' => 0,
-                'revision' => $new->revision,
-            ]);
+
+            /*
+             * Sept 1, 2021
+             * Tony Goss requested ability to 'lock' pricing on a config line so that it wouldn't be overwritten by a change
+             * or new revision
+             *
+             * if $config->lock_pricing is false, the default, do what has always been done.
+             * if it is TRUE, still update all other elements but skip over pricing lines.
+             */
+            if ( ! $config->lock_pricing )
+            {
+                $newconfig = $config->replicate()
+                ->fill( [
+                    "name" => $new->option_name,
+                    "description" => $new->option_description,
+                    "syspro_phantom" => $new->option_syspro_phantom,
+                    "price_tier_2" => $new->option_price_tier_2,
+                    "price_tier_3" => $new->option_price_tier_3,
+                    "price_dealer_offset" => $new->option_price_dealer_offset,
+                    "price_msrp_offset" => $new->option_price_msrp_offset,
+                    'long_lead_time' => $new->option_long_lead_time,
+                    'show_on_quote' => $new->option_show_on_quote,
+                    'light_component' => $new->option_light_component,
+                    'fingerprint' => $new->fingerprint,
+                    'obsolete' => 0,
+                    'revision' => $new->revision,
+                ]);
+            }
+            else
+            {
+                $newconfig = $config->replicate()
+                    ->fill( [
+                        "name" => $new->option_name,
+                        "description" => $new->option_description,
+                        "syspro_phantom" => $new->option_syspro_phantom,
+//                        "price_tier_2" => $new->option_price_tier_2,
+//                        "price_tier_3" => $new->option_price_tier_3,
+//                        "price_dealer_offset" => $new->option_price_dealer_offset,
+//                        "price_msrp_offset" => $new->option_price_msrp_offset,
+                        'long_lead_time' => $new->option_long_lead_time,
+                        'show_on_quote' => $new->option_show_on_quote,
+                        'light_component' => $new->option_light_component,
+                        'fingerprint' => $new->fingerprint,
+                        'obsolete' => 0,
+                        'revision' => $new->revision,
+                    ]);
+            }
+
 
             $newconfig->option_id = $new->id;
             $newconfig->save();
