@@ -9,14 +9,17 @@
 
             <span class="float-end">
 
-            @if ($configuration->option && Auth::user()->is_malley_staff && !$configuration->option->hasComponents && !$configuration->option->no_components )
+            @if ($configuration->option
+                    && Auth::user()->is_malley_staff
+                    && !$configuration->option->componentCount
+                    && !$configuration->option->no_components )
                 <span class="badge bg-danger">NOT CONFIGURED</span>
             @endif
             @if (  !$configuration->show_on_quote )
                 <span class="badge bg-dark">HIDDEN ON QUOTE</span>
             @endif
                         </span>
-
+{{ $configuration->option->componentCount }}
 
         </td>
         @if ( $pricing )

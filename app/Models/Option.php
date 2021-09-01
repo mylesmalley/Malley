@@ -784,6 +784,24 @@ class Option extends BaseModel implements HasMedia
 
 
 
+    public function componentCount()
+    {
 
+        return $this->hasOne('App\Models\Component')
+            ->selectRaw('option_id, count(*) as aggregate')
+            ->groupBy('option_id');
+    }
+
+    public function getComponentCountAttribute()
+    {
+        // if relation is not loaded already, let's do it first
+//        if ( ! array_key_exists('commentsCount', $this->relations))
+//            $this->load('commentsCount');
+
+        $related = $this->getRelation('componentCount');
+
+        // then return the count directly
+        return ($related) ? (int) $related->aggregate : 0;
+    }
 
 }
