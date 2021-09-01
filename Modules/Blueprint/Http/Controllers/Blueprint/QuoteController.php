@@ -3,6 +3,8 @@
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View as PreView;
 use Illuminate\View\View;
 use App\Models\Blueprint;
@@ -19,6 +21,11 @@ class QuoteController extends Controller
 
     // container for the blueprint used in quote generation
     public Blueprint $blueprint;
+    public Collection $configuration;
+
+    public float $dealer_total = 0;
+    public float $msrp_total = 0;
+
 
     /**
      * shows a page that allows for the creation and editing of quotes for blueprints
@@ -96,12 +103,45 @@ class QuoteController extends Controller
 
 
 
+
+
+
+
+
+
+
+
     /**
      * @return string
      */
     private function noPricing(): string
     {
         return PreView::make('blueprint::quote.pdf.noPricing',[
+            'configuration' => $this->configuration,
+        ]);
+    }
+
+
+    /**
+     * @return string
+     */
+    private function dealerPricing(): string
+    {
+        return PreView::make('blueprint::quote.pdf.dealerPricing',[
+            'blueprint' => $this->blueprint,
+            'configuration' => $this->configuration,
+            'total' => $this->dealer_total,
+        ]);
+    }
+
+
+    /**
+     * @return string
+     */
+    private function MSRPPricing(): string
+    {
+        return PreView::make('blueprint::quote.pdf.msrpPricing',[
+            'blueprint' => $this->blueprint,
             'configuration' => $this->blueprint->configuration,
         ]);
     }
@@ -109,14 +149,29 @@ class QuoteController extends Controller
 
 
 
-
     /**
+     * pulls it all together then redirects to the rendered PDF stored in AWS
+     *
      * @param Blueprint $blueprint
      * @param string $type
+     * @return RedirectResponse
      */
-    public function output_to_pdf( Blueprint $blueprint, string $type = 'no_pricing' )
+    public function output_to_pdf( Blueprint $blueprint, string $type = 'no_pricing' ): RedirectResponse
     {
         $this->blueprint = $blueprint;
+        $this->configuration = Configuration::where('blueprint_id', $blueprint->id )
+            ->where('value', 1)
+            ->where('show_on_quote', true)
+            ->orderBy('name', 'ASC')
+            ->get();
+
+
+        foreach( $this->configuration as $c )
+        {
+            $this->dealer_total += $c->price_tier_2 * $this->blueprint->exchange_rate * $c->quantity;
+            $this->msrp_total += $c->price_tier_3 * $this->blueprint->exchange_rate * $c->quantity;
+        }
+
 
 
         $stylesheet = public_path('css/letterhead.css');
@@ -156,15 +211,20 @@ class QuoteController extends Controller
                 case( "no_pricing" ):
                     $mpdf->WriteHTML( $this->noPricing() ) ;
                     break;
-//                case( "dealerPricing" ):
-//                    $mpdf->WriteHTML( $this->dealerPricing() ) ;
-//                    break;
-//                case("MSRPPricing"):
-//                    $mpdf->WriteHTML( $this->MSRPPricing() );
-//                    break;
-                default:
-                    die("no permission to see this {$type}");
+                case( "dealer" ):
+                    $mpdf->WriteHTML( $this->dealerPricing() ) ;
                     break;
+                case("msrp"):
+                    $mpdf->WriteHTML( $this->MSRPPricing() );
+                    break;
+                case("dealer_total_only"):
+                    $mpdf->WriteHTML( $this->DealerTotalPricing() );
+                    break;
+                case("msrp_total_only"):
+                    $mpdf->WriteHTML( $this->MSRPTotalPricing() );
+                    break;
+                default:
+                    die("no permission to see this $type");
             }
 
 
@@ -178,7 +238,7 @@ class QuoteController extends Controller
              * TERMS SECTION
              */
             // reset header
-            $mpdf->SetHTMLHeader( "" );
+            $mpdf->SetHTMLHeader();
 
             if( $blueprint->terms === 1)
             {
@@ -189,7 +249,7 @@ class QuoteController extends Controller
                     'margin-bottom' => 20,
 
                 ]);
-                $mpdf->SetHTMLFooter( "" );
+                $mpdf->SetHTMLFooter();
 
                 $mpdf->WriteHTML( $this->terms() ) ;
             }

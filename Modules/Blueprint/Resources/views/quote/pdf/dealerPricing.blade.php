@@ -1,6 +1,3 @@
-@php
-	$total = 0;
-@endphp
 <table id="quoteBody">
 	<thead>
 		<tr>
@@ -13,20 +10,14 @@
 	<tbody>
 		<tr><td colspan="4"></td></tr>
 		@foreach ($configuration as $config)
-			@if ( $config->value  &&  $config->show_on_quote )
-				@php
-					$linePrice = $config->DealerPrice( $blueprint->exchange_rate ) * $config->quantity;
-					$total += $linePrice;
-				@endphp
-				<tr>
-					<td>{{ $config->name }}</td>
-					<td>{{ $config->description }}</td>
-					<td>{{ $config->quantity }}</td>
-					<td style="text-align:right;">
-						{{ ($linePrice != 0) ? number_format($linePrice,0) : '' }}
-					</td>
-				</tr>
-			@endif
+			<tr>
+				<td>{{ $config->name }}</td>
+				<td>{{ $config->description }}</td>
+				<td>{{ $config->quantity }}</td>
+				<td style="text-align:right;">
+					{{ number_format( $config->quantity * $config->price_tier_2 * $blueprint->exchange_rate, 2 ) }}
+				</td>
+			</tr>
 		@endforeach
 	</tbody>
 	<tfoot>

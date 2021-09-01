@@ -51,6 +51,18 @@
         <div class="card-body">
             <a class="btn btn-primary"
                href="{{ route('blueprint.quote.output_to_pdf', [$blueprint]) }}">No Pricing</a>
+
+            <a class="btn btn-primary"
+               href="{{ route('blueprint.quote.output_to_pdf', [$blueprint, 'dealer']) }}">Dealer Pricing</a>
+
+            <a class="btn btn-primary"
+               href="{{ route('blueprint.quote.output_to_pdf', [$blueprint,'dealer_total_only']) }}">Dealer Total Only</a>
+
+            <a class="btn btn-primary"
+               href="{{ route('blueprint.quote.output_to_pdf', [$blueprint, 'msrp']) }}">MSRP</a>
+
+            <a class="btn btn-primary"
+               href="{{ route('blueprint.quote.output_to_pdf', [$blueprint,'msrp_total_only']) }}">MSRP Total Only</a>
         </div>
     </div>
 
