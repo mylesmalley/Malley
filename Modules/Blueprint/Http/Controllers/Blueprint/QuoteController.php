@@ -45,9 +45,9 @@ class QuoteController extends Controller
             ->where('obsolete', false)
             ->where('value', 1)
             // narrow things down a bit...
-            ->select([
-                'id','name','description','obsolete','value', 'quantity','price_tier_3','price_tier_2'
-            ])
+//            ->select([
+//                'id','name','description','obsolete','value', 'quantity','price_tier_3','price_tier_2'
+//            ])
             // don't filter at all if showAll is present
 //            ->when($showAll, function( $query ) {  })
 //            // filter all but value > 0 if showAll not present

@@ -50,9 +50,9 @@ class ConfigurationController extends Controller
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
             // narrow things down a bit...
-            ->select([
-                'id','name','description','obsolete','value','price_tier_3','price_tier_2'
-            ])
+//            ->select([
+//                'id','name','description','obsolete','value','price_tier_3','price_tier_2'
+//            ])
             // don't filter at all if showAll is present
             ->when($showAll, function( $query ) {  })
             // filter all but value > 0 if showAll not present

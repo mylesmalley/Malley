@@ -23,7 +23,7 @@
         <div class="card-header bg-primary text-white text-center">
             {{ $title ?? "Configuration of Blueprint B-". $blueprint->id }}
         </div>
-        <table class="table table-sm table-striped">
+        <table class="table table-sm table-striped table-hover">
             <thead>
             <tr>
                 <th>Name</th>
