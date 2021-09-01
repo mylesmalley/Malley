@@ -88,6 +88,7 @@
                                 <a href="{{ route('option.usage', [$configuration->option_id]) }}">Option usage details</a>
                             </li>
                         </ul>
+                        <small>Option Rev #: {{ $configuration->option->revision }}</small>
                     </div>
                 </div>
 

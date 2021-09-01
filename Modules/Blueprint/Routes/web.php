@@ -9,7 +9,7 @@ use Modules\Blueprint\Http\Controllers\Blueprint\ConfigurationController;
 use Modules\Blueprint\Http\Controllers\Blueprint\FloorLayoutController;
 use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
 
-Route::domain( config('malley.external_domain') )->group(function() {
+//Route::domain( config('malley.external_domain') )->group(function() {
     Route::middleware(['auth'])->group( function(){
 
     Route::prefix('blueprint')->group(function() {
@@ -87,7 +87,7 @@ Route::domain( config('malley.external_domain') )->group(function() {
 
         }); // end blueprint routes
     }); // end middleware
-}); // end domain
+//}); // end domain
 
 
 //
