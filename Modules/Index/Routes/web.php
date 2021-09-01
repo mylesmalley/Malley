@@ -199,7 +199,8 @@ Route::group(["prefix" => "index"], function(){
 
 
         // usage of this option in Blueprint
-        Route::get('/{option}/usage',    "Option\UsageController@show");
+        Route::get('/{option}/usage',    "Option\UsageController@show")
+            ->name('option.usage');
 
 
 

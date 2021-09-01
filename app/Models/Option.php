@@ -783,10 +783,12 @@ class Option extends BaseModel implements HasMedia
     }
 
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * used this to fix eager loading n+1 queries
+     */
     public function componentCount()
     {
-
         return $this->hasOne('App\Models\Component')
             ->selectRaw('option_id, count(*) as aggregate')
             ->groupBy('option_id');
@@ -794,9 +796,6 @@ class Option extends BaseModel implements HasMedia
 
     public function getComponentCountAttribute()
     {
-        // if relation is not loaded already, let's do it first
-//        if ( ! array_key_exists('commentsCount', $this->relations))
-//            $this->load('commentsCount');
 
         $related = $this->getRelation('componentCount');
 

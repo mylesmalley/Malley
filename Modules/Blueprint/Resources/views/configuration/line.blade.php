@@ -19,7 +19,6 @@
                 <span class="badge bg-dark">HIDDEN ON QUOTE</span>
             @endif
                         </span>
-{{ $configuration->option->componentCount }}
 
         </td>
         @if ( $pricing )
@@ -64,6 +63,18 @@
                         </div>
                     </div>
 
+
+
+                    <div class="col-2">
+                        <ul>
+                            <li>
+                                <a href="{{ route('option.home', [$configuration->option_id]) }}">Visit in the Index</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('option.usage', [$configuration->option_id]) }}">Option usage details</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
 
