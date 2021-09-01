@@ -44,23 +44,9 @@ class QuoteController extends Controller
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
             ->where('value', 1)
-            // narrow things down a bit...
-//            ->select([
-//                'id','name','description','obsolete','value', 'quantity','price_tier_3','price_tier_2'
-//            ])
-            // don't filter at all if showAll is present
-//            ->when($showAll, function( $query ) {  })
-//            // filter all but value > 0 if showAll not present
-//            ->when(!$showAll, function( $query ) {
-//                return $query->where('value', '>', 0);
-//            })
-//            // handle sort order and direction if present
-//            ->when($orderBy, function( $query, $orderBy ) use ($sortOrder) {
-//                return $query->orderBy( $orderBy, $sortOrder );
-//            })
             ->get();
 
-        // lets role!
+        // lets roll!
         return view('blueprint::quote.show', [
             'blueprint' => $blueprint,
             'configurations' => $configs,
@@ -188,6 +174,8 @@ class QuoteController extends Controller
     public function output_to_pdf( Blueprint $blueprint, string $type = 'no_pricing' ): RedirectResponse
     {
         $this->blueprint = $blueprint;
+
+
         $this->configuration = Configuration::where('blueprint_id', $blueprint->id )
             ->where('value', 1)
             ->where('show_on_quote', true)
@@ -253,7 +241,7 @@ class QuoteController extends Controller
                     $mpdf->WriteHTML( $this->MSRPTotalPricing() );
                     break;
                 default:
-                    die("no permission to see this $type");
+                    die("no permission to see this");
             }
 
 
@@ -266,11 +254,16 @@ class QuoteController extends Controller
             /*
              * TERMS SECTION
              */
-            // reset header
-            $mpdf->SetHTMLHeader();
 
-            if( $blueprint->terms === 1)
+           // dd($blueprint->terms );
+
+            if( $blueprint->terms )
             {
+
+           //     dd( $this->terms() );
+
+                $mpdf->SetHTMLHeader();
+
                 $mpdf->addPageByArray([
                     'margin-left' => 20,
                     'margin-right' => 20,

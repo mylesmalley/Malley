@@ -21,25 +21,31 @@
             <td colspan="100">
                 <div class="row">
                     <div class="col-2">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   wire:model="configuration.value"
-                                   wire:click="save"
-                                   id="{{ $configuration->id }}value">
-                            <label class="form-check-label"
-                                   for="{{ $configuration->id }}value">Selected</label>
+
+                        <div class="form-group">
+                            <label for="value">Turned on?</label>
+                            <select name="value"
+                                    wire:model="configuration.value"
+                                    wire:change="save"
+                                    class="form-control form-control-sm"
+                                    id="value">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   wire:click="save"
-                                   wire:model="configuration.show_on_quote"
-                                   id="{{ $configuration->id }}show_on_quote">
-                            <label class="form-check-label"
-                                   for="{{ $configuration->id }}show_on_quote">Show on Quote</label>
+
+                        <div class="form-group">
+                            <label for="show_on_quote">Show on Quote?</label>
+                            <select name="show_on_quote"
+                                    class="form-control form-control-sm"
+                                    wire:model="configuration.show_on_quote"
+                                    wire:change="save"
+                                    id="show_on_quote">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                     </div>
 

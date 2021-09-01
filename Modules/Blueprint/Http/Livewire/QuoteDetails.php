@@ -3,7 +3,6 @@
 namespace Modules\Blueprint\Http\Livewire;
 
 
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\View\View;
 use App\Models\Blueprint;
@@ -37,7 +36,8 @@ class QuoteDetails extends Component
         'blueprint.exchange_rate' => 'numeric',
         'blueprint.currency' => 'string|max:3',
         'blueprint.quote_number' => 'string|max:20',
-        'blueprint.terms' => 'integer',
+
+        'blueprint.terms' => 'boolean',
 
     ];
 

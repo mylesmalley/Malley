@@ -60,6 +60,39 @@
                             <a href="https://xe.com">Look Up Rates</a>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="0"
+                                       wire:model="blueprint.terms"
+                                       wire:change="save"
+                                       name="terms"
+                                       id="terms0"
+                                >
+                                <label class="form-check-label" for="terms0">
+                                    No Terms
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="1"
+                                       wire:model="blueprint.terms"
+                                       wire:change="save"
+                                       name="terms"
+                                       id="terms1"
+                                >
+                                <label class="form-check-label" for="terms1">
+                                    Standard Terms and Conditions
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
 
                 </div>
 
