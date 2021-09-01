@@ -20,13 +20,22 @@
     @if( $details )
         <tr>
             <td>
-                @if ( $configuration->value )
-                    <a wire:click="toggle"
-                       class="btn btn-sm btn-danger">Turn Off</a>
-                @else
-                    <a wire:click="toggle"
-                       class="btn btn-sm btn-success">Turn On</a>
-                @endif
+                <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           wire:model="configuration.value"
+                           id="value">
+                    <label class="form-check-label"
+                           for="value">Selected</label>
+                </div>
+
+{{--                @if ( $configuration->value )--}}
+{{--                    <a wire:click="toggle"--}}
+{{--                       class="btn btn-sm btn-danger">Turn Off</a>--}}
+{{--                @else--}}
+{{--                    <a wire:click="toggle"--}}
+{{--                       class="btn btn-sm btn-success">Turn On</a>--}}
+{{--                @endif--}}
             </td>
         </tr>
     @endif

@@ -24,6 +24,12 @@ class ConfigurationLine extends Component
     }
 
 
+    public array $rules = [
+        'configuration.value' => 'sometimes|boolean',
+        'configuration.show_on_quote' => 'sometimes|boolean',
+    ];
+
+
     /**
      * toggles if teh detail view is on or not
      */
@@ -35,6 +41,13 @@ class ConfigurationLine extends Component
     public function toggle()
     {
         $this->configuration->value = ! $this->configuration->value;
+        $this->configuration->save();
+    }
+
+
+    public function save()
+    {
+        $this->validate();
         $this->configuration->save();
     }
 
