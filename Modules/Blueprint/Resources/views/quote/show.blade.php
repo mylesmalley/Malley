@@ -15,11 +15,13 @@
     </div>
     <br>
 
-    @livewire("blueprint::quote-details", [ $blueprint  ]  )
+{{--    @livewire("blueprint::quote-details", [ $blueprint  ]  )--}}
 
     <br />
 
     @livewire("blueprint::quote-body", [ $blueprint  ]  )
+
+{{--    @livewire("blueprint::custom-quote-line", [ $blueprint ]  )--}}
 
 
     <br />

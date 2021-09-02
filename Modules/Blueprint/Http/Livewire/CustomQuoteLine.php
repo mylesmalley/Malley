@@ -53,22 +53,13 @@ class CustomQuoteLine extends Component
         ]);
         $this->configuration->save();
 
-    //  dd( $this->configuration );
-
-        //$this->save();
-
-        // reset teh configuration and load up a new empty one for use.
-//        unset( $this->configuration );
-//        $this->configuration = new Configuration();
 
         // fire off an event to update the list of configs
+        $this->emitTo('blueprint::quote-body', 'reload_quote_body' );
     }
 
 
-    public function test()
-    {
-        dd( $this->configuration );
-    }
+
 
     public function render(): View
     {

@@ -79,6 +79,7 @@
                     </div>
 
 
+                    @if ( $configuration->option_id)
                     <div class="col-2">
                         <ul>
                             <li>
@@ -90,6 +91,9 @@
                         </ul>
                         <small>Option Rev #: {{ $configuration->option->revision }}</small>
                     </div>
+                    @else
+
+                    @endif
                 </div>
 
 

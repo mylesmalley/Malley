@@ -2,7 +2,6 @@
 
 namespace Modules\Blueprint\Http\Livewire;
 
-
 use App\Models\Configuration;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -22,23 +21,13 @@ class QuoteBody extends Component
     {
         $this->blueprint = $blueprint;
 
-        $this->configurations = $this->refresh();
-    }
-
-
-    /**
-     * @return Collection
-     */
-    public function refresh(): Collection
-    {
-        return Configuration::where('blueprint_id', $this->blueprint->id )
+        $this->configurations = Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('obsolete', false)
             ->where('value', 1)
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount'])
-            ->get();
+            ->get();;
     }
-
 
     /**
      * @return View
