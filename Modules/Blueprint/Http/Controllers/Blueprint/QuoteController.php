@@ -41,21 +41,21 @@ class QuoteController extends Controller
     {
         $this->authorize('edit_configuration', $blueprint);
 
-        $configs = Configuration::where('blueprint_id', $blueprint->id )
-            ->where('obsolete', false)
-            ->where('value', 1)
-            ->orderBy('name', 'ASC')
-//            ->with(['option' => function($query) {
-//                $query->withCount('components');
-//            }])
-                ->with(['option','option.componentCount'])
-         //   ->withCount(['option', 'option.components'])
-            ->get();
+//        $configs = Configuration::where('blueprint_id', $blueprint->id )
+//            ->where('obsolete', false)
+//            ->where('value', 1)
+//            ->orderBy('name', 'ASC')
+////            ->with(['option' => function($query) {
+////                $query->withCount('components');
+////            }])
+//                ->with(['option','option.componentCount'])
+//         //   ->withCount(['option', 'option.components'])
+//            ->get();
 
         // lets roll!
         return view('blueprint::quote.show', [
             'blueprint' => $blueprint,
-            'configurations' => $configs,
+  //          'configurations' => $configs,
         ]);
     }
 
