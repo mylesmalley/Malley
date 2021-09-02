@@ -32,13 +32,8 @@ class CustomQuoteLine extends Component
     public function mount( Blueprint $blueprint ): void
     {
         $this->blueprint = $blueprint;
-        $this->configuration = Configuration::create([
-            'blueprint_id' => $this->blueprint->id,
-            'base_van_id' => $this->blueprint->base_van_id,
-            'value' => 1,
-            'show_on_quote' => 1,
-            'name' => 'CUSTOM'
-        ]);
+        $this->configuration = new Configuration();
+
       //  $this->configuration->fill();
     }
 
@@ -49,7 +44,13 @@ class CustomQuoteLine extends Component
     public function save(): void
     {
         $this->validate();
-
+        $this->configuration->fill([
+            'blueprint_id' => $this->blueprint->id,
+            'base_van_id' => $this->blueprint->base_van_id,
+            'value' => 1,
+            'show_on_quote' => 1,
+            'name' => 'CUSTOM'
+        ]);
         $this->configuration->save();
 
     //  dd( $this->configuration );

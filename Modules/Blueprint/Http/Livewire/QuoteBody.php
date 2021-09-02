@@ -22,15 +22,22 @@ class QuoteBody extends Component
     {
         $this->blueprint = $blueprint;
 
-        $this->configurations = Configuration::where('blueprint_id', $blueprint->id )
+        $this->configurations = $this->refresh();
+    }
+
+
+    /**
+     * @return Collection
+     */
+    public function refresh(): Collection
+    {
+        return Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('obsolete', false)
             ->where('value', 1)
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount'])
             ->get();
-
     }
-
 
 
     /**
