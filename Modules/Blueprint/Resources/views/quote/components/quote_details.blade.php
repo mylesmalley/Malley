@@ -10,6 +10,8 @@
                 <div class="col-4 text-primary">
                     <h3 class="">Instructions</h3>
                     <p> Changes to the fields in this box will be saved automatically. </p>
+                    <p>To make changes to a line on the quote, click on it below. It will expand to show more options.</p>
+
                 </div>
 
                 <div class="col-4">
