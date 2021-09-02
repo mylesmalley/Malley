@@ -38,6 +38,10 @@
                 @livewire("blueprint::configuration-line", [ 'configuration' => $config, 'pricing' => true ]  )
             @endforeach
 
+
+            @livewire("blueprint::custom-quote-line", [ $blueprint ]  )
+
+
             @livewire("blueprint::quote-total-line", [ $blueprint, 3 ]  )
 
         </table>
