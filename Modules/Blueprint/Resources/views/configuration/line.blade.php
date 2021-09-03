@@ -24,8 +24,8 @@
         @if ( $pricing )
 
             <td class="text-end">{{ $configuration->quantity }}</td>
-            <td class="text-end">{{ $configuration->price_tier_2 }}</td>
-            <td class="text-end">{{ $configuration->price_tier_3 }}</td>
+            <td class="text-end">{{ $configuration->DealerPrice( $exchange_rate ) }}</td>
+            <td class="text-end">{{ $configuration->MSRPPrice( $exchange_rate ) }}</td>
 
         @endif
     </tr>

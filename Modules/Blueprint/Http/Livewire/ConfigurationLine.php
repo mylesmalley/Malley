@@ -13,6 +13,7 @@ class ConfigurationLine extends Component
     public Configuration $configuration;
     public bool $details = false;
     public bool $pricing = false;
+    public float $exchange_rate;
 
     /**
      * @param Configuration $configuration
@@ -21,6 +22,7 @@ class ConfigurationLine extends Component
     {
         $this->pricing = $pricing;
         $this->configuration = $configuration;
+        $this->exchange_rate = $configuration->blueprint->exchange_rate;
     }
 
 

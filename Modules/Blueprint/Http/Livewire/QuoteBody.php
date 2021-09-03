@@ -39,7 +39,7 @@ class QuoteBody extends Component
             ->where('obsolete', false)
             ->where('value', 1)
             ->orderBy('name', 'ASC')
-            ->with(['option','option.componentCount'])
+            ->with(['option','option.componentCount','blueprint'])
             ->get();;
     }
 

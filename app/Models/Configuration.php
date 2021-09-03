@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Models;
-//
-//use \App\Models\BaseModel;
-//use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Configuration
@@ -31,8 +31,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int|null $option_id
  * @property string|null $fingerprint
  * @property int $quantity
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property float $price_base_offset
  * @property float $price_dealer_offset
  * @property float $price_msrp_offset
@@ -40,9 +40,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property bool $retired
  * @property int|null $revision
  * @property bool|null $obsolete
- * @property-read \App\Models\Blueprint $blueprint
+ * @property-read Blueprint $blueprint
  * @property-read bool $is_current
- * @property-read \App\Models\Option|null $option
+ * @property-read Option|null $option
  * @method static Builder|Configuration newModelQuery()
  * @method static Builder|Configuration newQuery()
  * @method static Builder|Configuration query()
@@ -76,7 +76,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|Configuration whereSysproPhantom($value)
  * @method static Builder|Configuration whereUpdatedAt($value)
  * @method static Builder|Configuration whereValue($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Configuration extends BaseModel
 {
@@ -140,62 +140,62 @@ class Configuration extends BaseModel
     }
 
 
+//
+//    /**
+//	 * if the option isn't selected, return 0 regardless. If the option is on, return the quantity
+//	 * @return int
+//	 */
+//	public function physicalQuantity(): int
+//	{
+//		if ( $this->value ) return $this->quantity;
+//		return 0;
+//	}
+//
+//
+//	/**
+//	 * @return int
+//	 */
+//	public function increaseQuantity(): int
+//	{
+//		if ( $this->attributes['value'] == 0)
+//		{
+//			$this->attributes['quantity'] = 1;
+//			$this->attributes['value'] = 1;
+//			return 1;
+//		}
+//
+//		$this->attributes['quantity'] += 1;
+//		return $this->attributes['quantity'];
+//	}
+//
+//	/**
+//	 * @return int
+//	 */
+//	public function decreaseQuantity(): int
+//	{
+//		if ( $this->attributes['quantity'] == 1)
+//		{
+//			$this->attributes['value'] = 0;
+//			return 1;
+//		}
+//
+//		$this->attributes['quantity'] -= 1;
+//		return $this->attributes['quantity'] - 1;
+//	}
 
-    /**
-	 * if the option isn't selected, return 0 regardless. If the option is on, return the quantity
-	 * @return int
-	 */
-	public function physicalQuantity(): int
-	{
-		if ( $this->value ) return $this->quantity;
-		return 0;
-	}
 
+//	/**
+//	 * @return string
+//	 */
+//	public function friendlyValue()
+//	{
+//		return ($this->attributes['value']) ? 'Yes' : 'No';
+//	}
 
 	/**
-	 * @return int
+	 * @return BelongsTo
 	 */
-	public function increaseQuantity(): int
-	{
-		if ( $this->attributes['value'] == 0)
-		{
-			$this->attributes['quantity'] = 1;
-			$this->attributes['value'] = 1;
-			return 1;
-		}
-
-		$this->attributes['quantity'] += 1;
-		return $this->attributes['quantity'];
-	}
-
-	/**
-	 * @return int
-	 */
-	public function decreaseQuantity(): int
-	{
-		if ( $this->attributes['quantity'] == 1)
-		{
-			$this->attributes['value'] = 0;
-			return 1;
-		}
-
-		$this->attributes['quantity'] -= 1;
-		return $this->attributes['quantity'] - 1;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function friendlyValue()
-	{
-		return ($this->attributes['value']) ? 'Yes' : 'No';
-	}
-
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function blueprint()
+	public function blueprint(): BelongsTo
 	{
 		return $this->belongsTo("\App\Models\Blueprint");
 	}
@@ -223,31 +223,26 @@ class Configuration extends BaseModel
 	/**
 	 * @return string
 	 */
-    public function fingerprintString()
+    public function fingerprintString(): string
     {
 
-
-        $string = $this->name .
+        return $this->name .
             $this->description .
             $this->syspro_phantom .
-
             round($this->price_tier_3) .
                 round( $this->price_tier_2) .
                     round($this->price_tier_1) .
             $this->long_lead_time;
-
-
-        return $string;
     }
 
-
-    /**
-     * @return bool
-     */
-    public function getIsCurrentAttribute(): bool
-    {
-        return ($this->fingerprint === $this->option->fingerprint ) ? true : false;
-    }
+//
+//    /**
+//     * @return bool
+//     */
+//    public function getIsCurrentAttribute(): bool
+//    {
+//        return ($this->fingerprint === $this->option->fingerprint ) ? true : false;
+//    }
 
 
     /**
@@ -255,8 +250,6 @@ class Configuration extends BaseModel
      */
 	public function getQuantityAttribute(): int
 	{
-		//return ($this->attributes['quantity'] != null) ? $this->attributes['quantity'] : 1;
-
         return $this->attributes['quantity'] ?? 1;
 	}
 
@@ -264,16 +257,16 @@ class Configuration extends BaseModel
 	/**
 	 * @return string
 	 */
-	public function getCostAttribute()
+	public function getCostAttribute(): string
 	{
 		return number_format( (float) $this->attributes['cost'], 2, '.', '');
 	}
 
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @return BelongsTo
 	 */
-	public function option()
+	public function option(): BelongsTo
 	{
 		return $this->belongsTo('App\Models\Option');
 	}
@@ -285,11 +278,10 @@ class Configuration extends BaseModel
 	 */
 	public function MSRPPrice( float $exchange = 1 ): float
 	{
-        return ( $this->attributes['price_tier_3'] - $this->attributes['price_msrp_offset'] ) * $exchange;
-
-//        return number_format(
-//		    ( $this->attributes['price_tier_3'] - $this->attributes['price_msrp_offset'] ) * $exchange,
-//            2, '.', '');
+        return ( $this->attributes['price_tier_3']
+                    - $this->attributes['price_msrp_offset'] )
+                    * $exchange
+                    * $this->attributes['quantity'];
 	}
 
 	/**
@@ -298,18 +290,20 @@ class Configuration extends BaseModel
 	 */
 	public function DealerPrice( float $exchange = 1 ): float
 	{
-		return ( $this->attributes['price_tier_2'] - $this->attributes['price_dealer_offset'] ) * $exchange;
-
-//        return number_format(
-//            ( $this->attributes['price_tier_2'] - $this->attributes['price_msrp_offset'] ) * $exchange,
-//            2, '.', '');
+		return ( $this->attributes['price_tier_2']
+                - $this->attributes['price_dealer_offset'] )
+                * $exchange
+                * $this->attributes['quantity'];
 	}
 
-	public function resetPrice()
+
+    /**
+     *
+     */
+	public function resetPrice(): void
 	{
-		$option = $this->option;
-		$this->price_tier_2 = $option->option_price_tier_2;
-		$this->price_tier_3 = $option->option_price_tier_3;
+		$this->attributes['price_tier_2'] = $this->option->option_price_tier_2;
+		$this->attributes['price_tier_3'] = $this->option->option_price_tier_3;
 		$this->save();
 	}
 
