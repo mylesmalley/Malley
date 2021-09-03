@@ -3,8 +3,8 @@
 
     <div class="card border-primary">
         <div class="card-header bg-primary text-white text-center">
-{{--            {{ $title ?? "Configuration of Blueprint B-". $blueprint->id }}--}}
-            <button wire:click="$refresh">Refresh</button>
+            {{ $title ?? "Configuration of Blueprint B-". $blueprint->id }}
+{{--            <button wire:click="$refresh">Refresh</button>--}}
         </div>
         <table class="table table-sm table-striped table-hover">
             <thead>
