@@ -52,10 +52,13 @@ class CustomQuoteLine extends Component
             'name' => 'CUSTOM'
         ]);
         $this->configuration->save();
+        $this->configuration = new Configuration();
 
 
         // fire off an event to update the list of configs
-        $this->emitTo('blueprint::quote-body', 'reload_quote_body' );
+        $this->emit( 'reload_quote_body' );
+        $this->emit( 'update_totals' );
+
     }
 
 

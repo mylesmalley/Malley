@@ -14,6 +14,15 @@ class QuoteBody extends Component
     public Blueprint $blueprint;
     public Collection $configurations;
 
+    public $listeners = [
+        'reload_quote_body' //=> '$refresh',
+    ];
+
+    public function reload_quote_body()
+    {
+        $this->configurations = $this->update_configurations();
+    }
+
     /**
      * @param Blueprint $blueprint
      */
@@ -21,7 +30,12 @@ class QuoteBody extends Component
     {
         $this->blueprint = $blueprint;
 
-        $this->configurations = Configuration::where('blueprint_id', $this->blueprint->id )
+        $this->configurations = $this->update_configurations();
+    }
+
+    public function update_configurations()
+    {
+        return Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('obsolete', false)
             ->where('value', 1)
             ->orderBy('name', 'ASC')
