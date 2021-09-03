@@ -191,8 +191,8 @@ class QuoteController extends Controller
 
         foreach( $this->configuration as $c )
         {
-            $this->dealer_total += $c->price_tier_2 * $this->blueprint->exchange_rate * $c->quantity;
-            $this->msrp_total += $c->price_tier_3 * $this->blueprint->exchange_rate * $c->quantity;
+            $this->dealer_total += $c->DealerPrice( $blueprint->exchange_rate );
+            $this->msrp_total += $c->MSRPPrice( $blueprint->exchange_rate );
         }
 
 

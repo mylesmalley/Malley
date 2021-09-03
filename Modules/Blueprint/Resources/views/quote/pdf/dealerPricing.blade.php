@@ -15,7 +15,7 @@
 				<td>{{ $config->description }}</td>
 				<td>{{ $config->quantity }}</td>
 				<td style="text-align:right;">
-					{{ number_format( $config->quantity * $config->price_tier_2 * $blueprint->exchange_rate, 2 ) }}
+					{{ number_format( $config->DealerPrice( $blueprint->exchange_rate ) , 2 ) }}
 				</td>
 			</tr>
 		@endforeach
