@@ -38,6 +38,8 @@
                             <select name="currency"
                                     class="form-control form-control-sm"
                                     wire:change.debounce.500ms="save"
+                                    wire:change.debounce.500ms="$emit('update_total')"
+                                    wire:change.debounce.500ms="$emit('reload_quote_body')"
                                     wire:model="blueprint.currency"
                                     id="currency">
                                 <option value="USD">US Dollar</option>

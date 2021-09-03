@@ -48,6 +48,8 @@ class QuoteDetails extends Component
     {
         $this->validate();
         $this->blueprint->save();
+        $this->emit('update_totals');
+        $this->emit('reload_quote_body');
     }
 
 
