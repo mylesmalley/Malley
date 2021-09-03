@@ -17,9 +17,7 @@ class CustomQuoteLine extends Component
      * @var array|string[]
      */
     public array $rules = [
-        //"configuration.name"          => 'required|max:15',
         "configuration.description"   => 'required|max:100',
-       // "configuration.blueprint_id"  => 'required|integer',
         "configuration.price_tier_2"  => 'required|numeric',
         "configuration.price_tier_3"  => 'required|numeric',
         "configuration.quantity"      => 'required|integer|min:1',
@@ -33,8 +31,6 @@ class CustomQuoteLine extends Component
     {
         $this->blueprint = $blueprint;
         $this->configuration = new Configuration();
-
-      //  $this->configuration->fill();
     }
 
 
@@ -51,6 +47,9 @@ class CustomQuoteLine extends Component
             'show_on_quote' => 1,
             'name' => 'CUSTOM'
         ]);
+
+      //  dd( $this->configuration );
+
         $this->configuration->save();
         $this->configuration = new Configuration();
 

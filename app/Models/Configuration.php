@@ -250,15 +250,14 @@ class Configuration extends BaseModel
     }
 
 
-
-
-
-	/**
-	 * @return int
-	 */
-	public function getQuantityAttribute()
+    /**
+     * @return int
+     */
+	public function getQuantityAttribute(): int
 	{
-		return ($this->attributes['quantity'] != null) ? $this->attributes['quantity'] : 1;
+		//return ($this->attributes['quantity'] != null) ? $this->attributes['quantity'] : 1;
+
+        return $this->attributes['quantity'] ?? 1;
 	}
 
 
