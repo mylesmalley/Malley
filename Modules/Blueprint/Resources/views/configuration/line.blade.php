@@ -79,6 +79,81 @@
                     </div>
 
 
+                    <div class="col-4">
+                        <table class="table">
+                            <thead>
+                                <th></th>
+                                <th>Dealer</th>
+                                <th>MSRP</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>
+                                        <input
+                                                class="form-control form-control-sm"
+                                            aria-label=""
+                                            wire:change.debounce="save"
+                                            wire:model="configuration.price_tier_2"
+                                            type="text">
+                                    </td>
+                                    <td>
+                                        <input
+                                                class="form-control form-control-sm"
+                                            aria-label=""
+                                            wire:change.debounce="save"
+                                            wire:model="configuration.price_tier_3"
+                                            type="text">
+                                    </td>
+                                </tr>
+                                @if ( $configuration->price_dealer_offset > 0 || $configuration->price_msrp_offset > 0)
+                                <tr>
+                                    <td>Offset</td>
+                                    <td>
+                                        &minus; {{ $configuration->price_dealer_offset }}
+
+                                    </td>
+                                    <td>
+                                        &minus; {{ $configuration->price_msrp_offset }}
+
+                                    </td>
+                                </tr>
+                                @endif
+                                <tr>
+                                    <td>Quantity</td>
+                                    <td colspan="2">
+                                        <input
+                                                class="form-control form-control-sm"
+                                                aria-label=""
+                                                wire:change.debounce="save"
+                                                wire:model="configuration.quantity"
+                                                type="number">
+                                    </td>
+
+                                </tr>
+
+                                @if ( $currency !== 'CAD')
+                                    <tr>
+                                        <td>Exchange Rate</td>
+                                        <td colspan="2" class="text-center">
+                                            &#120; {{ $exchange_rate }}
+                                        </td>
+                                    </tr>
+                                @endif
+
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Customer Sees</td>
+                                    <td>{{ $currency !== 'CAD' ? $currency : '' }} {{ $configuration->DealerPrice() }}</td>
+                                    <td>{{ $currency !== 'CAD' ? $currency : '' }} {{ $configuration->MSRPPrice() }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
                     @if ( $configuration->option_id)
                     <div class="col-2">
                         <ul>

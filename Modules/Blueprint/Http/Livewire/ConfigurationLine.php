@@ -14,6 +14,7 @@ class ConfigurationLine extends Component
     public bool $details = false;
     public bool $pricing = false;
     public float $exchange_rate;
+    public string $currency = "CAD";
 
     /**
      * @param Configuration $configuration
@@ -23,6 +24,7 @@ class ConfigurationLine extends Component
         $this->pricing = $pricing;
         $this->configuration = $configuration;
         $this->exchange_rate = $configuration->blueprint->exchange_rate;
+        $this->currency = $configuration->blueprint->currency;
     }
 
 
@@ -30,6 +32,12 @@ class ConfigurationLine extends Component
         'configuration.value' => 'sometimes|boolean',
         'configuration.show_on_quote' => 'sometimes|boolean',
         'configuration.lock_pricing' => 'sometimes|boolean',
+
+        'configuration.quantity' => 'required|integer|min:1',
+        'configuration.price_tier_2' => 'required|numeric',
+        'configuration.price_tier_3' => 'required|numeric',
+        'configuration.price_dealer_offset' => 'sometimes|numeric',
+        'configuration.price_msrp_offset' => 'sometimes|numeric',
     ];
 
 
@@ -41,17 +49,15 @@ class ConfigurationLine extends Component
         $this->details = ! $this->details;
     }
 
-    public function toggle()
-    {
-        $this->configuration->value = ! $this->configuration->value;
-        $this->configuration->save();
-    }
 
-
-    public function save()
+    /**
+     * push the changes necessary
+     */
+    public function save(): void
     {
         $this->validate();
         $this->configuration->save();
+        $this->emit('update_totals');
     }
 
 
