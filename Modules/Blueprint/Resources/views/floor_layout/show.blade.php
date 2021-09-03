@@ -69,14 +69,53 @@
     @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
 
     <script>
-        Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
-            bg.setAttrs({
-                x: 0,
-                y: 0,
+        @if ( $configuration->contains('FTM-Z200-001') )
+            /*
+                    1 3 0  WHEELBASE VANS
+             */
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit130.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 0,
+                    y: 0,
+                });
+                floorLayer.add(bg);
+                floorLayer.draw();
             });
-            floorLayer.add(bg);
-            floorLayer.draw();
-        });
+
+        @endif
+
+        @if ( $configuration->contains('FTM-Z200-002') || $configuration->contains('FTM-Z200-003') )
+
+            /*
+                148 WHEELBASE VANS
+             */
+          Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit148.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 0,
+                    y: 0,
+                });
+                floorLayer.add(bg);
+                floorLayer.draw();
+            });
+        @endif
+
+
+        @if ( $configuration->contains('FTM-Z200-004') )
+            /*
+                148 EXTENDED WHEELBASE VANS
+             */
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/transit148ext.png.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 0,
+                    y: 0,
+                });
+                floorLayer.add(bg);
+                floorLayer.draw();
+            });
+        @endif
+
+
+
     </script>
 
     @endpush

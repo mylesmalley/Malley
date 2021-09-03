@@ -27,7 +27,8 @@ class FloorLayoutController extends Controller
         $this->authorize('home', $blueprint );
 
         return view('blueprint::floor_layout.show', [
-            'blueprint' => $blueprint
+            'blueprint' => $blueprint,
+            'configuration' => $blueprint->activeOptionNames(),
         ]);
     }
 

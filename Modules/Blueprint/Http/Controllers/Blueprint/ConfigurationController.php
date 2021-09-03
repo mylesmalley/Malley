@@ -49,6 +49,7 @@ class ConfigurationController extends Controller
 
         $configs = Configuration::where('blueprint_id', $blueprint->id )
             ->where('obsolete', false)
+            ->with(['option','option.componentCount'])
             // narrow things down a bit...
 //            ->select([
 //                'id','name','description','obsolete','value','price_tier_3','price_tier_2'
