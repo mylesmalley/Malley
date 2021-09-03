@@ -11,19 +11,19 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Qty</th>
+                <th class="text-end">Qty</th>
                 <th class="text-end">Dealer Price</th>
                 <th class="text-end">MSRP</th>
             </tr>
             </thead>
 
             @foreach( $configurations as $config )
-                @livewire("blueprint::configuration-line", [ 'configuration' => $config, 'pricing' => true ], key( $config->id.'config' ) )
+                @livewire("blueprint::configuration-line", [ 'configuration' => $config, 'pricing' => true ], key( $config->id) )
             @endforeach
 
-            @livewire("blueprint::custom-quote-line", [ $blueprint ] , key('quote'.$blueprint->id) )
+            @livewire("blueprint::custom-quote-line", [ $blueprint ]  )
 
-            @livewire("blueprint::quote-total-line", [ $blueprint, 3 ] , key('blueprint_new'.$blueprint->id) )
+            @livewire("blueprint::quote-total-line", [ $blueprint, 3 ]  )
 
         </table>
     </div>
