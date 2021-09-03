@@ -843,6 +843,18 @@ class Blueprint extends BaseModel implements HasMedia
         return $res;
     }
 
+    /**
+     * returns a simple collection of the option names used for this blueprint
+     *
+     * @return Collection
+     */
+    public function activeOptionNames(): Collection
+    {
+        return Configuration::where('value', 1)
+            ->where('blueprint_id', $this->attributes['id'])
+            ->pluck('name');
+    }
+
 
     /**
      * @return Layout

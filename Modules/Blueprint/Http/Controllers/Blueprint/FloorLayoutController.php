@@ -5,6 +5,7 @@ namespace Modules\Blueprint\Http\Controllers\Blueprint;
 use App\Models\Configuration;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Blueprint;
@@ -48,7 +49,7 @@ class FloorLayoutController extends Controller
 
         return response()->json([
             'message' => 'Success'
-        ], 200);
+        ]);
     }
 
 
@@ -57,8 +58,9 @@ class FloorLayoutController extends Controller
      * blueprint based on the custom layout stored.
      *
      * @param Blueprint $blueprint
+     * @return RedirectResponse
      */
-    public function store( Blueprint $blueprint )
+    public function store( Blueprint $blueprint ): RedirectResponse
     {
         $layout = json_decode( $blueprint->custom_layout );
 
