@@ -3,6 +3,7 @@
 namespace Modules\Blueprint\Http\Livewire;
 
 
+use App\Models\Configuration;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\View\View;
@@ -33,19 +34,18 @@ class QuoteTotalLine extends Component
         $this->dealer = 0;
         $this->msrp = 0;
 
-        $configs = DB::table('configurations')
-            ->where('blueprint_id', $this->blueprint->id )
+        $configs = Configuration::where('blueprint_id', $this->blueprint->id )
+            ->where('obsolete', false)
             ->where('value', 1)
-            ->select(['id', 'cost', 'quantity', 'value', 'price_tier_2', 'price_tier_3'])
-            ->get();
+            ->get();;
 
         $xr = $this->blueprint->exchange_rate;
 
         foreach( $configs as $c )
         {
             $this->cost += ($c->cost * $xr * $c->quantity);
-            $this->dealer += ($c->price_tier_2 * $xr * $c->quantity);
-            $this->msrp += ($c->price_tier_3 * $xr * $c->quantity);
+            $this->dealer += $c->DealerPrice( $this->blueprint->exchange_rate );
+            $this->msrp += $c->MSRPPrice( $this->blueprint->exchange_rate );
         }
     }
 
