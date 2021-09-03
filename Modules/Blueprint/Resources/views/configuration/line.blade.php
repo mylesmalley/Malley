@@ -1,4 +1,4 @@
-<tbody wire:key="config-key-{{ $configuration->id }}">
+<tbody>
 
     <tr wire:click="details">
         <td>

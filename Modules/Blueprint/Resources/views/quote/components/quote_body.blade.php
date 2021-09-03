@@ -1,4 +1,4 @@
-<div wire:key="quote_body">
+<div>
 
 
     <div class="card border-primary">
@@ -18,10 +18,12 @@
             </thead>
 
             @foreach( $configurations as $config )
-                @livewire("blueprint::configuration-line", [ 'configuration' => $config, 'pricing' => true ]  )
+                @livewire("blueprint::configuration-line", [ 'configuration' => $config, 'pricing' => true ], key( $config->id.'config' ) )
             @endforeach
 
-{{--            @livewire("blueprint::quote-total-line", [ $blueprint, 3 ]  )--}}
+            @livewire("blueprint::custom-quote-line", [ $blueprint ] , key('quote'.$blueprint->id) )
+
+            @livewire("blueprint::quote-total-line", [ $blueprint, 3 ] , key('blueprint_new'.$blueprint->id) )
 
         </table>
     </div>
