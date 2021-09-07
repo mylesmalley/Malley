@@ -221,6 +221,50 @@
 
 
 
+        /*
+Driver side running board
+*/
+@if ( $configuration->contains('FTM-G001-001') )
+
+    Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ds-running-short.png') }}` , function (bg) {
+        bg.setAttrs({
+            x: 160,
+            y: 331,
+        });
+        floorLayer.add(bg);
+        floorLayer.draw();
+    });
+@endif
+
+        /*
+            PASSENGER SIDE RUNNING BOARDS
+         */
+@if ( $configuration->contains('FTM-G003-001') )
+
+Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ps-running-short.png') }}` , function (bg) {
+    bg.setAttrs({
+        x: 160,
+        y: 30,
+    });
+    floorLayer.add(bg);
+    floorLayer.draw();
+});
+@endif
+
+@if ( $configuration->contains('FTM-G004-001') )
+
+    Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ps-running-long.png') }}` , function (bg) {
+        bg.setAttrs({
+            x: 160,
+            y: 30,
+        });
+        floorLayer.add(bg);
+        floorLayer.draw();
+    });
+@endif
+
+
+
     </script>
 
     @endpush
