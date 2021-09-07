@@ -212,6 +212,8 @@
                     bg.setAttrs({
                         x: 915,
                         y: 110,
+                        zIndex: 1000,
+
                     });
                     floorLayer.add(bg);
                     floorLayer.draw();
@@ -230,6 +232,8 @@ Driver side running board
         bg.setAttrs({
             x: 160,
             y: 331,
+            zIndex: 1000,
+
         });
         floorLayer.add(bg);
         floorLayer.draw();
@@ -245,6 +249,8 @@ Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ps-running-short.png') }}` , 
     bg.setAttrs({
         x: 160,
         y: 30,
+        zIndex: 1000,
+
     });
     floorLayer.add(bg);
     floorLayer.draw();
@@ -257,11 +263,27 @@ Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ps-running-short.png') }}` , 
         bg.setAttrs({
             x: 160,
             y: 30,
+            zIndex: 1000,
+
         });
         floorLayer.add(bg);
         floorLayer.draw();
     });
 @endif
+
+@if ( $configuration->contains('FTM-G008-001') )
+
+Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/rpm-easy-step.png') }}` , function (bg) {
+    bg.setAttrs({
+        x: 350,
+        y: 50,
+        zIndex: 1000,
+    });
+    floorLayer.add(bg);
+    floorLayer.draw();
+});
+        @endif
+
 
 
 

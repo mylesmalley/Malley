@@ -1,5 +1,6 @@
 <tr class="table-info">
     <form wire:submit.prevent="save">
+        <td></td>
         <td>Custom Item</td>
         <td>
 

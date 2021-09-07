@@ -2,6 +2,11 @@
 
     <tr wire:click="details">
         <td>
+            @if( $configuration->value )
+                <img src="{{ mix('img/checkmark.png') }}" alt="selected" width="20" height="20">
+            @endif
+        </td>
+        <td>
             {{ $configuration->name }}
         </td>
         <td>
@@ -165,11 +170,14 @@
                             </li>
                         </ul>
                         <small>Option Rev #: {{ $configuration->option->revision }} {{ $configuration->id }}</small>
+                        {{ $configuration->id }}
                     </div>
                     @else
-
+                        <div class="col-2">
+                            {{ $configuration->id }}
+                        </div>
                     @endif
-                    {{ $configuration->id }}
+
                 </div>
 
 
