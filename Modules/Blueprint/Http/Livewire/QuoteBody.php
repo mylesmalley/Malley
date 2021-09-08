@@ -13,6 +13,7 @@ class QuoteBody extends Component
 
     public Blueprint $blueprint;
     public Collection $configurations;
+    public bool $showAllOptions ;
 
     public $listeners = [
         'reload_quote_body' //=> '$refresh',
@@ -29,15 +30,31 @@ class QuoteBody extends Component
     public function mount( Blueprint $blueprint ): void
     {
         $this->blueprint = $blueprint;
-
+        $this->showAllOptions = false;
         $this->configurations = $this->update_configurations();
     }
 
-    public function update_configurations()
+
+    /**
+     *
+     */
+    public function showAllOptions(): void
+    {
+        $this->showAllOptions = ! $this->showAllOptions;
+        $this->configurations = $this->update_configurations();
+
+    }
+
+    /**
+     * @return Collection
+     */
+    public function update_configurations(): Collection
     {
         return Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('obsolete', false)
-            ->where('value', 1)
+            ->when( ! $this->showAllOptions, function( $query ){
+                return $query->where('value', 1);
+            })
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount','blueprint'])
             ->get();;

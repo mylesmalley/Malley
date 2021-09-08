@@ -3,8 +3,18 @@
 
     <div class="card border-primary">
         <div class="card-header bg-primary text-white text-center">
+            <h3>
+
             {{ $title ?? "Configuration of Blueprint B-". $blueprint->id }}
-{{--            <button wire:click="$refresh">Refresh</button>--}}
+
+            @if(! $showAllOptions )
+                <button class="btn btn-secondary float-end" wire:click="showAllOptions">Show All Options</button>
+            @else
+                <button class="btn btn-secondary float-end" wire:click="showAllOptions">Show Only Selected Options</button>
+
+            @endif
+            </h3>
+
         </div>
         <table class="table table-sm table-striped table-hover">
             <thead>
