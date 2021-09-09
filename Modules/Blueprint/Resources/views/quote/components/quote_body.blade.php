@@ -34,7 +34,7 @@
 
             @livewire("blueprint::custom-quote-line", [ $blueprint ]  )
 
-            @livewire("blueprint::quote-total-line", [ $blueprint, 3 ]  )
+            @livewire("blueprint::quote-total-line", [ $blueprint  ]  )
 
         </table>
     </div>

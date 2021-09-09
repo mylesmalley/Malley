@@ -53,7 +53,8 @@ class QuoteBody extends Component
         return Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('obsolete', false)
             ->when( ! $this->showAllOptions, function( $query ){
-                return $query->where('value', 1);
+                return $query->where('value', 1)
+                    ->where('name', 'not like', '%-Z%');
             })
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount','blueprint'])

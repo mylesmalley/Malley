@@ -37,6 +37,8 @@ class Wizard extends Model
 
         'start_notes', // instructions or whatever
         'end_notes', // what do now?
+
+        'completed_form_option', // option that gets triggered when the wizard is complete
     ];
 
     public $timestamps = false;

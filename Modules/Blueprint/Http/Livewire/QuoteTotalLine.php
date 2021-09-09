@@ -12,7 +12,7 @@ use App\Models\Blueprint;
 class QuoteTotalLine extends Component
 {
 
-    public int $padding_columns = 3;
+    public int $padding_columns = 4;
     public Blueprint $blueprint;
 
     public float $cost;
@@ -54,9 +54,8 @@ class QuoteTotalLine extends Component
      * @param Blueprint $blueprint
      * @param int $padding_columns
      */
-    public function mount( Blueprint $blueprint, int $padding_columns = 3): void
+    public function mount( Blueprint $blueprint ): void
     {
-        $this->padding_columns = $padding_columns;
         $this->blueprint = $blueprint;
 
         $this->update_totals();
