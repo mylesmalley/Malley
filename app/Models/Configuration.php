@@ -77,6 +77,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Configuration whereUpdatedAt($value)
  * @method static Builder|Configuration whereValue($value)
  * @mixin Eloquent
+ * @property bool|null $lock_pricing
+ * @method static Builder|Configuration whereLockPricing($value)
  */
 class Configuration extends BaseModel
 {

@@ -135,6 +135,8 @@ use \Illuminate\Support\Collection;
  * @method static Builder|Option whereUserId($value)
  * @method static Builder|Option whereValidated($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Component|null $componentCount
+ * @property-read mixed $component_count
  */
 class Option extends BaseModel implements HasMedia
 {

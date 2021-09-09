@@ -5,6 +5,7 @@ namespace Modules\Blueprint\Http\Controllers\Wizard;
 use App\Models\Blueprint;
 use App\Models\Wizard;
 use App\Models\WizardAction;
+use App\Models\Configuration;
 use App\Models\BlueprintWizardAnswer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
@@ -53,6 +54,17 @@ class WizardController extends Controller
         foreach( $actions as $action )
         {
             $action->do( $blueprint->id );
+        }
+
+        if ( $wizard->completed_form_option )
+        {
+            //dd( $wizard->completed_form_option );
+
+            Configuration::where('blueprint_id', $blueprint->id)
+                ->where('name', $wizard->completed_form_option )
+                ->update([
+                    'value' => 1,
+                ]);
         }
 
         // return to the home page of the blueprint

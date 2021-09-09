@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property int|null $start
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WizardQuestion[] $questions
+ * @property-read Collection|WizardQuestion[] $questions
  * @property-read int|null $questions_count
  * @method static Builder|Wizard newModelQuery()
  * @method static Builder|Wizard newQuery()
@@ -21,7 +23,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Wizard whereId($value)
  * @method static Builder|Wizard whereName($value)
  * @method static Builder|Wizard whereStart($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property int|null $end
+ * @property string|null $start_notes
+ * @property string|null $end_notes
+ * @property string|null $completed_form_option
+ * @method static Builder|Wizard whereCompletedFormOption($value)
+ * @method static Builder|Wizard whereEnd($value)
+ * @method static Builder|Wizard whereEndNotes($value)
+ * @method static Builder|Wizard whereStartNotes($value)
  */
 class Wizard extends Model
 {
