@@ -85,6 +85,6 @@ class FormElementItem extends BaseModel
 	 */
 	public function route(): string
 	{
-		//return '/basevan/' . $this->base_van_id . '/forms/' . $this->id;
+		return '/basevan/' . $this->base_van_id . '/forms/' . $this->id;
 	}
 }

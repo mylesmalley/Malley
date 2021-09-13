@@ -21,7 +21,7 @@
 
                        @if ($element->type === 'checklist')
 
-                           @livewire("blueprint::form.checklist", [ $element  ]  )
+                           @livewire("blueprint::form.checklist", [ $blueprint, $element  ]  )
 
                        @endif
                    @endforeach
