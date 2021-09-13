@@ -95,15 +95,7 @@ class CreateController extends Controller
 //        }
 
 //
-//        // FIRE OUT AN EMAIL NOTIFICATION
-//
-//        $usersToReceive = User::where('email_when_blueprint_created', true)->pluck('email');
-//        if (count($usersToReceive))
-//        {
-//            Mail::to( $usersToReceive )
-//                ->send( new BlueprintCreatedNotification( $blueprint ) );
-//
-//        }
+
 //
 //
 //        /*

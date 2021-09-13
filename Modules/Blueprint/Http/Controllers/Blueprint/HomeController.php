@@ -27,7 +27,8 @@ class HomeController extends Controller
         UpgradeBlueprint::dispatch( $blueprint );
 
         return view('blueprint::blueprint.home', [
-            'blueprint' => $blueprint
+            'blueprint' => $blueprint,
+            'configuration' => $blueprint->activeOptionNames(),
         ]);
     }
 
