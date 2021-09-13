@@ -17,6 +17,8 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Modules\Blueprint\Jobs\ResetRenderTemplates;
+use Modules\Blueprint\Jobs\EmaiStaffAboutBlueprintCreation;
 use Modules\Blueprint\Jobs\UpgradeBlueprint;
 
 class CreateController extends Controller
@@ -63,7 +65,7 @@ class CreateController extends Controller
             "customer_website"   => "nullable|url|max:255",
             "customer_logo"      => "nullable|max:255",
             'name'               => 'string|min:2|max:255',
-        'description'           => 'string|nullable|max:255',
+            'description'        => 'string|nullable|max:255',
             'base_van_id' => 'required|integer',
             'layout_id'=>'nullable|integer',
         ]);
@@ -77,29 +79,21 @@ class CreateController extends Controller
         // upgrade that blueprint
         UpgradeBlueprint::dispatch( $blueprint );
 
-//        dd( $blueprint->configuration );
+        // associate the blueprint with templates
+        ResetRenderTemplates::dispatch( $blueprint );
 
+        // fire off emails if necessary
+        EmaiStaffAboutBlueprintCreation::dispatch( $blueprint );
 
         return redirect()
             ->route('blueprint.home', [ $blueprint ]);
 
 
-//        // run upgrade once to gendc ZXerate the new configurations
-//        //	$blueprint->upgrade();
-//        app('App\Http\Controllers\Blueprint\ShowController')->upgrade( $blueprint );
-//
-//        //	$blueprint->resetRenderTemplates();
-//
-//
-//
 //        // if a layout is provided, reset the configuration and turn on those options instead.
 //        if ( $request->layout_id ) {
 //            $blueprint->createFromLayout();
 //        }
-//
-//        // create references to renders
-//        $blueprint->resetRenderTemplates();
-//
+
 //
 //        // FIRE OUT AN EMAIL NOTIFICATION
 //

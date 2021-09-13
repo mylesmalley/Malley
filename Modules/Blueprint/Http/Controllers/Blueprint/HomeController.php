@@ -23,6 +23,7 @@ class HomeController extends Controller
     {
         $this->authorize('home', $blueprint );
 
+        // trigger upgrade event
         UpgradeBlueprint::dispatch( $blueprint );
 
         return view('blueprint::blueprint.home', [
