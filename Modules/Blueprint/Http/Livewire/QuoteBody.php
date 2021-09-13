@@ -54,7 +54,7 @@ class QuoteBody extends Component
             ->where('obsolete', false)
             ->when( ! $this->showAllOptions, function( $query ){
                 return $query->where('value', 1)
-                    ->where('name', 'not like', '%-Z%');
+                    ->where('name', 'not like', '%-Z9%');
             })
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount','blueprint'])
