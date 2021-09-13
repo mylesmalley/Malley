@@ -35,6 +35,7 @@ class UpgradeBlueprint implements ShouldQueue
      */
     public function handle()
     {
+       // dd('fired!');
         $this->blueprint->upgrade();
     }
 }
