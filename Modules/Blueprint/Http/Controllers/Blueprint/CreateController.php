@@ -17,6 +17,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Modules\Blueprint\Jobs\UpgradeBlueprint;
 
 class CreateController extends Controller
 {
@@ -72,6 +73,12 @@ class CreateController extends Controller
 
         // apply the blueprint to the authorized user
         $blueprint = Auth::user()->blueprints()->save( $blueprint );
+
+        // upgrade that blueprint
+        UpgradeBlueprint::dispatch( $blueprint );
+
+//        dd( $blueprint->configuration );
+
 
         return redirect()
             ->route('blueprint.home', [ $blueprint ]);

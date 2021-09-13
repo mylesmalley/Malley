@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
+use Modules\Blueprint\Jobs\UpgradeBlueprint;
 
 
 class HomeController extends Controller
@@ -22,7 +23,7 @@ class HomeController extends Controller
     {
         $this->authorize('home', $blueprint );
 
-        $blueprint->upgrade( );
+        UpgradeBlueprint::dispatch( $blueprint );
 
         return view('blueprint::blueprint.home', [
             'blueprint' => $blueprint

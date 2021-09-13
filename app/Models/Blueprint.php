@@ -479,7 +479,9 @@ class Blueprint extends BaseModel implements HasMedia
 	        $newEntries = Option::query()
 		                    ->whereIn('option_name', $missing)
 		                    ->where('base_van_id', $this->attributes['base_van_id'])
-		                    ->with('components')
+                ->where('obsolete', false)
+
+                ->with('components')
 		                    ->get();
 
 
