@@ -31,6 +31,28 @@
             <p>Drag and drop the components you want added to this vehicle design.</p>
         </a>
 
+        @else
+            <a class="list-group-item " >
+
+                <h4 class="">Floor Layout</h4>
+                <p>Before you can design the floor layout, complete the
+                        Configure Your Van form. </p>
+            </a>
     @endif
 
+
+
+        <a class="list-group-item list-group-item-action"
+           href="{{ route('blueprint.form', [ $blueprint->id, 1]) }}">
+
+            <h4 class="text-primary">Other Options</h4>
+            <p>This form contains options to further customzie the vehicle.</p>
+        </a>
+
+        <a class="list-group-item list-group-item-action"
+           href="{{ route('blueprint.form', [ $blueprint->id, 1]) }}">
+
+            <h4 class="text-primary">Malley-Only Options</h4>
+            <p>Quote Lines &amp; Discounts </p>
+        </a>
 </div>

@@ -42,6 +42,16 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                     ->name('blueprint.wizard.submit');
 
 
+                /**
+                 * Forms
+                 */
+                Route::get('form/{form}', [WizardController::class, 'show'])
+                    ->name('blueprint.form');
+
+                Route::post('form', [WizardController::class, 'submit'])
+                    ->name('blueprint.form.submit');
+
+
 
                 /**
                  * Configuration Stuff
