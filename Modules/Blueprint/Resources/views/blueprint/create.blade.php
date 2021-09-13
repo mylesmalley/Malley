@@ -75,10 +75,10 @@
                         <div class="col-6">
 
 
-                            <h3>Customer Details</h3>
+                            <h3>Customer Details <span style="font-size:small;" class="text-secondary">(if available)</span></h3>
                             <div class="row">
                                 <div class="col-12">
-                                    @error('blueprint.customer_name') <span class="text-danger">{{ $message }}</span><br> @enderror
+                                    @error('customer_name') <span class="text-danger">{{ $message }}</span><br> @enderror
                                     <label for="customer_name">Name</label>
                                     <input class="form-control form-control-sm"
                                            type="text"
@@ -89,8 +89,8 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    @error('blueprint.customer_address_1') <span class="text-danger">{{ $message }}</span><br> @enderror
-                                    @error('blueprint.customer_address_2') <span class="text-danger">{{ $message }}</span><br> @enderror
+                                    @error('bcustomer_address_1') <span class="text-danger">{{ $message }}</span><br> @enderror
+                                    @error('customer_address_2') <span class="text-danger">{{ $message }}</span><br> @enderror
                                     <label for="customer_address_1">Street</label>
                                     <input class="form-control"
                                            type="text"
@@ -107,7 +107,7 @@
 
                             <div class="row">
                                 <div class="col-4">
-                                    @error('blueprint.customer_city') <span class="text-danger">{{ $message }}</span><br> @enderror
+                                    @error('customer_city') <span class="text-danger">{{ $message }}</span><br> @enderror
                                     <label for="customer_city">City</label>
                                     <input class="form-control"
                                            type="text"
@@ -115,7 +115,7 @@
                                            placeholder="Smithville">
                                 </div>
                                 <div class="col-4">
-                                    @error('blueprint.customer_province') <span class="text-danger">{{ $message }}</span><br> @enderror
+                                    @error('customer_province') <span class="text-danger">{{ $message }}</span><br> @enderror
                                     <label for="customer_province">State / Prov</label>
                                     <input class="form-control"
                                            type="text"
@@ -123,7 +123,7 @@
                                            placeholder="Montana">
                                 </div>
                                 <div class="col-4">
-                                    @error('blueprint.customer_country') <span class="text-danger">{{ $message }}</span><br> @enderror
+                                    @error('customer_country') <span class="text-danger">{{ $message }}</span><br> @enderror
                                     <label for="customer_country">Country</label>
                                     <input class="form-control"
                                            type="text"

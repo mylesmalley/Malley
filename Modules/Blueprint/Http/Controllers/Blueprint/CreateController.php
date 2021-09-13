@@ -47,6 +47,25 @@ class CreateController extends Controller
     {
         $this->authorize( 'create', Blueprint::class );
 
+        $request->validate([
+            "customer_customer_name" => "nullable:255",
+            "customer_address_1" => "nullable|max:255",
+            "customer_address_2" => "nullable|max:255",
+            "customer_address_3" => "nullable|max:255",
+            "customer_city"      => "nullable|max:50",
+            "customer_province"  => "nullable|max:20",
+            "customer_country"   => "nullable|max:20",
+            "customer_postalcode"=> "nullable|max:10",
+            "customer_email"     => "nullable|email|max:50",
+            "customer_phone"     => "nullable|max:255",
+            "customer_fax"       => "nullable|max:255",
+            "customer_website"   => "nullable|url|max:255",
+            "customer_logo"      => "nullable|max:255",
+            'name'               => 'max:255',
+        'description'           => 'string|nullable|max:255',
+            'base_van_id' => 'required|integer',
+            'layout_id'=>'nullable|integer',
+        ]);
 
         // create the new blueprint
         $blueprint = new Blueprint( $request->only( 'name', 'description', 'base_van_id', 'layout_id', 'config' ) );

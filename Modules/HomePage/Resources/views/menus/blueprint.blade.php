@@ -7,12 +7,25 @@
 
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-3">
+                    <h4>Quick Links</h4>
+
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action"
                            href="{{ route('my_blueprints') }}">My Blueprints</a>
                     </div>
                 </div>
+
+
+                <div class="col-3">
+                    <h4>Create New Blueprints</h4>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action"
+                           href="{{ route('blueprint.create', [11]) }}">Transit Mobility</a>
+                    </div>
+                </div>
+
+
             </div>
 
 
