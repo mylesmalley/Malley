@@ -61,7 +61,7 @@ class CreateController extends Controller
             "customer_fax"       => "nullable|max:255",
             "customer_website"   => "nullable|url|max:255",
             "customer_logo"      => "nullable|max:255",
-            'name'               => 'max:255',
+            'name'               => 'string|min:2|max:255',
         'description'           => 'string|nullable|max:255',
             'base_van_id' => 'required|integer',
             'layout_id'=>'nullable|integer',

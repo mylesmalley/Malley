@@ -33,6 +33,7 @@
                                     <input class="form-control form-control-sm"
                                            type="text"
                                            required
+                                           value="{{ old('name') }}"
                                            id="name" name="name"
                                            placeholder="Blueprint Name">
                                 </div>
@@ -45,6 +46,7 @@
                                     <input class="form-control form-control-sm"
                                            type="text"
                                            required
+                                           value="{{ old('description') }}"
                                            id="description" name="description"
                                            placeholder="Blueprint description">
                                 </div>
@@ -82,6 +84,7 @@
                                     <label for="customer_name">Name</label>
                                     <input class="form-control form-control-sm"
                                            type="text"
+                                           value="{{ old('customer_name') }}"
                                            id="customer_name" name="customer_name"
                                            placeholder="Customer Name">
                                 </div>
@@ -94,10 +97,13 @@
                                     <label for="customer_address_1">Street</label>
                                     <input class="form-control"
                                            type="text"
+                                           value="{{ old('customer_address_1') }}"
                                            id="customer_address_1" name="customer_address_1"
                                            placeholder="Street">
+
                                     <input class="form-control"
                                            type="text"
+                                           value="{{ old('customer_address_2') }}"
                                            aria-label="street 2"
                                            id="customer_address_2" name="customer_address_2"
                                            placeholder="P.O. Box">
@@ -111,7 +117,9 @@
                                     <label for="customer_city">City</label>
                                     <input class="form-control"
                                            type="text"
-                                           id="customer_city" name="customer_city"
+                                           value="{{ old('customer_city') }}"
+                                           id="customer_city"
+                                           name="customer_city"
                                            placeholder="Smithville">
                                 </div>
                                 <div class="col-4">
@@ -119,7 +127,9 @@
                                     <label for="customer_province">State / Prov</label>
                                     <input class="form-control"
                                            type="text"
-                                           id="customer_province" name=customer_province"
+                                           value="{{ old('customer_province') }}"
+                                           id="customer_province"
+                                           name=customer_province"
                                            placeholder="Montana">
                                 </div>
                                 <div class="col-4">
@@ -127,6 +137,7 @@
                                     <label for="customer_country">Country</label>
                                     <input class="form-control"
                                            type="text"
+                                           value="{{ old('customer_country') }}"
                                            id="customer_country" name=customer_country"
                                            placeholder="USA">
                                 </div>
