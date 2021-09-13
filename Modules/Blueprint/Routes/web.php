@@ -6,6 +6,7 @@ use Modules\Blueprint\Http\Controllers\Blueprint\CreateController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ResetController;
 use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
+use Modules\Blueprint\Http\Controllers\Form\FormController;
 use Modules\Blueprint\Http\Controllers\Wizard\WizardController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ConfigurationController;
 use Modules\Blueprint\Http\Controllers\Blueprint\FloorLayoutController;
@@ -45,10 +46,10 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 /**
                  * Forms
                  */
-                Route::get('form/{form}', [WizardController::class, 'show'])
+                Route::get('form/{form}', [FormController::class, 'show'])
                     ->name('blueprint.form');
 
-                Route::post('form', [WizardController::class, 'submit'])
+                Route::post('form', [FormController::class, 'submit'])
                     ->name('blueprint.form.submit');
 
 

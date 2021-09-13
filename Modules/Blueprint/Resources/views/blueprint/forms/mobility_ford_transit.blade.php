@@ -50,7 +50,7 @@
         </a>
 
         <a class="list-group-item list-group-item-action"
-           href="{{ route('blueprint.form', [ $blueprint->id, 1]) }}">
+           href="{{ route('blueprint.form', [ $blueprint->id, 44]) }}">
 
             <h4 class="text-primary">Malley-Only Options</h4>
             <p>Quote Lines &amp; Discounts </p>
