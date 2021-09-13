@@ -20,9 +20,10 @@
 
 
                        @if ($element->type === 'checklist')
-
                            @livewire("blueprint::form.checklist", [ $blueprint, $element  ]  )
-
+                       @endif
+                       @if ($element->type === 'selection')
+                           @livewire("blueprint::form.selection", [ $blueprint, $element  ]  )
                        @endif
                    @endforeach
                </div>
