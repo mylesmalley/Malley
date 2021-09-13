@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use Modules\Blueprint\Http\Controllers\Blueprint\ResetController;
 use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
 use Modules\Blueprint\Http\Controllers\Wizard\WizardController;
@@ -43,8 +44,12 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::get('/configuration', [ConfigurationController::class, 'show'])
                     ->name('blueprint.configuration');
 
-                Route::put('/configuration', [ConfigurationController::class, 'reset'])
-                    ->name('blueprint.configuration.reset');
+
+                /**
+                 * RESET CONFIGURATION
+                 */
+                Route::put('/configuration', [ResetController::class, 'reset'])
+                    ->name('blueprint.reset');
 
 
 
