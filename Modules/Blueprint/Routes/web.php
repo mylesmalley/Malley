@@ -22,7 +22,7 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
 
 
         // LINK TO CREATE A NEW BLUEPRINT
-        Route::get('create', [ CreateController::class, 'create' ])
+        Route::get('create/{basevan}', [ CreateController::class, 'create' ])
             ->name('blueprint.create');
 
         Route::post('create', [ CreateController::class, 'store' ])
