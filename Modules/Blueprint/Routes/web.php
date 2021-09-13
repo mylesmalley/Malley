@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use Modules\Blueprint\Http\Controllers\Blueprint\CreateController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ResetController;
 use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
@@ -19,9 +20,13 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
         Route::get('my_blueprints/{user?}', [ HomeController::class, 'my_blueprints' ])
             ->name('my_blueprints');
 
+
         // LINK TO CREATE A NEW BLUEPRINT
-        Route::get('create', [ HomeController::class, 'my_blueprints' ])
+        Route::get('create', [ CreateController::class, 'create' ])
             ->name('blueprint.create');
+
+        Route::post('create', [ CreateController::class, 'store' ])
+            ->name('blueprint.store');
 
 
 

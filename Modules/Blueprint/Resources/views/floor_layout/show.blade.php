@@ -76,7 +76,7 @@
             Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/ftm-130wb-interior.png') }}` , function (bg) {
                 bg.setAttrs({
                     x: 0,
-                    y: 0,
+                    y: 0, //FTM-Z200-001
                 });
                 floorLayer.add(bg);
                 floorLayer.draw();
