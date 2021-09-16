@@ -9,13 +9,7 @@
     </div>
 
 
-   <div class="row">
-       <div class="col-8 offset-2">
-           <div class="card border-primary">
-               <div class="card-header">
 
-               </div>
-               <div class="card-body">
                    @foreach( $form->elements as $element )
 
 
@@ -25,11 +19,16 @@
                        @if ($element->type === 'selection')
                            @livewire("blueprint::form.selection", [ $blueprint, $element  ]  )
                        @endif
+                       <br>
                    @endforeach
-               </div>
-           </div>
-       </div>
-   </div>
+
+
+    <div class="text-center">
+        <br>
+        <a href="{{ route('blueprint.home', [$blueprint])  }}" class="btn btn-success">Back to Blueprint</a>
+        <span>Your changes have been saved automatically.</span>
+    </div>
+
 
 {{--    <div class="row">--}}
 {{--        <div class="col-6 offset-3">--}}
