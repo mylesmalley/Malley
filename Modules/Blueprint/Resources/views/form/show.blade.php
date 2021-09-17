@@ -1,7 +1,8 @@
 @extends('blueprint::layouts.master')
 
 @push('scripts')
-    <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>
+    <script src="{{ mix('js/blueprint/floor_layout.js')  }}"></script>
+{{--    <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>--}}
 @endpush
 
 @section('content')
@@ -18,6 +19,59 @@
 
        @if ($element->type === 'images')
            @livewire("blueprint::form.image", [ $blueprint, $element  ]  )
+
+{{--<div class="row">--}}
+{{--    <div class="col-8 offset-2">--}}
+{{--        <div class="card border-primary  ">--}}
+{{--            --}}{{--            <div class="card-header text-white bg-secondary">--}}
+{{--            --}}{{--                <h4 class="">{{ $element->label }}</h4>--}}
+{{--            --}}{{--            </div>--}}
+{{--            <div class="card-body bg-secondary">--}}
+
+{{--                <div id="container"></div>--}}
+{{--@push('scripts')--}}
+{{--                    <script>--}}
+{{--                        // window.addEventListener('load', function (){--}}
+{{--                      //  console.error( Konva );--}}
+
+{{--                        var stage = new Konva.Stage({--}}
+{{--                            container: 'container',   // id of container <div>--}}
+{{--                            width: 500,--}}
+{{--                            height: 500--}}
+{{--                        });--}}
+
+{{--                        // then create layer--}}
+{{--                        var layer = new Konva.Layer();--}}
+
+{{--                        // create our shape--}}
+{{--                        var circle = new Konva.Circle({--}}
+{{--                            x: stage.width() / 2,--}}
+{{--                            y: stage.height() / 2,--}}
+{{--                            radius: 70,--}}
+{{--                            fill: 'red',--}}
+{{--                            stroke: 'black',--}}
+{{--                            strokeWidth: 4--}}
+{{--                        });--}}
+
+{{--                        // add the shape to the layer--}}
+{{--                        layer.add(circle);--}}
+
+{{--                        // add the layer to the stage--}}
+{{--                        stage.add(layer);--}}
+
+{{--                        // draw the image--}}
+{{--                        layer.draw();--}}
+
+
+{{--                    </script>--}}
+{{--@endpush--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+
+
        @endif
        @if ($element->type === 'checklist')
            @livewire("blueprint::form.checklist", [ $blueprint, $element  ]  )
@@ -35,24 +89,7 @@
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 
 
 {{--    <div class="row">--}}
@@ -70,3 +107,17 @@
 
     <br><br>
 @endsection
+
+{{--@push('scripts')--}}
+{{--    <script>--}}
+{{--        // window.addEventListener('load', function(){--}}
+{{--        //     setTimeout(1000, function(){--}}
+{{--        //         Livewire.emit('postAdded');--}}
+{{--        //--}}
+{{--        //     })--}}
+{{--        // });--}}
+
+
+
+{{--    </script>--}}
+{{--    @endpush--}}

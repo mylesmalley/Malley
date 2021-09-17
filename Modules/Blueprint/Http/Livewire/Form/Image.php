@@ -21,6 +21,13 @@ class Image extends Component
     public int $width;
 
 
+    public function draw()
+    {
+//        dd( 'init');
+        $this->emit('ready-to-draw');
+    }
+
+
     /**
      * @param Blueprint $blueprint
      * @param FormElement $element
