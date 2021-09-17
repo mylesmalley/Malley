@@ -52,7 +52,8 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::post('form', [FormController::class, 'submit'])
                     ->name('blueprint.form.submit');
 
-
+                Route::get('activeDrawings', [FormController::class, 'drawings'])
+                    ->name('blueprint.form.activeDrawings');
 
                 /**
                  * Configuration Stuff

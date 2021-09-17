@@ -49,4 +49,10 @@ class FormController extends Controller
             ->with('message','Saved changes to form');
 
     }
+
+
+    public function drawings( Blueprint $blueprint )
+    {
+        return $blueprint->activeDrawingIDs();
+    }
 }

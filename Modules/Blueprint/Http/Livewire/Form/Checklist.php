@@ -30,8 +30,10 @@ class Checklist extends Component
         $this->validate();
 
         $conf = $this->configurations->get($index);
-            $conf->value = ! $conf->value;
-            $conf->save();
+        $conf->value = ! $conf->value;
+        $conf->save();
+
+        $this->emit('update-images');
     }
 
     /**

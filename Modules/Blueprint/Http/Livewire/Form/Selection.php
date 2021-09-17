@@ -38,6 +38,9 @@ class Selection extends Component
         $conf = $this->configurations->get($index);
             $conf->value = 1;
             $conf->save();
+
+        $this->emit('update-images');
+
     }
 
     /**

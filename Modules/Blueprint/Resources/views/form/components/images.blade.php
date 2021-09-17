@@ -14,13 +14,13 @@
                     <script>
 
 
-                            let stage = new Konva.Stage({
+                            var stage = new Konva.Stage({
                                 container: 'stage{{  $element->id  }}',
                                 width: {{ getimagesize( $media->first()->cdnUrl() )[0] ?? 900 }},
                                 height: {{ getimagesize( $media->first()->cdnUrl() )[1] ?? 500 }},
                             });
 
-                            let layer = new Konva.Layer();
+                            var layer = new Konva.Layer();
                             stage.add(layer);
 
 
@@ -28,7 +28,7 @@
 
 
                             let img{{ substr(md5( $med->id), 0, 5 ) }} = new Image();
-                            let option{{ $med->id }};
+                            var option{{ $med->id }};
                             img{{ substr(md5( $med->id), 0, 5 ) }}.onload = function () {
                                 option{{ $med->id }} = new Konva.Image({
                                     x: 0,
