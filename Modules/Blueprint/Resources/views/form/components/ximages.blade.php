@@ -1,4 +1,4 @@
-<div class="row" >
+<div class="row" wire:init="draw">
     <div class="col-10 offset-1">
         <div class="card border-primary  ">
 {{--            <div class="card-header text-white bg-secondary">--}}
@@ -7,17 +7,16 @@
             <div class="card-body bg-secondary">
 
                     <div id="stage{{  $element->id  }}"></div>
-
-
                     @push('scripts')
 
                     <script>
 
+                        Livewire.on('ready-to-draw', function() {
 
                             let stage = new Konva.Stage({
                                 container: 'stage{{  $element->id  }}',
-                                width: {{ getimagesize( $media->first()->cdnUrl() )[0] ?? 900 }},
-                                height: {{ getimagesize( $media->first()->cdnUrl() )[1] ?? 500 }},
+                                width: {{ $width }},
+                                height: {{ $height }},
                             });
 
                             let layer = new Konva.Layer();
@@ -27,7 +26,7 @@
                             @foreach( $media as $med )
 
 
-
+                            
 
                             let img{{ substr(md5( $med->id), 0, 5 ) }} = new Image();
                             img{{ substr(md5( $med->id), 0, 5 ) }}.onload = function () {
@@ -35,7 +34,8 @@
                                     x: 0,
                                     y: 0,
                                     image: img{{ substr(md5( $med->id), 0, 5 ) }},
-
+                                    width: {{ $width }},
+                                    height: {{ $height }},
                                 });
 
                                 // add the shape to the layer
@@ -53,6 +53,7 @@
                             @endforeach
                             layer.draw();
 
+                        });
                     </script>
                     @endpush
 

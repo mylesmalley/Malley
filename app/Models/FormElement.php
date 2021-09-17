@@ -74,6 +74,27 @@ class FormElement extends BaseModel
 	}
 
 
+	public function itemMedia()
+    {
+        $media = [];
+        $items = FormElementItem::where('form_element_id', $this->attributes['id'])
+            ->orderBy('position')
+            ->with('media')
+            ->get();
+
+        foreach( $items as $i)
+        {
+            $media[] = $i->media;
+        }
+
+        return collect( $media );
+    }
+
+
+
+
+
+
 	public function rule()
 	{
 		return $this->hasOne('App\Models\FormElementRule', 'form_element_id');

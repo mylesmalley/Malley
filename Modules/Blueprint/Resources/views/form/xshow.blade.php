@@ -18,10 +18,7 @@
    @foreach( $form->elements as $element )
 
        @if ($element->type === 'images')
-{{--           @livewire("blueprint::form.image", [ $blueprint, $element  ]  )--}}
-           @include("blueprint::form.components.images", [ 'blueprint' => $blueprint,
-                                                'element' => $element,
-                                                'media' => $element->itemMedia()  ]  )
+           @livewire("blueprint::form.image", [ $blueprint, $element  ]  )
 
 {{--<div class="row">--}}
 {{--    <div class="col-8 offset-2">--}}
