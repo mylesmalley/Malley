@@ -27,19 +27,19 @@
                             @foreach( $media as $med )
 
 
-
-
                             let img{{ substr(md5( $med->id), 0, 5 ) }} = new Image();
+                            let option{{ $med->id }};
                             img{{ substr(md5( $med->id), 0, 5 ) }}.onload = function () {
-                                let yoda = new Konva.Image({
+                                option{{ $med->id }} = new Konva.Image({
                                     x: 0,
                                     y: 0,
                                     image: img{{ substr(md5( $med->id), 0, 5 ) }},
 
                                 });
+                                option{{ $med->id }}.hide();
 
                                 // add the shape to the layer
-                                layer.add(yoda);
+                                layer.add(option{{ $med->id }});
 
                             };
                             img{{ substr(md5( $med->id), 0, 5 ) }}.src = '{!!  $med->cdnUrl() !!}';

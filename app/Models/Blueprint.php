@@ -833,16 +833,22 @@ class Blueprint extends BaseModel implements HasMedia
 
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function activeOptionIDs()
+    public function activeOptionIDs(): Collection
     {
-        $res = Configuration::query()
-	        ->where('value', 1)
-            ->where('name', 'NOT LIKE', 'L%')
+        return Configuration::where('value', 1)
+            //->where('name', 'NOT LIKE', 'L%')
             ->where('blueprint_id', $this->id)
             ->pluck('option_id');
-        return $res;
+    }
+
+    public function activeDrawingIDs()
+    {
+        return Media::where('model_type', 'App\Models\Option')
+            ->where('collection_name', 'drawings')
+            ->whereIn('model_id', $this->activeOptionIDs() )
+            ->pluck('id');
     }
 
     /**

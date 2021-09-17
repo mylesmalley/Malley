@@ -85,6 +85,9 @@
        <br>
    @endforeach
 
+
+               @livewire("blueprint::form.active-drawings", [ $blueprint  ]  )
+
     <div class="text-center">
         <br>
         <a href="{{ route('blueprint.home', [$blueprint])  }}" class="btn btn-success">Back to Blueprint</a>
