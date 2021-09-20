@@ -53,7 +53,6 @@
     <script>
         function update_drawings()
         {
-            console.log('refreshed drawings');
             fetch('{{ route('blueprint.form.activeDrawings', [$blueprint]) }}', {
                 method: 'GET',
                 headers: {

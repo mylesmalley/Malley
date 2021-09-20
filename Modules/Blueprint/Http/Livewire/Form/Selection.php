@@ -17,6 +17,9 @@ class Selection extends Component
     public Collection $configurations;
 
 
+    /**
+     * @var array|string[]
+     */
     protected array $rules = [
         'configurations.*.value' => 'required|boolean',
     ];
@@ -25,7 +28,7 @@ class Selection extends Component
     /**
      * @param int $index
      */
-    public function toggle( int $index )
+    public function toggle( int $index ): void
     {
         $this->validate();
 
@@ -43,11 +46,12 @@ class Selection extends Component
 
     }
 
+
     /**
      * @param Blueprint $blueprint
      * @param FormElement $element
      */
-    public function mount( Blueprint $blueprint, FormElement $element )
+    public function mount( Blueprint $blueprint, FormElement $element ): void
     {
         $this->element = $element;
 
@@ -59,8 +63,8 @@ class Selection extends Component
             ->whereIn('option_id', $options )
             ->with('option')
             ->get();
-
     }
+
 
     /**
      * @return View

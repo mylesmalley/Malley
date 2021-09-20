@@ -5,6 +5,7 @@ namespace Modules\Blueprint\Http\Controllers\Form;
 use App\Models\Blueprint;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use App\Models\Form;
 
@@ -51,7 +52,11 @@ class FormController extends Controller
     }
 
 
-    public function drawings( Blueprint $blueprint )
+    /**
+     * @param Blueprint $blueprint
+     * @return Collection
+     */
+    public function drawings( Blueprint $blueprint ): Collection
     {
         return $blueprint->activeDrawingIDs();
     }

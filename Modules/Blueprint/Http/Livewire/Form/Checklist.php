@@ -4,10 +4,7 @@ namespace Modules\Blueprint\Http\Livewire\Form;
 
 use App\Models\Configuration;
 use App\Models\FormElement;
-use App\Models\Wizard;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Blueprint;
 use Illuminate\View\View;
@@ -19,13 +16,20 @@ class Checklist extends Component
     public Collection $configurations;
 
 
+    /**
+     * @var array|string[]
+     */
     protected array $rules =
     [
         'configurations.*.value' => 'required|boolean',
     ];
 
 
-    public function toggle( int $index )
+    /**
+     * turn on or off a config item
+     * @param int $index
+     */
+    public function toggle( int $index ): void
     {
         $this->validate();
 
@@ -40,7 +44,7 @@ class Checklist extends Component
      * @param Blueprint $blueprint
      * @param FormElement $element
      */
-    public function mount( Blueprint $blueprint, FormElement $element )
+    public function mount( Blueprint $blueprint, FormElement $element ): void
     {
         $this->element = $element;
 
@@ -52,8 +56,8 @@ class Checklist extends Component
             ->whereIn('option_id', $options )
             ->with('option')
             ->get();
-
     }
+
 
     /**
      * @return View
