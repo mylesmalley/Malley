@@ -52,12 +52,4 @@ class FormController extends Controller
     }
 
 
-    /**
-     * @param Blueprint $blueprint
-     * @return Collection
-     */
-    public function drawings( Blueprint $blueprint ): Collection
-    {
-        return $blueprint->activeDrawingIDs();
-    }
 }

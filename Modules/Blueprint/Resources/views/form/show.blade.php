@@ -53,7 +53,7 @@
     <script>
         function update_drawings()
         {
-            fetch('{{ route('blueprint.form.activeDrawings', [$blueprint]) }}', {
+            fetch('{{ route('blueprint.drawings.activeDrawings', [$blueprint]) }}', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -32,9 +32,10 @@ class HomeController extends Controller
             ->blueprints()
             // limit non-admin users to only edit transit mobility blueprints for now
                 //TODO
-            ->when( ! Auth::user()->hasRole('super_admin'), function($query) {
-                return $query->whereIn('base_van_id',[ 11 ] );
-            })
+//            ->when( ! Auth::user()->hasRole('super_admin'), function($query) {
+//                return $query->whereIn('base_van_id',[ 11 ] );
+//            })
+            ->whereIn('base_van_id',[ 11 ] )
             ->with( 'platform' )
             ->orderBy('id','DESC')
             ->paginate( 20 );

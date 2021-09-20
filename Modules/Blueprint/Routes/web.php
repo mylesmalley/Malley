@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Blueprint\Http\Controllers\Blueprint\CreateController;
+use Modules\Blueprint\Http\Controllers\Blueprint\DrawingController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ResetController;
 use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
@@ -52,8 +53,17 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::post('form', [FormController::class, 'submit'])
                     ->name('blueprint.form.submit');
 
-                Route::get('activeDrawings', [FormController::class, 'drawings'])
-                    ->name('blueprint.form.activeDrawings');
+
+
+
+
+                Route::get('activeDrawings', [DrawingController::class, 'activeDrawingIDs'])
+                    ->name('blueprint.drawings.activeDrawings');
+
+                Route::get('assemble/{formElement}', [DrawingController::class, 'assemble'])
+                    ->name('blueprint.drawings.assemble');
+
+
 
                 /**
                  * Configuration Stuff
