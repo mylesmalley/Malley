@@ -2,22 +2,16 @@
 
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
-use App\Models\Form;
 use App\Models\FormElement;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Blueprint;
-use App\Models\BaseVan;
+use App\Models\FormElementItem;
+use App\Models\Media;
 use App\Http\Controllers\Controller;
-use Imagick;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\View\View;
-use Modules\Blueprint\Jobs\ResetRenderTemplates;
-use Modules\Blueprint\Jobs\EmaiStaffAboutBlueprintCreation;
-use Modules\Blueprint\Jobs\UpgradeBlueprint;
+use Imagick;
+use ImagickException;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
+
 
 class DrawingController extends Controller
 {
@@ -26,30 +20,49 @@ class DrawingController extends Controller
     /**
      * @param Blueprint $blueprint
      * @param FormElement $formElement
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     public function assemble( Blueprint $blueprint, FormElement $formElement )
     {
 
-        //2637
-        //2638
+        $allMedia = FormElementItem::where('form_element_id', $formElement->id)
+            ->pluck('media_id');
 
-        $imagick = new \Imagick( \App\Models\Media::find(2637)->cdnUrl() );
-        $imagick2 = new \Imagick( \App\Models\Media::find(2638)->cdnUrl() );
-        $imagick->addImage($imagick2);
-        $imagick->setImageFormat('png');
+        $activeMedia = $blueprint->activeDrawingIDs();
 
-        $result = $imagick->mergeImageLayers(imagick::LAYERMETHOD_UNDEFINED);
-//        header("Content-Type: image/png");
-//        echo $result->getImageBlob();
+        $usedMedia = Media::whereIn('id', $allMedia->intersect( $activeMedia ) )
+            ->get();
 
-        $result->writeImage(storage_path('merged.png') );
 
-//        dd( $imagick);
+        $images = [];
 
-//        return redirect()
-//            ->route('blueprint.home', [ $blueprint ]);
+        foreach( $usedMedia as $item )
+        {
+            $images[] = $item->cdnUrl();
+        }
 
+
+        $base = new Imagick( $images[0] );
+        $base->setImageFormat('png');
+//        $base->setImageAlpha();
+
+        for ( $i = 1; $i < count( $images ); $i++ )
+        {
+            $layer = new Imagick( $images[$i] );
+            $base->addImage( $layer );
+        }
+
+
+        $result = $base->mergeImageLayers(imagick::LAYERMETHOD_UNDEFINED);
+
+        try {
+            $blueprint->addMediaFromStream($result->getImageBlob())
+                ->usingName('merged_images')
+                ->usingFileName("merged_images" . '.png')
+                ->toMediaCollection('tests', 's3');
+        } catch (ImagickException | FileCannotBeAdded $e) {
+            dd($e);
+        }
 
     }
 
