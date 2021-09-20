@@ -31,6 +31,7 @@ mix.setPublicPath('public')
     .js(__dirname + '/Modules/HomePage/Resources/assets/js/app.js', 'public/js/homepage.js')
     .sass( __dirname + '/Modules/HomePage/Resources/assets/sass/app.scss', 'public/css/homepage.css')
     .sass( __dirname + '/Modules/HomePage/Resources/assets/sass/letterhead.scss', 'public/css/letterhead.css')
+    .sass( __dirname + '/Modules/HomePage/Resources/assets/sass/print.scss', 'public/print.css')
 
     // INDEX MODULE
     .js(__dirname + '/Modules/Index/Resources/assets/js/app.js', 'js/index.js')

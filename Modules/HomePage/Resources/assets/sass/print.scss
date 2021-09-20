@@ -1,0 +1,55 @@
+html, body {
+  font-family: sans-serif;
+}
+
+body {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIkAAAAPCAYAAABgFJ+OAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAA8klEQVR4Xu3YMQ4BQQCF4bGNRiRaRxDn0LqDe1CpKFxioxWlTusu7kBWJpINi1Ux833Ny7vC3zlvxpfwpcHsEIr+ML669WoXyvIYHwAAAAC/rIjbWm+ybAxEi/lWIAIAAAD4I19FoioQdUfT+OqqQLTfn+IDAAAA4B+0jkQCEQAAAEB6WkUigQgAAAAgTR9HIoEIAAAAIF0fRSKBCAAAACBtbyORQAQAAACQvpeRSCACAAAAyENjJBKIAAAAAPLxNBIJRAAAAAB5eYhEAhEAAABAfmqRSCACAAAAyNM9EglEAAAAAPm6RSKBCAAAACBnIVwBVMFPSejDReAAAAAASUVORK5CYII=");
+  background-position: bottom left;
+  background-repeat: no-repeat;
+}
+
+.header {
+  border-bottom: 2px solid black;
+}
+
+.header .section-title {
+  font-size: 24pt;
+  font-weight: bolder;
+}
+
+.notes {
+  color: red;
+  background-color: #ffcacc;
+  border: 1px solid red;
+}
+
+.options-box {
+  font-size: 10pt;
+}
+
+.options-box ul {
+  list-style-position: outside;
+  padding-left: 9px;
+}
+
+.options-box li {
+  padding-bottom: 3px;
+}
+
+.options-box .signoff {
+  border: 1px solid #222222;
+  color: #aaa;
+  padding: 2px;
+}
+
+.notes-box {
+  position: fixed;
+}
+
+.image-box {
+  position: fixed;
+}
+
+td {
+  vertical-align: top;
+}

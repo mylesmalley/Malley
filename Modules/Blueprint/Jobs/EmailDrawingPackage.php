@@ -16,6 +16,7 @@ use App\Models\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
+use JetBrains\PhpStorm\ArrayShape;
 use Modules\Blueprint\Emails\DrawingCreated;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
@@ -79,8 +80,9 @@ class EmailDrawingPackage implements ShouldQueue
      * @param Template $template
      * @param Collection $fullConfiguration
      * @return array
+     *
      */
-    private function parseTemplate( Template $template, Collection $fullConfiguration ): array
+    private function parseTemplate(Template $template, Collection $fullConfiguration ): array
     {
         $templateHTML = $template->template;
 
@@ -91,7 +93,7 @@ class EmailDrawingPackage implements ShouldQueue
         $templateConfiguration = $fullConfiguration->whereIn('option_id', $templateOptions);
 
         // pass the filtered configs to a view to convert to html
-        $formattedOptionsHTML = View::make('pdf.salesRenders.options',['configurations'=> $templateConfiguration]);
+        $formattedOptionsHTML = View::make('blueprint::drawing.salesRenders.options',['configurations'=> $templateConfiguration]);
 
         // replcae the options placeholder with the html
         $templateHTML = str_replace("@OPTIONS@",  $formattedOptionsHTML , $templateHTML );
@@ -113,12 +115,12 @@ class EmailDrawingPackage implements ShouldQueue
             if ( is_array( $this->blueprint->notes ) && array_key_exists( $match ,  $this->blueprint->notes )  && strlen( $this->blueprint->notes[ $match ] ) >0  )
             {
                 $note = "<div class='notes'>{$this->blueprint->notes[ $match ]}</div>";
-                $templateHTML = str_replace("@NOTE={$match}@", $note , $templateHTML );
+                $templateHTML = str_replace("@NOTE=$match@", $note , $templateHTML );
             }
             else
             {
                 // no note was supplied, so just delete it
-                $templateHTML = str_replace("@NOTE={$match}@", "" , $templateHTML );
+                $templateHTML = str_replace("@NOTE=$match@", "" , $templateHTML );
             }
         }
         // --- END NOTE PARSING   --- //
@@ -164,7 +166,7 @@ class EmailDrawingPackage implements ShouldQueue
      */
     private function pageHeader( string $title ): string
     {
-        return View::make('pdf.salesRenders.header',[
+        return View::make('blueprint::drawing.salesRenders.header',[
             'blueprint' => $this->blueprint,
             'title' => $title,
         ]);
@@ -191,7 +193,7 @@ class EmailDrawingPackage implements ShouldQueue
         }
 
 
-        return View::make('pdf.salesRenders.footer',[
+        return View::make('blueprint::drawing.salesRenders.footer',[
             'blueprint' => $this->blueprint,
             'image' => $image,
             'company' => $company,
@@ -232,7 +234,7 @@ class EmailDrawingPackage implements ShouldQueue
     {
         $configsWithNotes = Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('value', 1)
-            ->where('notes','!=',null)
+            ->whereNotNull('notes')
             ->with('option')
             ->get();
 
@@ -247,14 +249,14 @@ class EmailDrawingPackage implements ShouldQueue
     {
         $configsWithNotes = Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('value', 1)
-            ->where('notes','!=',null)
+            ->whereNotNull('notes')
             ->with('option')
             ->get();
 
         // send an empty array if no special instructions are set
         $notes = $this->blueprint->notes ?? [];
 
-        return View::make('pdf.salesRenders.configsWithNotes',[
+        return View::make('blueprint::drawing.salesRenders.configsWithNotes',[
             'configurations'=> $configsWithNotes,
             'notes'=> $notes
         ]);
@@ -273,7 +275,7 @@ class EmailDrawingPackage implements ShouldQueue
             ->with('option')
             ->get();
 
-        return View::make('pdf.salesRenders.options',[
+        return View::make('blueprint::drawing.salesRenders.options',[
             'configurations'=> $configsWithNotes,
             'showBoxes' => false,
         ]);
@@ -296,7 +298,7 @@ class EmailDrawingPackage implements ShouldQueue
         $this->blueprint = $blueprint;
         $pdf = true;
         $debugHtml = null;
-        ob_clean();
+//        ob_clean();
 //	    echo '"'.flush().'"';
         //	dd( $this->specialInstructions() );
 
@@ -528,7 +530,7 @@ class EmailDrawingPackage implements ShouldQueue
                 $media = $blueprint->addMedia($filename)
                     ->toMediaCollection('drawing', 's3');
             } catch (FileDoesNotExist | FileIsTooBig $e) {
-                dd( $e );
+              //  dd( $e );
                 Bugsnag::notifyException($e);
             }
 
