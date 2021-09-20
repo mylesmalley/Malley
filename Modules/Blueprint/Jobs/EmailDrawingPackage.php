@@ -322,7 +322,7 @@ class EmailDrawingPackage implements ShouldQueue
 
 
 
-        $stylesheet = public_path('css/print.css');
+        $stylesheet = public_path('print.css');
         // image file content
         $stylesheet = file_get_contents( $stylesheet );
 
