@@ -23,7 +23,7 @@
                 </div>
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action"
-                       href="{{ route('my_blueprints') }}">My Blueprints</a>
+                       href="{{ route('blueprint.drawings.generate', [$blueprint]) }}">Get Drawing Package</a>
                 </div>
             </div>
         </div>

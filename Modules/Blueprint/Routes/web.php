@@ -60,11 +60,11 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::get('activeDrawings', [DrawingController::class, 'activeDrawingIDs'])
                     ->name('blueprint.drawings.activeDrawings');
 
-                Route::get('assemble/{formElement}', [DrawingController::class, 'assemble'])
-                    ->name('blueprint.drawings.assemble');
+//                Route::get('assemble/{formElement}', [DrawingController::class, 'assemble'])
+//                    ->name('blueprint.drawings.assemble');
 
-                Route::get('drawingsTest', [DrawingController::class, 'test'])
-                    ->name('blueprint.drawings.test');
+                Route::get('drawings', [DrawingController::class, 'generateDrawingPackage'])
+                    ->name('blueprint.drawings.generate');
 
 
                 /**

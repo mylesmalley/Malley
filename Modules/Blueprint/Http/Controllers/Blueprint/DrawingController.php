@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 use Imagick;
 use ImagickException;
+use Modules\Blueprint\Jobs\EmailDrawingPackage;
 use Modules\Blueprint\Jobs\ProcessDrawing;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Throwable;
@@ -20,57 +21,6 @@ use Throwable;
 
 class DrawingController extends Controller
 {
-
-
-    /**
-     * @param Blueprint $blueprint
-     * @param FormElement $formElement
-     * @throws ImagickException
-     */
-    public function assemble( Blueprint $blueprint, FormElement $formElement )
-    {
-
-//        $allMedia = FormElementItem::where('form_element_id', $formElement->id)
-//            ->pluck('media_id');
-//
-//        $activeMedia = $blueprint->activeDrawingIDs();
-//
-//        $usedMedia = Media::whereIn('id', $allMedia->intersect( $activeMedia ) )
-//            ->get();
-//
-//
-//        $images = [];
-//
-//        foreach( $usedMedia as $item )
-//        {
-//            $images[] = $item->cdnUrl();
-//        }
-//
-//
-//        $base = new Imagick( $images[0] );
-//        $base->setImageFormat('png');
-////        $base->setImageAlpha();
-//
-//        for ( $i = 1; $i < count( $images ); $i++ )
-//        {
-//            $layer = new Imagick( $images[$i] );
-//            $base->addImage( $layer );
-//        }
-//
-//
-//        $result = $base->mergeImageLayers(imagick::LAYERMETHOD_UNDEFINED);
-//
-//        try {
-//            $blueprint->addMediaFromStream($result->getImageBlob())
-//                ->usingName('merged_images')
-//                ->usingFileName("merged_images" . '.png')
-//                ->toMediaCollection('tests', 's3');
-//        } catch (ImagickException | FileCannotBeAdded $e) {
-//            dd($e);
-//        }
-
-    }
-
 
 
     /**
@@ -86,21 +36,21 @@ class DrawingController extends Controller
     /**
      * @throws Throwable
      */
-    public function test(Blueprint $blueprint )
+    public function generateDrawingPackage(Blueprint $blueprint )
     {
         $image_blocks = $blueprint->platform->drawingElements()->get();
-
         $events = [];
+
 
         foreach( $image_blocks as $block )
         {
-            $events = ProcessDrawing::dispatch( $blueprint, $block );
+            $events[] = new ProcessDrawing( $blueprint, $block );
         }
 
 
-        Bus::batch($events)
-            ->then(function (Batch $batch) {
-
+        Bus::batch( $events )
+            ->then(function (Batch $batch) use ($blueprint) {
+            EmailDrawingPackage::dispatch( $blueprint );
 
         })->catch(function (Batch $batch, Throwable $e) {
                 Bugsnag::notifyException($e);
@@ -110,7 +60,9 @@ class DrawingController extends Controller
             })->dispatch();
 
 
-
+        return redirect()
+            ->route('blueprint.home', [$blueprint])
+            ->with('success','Your drawings will be emailed to you shortly.');
 
     }
 
