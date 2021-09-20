@@ -45,47 +45,53 @@ class ProcessDrawing implements ShouldQueue
     public function handle()
     {
 
+        // all media available for a base van
         $allMedia = FormElementItem::where('form_element_id', $this->formElement->id)
             ->pluck('media_id');
 
+        // media that should be active for this blueprint
         $activeMedia = $this->blueprint->activeDrawingIDs();
 
+        // the overlap between available and needed
         $usedMedia = Media::whereIn('id', $allMedia->intersect( $activeMedia ) )
             ->get();
 
 
         $images = [];
 
+        // stop if there are no images to process
+        if ( count( $usedMedia ) <= 0) return null;
+
+        // grab the images needed
         foreach( $usedMedia as $item )
         {
             $images[] = $item->cdnUrl();
         }
 
-
+        // create the starting point
         $base = new Imagick( $images[0] );
         $base->setImageFormat('png');
 
 
+        // loop through and add up those images
         for ( $i = 1; $i < count( $images ); $i++ )
         {
             $layer = new Imagick( $images[$i] );
             $base->addImage( $layer );
         }
 
-
+        // actually flatten the stack
         $result = $base->mergeImageLayers(imagick::LAYERMETHOD_UNDEFINED);
 
+        // save the result to the s3 bucket
         try {
             $this->blueprint->addMediaFromStream($result->getImageBlob())
                 ->usingName(str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ))
                 ->usingFileName(str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ) . '.png')
-                ->toMediaCollection('test2', 's3');
+                ->toMediaCollection('images', 's3');
         } catch (ImagickException | FileCannotBeAdded $e) {
             Bugsnag::notifyException($e);
         }
-
-
-
 
 
     }
