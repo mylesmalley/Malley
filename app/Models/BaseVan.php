@@ -4,6 +4,7 @@ namespace App\Models;
 
 use \App\Models\BaseModel;
 use \App\Models\Template;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -109,9 +110,18 @@ class BaseVan extends BaseModel implements HasMedia
 		return $this->hasMany('\App\Models\Drawing');
 	}
 
-	public function elements()
+
+    /**
+     * @return HasManyThrough
+     */
+	public function drawingElements(): HasManyThrough
 	{
-		return $this->hasManyThrough('\App\Models\Element','\App\Models\Sheet','base_van_id','sheet','id');
+		return $this->hasManyThrough('\App\Models\FormElement',
+            '\App\Models\Form',
+            'base_van_id',
+            'form_id',
+            'id')
+            ->where('type', 'images');
 	}
 
 

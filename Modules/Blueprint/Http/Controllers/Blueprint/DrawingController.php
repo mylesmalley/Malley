@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Imagick;
 use ImagickException;
+use Modules\Blueprint\Jobs\ProcessDrawing;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 
 
@@ -75,6 +76,21 @@ class DrawingController extends Controller
     public function activeDrawingIDs( Blueprint $blueprint ): Collection
     {
         return $blueprint->activeDrawingIDs();
+    }
+
+
+
+
+    public function test( Blueprint $blueprint )
+    {
+        $image_blocks = $blueprint->platform->drawingElements()->get();
+
+//        dd( $image_blocks );
+
+
+        ProcessDrawing::dispatch();
+
+
     }
 
 }

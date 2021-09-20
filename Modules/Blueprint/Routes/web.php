@@ -63,6 +63,8 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::get('assemble/{formElement}', [DrawingController::class, 'assemble'])
                     ->name('blueprint.drawings.assemble');
 
+                Route::get('drawingsTest', [DrawingController::class, 'test'])
+                    ->name('blueprint.drawings.test');
 
 
                 /**
