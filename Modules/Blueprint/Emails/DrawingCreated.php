@@ -6,7 +6,7 @@ use App\Models\Blueprint;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-//use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 
 
@@ -16,6 +16,7 @@ class DrawingCreated extends Mailable
 
 
     protected Blueprint $blueprint;
+    protected Media $media;
 
     /**
      * Create a new message instance.
@@ -23,9 +24,10 @@ class DrawingCreated extends Mailable
      * @param Blueprint $blueprint
 //     * @param Media $media
      */
-    public function __construct( Blueprint $blueprint )
+    public function __construct( Blueprint $blueprint, Media $media )
     {
         $this->blueprint = $blueprint;
+        $this->media = $media;
     }
 
     /**
@@ -38,7 +40,7 @@ class DrawingCreated extends Mailable
         return $this
             ->from('blueprint@blueprint.malleyindustries.com')
             ->subject("Your Drawing for B-{$this->blueprint->id}")
-            ->view('blueprint::drawing.email.drawing_created', ['blueprint'=> $this->blueprint]);
-         //   ->attachFromStorageDisk('s3', $this->media->getPath() );
+            ->view('blueprint::drawing.email.drawing_created', ['blueprint'=> $this->blueprint])
+            ->attachFromStorageDisk('s3', $this->media->getPath() );
     }
 }
