@@ -54,6 +54,8 @@ class WizardAction extends Model
             ->where('option_id', $this->attributes['option_id'] )
             ->first();
 
+        if (! $config ) return false;
+
         switch ( $this->attributes['action'] )
         {
             case "switch_on":

@@ -74,49 +74,7 @@
 
         @stack('scripts')
     <script>
-        function update_drawings()
-        {
-            console.log('refreshed drawings');
-            fetch('{{ route('blueprint.form.activeDrawings', [$blueprint]) }}', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                }) .then(response => response.json())
-                    .then( function(data) {
-                        console.log( data );
-
-
-                        var shapes = stage.find('Image');
-                        shapes.forEach( function(el){
-                            el.hide();
-                        });
-
-
-                        data.forEach( function( el ){
-                            //    console.log( `option${el}` in window  );
-                            //    console.log( `turn on option${el} ` )
-                            if ( `option${el}` in window )
-                            {
-                                eval(`option${el}.show();`);
-
-                                // console.log( `turned on "option" + ${el} ` )
-                            }
-                        });
-                    });
-
-        }
-
-
-
-        Livewire.on('update-images', function(){
-            update_drawings();
-
-        });
-
-        window.addEventListener('load', function() {
-            update_drawings();
-        })
+        
     </script>
     </body>
 </html>
