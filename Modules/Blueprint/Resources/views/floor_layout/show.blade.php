@@ -27,7 +27,6 @@
     </div>
     <br>
 
-    @includeIf('blueprint::floor_layout.transit_mobility.standard_floor_menu')
 
 
 
@@ -64,8 +63,20 @@
 @push('scripts')
     <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>
 
-    @includeIf('blueprint::floor_layout.transit_mobility.standard_floor_options')
+    @if ( $configuration->contains('FTM-K001-001')
+        || $configuration->contains('FTM-K002-001')
+        || $configuration->contains('FTM-K003-001')  )
+        {{-- only show for SMART floors --}}
+        @includeIf('blueprint::floor_layout.transit_mobility.smart_floor_menu')
+        @includeIf('blueprint::floor_layout.transit_mobility.smart_floor_options')
 
+
+    @else
+        {{-- only show for regular floors --}}
+        @includeIf('blueprint::floor_layout.transit_mobility.standard_floor_menu')
+        @includeIf('blueprint::floor_layout.transit_mobility.standard_floor_options')
+
+    @endif
     @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
 
     <script>
