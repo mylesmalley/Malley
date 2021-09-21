@@ -239,5 +239,18 @@
                 'FTM-P006-001', // driver double fold
             ],
         },
+
+
+
+
+
+
+
+        wheelchair_position: {
+            image: '{{ mix('img/blueprint/other/wheelchair.png') }}',
+            options: [
+                'FTM-D002-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM
+            ],
+        },
     };
 </script>

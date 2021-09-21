@@ -1,4 +1,4 @@
-@canany(['blueprint' ])
+@canany(['blueprint.create' ])
 
         <li class="nav-item dropdown has-megamenu">
         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Blueprint </a>
