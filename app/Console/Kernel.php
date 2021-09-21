@@ -24,7 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
         $schedule->command('blueprint:purchases')
             ->weekdays()
             ->hourly()
@@ -39,8 +38,17 @@ class Kernel extends ConsoleKernel
 
 
         $schedule->command('blueprint:clock-out')
-//            ->weekdays()
             ->dailyAt('20:00')
+            ->timezone('America/Moncton');
+
+
+        $schedule->command('queue:prune-batches')
+            ->dailyAt('19:00')
+            ->timezone('America/Moncton');
+
+
+        $schedule->command('queue:flush')
+            ->dailyAt('19:10')
             ->timezone('America/Moncton');
     }
 
