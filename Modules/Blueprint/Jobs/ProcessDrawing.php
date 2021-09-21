@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
+use Illuminate\Support\Facades\Cache;
 use ImagickException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Imagick;
@@ -65,18 +66,50 @@ class ProcessDrawing implements ShouldQueue
         // grab the images needed
         foreach( $usedMedia as $item )
         {
-            $images[] = $item->cdnUrl();
+            $images[] = file_get_contents($item->cdnUrl() ) ;
+            //    dd( file_get_contents($item->cdnUrl() ) );
+
+
+//            if (Cache::has( "drawing_{$item->id}")) {
+//                $images[]  =  Cache::get("drawing_{$item->id}" );
+//            }
+//            else
+//            {
+//              //  $base64 = file_get_contents($item->cdnUrl() );
+//                $encoded = file_get_contents($item->cdnUrl() );
+//              //  $images[]  = $encoded = "data:{$item->mime_type};base64,". base64_encode( $base64 );
+////                $encoded = base64_decode( $base64 );
+//                $images[] = $encoded;
+//                Cache::put( "drawing_{$item->id}", $encoded ,  10086400);
+//
+//            }
+
+
+
         }
 
+
+     //   dd( $images[0]);
+
+
         // create the starting point
-        $base = new Imagick( $images[0] );
-        $base->setImageFormat('png');
+        $base = new Imagick( );
+      //  $base->setImageFormat('png');
+
+        $base->readImageBlob($images[0]);
+          $base->setImageFormat('png');
+
+        //  $base = new Imagick( $images[0] );
 
 
         // loop through and add up those images
         for ( $i = 1; $i < count( $images ); $i++ )
         {
-            $layer = new Imagick( $images[$i] );
+            $layer = new Imagick( );
+            $layer->readImageBlob($images[$i]);
+
+            $layer->setImageFormat('png');
+
             $base->addImage( $layer );
         }
 
