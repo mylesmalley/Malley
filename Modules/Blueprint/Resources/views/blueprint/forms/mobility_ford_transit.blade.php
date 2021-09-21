@@ -32,7 +32,7 @@
         </a>
 
         @else
-            <a class="list-group-item " >
+            <a class="list-group-item  list-group-item-light" >
 
                 <h4 class="">Floor Layout</h4>
                 <p>Before you can design the floor layout, complete the
@@ -40,14 +40,6 @@
             </a>
     @endif
 
-
-
-        <a class="list-group-item list-group-item-action"
-           href="{{ route('blueprint.form', [ $blueprint->id, 1]) }}">
-
-            <h4 class="text-primary">Other Options</h4>
-            <p>This form contains options to further customzie the vehicle.</p>
-        </a>
 
         <a class="list-group-item list-group-item-action"
            href="{{ route('blueprint.form', [ $blueprint->id, 44]) }}">
