@@ -92,8 +92,8 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::patch('/floor_layout', [FloorLayoutController::class, 'change'])
                     ->name('blueprint.floor_layout.change');
                 // committing staged options to the blueprint configuration.
-                Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
-                    ->name('blueprint.floor_layout.store');
+//                Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
+//                    ->name('blueprint.floor_layout.store');
 
 
 

@@ -44,10 +44,97 @@ class FloorLayoutController extends Controller
      */
     public function change(Blueprint $blueprint, Request $request ):  JsonResponse
     {
+
+        if ( $blueprint->custom_layout )
+        {
+
+            // store the existing layout
+            $old = json_decode( $blueprint->custom_layout );
+
+            // loop through the children components
+            foreach( $old->children as $c )
+            {
+                // loop through each option associated to the component
+                foreach( $c->attrs->options as $o)
+                {
+                    // grab the config item matchng that option name
+                    $config = Configuration::where('blueprint_id', $blueprint->id)
+                        ->where('name', $o )
+                        ->where('obsolete', false)
+                        ->first();
+
+
+                    if ( $config->value === 0)
+                    {
+                        $config->update([
+                            'value' => 1,
+                            'quantity' => 1,
+                        ]);
+                    }
+                    // if the quantity is one, just turn it off
+                    elseif ( $config->quantity === 1)
+                    {
+                        $config->update([
+                            'value' => 0,
+                            'quantity' => 0,
+                        ]);
+                    }
+                    // if the quantity is more than one, leave it on but lower it by one
+                    else
+                    {
+                        $config->update([
+                            'value' => 1,
+                            'quantity' => $config->quantity - 1,
+                        ]);
+                    }
+
+
+                }
+            }
+
+
+        }
+
+        // update the blueprint with the new layout
         $blueprint->update([
             'custom_layout' => $request->input('layout'),
         ]);
 
+
+        // loop through the new layout and update the configuration
+        $layout = json_decode(  $request->input('layout') );
+
+        foreach( $layout->children as $c )
+        {
+            foreach( $c->attrs->options as $o)
+            {
+                $config = Configuration::where('blueprint_id', $blueprint->id)
+                    ->where('name', $o )
+                    ->where('obsolete', false)
+                    ->first();
+
+
+                if ( $config->value )
+                {
+                    $config->update([
+                        'quantity' => $config->quantity + 1,
+                    ]);
+                }
+                // necessary because incrementing the quantity results in two if starting from the default
+                else
+                {
+                    $config->update([
+                        'value' => 1,
+                        'quantity' => 1,
+                    ]);
+                }
+
+            }
+        }
+
+
+
+        // hopefully works?
         return response()->json([
             'message' => 'Success'
         ]);
@@ -63,27 +150,27 @@ class FloorLayoutController extends Controller
      */
     public function store( Blueprint $blueprint ): RedirectResponse
     {
-        $layout = json_decode( $blueprint->custom_layout );
-
-        foreach( $layout->children as $c )
-        {
-            foreach( $c->attrs->options as $o)
-            {
-                 $config = Configuration::where('blueprint_id', $blueprint->id)
-                    ->where('name', $o )
-                    ->where('obsolete', false)
-                    ->first();
-
-                 $config->update([
-                     'value' => 1,
-                     'quantity' => $config->quantity + 1,
-                 ]);
-            }
-        }
-
-        return redirect()
-            ->route('blueprint.home', [$blueprint])
-            ->with('success','Floor layout added to this Blueprint');
+//        $layout = json_decode( $blueprint->custom_layout );
+//
+//        foreach( $layout->children as $c )
+//        {
+//            foreach( $c->attrs->options as $o)
+//            {
+//                 $config = Configuration::where('blueprint_id', $blueprint->id)
+//                    ->where('name', $o )
+//                    ->where('obsolete', false)
+//                    ->first();
+//
+//                 $config->update([
+//                     'value' => 1,
+//                     'quantity' => $config->quantity + 1,
+//                 ]);
+//            }
+//        }
+//
+//        return redirect()
+//            ->route('blueprint.home', [$blueprint])
+//            ->with('success','Floor layout added to this Blueprint');
     }
 
 }

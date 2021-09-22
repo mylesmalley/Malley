@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
@@ -559,7 +560,7 @@ class EmailDrawingPackage implements ShouldQueue
         $media = $this->compile( $this->blueprint );
 
         //$usersToReceive = User::where('email_when_blueprint_created', true)->pluck('email');
-        $usersToReceive = ['mmalley@malleyindustries.com','myles@mylesmalley.ca'];
+        $usersToReceive = [Auth::user()->email ];
         if (count($usersToReceive))
         {
             Mail::to( $usersToReceive )

@@ -28,13 +28,13 @@
             @endforelse
         </tbody>
     </table>
-    <div class="card-footer">
-        <form action="{{ route('blueprint.floor_layout.store', [$blueprint]) }}"
-            method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success">
-                Confirm Floor &amp; Seat Layout
-            </button>
-        </form>
-    </div>
+{{--    <div class="card-footer">--}}
+{{--        <form action="{{ route('blueprint.floor_layout.store', [$blueprint]) }}"--}}
+{{--            method="POST">--}}
+{{--            @csrf--}}
+{{--            <button type="submit" class="btn btn-success">--}}
+{{--                Confirm Floor &amp; Seat Layout--}}
+{{--            </button>--}}
+{{--        </form>--}}
+{{--    </div>--}}
 </div>
