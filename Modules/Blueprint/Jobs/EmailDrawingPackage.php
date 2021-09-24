@@ -6,6 +6,7 @@ use App\Models\Configuration;
 use App\Models\Media;
 use App\Models\Template;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Queue\SerializesModels;
@@ -13,17 +14,17 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
-use JetBrains\PhpStorm\ArrayShape;
 use Modules\Blueprint\Emails\DrawingCreated;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
+use App\Models\User;
 use Mpdf\MpdfException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Illuminate\Queue\Middleware\ThrottlesExceptions;
 
 
 class EmailDrawingPackage implements ShouldQueue
@@ -31,16 +32,19 @@ class EmailDrawingPackage implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected Blueprint $blueprint;
-
+    protected User $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct( Blueprint $blueprint )
+    public function __construct( Blueprint $blueprint, User $user )
     {
         $this->blueprint = $blueprint;
+        $this->user = $user;
+
+        if ( ! $user->email ) die("No email available to send drawings to");
     }
 
 
@@ -547,6 +551,24 @@ class EmailDrawingPackage implements ShouldQueue
         return new Media;
     }
 
+    /**
+     * @return ThrottlesExceptions[]
+     */
+    public function middleware(): array
+    {
+        return [new ThrottlesExceptions(5, 2)];
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     *
+     * @return DateTime
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addMinutes(2);
+    }
+
 
     /**
      * Execute the job.
@@ -560,7 +582,7 @@ class EmailDrawingPackage implements ShouldQueue
         $media = $this->compile( $this->blueprint );
 
         //$usersToReceive = User::where('email_when_blueprint_created', true)->pluck('email');
-        $usersToReceive = [Auth::user()->email ];
+        $usersToReceive = [ $this->user->email, 'mmalley@malleyindustries.com' ];
         if (count($usersToReceive))
         {
             Mail::to( $usersToReceive )
