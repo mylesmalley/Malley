@@ -174,6 +174,9 @@
                     </div>
                     @else
                         <div class="col-2">
+                            <button class="btn btn-danger"
+                                wire:click="delete"
+                            >Delete Custom Line</button>
                             {{ $configuration->id }}
                         </div>
                     @endif

@@ -18,6 +18,7 @@ class ConfigurationLine extends Component
 
     /**
      * @param Configuration $configuration
+     * @param bool $pricing
      */
     public function mount(Configuration $configuration, bool $pricing = false): void
     {
@@ -32,7 +33,6 @@ class ConfigurationLine extends Component
         'configuration.value' => 'sometimes|boolean',
         'configuration.show_on_quote' => 'sometimes|boolean',
         'configuration.lock_pricing' => 'sometimes|boolean',
-
         'configuration.quantity' => 'required|integer|min:1',
         'configuration.price_tier_2' => 'required|numeric',
         'configuration.price_tier_3' => 'required|numeric',
@@ -58,6 +58,20 @@ class ConfigurationLine extends Component
         $this->validate();
         $this->configuration->save();
         $this->emit('update_totals');
+    }
+
+
+    /**
+     * deletes a custom line item
+     */
+    public function delete(): void
+    {
+        if (! $this->configuration->option_id )
+        {
+            $this->configuration->delete();
+            $this->emit('reload_quote_body');
+            $this->emit('update_totals');
+        }
     }
 
 

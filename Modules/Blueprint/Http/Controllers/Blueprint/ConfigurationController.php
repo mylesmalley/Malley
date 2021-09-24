@@ -99,4 +99,7 @@ class ConfigurationController extends Controller
             ->route('blueprint.home', [ $blueprint ])
             ->with('success','Successfully reset this blueprint\'s configuration');
     }
+
+
+
 }
