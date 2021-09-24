@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Bus;
+use Modules\Blueprint\Jobs\CreateDrawingPackage;
 use Modules\Blueprint\Jobs\EmailDrawingPackage;
 use Modules\Blueprint\Jobs\ProcessDrawing;
 use Throwable;
@@ -45,15 +46,29 @@ class DrawingController extends Controller
             $events[] = new ProcessDrawing( $blueprint, $block );
         }
 
+        $user = Auth::user();
 
         Bus::batch( $events )
-            ->then(function (Batch $batch) use ($blueprint) {
-            EmailDrawingPackage::dispatch( $blueprint, Auth::user() );
+            ->then(function (Batch $batch) use ($blueprint ) {
+                CreateDrawingPackage::dispatch( $blueprint  );
 
-        })->catch(function (Batch $batch, Throwable $e) {
+            })->catch(function (Batch $batch, Throwable $e) {
                 Bugsnag::notifyException($e);
+            })
 
-            })->finally(function (Batch $batch) {
+            ->then(function( Batch $batch ) use ($blueprint, $user) {
+                    $media = $blueprint->getMediaCollection('drawing')
+                        ->last();
+
+                    EmailDrawingPackage::dispatch( $blueprint, $user, $media );
+
+                })
+            ->catch(function (Batch $batch, Throwable $e) {
+                Bugsnag::notifyException($e);
+            })
+
+            ->finally(function (Batch $batch) use ($blueprint, $user)  {
+
 
             })->dispatch();
 
