@@ -191,11 +191,12 @@
 
 
 
-@section('scripts')
+@push('scripts')
     <script>
         let box = document.getElementById('part_number');
 
         let sysproResults = null;
+        // alert('keyup');
 
 
         function fill( id )
@@ -210,6 +211,8 @@
         }
 
         box.addEventListener('keyup', function(   ){
+
+
             let searchResultsBox = document.getElementById('searchResults');
             searchResultsBox.innerHTML = "";
             let term = box.value;
@@ -261,4 +264,4 @@
         });
     </script>
 
-@endsection
+@endpush
