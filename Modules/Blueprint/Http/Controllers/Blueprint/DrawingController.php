@@ -48,29 +48,24 @@ class DrawingController extends Controller
 
         $user = Auth::user();
 
-        Bus::batch( $events )
-            ->then(function (Batch $batch) use ($blueprint ) {
-                CreateDrawingPackage::dispatch( $blueprint  );
 
-            })->catch(function (Batch $batch, Throwable $e) {
-                Bugsnag::notifyException($e);
-            })
+        Bus::batch($events)
 
-            ->then(function( Batch $batch ) use ($blueprint, $user) {
-                    $media = $blueprint->getMediaCollection('drawing')
-                        ->last();
+        ->then(function (Batch $batch) use ($blueprint, $user) {
+            // All jobs completed successfully...
+            Bus::chain([
+                new CreateDrawingPackage( $blueprint ),
+                new EmailDrawingPackage( $blueprint, $user ),
+            ])->dispatch();
+        })
+        ->catch(function (Batch $batch, Throwable $e) {
+            // First batch job failure detected...
+            Bugsnag::notifyException($e);
+        })
+        ->finally(function (Batch $batch) {
+            // The batch has finished executing...
+        })->dispatch();
 
-                    EmailDrawingPackage::dispatch( $blueprint, $user, $media );
-
-                })
-            ->catch(function (Batch $batch, Throwable $e) {
-                Bugsnag::notifyException($e);
-            })
-
-            ->finally(function (Batch $batch) use ($blueprint, $user)  {
-
-
-            })->dispatch();
 
 
         return redirect()

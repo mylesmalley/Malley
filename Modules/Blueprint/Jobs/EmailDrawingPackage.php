@@ -29,11 +29,10 @@ class EmailDrawingPackage implements ShouldQueue
      * @param User $user
      * @param Media $media
      */
-    public function __construct( Blueprint $blueprint, User $user, Media $media)
+    public function __construct( Blueprint $blueprint, User $user )
     {
         $this->blueprint = $blueprint;
         $this->user = $user;
-        $this->media = $media;
 
         if ( ! $user->email ) die("No email available to send drawings to");
     }
@@ -67,7 +66,10 @@ class EmailDrawingPackage implements ShouldQueue
     public function handle()
     {
 
-        $media = $this->media;
+                    $media = $this
+                        ->blueprint
+                        ->getMedia('drawing')
+                        ->last();
 
         $usersToReceive = [ $this->user->email, 'mmalley@malleyindustries.com' ];
         if (count($usersToReceive))
