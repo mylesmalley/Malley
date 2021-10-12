@@ -82,7 +82,18 @@
                 <td>Wheelchair Position (SNC)</td>
                 <td> <button onclick="add_image('wheelchair_position_snc')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
             </tr>
-
+            <tr>
+                <td>8" Seatbelt Extension</td>
+                <td> <button onclick="add_image('seatbelt_extension_8')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
+            </tr>
+            <tr>
+                <td>12" Seatbelt Extension</td>
+                <td> <button onclick="add_image('seatbelt_extension_12')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
+            </tr>
+            <tr>
+                <td>18" Seatbelt Extension</td>
+                <td> <button onclick="add_image('seatbelt_extension_18')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
+            </tr>
             </tbody>
         </table>
     </div>

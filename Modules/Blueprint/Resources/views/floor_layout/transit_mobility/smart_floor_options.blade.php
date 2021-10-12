@@ -28,5 +28,26 @@
                 'FTM-D001-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM
             ],
         },
+
+
+        seatbelt_extension_8: {
+            image: '{{ mix('img/blueprint/seats/seatbelt-8.png') }}',
+            options: [
+                'FTM-P009-001',
+            ],
+        },
+        seatbelt_extension_12: {
+            image: '{{ mix('img/blueprint/seats/seatbelt-12.png') }}',
+            options: [
+                'FTM-P010-001',
+            ],
+        },
+        seatbelt_extension_18: {
+            image: '{{ mix('img/blueprint/seats/seatbelt-18.png') }}',
+            options: [
+                'FTM-P011-001',
+            ],
+        },
+
     };
 </script>
