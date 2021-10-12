@@ -3,6 +3,7 @@
 namespace Modules\Blueprint\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,7 +28,6 @@ class UpgradeBlueprint implements ShouldQueue
         $this->blueprint = $blueprint;
     }
 
-
     /**
      * Execute the job.
      *
@@ -35,7 +35,14 @@ class UpgradeBlueprint implements ShouldQueue
      */
     public function handle()
     {
-       // dd('fired!');
         $this->blueprint->upgrade();
+    }
+
+    /**
+     * @return WithoutOverlapping[]
+     */
+    public function middleware(): array
+    {
+        return [new WithoutOverlapping( $this->blueprint->id )];
     }
 }
