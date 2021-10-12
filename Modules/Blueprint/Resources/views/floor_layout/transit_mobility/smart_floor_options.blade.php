@@ -22,5 +22,11 @@
                 'FTM-D002-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM
             ],
         },
+        wheelchair_position_snc: {
+            image: '{{ mix('img/blueprint/other/wheelchair.png') }}',
+            options: [
+                'FTM-D001-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM
+            ],
+        },
     };
 </script>

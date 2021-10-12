@@ -75,13 +75,13 @@
             </tr>
 
             <tr>
-                <td>Wheelchair Position</td>
+                <td>Wheelchair Position (L-Track)</td>
                 <td> <button onclick="add_image('wheelchair_position')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
-                {{--                <td> <button onclick="add_image('double_folding_driver_8in_extension')"   class="btn btn-sm action-button   btn-success">12"</button>  </td>--}}
-                {{--                <td> <button onclick="add_image('double_folding_driver_12in_extension')"  class="btn  btn-sm action-button  btn-warning">18"</button>  </td>--}}
-                {{--                <td> <button onclick="add_image('double_folding_driver_18in_extension')"   class="btn btn-sm action-button   btn-danger">24"</button>  </td>--}}
+           </tr>
+            <tr>
+                <td>Wheelchair Position (SNC)</td>
+                <td> <button onclick="add_image('wheelchair_position_snc')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
             </tr>
-
 
             </tbody>
         </table>

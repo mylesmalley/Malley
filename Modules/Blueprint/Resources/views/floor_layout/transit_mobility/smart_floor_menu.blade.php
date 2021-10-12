@@ -26,10 +26,13 @@
                 <td> <button onclick="add_image('smartfloor_turny')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
            </tr>
             <tr>
-                <td>Wheelchair Position</td>
+                <td>Wheelchair Position (L-Track)</td>
                 <td> <button onclick="add_image('wheelchair_position')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
-
-           </tr>
+            </tr>
+            <tr>
+                <td>Wheelchair Position (SNC)</td>
+                <td> <button onclick="add_image('wheelchair_position_snc')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
+            </tr>
 
             </tbody>
         </table>
