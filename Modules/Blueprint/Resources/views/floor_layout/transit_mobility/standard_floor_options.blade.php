@@ -2,7 +2,7 @@
     let options = {
         // no extension
         single_fixed_passenger_no_extension: {
-            image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
+            image: '{{ mix('img/blueprint/seats/single-fixed.png') }}',
             options: [
                 'FTM-P003-001', // FREEDMAN SINGLE SEAT - PASSENGER SIDE - FIX
             ],
@@ -14,7 +14,7 @@
             ],
         },
         double_fixed_passenger_no_extension: {
-            image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
+            image: '{{ mix('img/blueprint/seats/double-fixed.png') }}',
             options: [
                 'FTM-P004-001', 	// FREEDMAN DOUBLE SEAT - PASSENGER SIDE - FIX
             ],
@@ -25,6 +25,9 @@
                 'FTM-P008-001', // passenger double fold
             ],
         },
+
+
+
 
         {{--// 8" extension--}}
         {{--single_fixed_passenger_8in_extension: {--}}
@@ -119,33 +122,33 @@
         {{--},--}}
 
 
-        {{--/*--}}
-        {{--* DRIVER SIDE--}}
-        {{--* */--}}
-        {{--single_fixed_driver_no_extension: {--}}
-        {{--    image: '{{ mix('img/blueprint/seats/single-driver.png') }}',--}}
-        {{--    options: [--}}
-        {{--        'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX--}}
-        {{--    ],--}}
-        {{--},--}}
-        {{--single_folding_driver_no_extension: {--}}
-        {{--    image: '{{ mix('img/blueprint/seats/single-driver.png') }}',--}}
-        {{--    options: [--}}
-        {{--        'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD--}}
-        {{--    ],--}}
-        {{--},--}}
-        {{--double_fixed_driver_no_extension: {--}}
-        {{--    image: '{{ mix('img/blueprint/seats/double-driver.png') }}',--}}
-        {{--    options: [--}}
-        {{--        'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX--}}
-        {{--    ],--}}
-        {{--},--}}
-        {{--double_folding_driver_no_extension: {--}}
-        {{--    image: '{{ mix('img/blueprint/seats/double-driver.png') }}',--}}
-        {{--    options: [--}}
-        {{--        'FTM-P006-001', // driver double fold--}}
-        {{--    ],--}}
-        {{--},--}}
+        /*
+        * DRIVER SIDE
+        * */
+        single_fixed_driver_no_extension: {
+            image: '{{ mix('img/blueprint/seats/single-fixed.png') }}',
+            options: [
+                'FTM-P001-001', // FREEDMAN SINGLE SEAT - driver SIDE - FIX
+            ],
+        },
+        single_folding_driver_no_extension: {
+            image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
+            options: [
+                'FTM-P005-001', 	//FREEDMAN SINGLE SEAT - driver SIDE - FOLD
+            ],
+        },
+        double_fixed_driver_no_extension: {
+            image: '{{ mix('img/blueprint/seats/double-fixed.png') }}',
+            options: [
+                'FTM-P002-001', // FREEDMAN DOUBLE SEAT - driver SIDE - FIX
+            ],
+        },
+        double_folding_driver_no_extension: {
+            image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
+            options: [
+                'FTM-P006-001', // driver double fold
+            ],
+        },
 
 
         {{--// 8" extension--}}

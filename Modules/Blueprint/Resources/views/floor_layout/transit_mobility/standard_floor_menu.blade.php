@@ -5,13 +5,6 @@
     <div class="card-body">
 
         <table>
-            <thead>
-
-            <tr>
-                <th>Seat</th>
-                <th colspan="1"></th>
-            </tr>
-            </thead>
 
             <tbody>
 
