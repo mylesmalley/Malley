@@ -268,6 +268,14 @@
 
 
 
+        shoulder_harness: {
+            image: '{{ mix('img/blueprint/other/shoulder-harness.png') }}',
+            options: [
+                'FTM-D004-004',
+            ],
+        },
+
+
         wheelchair_position: {
             image: '{{ mix('img/blueprint/other/wheelchair.png') }}',
             options: [

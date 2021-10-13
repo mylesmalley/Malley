@@ -87,6 +87,10 @@
                 <td>18" Seatbelt Extension</td>
                 <td> <button onclick="add_image('seatbelt_extension_18')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
             </tr>
+            <tr>
+                <td>Shoulder Harness</td>
+                <td> <button onclick="add_image('shoulder_harness')" class="btn btn-sm action-button  btn-dark">ADD</button>  </td>
+            </tr>
             </tbody>
         </table>
     </div>
