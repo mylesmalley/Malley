@@ -68,7 +68,8 @@ class Question extends Component
         else
         {
             // grab the most recently saved answer and grab it's next question
-            $tmp = WizardAnswer::find( $this->progress->first()->wizard_answer_id )->nextQuestion();
+            $tmp = WizardAnswer::find( $this->progress->first()->wizard_answer_id )
+                ->nextQuestion();
 
             // if the next question is a redirect type,
             if ( $tmp->type === 'redirect')
@@ -79,7 +80,7 @@ class Question extends Component
             else
             {
                 // otherwise, use the one you've found.
-                $this->question = $tmp;
+                $this->question = $tmp->load(['answers', 'answers.actions']);
             }
         }
     }

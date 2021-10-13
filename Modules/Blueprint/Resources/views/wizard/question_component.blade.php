@@ -60,6 +60,42 @@
                                    value="Continue" >
                         </div>
 
+
+                    @elseif( $question->type === 'thumbnail_selection' )
+
+
+
+                         @foreach( $question->answers as $answer )
+                             <a class="list-group-item
+                                list-group-item-action
+                                text-primary fw-bolder"
+                                wire:click="submitAnswers({{ $answer->id }})">
+
+
+                                 @php
+                                 $image = null;
+                                    if( $answer->actions && $answer->actions[0] )
+                                    {
+                                     $image = \App\Models\Media::where(['model_id'=>$answer->actions[0]->option_id,
+                                        'model_type'=>'App\Models\Option',
+                                        'collection_name'=>'drawings'])->first();
+                                    }
+
+                                 @endphp
+                                 @if ($image)
+                                     <img alt="thumbnail"
+                                          style="width:200px;"
+                                          src="{{ $image->cdnUrl() }}">
+                                 @endif
+
+
+
+
+                                 {{ $answer->text }}
+                             </a>
+                         @endforeach
+
+
                     @else
 
 
