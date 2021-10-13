@@ -25,7 +25,6 @@ class RedirectFunctions extends Controller
         if ( $selectedAnswers->contains(93) // commercial
             && $selectedAnswers->contains(99)) // side entry
         {
-            die('asdfadsfdas');
             return WizardQuestion::find( 22 );
         }
 
