@@ -54,6 +54,11 @@
                     @includeIf('blueprint::blueprint.forms.mobility_ford_transit')
                 @endif
 
+                {{-- GRAND CARAVAN MOBILITY VANS --}}
+                @if( $blueprint->base_van_id == 14 )
+                    @includeIf('blueprint::blueprint.forms.mobility_grand_caravan')
+                @endif
+
             </div>
         </div>
     </div>
