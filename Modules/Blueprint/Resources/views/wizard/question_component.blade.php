@@ -74,7 +74,7 @@
 
                                  @php
                                  $image = null;
-                                    if( $answer->actions && $answer->actions[0] )
+                                    if( $answer->actions && $answer->actions->first() )
                                     {
                                      $image = \App\Models\Media::where(['model_id'=>$answer->actions[0]->option_id,
                                         'model_type'=>'App\Models\Option',
