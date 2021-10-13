@@ -87,48 +87,48 @@
     @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
 
     <script>
-        @if ( $configuration->contains('FTM-Z200-001') )
-            /*
-                    1 3 0  WHEELBASE VANS
-             */
-            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/ftm-130wb-interior.png') }}` , function (bg) {
-                bg.setAttrs({
-                    x: 0,
-                    y: 0, //FTM-Z200-001
-                });
-                floorLayer.add(bg);
-                floorLayer.draw();
-            });
+{{--        @if ( $configuration->contains('FTM-Z200-001') )--}}
+{{--            /*--}}
+{{--                    1 3 0  WHEELBASE VANS--}}
+{{--             */--}}
+{{--            Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/ftm-130wb-interior.png') }}` , function (bg) {--}}
+{{--                bg.setAttrs({--}}
+{{--                    x: 0,--}}
+{{--                    y: 0, //FTM-Z200-001--}}
+{{--                });--}}
+{{--                floorLayer.add(bg);--}}
+{{--                floorLayer.draw();--}}
+{{--            });--}}
 
-            @if ( $configuration->contains('FTM-Z2003-001') )
-                /*
-                    SIDE LIFT
-                 */
-                Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-side.png') }}` , function (bg) {
-                    bg.setAttrs({
-                        x: 350,
-                        y: 60,
-                    });
-                    floorLayer.add(bg);
-                    floorLayer.draw();
-                });
-            @endif
+{{--            @if ( $configuration->contains('FTM-Z2003-001') )--}}
+{{--                /*--}}
+{{--                    SIDE LIFT--}}
+{{--                 */--}}
+{{--                Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-side.png') }}` , function (bg) {--}}
+{{--                    bg.setAttrs({--}}
+{{--                        x: 350,--}}
+{{--                        y: 60,--}}
+{{--                    });--}}
+{{--                    floorLayer.add(bg);--}}
+{{--                    floorLayer.draw();--}}
+{{--                });--}}
+{{--            @endif--}}
 
-            @if ( $configuration->contains('FTM-Z2003-002') )
-                /*
-                    REAR LIFT
-                 */
-                Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-rear.png') }}` , function (bg) {
-                    bg.setAttrs({
-                        x: 710,
-                        y: 110,
-                    });
-                    floorLayer.add(bg);
-                    floorLayer.draw();
-                });
-            @endif
+{{--            @if ( $configuration->contains('FTM-Z2003-002') )--}}
+{{--                /*--}}
+{{--                    REAR LIFT--}}
+{{--                 */--}}
+{{--                Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-rear.png') }}` , function (bg) {--}}
+{{--                    bg.setAttrs({--}}
+{{--                        x: 710,--}}
+{{--                        y: 110,--}}
+{{--                    });--}}
+{{--                    floorLayer.add(bg);--}}
+{{--                    floorLayer.draw();--}}
+{{--                });--}}
+{{--            @endif--}}
 
-        @endif
+{{--        @endif--}}
 
 
 
@@ -162,6 +162,8 @@
                 bg.setAttrs({
                     x: 350,
                     y: 60,
+                    zIndex: 1000,
+
                 });
                 floorLayer.add(bg);
                 floorLayer.draw();
@@ -177,10 +179,29 @@
                     bg.setAttrs({
                         x: 785,
                         y: 110,
+                        zIndex: 1000,
+
                     });
                     floorLayer.add(bg);
                     floorLayer.draw();
                 });
+            @endif
+
+
+            @if ( $configuration->contains('FTM-E053-001') )
+            /*
+                REAR R A M P
+             */
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ramp.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 795,
+                    y: 115,
+                    zIndex: 1000,
+
+                });
+                floorLayer.add(bg);
+                floorLayer.draw();
+            });
             @endif
         @endif
 
@@ -216,6 +237,8 @@
                 bg.setAttrs({
                     x: 350,
                     y: 60,
+                    zIndex: 1000,
+
                 });
                 floorLayer.add(bg);
                 floorLayer.draw();
@@ -232,6 +255,21 @@
                         y: 110,
                         zIndex: 1000,
 
+                    });
+                    floorLayer.add(bg);
+                    floorLayer.draw();
+                });
+            @endif
+
+            @if ( $configuration->contains('FTM-E053-001') )
+                /*
+                    REAR R A M P
+                 */
+                Konva.Image.fromURL(  `{{ mix('img/blueprint/other/ramp.png') }}` , function (bg) {
+                    bg.setAttrs({
+                        x: 926,
+                        y: 115,
+                        zIndex: 1000,
                     });
                     floorLayer.add(bg);
                     floorLayer.draw();
