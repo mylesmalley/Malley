@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Modules\Questionnaire\Http\Controllers\RedirectFunctions;
+use Modules\Blueprint\Http\Controllers\Wizard\RedirectFunctions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -78,7 +78,6 @@ class WizardQuestion extends Model
     public function redirect( Collection $selectedAnswers )
     {
         $redirect = $this->attributes['redirect_method'];
-
         return RedirectFunctions::{$redirect}( $selectedAnswers );
     }
 }

@@ -20,20 +20,27 @@ class RedirectFunctions extends Controller
      */
     public static function transitMobilityOptions( Collection $selectedAnswers  ): WizardQuestion
     {
+
         // commercial side entry
         if ( $selectedAnswers->contains(93) // commercial
             && $selectedAnswers->contains(99)) // side entry
         {
+            die('asdfadsfdas');
             return WizardQuestion::find( 22 );
         }
+
 
         // commercial rear entry and rear ramp
         if ( $selectedAnswers->contains(93) //commercial
             && ( $selectedAnswers->contains(98) // rear entry
                 || $selectedAnswers->contains(100)  )) // rear ramp
         {
-            return WizardQuestion::find( 24 );
+//            return WizardQuestion::find( 24 );
+            // ask about EZ Step now before going to options
+            return WizardQuestion::find( 69 );
         }
+
+
 
         // personal  rear entry and rear ramp
         if ( $selectedAnswers->contains(94) // personal

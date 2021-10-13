@@ -8,7 +8,7 @@
             @forelse( $progress as $p )
                 <tr>
                     <td> {{ $p->question }}</td>
-                    <td> {{ $p->answer }} <br>
+                    <td> {{ $p->answer }} ({{ $p->wizard_answer_id }}) <br>
 
                         @foreach( DB::table('wizard_actions')
                             ->where('wizard_answer_id', $p->wizard_answer_id)

@@ -3,7 +3,6 @@
 namespace Modules\Blueprint\Http\Livewire;
 
 use App\Models\Wizard;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Blueprint;
