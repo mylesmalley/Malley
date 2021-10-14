@@ -20,8 +20,16 @@ class QuestionQuery extends Component
     public string $newAnswerText = "";
     public string $newAnswerNext = "";
 
+    public function mount()
+    {
+        $this->answers = null;
+//        $this->wizard_id = null;
+    }
+
     protected $listeners = [
         "pickQuestion",
+//        'render',
+        'pickQuestionById',
     ];
 
     protected  array $rules = [
@@ -35,11 +43,18 @@ class QuestionQuery extends Component
     ];
 
 
+    public function reRender()
+    {
+        $this->render();
+    }
+
+
     /**
      * @param int $question
      */
     public function pickQuestionById( int $question ): void
     {
+      //  dd( $question );
         $this->question = WizardQuestion::find( $question );
         $this->newAnswerQuestion = $this->question->id;
         $this->answersThatPointToThisQuestion = WizardAnswer::where('next',  $this->question->id)->count();
@@ -97,7 +112,8 @@ class QuestionQuery extends Component
     public function deleteAction( WizardAction $action ): void
     {
         $action->delete();
-        $this->pickQuestionById( $this->question->id );
+   //     $this->render();
+      $this->pickQuestionById( $this->question->id );
     }
 
 

@@ -42,7 +42,7 @@ class NewAction extends Component
 
         $this->validate();
         $this->action->save();
-        return redirect()->refresh();
+        $this->emit('pickQuestionById', $this->answer->wizard_question_id );
 
 
     }

@@ -58,7 +58,7 @@ class QuoteBody extends Component
             })
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount','blueprint'])
-            ->get();;
+            ->get();
     }
 
     /**

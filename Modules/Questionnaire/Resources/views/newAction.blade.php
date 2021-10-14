@@ -1,5 +1,5 @@
-<tr wire:key="{{ $answer->id }}key">
-    <td>
+<div>
+
         <form wire:submit.prevent="save">
             <div class="row">
                 <div class="col-2">
@@ -18,6 +18,4 @@
             new action for {{ $answer->text }}
             <button wire:click="save">save</button>
         </form>
-    </td>
-
-</tr>
+</div>
