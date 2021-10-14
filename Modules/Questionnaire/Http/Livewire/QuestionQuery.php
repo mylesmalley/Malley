@@ -2,6 +2,7 @@
 
 namespace Modules\Questionnaire\Http\Livewire;
 
+use App\Models\WizardAction;
 use App\Models\WizardAnswer;
 use App\Models\WizardQuestion;
 use Livewire\Component;
@@ -88,6 +89,18 @@ class QuestionQuery extends Component
         return redirect('/questionnaire/'. $this->wizard_id . '/graph' );
 
     }
+
+
+    /**
+     * @param WizardAction $action
+     */
+    public function deleteAction( WizardAction $action ): void
+    {
+        $action->delete();
+        $this->pickQuestionById( $this->question->id );
+    }
+
+
 
 
     public function addAnswer()

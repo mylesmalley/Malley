@@ -37,8 +37,13 @@
                                                     <td>{{ $action->action }}</td>
             {{--                                        <td>{{ $action->option_id }}</td>--}}
                                                     <td>{{ $action->option->option_description }}</td>
+
+                                                    <td><button
+                                                            wire:click="deleteAction({{ $action->id }})"
+                                                            class="btn btn-sm btn-danger">x</button></td>
                                                 </tr>
                                             @endforeach
+                                            @livewire('questionnaire::new-action', [ $answer ])
                                         </table>
                                     </div>
 
