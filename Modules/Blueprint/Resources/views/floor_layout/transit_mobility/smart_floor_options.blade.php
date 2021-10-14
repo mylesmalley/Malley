@@ -2,7 +2,7 @@
     let options = {
         // no extension
         smartfloor_seat: {
-            image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
+            image: '{{ mix('img/blueprint/seats/single-fixed.png') }}',
             options: [
                 'FTM-C004-001', // SMARTFLOOR SEAT
             ],
@@ -29,25 +29,31 @@
             ],
         },
 
+        shoulder_harness: {
+            image: '{{ mix('img/blueprint/other/shoulder-harness.png') }}',
+            options: [
+                'FTM-D004-004',
+            ],
+        },
 
-        seatbelt_extension_8: {
-            image: '{{ mix('img/blueprint/seats/seatbelt-8.png') }}',
-            options: [
-                'FTM-P009-001',
-            ],
-        },
-        seatbelt_extension_12: {
-            image: '{{ mix('img/blueprint/seats/seatbelt-12.png') }}',
-            options: [
-                'FTM-P010-001',
-            ],
-        },
-        seatbelt_extension_18: {
-            image: '{{ mix('img/blueprint/seats/seatbelt-18.png') }}',
-            options: [
-                'FTM-P011-001',
-            ],
-        },
+        {{--seatbelt_extension_8: {--}}
+        {{--    image: '{{ mix('img/blueprint/seats/seatbelt-8.png') }}',--}}
+        {{--    options: [--}}
+        {{--        'FTM-P009-001',--}}
+        {{--    ],--}}
+        {{--},--}}
+        {{--seatbelt_extension_12: {--}}
+        {{--    image: '{{ mix('img/blueprint/seats/seatbelt-12.png') }}',--}}
+        {{--    options: [--}}
+        {{--        'FTM-P010-001',--}}
+        {{--    ],--}}
+        {{--},--}}
+        {{--seatbelt_extension_18: {--}}
+        {{--    image: '{{ mix('img/blueprint/seats/seatbelt-18.png') }}',--}}
+        {{--    options: [--}}
+        {{--        'FTM-P011-001',--}}
+        {{--    ],--}}
+        {{--},--}}
 
     };
 </script>
