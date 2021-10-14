@@ -6,6 +6,8 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 
@@ -118,6 +120,14 @@ class WizardAction extends Model
         $config->save();
 
         return true;
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function option(): BelongsTo
+    {
+        return $this->belongsTo(Option::class );
     }
 
 }

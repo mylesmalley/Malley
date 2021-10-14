@@ -33,13 +33,22 @@ class QuestionQuery extends Component
         'question.text' => 'required|string',
     ];
 
+
+    /**
+     * @param int $question
+     */
+    public function pickQuestionById( int $question ): void
+    {
+        $this->question = WizardQuestion::find( $question );
+        $this->newAnswerQuestion = $this->question->id;
+        $this->answersThatPointToThisQuestion = WizardAnswer::where('next',  $this->question->id)->count();
+    }
+
     public function pickQuestion( string $msg )
     {
         $this->question = WizardQuestion::where('id', (int) ltrim($msg, 'Q') )
-            ->with('answers', 'answers.actions')
+            ->with('answers', 'answers.actions', 'answers.actions.option')
             ->first();
-      //  $this->text = $this->question->text;
-      //  $this->answers = $this->question->answers->with('answers.actions');
         $this->newAnswerQuestion = $this->question->id;
         $this->answersThatPointToThisQuestion = WizardAnswer::where('next',  $this->question->id)->count();
     }
