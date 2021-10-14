@@ -2,32 +2,34 @@
     let options = {
         // no extension
         smartfloor_seat: {
-            image: '{{ mix('img/blueprint/seats/single-fixed.png') }}',
+            image: '{{ mix('img/blueprint/seats/smart-seat.png') }}',
             options: [
                 'FTM-C004-001', // SMARTFLOOR SEAT
             ],
         },
 
         smartfloor_turny: {
-            image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
+            image: '{{ mix('img/blueprint/seats/smart-seat.png') }}',
             options: [
                 'FTM-C005-001', // SMARTSEAT - EZ M1 TIP AND FOLD TURNY
             ],
         },
 
 
+
+
         wheelchair_position: {
             image: '{{ mix('img/blueprint/other/wheelchair.png') }}',
             options: [
-                'FTM-D002-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM
+                'FTM-D003-001', // smartfloor
             ],
         },
-        wheelchair_position_snc: {
-            image: '{{ mix('img/blueprint/other/wheelchair.png') }}',
-            options: [
-                'FTM-D001-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM
-            ],
-        },
+        {{--wheelchair_position_snc: {--}}
+        {{--    image: '{{ mix('img/blueprint/other/wheelchair.png') }}',--}}
+        {{--    options: [--}}
+        {{--        'FTM-D001-001', // L-TRACK WHEELCHAIR RESTRAINT SYSTEM--}}
+        {{--    ],--}}
+        {{--},--}}
 
         shoulder_harness: {
             image: '{{ mix('img/blueprint/other/shoulder-harness.png') }}',
