@@ -1,11 +1,8 @@
 @extends('questionnaire::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+    <h1>{{ $wizard->name }}</h1>
 
-    <p>
-        This view is loaded from module: {!! config('questionnaire.name') !!}
-    </p>
 {{--    @livewire('questionnaire::QuestionQuery')--}}
 
     <div class="row">
@@ -19,7 +16,7 @@
         </div>
     </div>
 
-    <div class="mermaid">
+    <div class="mermaid" style="overflow: auto;">
 
 
         {{ $graph }}

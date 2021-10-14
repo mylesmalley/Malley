@@ -25,7 +25,7 @@ class NewQuestion extends Component
     public function render()
     {
         return <<<'blade'
-            <div>
+            <div class="text-center">
                <div class="card border-success">
                     <div class="card-header bg-success text-white">
                     Mew Question
