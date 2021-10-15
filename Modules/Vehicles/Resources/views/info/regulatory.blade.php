@@ -98,8 +98,9 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-primary" href="{{ url('/vehicles/'.$vehicle->id.'/stickers') }}">Canadian Stickers</a>
-                    <a  class="btn btn-info"  href="{{ url('/vehicles/'.$vehicle->id.'/stickers/us') }}">American Stickers</a>
+                    <a class="btn btn-primary" href="{{ route('vehicle.stickers', [$vehicle]) }}">Canadian Stickers</a>
+                    <a  class="btn btn-info"  href="{{ route('vehicle.stickers', [$vehicle, 'us']) }}">American Stickers</a>
+                    <a  class="btn btn-secondary"  href="{{ route('vehicle.stickers', [$vehicle, 'qc']) }}">BNQ Stickers</a>
                 </div>
             </div>
 

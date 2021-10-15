@@ -2,6 +2,7 @@
 
 // Dashboard stuff
 use Illuminate\Support\Facades\Route;
+use Modules\Vehicles\Http\Controllers\Documents\StickerController;
 use Modules\Vehicles\Http\Controllers\InspectionReports\InspectionReportController;
 use Modules\Vehicles\Http\Controllers\Warranty\ClaimController;
 use Modules\Vehicles\Http\Controllers\Warranty\WorkOrderFromWarrantyClaimController;
@@ -181,7 +182,11 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('{vehicle}/documents/', "Documents\IndexController@show");
 
     // STICKERS FOR REGULATORY INFO...EXTRA IS FOR US OR CANADIAN VERSION
-    Route::get('/{vehicle}/stickers/{extra?}',    "Documents\StickerController@show");
+    Route::get('/{vehicle}/stickers/{extra?}',    [StickerController::class, "show"])
+        ->name('vehicle.stickers');
+
+
+
 
 
     Route::get('/{vehicle}/tags',    "TagController@vehicleTags");
