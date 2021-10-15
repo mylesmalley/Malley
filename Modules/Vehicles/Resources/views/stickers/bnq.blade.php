@@ -6,7 +6,7 @@
 
 
     width="2500"
-    height="2600"
+    height="3500"
     style='padding:10px;border: 1px solid blue;
     width:7.8in;'
 ></canvas>
@@ -257,60 +257,104 @@
         15,
         1875,
         1220,
-        670  );
+        1000  );
 
     star.font = 'bold 36px sans-serif';
     star.textBaseline = 'top'
     star.textAlign = 'center';
     star.fillStyle = 'black';
 
-    star.fillText(`CERTIFIED "STAR OF LIFE" AMBULANCE`, 625, line(51));
+    star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(51));
+    star.fillText(`ATTENTION`, 625, line(53));
 
     star.font = '36px sans-serif';
-    star.textAlign = 'left';
-    star.fillText(`Manufacturer _________________`, 40, line(53));
-    star.fillText(`Malley Industries Inc`, 270, line(53));
 
-    star.fillText(`Date of Manufacture ___________`, 650, line(53));
-    star.fillText(`{{ $vehicle->date_malley_finished_conversion ?? date("Y-m-d") }}`, 1000, line(53));
+    star.fillText(`CETTE AMBULANCE, TELLE QU'ELLE EST CONSTRUITE, EST`, 625, line(54));
+    star.fillText(`COMFORME AUX EXIGENCES DE CHARGE UTILE RESTANTE`, 625, line(55));
+    star.fillText(`MINIMALE DE LA NORME BNQ 1013-110. LES UTILISATEURS NE`, 625, line(56));
+    star.fillText(`DOIVENT PAS DÉPASSER LE POIDS NOMINAL BRUT (PNBV)`, 625, line(57));
+    star.fillText(`SPÉCIFIÉ PAR LE CONSTRUCTEUR DU CHÂSSIS.`, 625, line(58));
+    star.fillText(`LES UTILISATEURS DOIVENT S'ASSURER QUE LA CHARGE UTILE`, 625, line(59));
+    star.fillText(`AJOUTÉE À L'AMBULANCE NE DÉPASSE PAS LA CHARGE UTILE`, 625, line(60));
+    star.fillText(`RESTANTE.`, 625, line(61));
 
-    star.fillText(`Address _________________ City ________ State _____ ZIP ________`, 40, line(54));
-    star.fillText(`1100 Aviation Ave`, 200, line(54));
-    star.fillText(`Dieppe`, 625, line(54));
-    star.fillText(`NB`, 900, line(54));
-    star.fillText(`E1A9A3`, 1050, line(54));
-
-
-    star.fillText(`This ambulance conforms to Federal Specification KKK-A-1822 in effect`, 40, line(55));
-    star.fillText(`on the date the ambulance was contracted for.`, 40, line(56));
-    star.fillText(`Final State Ambulance Manufacturers ID Number ___________________`, 40, line(57));
-    star.fillText(`68823`, 900, line(57));
-
-
-
-    star.fillText(`VIN __________________________ Vehicle Type __________________`, 40, line(58));
-    star.fillText(`{{ $vehicle->vin }}`, 180, line(58));
-    star.fillText(`{{ $vehicle->ambulance_type }}`, 900, line(58));
-
-
-    star.fillText(`OEM Chassis Model / Year of Manufacture ________________________`, 40, line(59));
-    star.fillText(`{{ $vehicle->make }} {{ $vehicle->model }} {{ $vehicle->year }}`, 740, line(59));
-
-
+    star.font = 'bold 36px sans-serif';
+    star.fillText(`CAUTION`, 625, line(63));
 
     star.font = '36px sans-serif';
-    star.textAlign = 'center';
 
-    star.fillText(`NOTICE: THIS VEHICLE, AS MANUFACTURERD, CONFORMS TO`, 625, line(61));
-    star.fillText(`THE PAYLOAD REQUIREMENTS OF THE FEDERAL AMBULANCE`, 625, line(62));
-    star.fillText(`SPECIFICATION KKK-A-1822. USERS SHALL NOT LOAD VEHICLES`, 625, line(63));
-    star.fillText(`ABOVE THE GVWR, GAWRs OR EXCEED THE TOTAL USABLE `, 625, line(64));
-    star.fillText(`PAYLOAD LISTED BELOW.`, 625, line(65));
+    star.fillText(`THIS AMBULANCE, AS MANUFACTURED, CONFORMS TO THE`, 625, line(64));
+    star.fillText(`MINIMAL PAYLOAD REQUIREMENTS OF STANDARD BNQ 1013-110.`, 625, line(65));
+    star.fillText(`USERS SHALL NOT LOAD VEHICLE ABOVE THE GROSS VEHICLE`, 625, line(66));
+    star.fillText(`WEIGHT RATING (GVWR) SPECIFIED BY THE CHASSIS`, 625, line(67));
+    star.fillText(`MANUFACTURER. USERS SHALL ENSURE THAT ANY ADDED`, 625, line(68));
+    star.fillText(`PAYLOAD DOES NOT EXCEED THE PAYLOAD ALLOWANCE.`, 625, line(69));
 
-    star.fillText(`TOTAL USABLE PAYLOAD_______________________________LB`, 625, line(67));
-    star.fillText(`{{ $vehicle->payload  }}`, 800, line(67));
-    star.font = '24px sans-serif';
-    star.fillText(`(TOTAL REMAINING WEIGHT CAPACITY OF OCCUPANTS AND CARGO USER MAY ADD)`, 625, line(68));
+
+
+
+
+
+
+
+
+        star.textAlign = 'left';
+
+
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+
+
+
+
+    {{--star.fillText(`Manufacturer _________________`, 40, line(53));--}}
+    {{--star.fillText(`Malley Industries Inc`, 270, line(53));--}}
+
+    {{--star.fillText(`Date of Manufacture ___________`, 650, line(53));--}}
+    {{--star.fillText(`{{ $vehicle->date_malley_finished_conversion ?? date("Y-m-d") }}`, 1000, line(53));--}}
+
+    {{--star.fillText(`Address _________________ City ________ State _____ ZIP ________`, 40, line(54));--}}
+    {{--star.fillText(`1100 Aviation Ave`, 200, line(54));--}}
+    {{--star.fillText(`Dieppe`, 625, line(54));--}}
+    {{--star.fillText(`NB`, 900, line(54));--}}
+    {{--star.fillText(`E1A9A3`, 1050, line(54));--}}
+
+
+    {{--star.fillText(`This ambulance conforms to Federal Specification KKK-A-1822 in effect`, 40, line(55));--}}
+    {{--star.fillText(`on the date the ambulance was contracted for.`, 40, line(56));--}}
+    {{--star.fillText(`Final State Ambulance Manufacturers ID Number ___________________`, 40, line(57));--}}
+    {{--star.fillText(`68823`, 900, line(57));--}}
+
+
+
+    {{--star.fillText(`VIN __________________________ Vehicle Type __________________`, 40, line(58));--}}
+    {{--star.fillText(`{{ $vehicle->vin }}`, 180, line(58));--}}
+    {{--star.fillText(`{{ $vehicle->ambulance_type }}`, 900, line(58));--}}
+
+
+    {{--star.fillText(`OEM Chassis Model / Year of Manufacture ________________________`, 40, line(59));--}}
+    {{--star.fillText(`{{ $vehicle->make }} {{ $vehicle->model }} {{ $vehicle->year }}`, 740, line(59));--}}
+
+
+
+    {{--star.font = '36px sans-serif';--}}
+    {{--star.textAlign = 'center';--}}
+
+    {{--star.fillText(`NOTICE: THIS VEHICLE, AS MANUFACTURERD, CONFORMS TO`, 625, line(61));--}}
+    {{--star.fillText(`THE PAYLOAD REQUIREMENTS OF THE FEDERAL AMBULANCE`, 625, line(62));--}}
+    {{--star.fillText(`SPECIFICATION KKK-A-1822. USERS SHALL NOT LOAD VEHICLES`, 625, line(63));--}}
+    {{--star.fillText(`ABOVE THE GVWR, GAWRs OR EXCEED THE TOTAL USABLE `, 625, line(64));--}}
+    {{--star.fillText(`PAYLOAD LISTED BELOW.`, 625, line(65));--}}
+
+    {{--star.fillText(`TOTAL USABLE PAYLOAD_______________________________LB`, 625, line(67));--}}
+    {{--star.fillText(`{{ $vehicle->payload  }}`, 800, line(67));--}}
+    {{--star.font = '24px sans-serif';--}}
+    {{--star.fillText(`(TOTAL REMAINING WEIGHT CAPACITY OF OCCUPANTS AND CARGO USER MAY ADD)`, 625, line(68));--}}
 
 
 
