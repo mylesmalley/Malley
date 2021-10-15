@@ -31,6 +31,7 @@ class NewAction extends Component
     {
         $this->answer = $answer;
         $this->action = new WizardAction();
+        $this->action->action = 'switch_on';
         $this->action->wizard_answer_id = $answer->id;
         $this->action->value = 1;
     }
@@ -43,7 +44,8 @@ class NewAction extends Component
         $this->validate();
         $this->action->save();
         $this->emit('pickQuestionById', $this->answer->wizard_question_id );
-
+        $this->mount( $this->answer );
+        $this->render();
 
     }
 
