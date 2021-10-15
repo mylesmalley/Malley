@@ -20,12 +20,17 @@ Route::group(["prefix" => "index"], function(){
 
     Route::group(['prefix' => 'basevan/{basevan}'], function () {
         // option index home page
-        Route::get('/', "Option\IndexController@show");
+        Route::get('/', "Option\IndexController@show")
+            ->name('platform.home');
 
         // create a new option for a platform
         Route::get('/create', "Option\CreateController@create");
         Route::post('/', "Option\CreateController@store");
-        Route::post('/tag', "Index\TagController@create");
+
+        Route::post('/tag', "Index\TagController@create")
+            ->name('platform.tags.create');
+
+
 
         // forms
         Route::get('/forms', "Form\FormController@index");

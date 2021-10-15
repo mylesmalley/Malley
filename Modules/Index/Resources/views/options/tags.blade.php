@@ -14,11 +14,11 @@
             @endif
         </div>
         <div class="input-group">
-            <a href="{{ url('/index/option/'.$option->id. '/home') }}" class="btn btn-dark btn-lg">Back to Option</a>
+            <a href="{{ route('option.home',[$option] ) }}" class="btn btn-dark btn-lg">Back to Option</a>
         </div>
 
         <div class="input-group">
-            <a href="{{ url('/index/index/'.$option->base_van_id) }}" class="btn btn-dark btn-lg">Back To Index</a>
+            <a href="{{ route('platform.home', [$option->base_van_id]) }}" class="btn btn-dark btn-lg">Back To Index</a>
         </div>
 
     </div>
@@ -79,7 +79,9 @@
                 <div class="card-header">New Tag</div>
                 <div class="card-body">
                     <form method="POST"
-                          action="{{ url('/index/'.$option->base_van_id.'/tag') }}"
+{{--                          action="{{ url('/index/'.$option->base_van_id.'/tag') }}"--}}
+                          action="{{ route('platform.tags.create', [$option->base_van_id]) }}"
+
                           class="form-inline">
                         {{ csrf_field() }}
                         <input type='hidden' name="model" value="option">
