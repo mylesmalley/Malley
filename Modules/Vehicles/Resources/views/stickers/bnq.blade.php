@@ -274,7 +274,7 @@
     star.fillText(`TOTAL WEIGHT OF OPTIONS AS`, 80,  line(54));
     star.fillText(`SPECIFIED ON VEHICLE`, 110,  line(55));
     star.fillText(`____________KG`, 900,  line(55));
-    star.fillText(`{{ number_format(($vehicle->weight_of_options ?? 30)  * 0.453592 )  }}`, 950,  line(55));
+    star.fillText(`{{ number_format(($vehicle->weight_of_options ?? 0)  * 0.453592 )  }}`, 950,  line(55));
 
 
 

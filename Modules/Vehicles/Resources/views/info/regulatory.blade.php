@@ -345,6 +345,29 @@
                 </div>
 
 
+                        <div class="row text-center">
+                            <div class='offset-4 col-md-4'>
+                                <div class="form-group">
+                                    <label class="control-label" for="total_weight">Weight of Options</label>
+                                    <div class="input-group">
+                                        <input type="number"
+                                               v-model.number="weight_of_options"
+
+                                               name="weight_of_options"
+                                               value="{{ old('weight_of_options') ?? $vehicle->weight_of_options ?? "" }}"
+                                               id="weight_of_options"
+                                               class="form-control">
+                                        <span class="input-group-text" title='lb'>lb</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
                 <div class="row text-center">
                     <div class='offset-4 col-md-4'>
                         <div class="form-group">
@@ -407,6 +430,8 @@
                     base_raised_weight_lf: {{ old('base_raised_weight_lf') ?? $vehicle->base_raised_weight_lf ?? 0 }},
                     base_raised_weight_lr: {{ old('base_raised_weight_lr') ?? $vehicle->base_raised_weight_lr ?? 0 }},
                     gvwr: {{ old('oem_gvwr') ?? $vehicle->oem_gvwr ?? 0 }},
+                    weight_of_options: {{ old('weight_of_options') ?? $vehicle->weight_of_options ?? 0 }},
+
 
                 },
                 computed: {
@@ -480,7 +505,7 @@
                         return Math.round(  this.base_fueled_weight_lr + this.base_fueled_weight_rr );
                     },
                     total_weight: function() {
-                        return Math.round(  this.rear_axel_weight_with_fuel + this.front_axel_weight_with_fuel );
+                        return Math.round(  this.rear_axel_weight_with_fuel + this.front_axel_weight_with_fuel + this.weight_of_options );
                     },
                     payload: function() {
                         return Math.round(  this.gvwr - this.total_weight );

@@ -8,6 +8,7 @@
                 <div class="row">
                     <div class="col-10">
                         <input class="form-control form-control-sm"
+                               aria-label=""
                                 type="text" wire:model="question.text" >
                     </div>
                     <div class="col-2">
@@ -45,7 +46,7 @@
                                             @endforeach
                                             <tr>
                                                 <td colspan="3">
-                                                    @livewire('questionnaire::new-action', ['answer'=>$answer], $answer->id )
+                                                    @livewire('questionnaire::new-action', ['answer'=>$answer],key( $answer->id ))
 
                                                 </td>
                                             </tr>

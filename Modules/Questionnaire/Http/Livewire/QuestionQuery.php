@@ -114,6 +114,8 @@ class QuestionQuery extends Component
         $action->delete();
    //     $this->render();
       $this->pickQuestionById( $this->question->id );
+     // $this->render();
+    //  dd('ok');
     }
 
 
