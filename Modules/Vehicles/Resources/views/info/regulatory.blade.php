@@ -505,7 +505,7 @@
                         return Math.round(  this.base_fueled_weight_lr + this.base_fueled_weight_rr );
                     },
                     total_weight: function() {
-                        return Math.round(  this.rear_axel_weight_with_fuel + this.front_axel_weight_with_fuel + this.weight_of_options );
+                        return Math.round(  this.rear_axel_weight_with_fuel + this.front_axel_weight_with_fuel  );
                     },
                     payload: function() {
                         return Math.round(  this.gvwr - this.total_weight );

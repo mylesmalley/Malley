@@ -6,7 +6,7 @@
 
 
     width="2500"
-    height="3500"
+    height="2600"
     style='padding:10px;border: 1px solid blue;
     width:7.8in;'
 ></canvas>
@@ -89,13 +89,13 @@
     //// blank
 
      star.textAlign = 'right';
-    star.fillText(`Temperature __________ °F`, 560,  line(7));
-    star.fillText(`{{ round( ( $vehicle->o2_test_temperature * 1.8) + 32 )  }}`, 450,  line(7));
+    star.fillText(`Temperature __________ °C`, 560,  line(7));
+    star.fillText(`{{ round(  $vehicle->o2_test_temperature  )  }}`, 450,  line(7));
     star.fillText(`Pressure __________ psi`, 560,  line(8));
     star.fillText(`{{ round( $vehicle->os_test_start_pressure )  }}`, 450,  line(8));
 
-    star.fillText(`Temperature __________ °F`, 1150,  line(7));
-    star.fillText(`{{ round( ( $vehicle->o2_test_temperature * 1.8) + 32 )  }}`, 1025,  line(7));
+    star.fillText(`Temperature __________ °C`, 1150,  line(7));
+    star.fillText(`{{ round( $vehicle->o2_test_temperature  )  }}`, 1025,  line(7));
     star.fillText(`Pressure __________ psi`, 1150,  line(8));
     star.fillText(`{{ round( $vehicle->os_test_final_pressure )  }}`, 1025,  line(8));
 
@@ -259,7 +259,7 @@
      star.fillText(`CURB WEIGHT BASE VEHICLE`, 80,  line(49));
      star.fillText(`(ITEM 6 PLUS ITEM 7) `, 110,  line(50));
      star.fillText(`____________KG`, 900,  line(50));
-     star.fillText(`{{ number_format( $vehicle->total_weight  * 0.453592 ) }}`, 950,  line(50));
+     star.fillText(`{{ number_format( ( $vehicle->front_axel_weight_with_fuel + $vehicle->rear_axel_weight_with_fuel )  * 0.453592 ) }}`, 950,  line(50));
 
 
         star.fillText(`9.`, 40,  line(51));
@@ -285,7 +285,7 @@
     star.fillText(`(ACTUAL WEIGHT USER MAY ADD)`, 110,  line(57));
     star.fillText(`(ITEM 9 MINUS ITEM 10)`, 110,  line(58));
       star.fillText(`____________KG`, 900,  line(58));
-      star.fillText(`{{ number_format(( $vehicle->oem_front_gawr - $vehicle->front_axel_weight_with_fuel ) * 0.453592 )  }}`, 950,  line(58));
+      star.fillText(`{{ number_format(( $vehicle->payload - $vehicle->weight_of_options ) * 0.453592 )  }}`, 950,  line(58));
 
 
     // FOOTER
