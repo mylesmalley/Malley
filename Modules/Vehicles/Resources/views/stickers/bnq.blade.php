@@ -125,117 +125,167 @@
         1220,
         1250  );
 
-    //HEADLINE TEXT
+    // //HEADLINE TEXT
+    // star.font = 'bold 36px sans-serif';
+    // star.textBaseline = 'top'
+    // star.textAlign = 'center';
+    // star.fillStyle = 'black';
+    //
+    // star.fillText("WEIGHT / PAYLOAD CERTIFICATION STICKER NOTICE", 625, line(15));
+    //
+    // // top text paragrap
+    // star.font = ' 36px sans-serif';
+    // star.textBaseline = 'top'
+    // //  star.textAlign = 'left';
+    // star.fillStyle = 'black';
+    //
+    // star.fillText(`This vehicle, as manufactured, conforms to the payload requirements of `, 625,  line(17));
+    // star.fillText(`the Federal Ambulance Specification KKK-A-1822. Users shall not load `, 625,  line(18));
+    // star.fillText(`vehicles above the GVWR. Users should determine that the actual load, to `, 625,  line(19));
+    // star.fillText(`be placed on the vehicle does not exceed the usable payload. `, 625,  line(20));
+    //
+    //
+
     star.font = 'bold 36px sans-serif';
     star.textBaseline = 'top'
     star.textAlign = 'center';
     star.fillStyle = 'black';
 
-    star.fillText("WEIGHT / PAYLOAD CERTIFICATION STICKER NOTICE", 625, line(15));
+    star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(15));
+    star.fillText(`ATTENTION`, 625, line(17));
 
-    // top text paragrap
-    star.font = ' 36px sans-serif';
-    star.textBaseline = 'top'
-    //  star.textAlign = 'left';
-    star.fillStyle = 'black';
+    star.font = '36px sans-serif';
 
-    star.fillText(`This vehicle, as manufactured, conforms to the payload requirements of `, 625,  line(17));
-    star.fillText(`the Federal Ambulance Specification KKK-A-1822. Users shall not load `, 625,  line(18));
-    star.fillText(`vehicles above the GVWR. Users should determine that the actual load, to `, 625,  line(19));
-    star.fillText(`be placed on the vehicle does not exceed the usable payload. `, 625,  line(20));
+    star.fillText(`CETTE AMBULANCE, TELLE QU'ELLE EST CONSTRUITE, EST`, 625, line(18));
+    star.fillText(`COMFORME AUX EXIGENCES DE CHARGE UTILE RESTANTE`, 625, line(19));
+    star.fillText(`MINIMALE DE LA NORME BNQ 1013-110. LES UTILISATEURS NE`, 625, line(20));
+    star.fillText(`DOIVENT PAS DÉPASSER LE POIDS NOMINAL BRUT (PNBV)`, 625, line(21));
+    star.fillText(`SPÉCIFIÉ PAR LE CONSTRUCTEUR DU CHÂSSIS.`, 625, line(22));
+    star.fillText(`LES UTILISATEURS DOIVENT S'ASSURER QUE LA CHARGE UTILE`, 625, line(23));
+    star.fillText(`AJOUTÉE À L'AMBULANCE NE DÉPASSE PAS LA CHARGE UTILE`, 625, line(24));
+    star.fillText(`RESTANTE.`, 625, line(25));
+
+    star.font = 'bold 36px sans-serif';
+    star.fillText(`CAUTION`, 625, line(27));
+
+    star.font = '36px sans-serif';
+
+    star.fillText(`THIS AMBULANCE, AS MANUFACTURED, CONFORMS TO THE`, 625, line(28));
+    star.fillText(`MINIMAL PAYLOAD REQUIREMENTS OF STANDARD BNQ 1013-110.`, 625, line(29));
+    star.fillText(`USERS SHALL NOT LOAD VEHICLE ABOVE THE GROSS VEHICLE`, 625, line(30));
+    star.fillText(`WEIGHT RATING (GVWR) SPECIFIED BY THE CHASSIS`, 625, line(31));
+    star.fillText(`MANUFACTURER. USERS SHALL ENSURE THAT ANY ADDED`, 625, line(32));
+    star.fillText(`PAYLOAD DOES NOT EXCEED THE PAYLOAD ALLOWANCE.`, 625, line(33));
+
+
+
+
+
+
+
+
+
 
     star.font = ' 28px sans-serif';
 
-    star.fillText(`_____________________________________________`, 625,  line(22));
-    star.fillText(`AMBULANCE MANUFACTURER'S NAME. `, 625,  line(23));
+    star.fillText(`_____________________________________________`, 625,  line(35));
+    star.fillText(`AMBULANCE MANUFACTURER'S NAME. `, 625,  line(36));
 
 
-    star.fillText(`_________________________________              _____________    `   , 625,  line(25));
-    star.fillText(`           CHASSIS MODEL.                               YEAR OF MANUFACTURE `, 625,  line(25.9));
+    star.fillText(`_________________________________              _____________    `   , 625,  line(38));
+    star.fillText(`           CHASSIS MODEL.                               YEAR OF MANUFACTURE `, 625,  line(39));
 
 
 
     star.font = 'bold 36px sans-serif';
-    star.fillText(`MALLEY INDUSTRIES INC.`, 625,  line(21.9));
-    star.fillText(`      {{ $vehicle->make }} {{ $vehicle->model }}                              `, 625,  line(24.9));
-    star.fillText(`     {{ $vehicle->year }}    `, 900,  line(24.9));
+    star.fillText(`MALLEY INDUSTRIES INC.`, 625,  line(34.9));
+    star.fillText(`      {{ $vehicle->make }} {{ $vehicle->model }}                              `, 625,  line(37.9));
+    star.fillText(`     {{ $vehicle->year }}    `, 900,  line(37.9));
 
 
     // LIST
     star.textAlign = 'left';
 
     star.font = ' 36px sans-serif';
-    star.fillText(`1.`, 40,  line(28));
-    star.fillText(`VEHICLE TYPE, MODEL, PROD #`, 80,  line(28));
-    star.fillText(`_________________________`, 700,  line(28));
-    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->ambulance_model }} | {{ $vehicle->malley_number }}`, 750,  line(28));
+    star.fillText(`1.`, 40,  line(41));
+    star.fillText(`VEHICLE TYPE, MODEL, PROD #`, 80,  line(41));
+    star.fillText(`_________________________`, 700,  line(41));
+    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->ambulance_model }} | {{ $vehicle->malley_number }}`, 750,  line(41));
 
 
-    star.fillText(`2.`, 40,  line(29));
-    star.fillText(`CHASSIS MANUFACTURER GAWR-FRONT`, 80,  line(29));
-    star.fillText(`____________LB`, 900,  line(29));
-    star.fillText(`{{ $vehicle->oem_front_gawr }}`, 950,  line(29));
-
-
-
-    star.fillText(`3.`, 40,  line(30));
-    star.fillText(`CHASSIS MANUFACTURER GAWR-REAR`, 80,  line(30));
-    star.fillText(`____________LB`, 900,  line(30));
-    star.fillText(`{{ $vehicle->oem_rear_gawr }}`, 950,  line(30));
+        star.fillText(`2.`, 40,  line(42));
+        star.fillText(`CHASSIS MANUFACTURER GAWR-FRONT`, 80,  line(42));
+        star.fillText(`____________LB`, 900,  line(42));
+        star.fillText(`{{ $vehicle->oem_front_gawr }}`, 950,  line(42));
 
 
 
-    star.fillText(`4.`, 40,  line(31));
-    star.fillText(`CHASSIS MANUFACTURER GVWR`, 80,  line(31));
-    star.fillText(`____________LB`, 900,  line(31));
-    star.fillText(`{{ $vehicle->oem_gvwr }}`, 950,  line(31));
-
-    star.fillText(`5.`, 40,  line(32));
-    star.fillText(`MINIMUM PAYLOAD PER KKK-A-1822`, 80,  line(32));
-    star.fillText(`OR AS SPECIFIED (PARA 3.5.2)`, 110,  line(33));
-    star.fillText(`____________LB`, 900,  line(33));
-    star.fillText(`1500`, 950,  line(33));
-
-
-    star.fillText(`6.`, 40,  line(34));
-    star.fillText(`CURB WEIGHT-FRONT BASE VEHICLE`, 80,  line(34));
-    star.fillText(`____________LB`, 900,  line(34));
-    star.fillText(`{{ $vehicle->front_axel_weight_with_fuel }}`, 950,  line(34));
-
-
-    star.fillText(`7.`, 40,  line(35));
-    star.fillText(`CURB WEIGHT-REAR BASE VEHICLE`, 80,  line(35));
-    star.fillText(`____________LB`, 900,  line(35));
-    star.fillText(`{{ $vehicle->rear_axel_weight_with_fuel }}`, 950,  line(35));
-
-    star.fillText(`8.`, 40,  line(36));
-    star.fillText(`CURB WEIGHT BASE VEHICLE`, 80,  line(36));
-    star.fillText(`(ITEM 6 PLUS ITEM 7) (PARA 3.5.1)`, 110,  line(37));
-    star.fillText(`____________LB`, 900,  line(37));
-    star.fillText(`{{ $vehicle->total_weight }}`, 950,  line(37));
-
-
-    star.fillText(`9.`, 40,  line(38));
-    star.fillText(`PAYLOAD OF BASIC VEHICLE`, 80,  line(38));
-    star.fillText(`(ITEM 4 MINUS ITEM 8)`, 110,  line(39));
-    star.fillText(`MUST MEET OR EXCEED ITEM 5`, 110,  line(40));
-    star.fillText(`____________LB`, 900,  line(40));
-    star.fillText(`{{ $vehicle->payload }}`, 950,  line(40));
+     star.fillText(`3.`, 40,  line(43));
+     star.fillText(`CHASSIS MANUFACTURER GAWR-REAR`, 80,  line(43));
+     star.fillText(`____________LB`, 900,  line(43));
+     star.fillText(`{{ $vehicle->oem_rear_gawr }}`, 950,  line(43));
 
 
 
-    star.fillText(`10.`, 33,  line(41));
-    star.fillText(`PAYLOAD OF FRONT AXEL `, 80,  line(41));
-    star.fillText(`(ITEM 2 MINUS ITEM 6)`, 110,  line(42));
-    star.fillText(`____________LB`, 900,  line(42));
-    star.fillText(`{{ $vehicle->oem_front_gawr - $vehicle->front_axel_weight_with_fuel }}`, 950,  line(42));
+       star.fillText(`4.`, 40,  line(44));
+       star.fillText(`CHASSIS MANUFACTURER GVWR`, 80,  line(44));
+       star.fillText(`____________LB`, 900,  line(44));
+       star.fillText(`{{ $vehicle->oem_gvwr }}`, 950,  line(44));
 
-    {{--star.fillText(`11.`, 33,  line(43));--}}
-    {{--star.fillText(`REMAINING USABLE PAYLOAD`, 80,  line(43));--}}
-    {{--star.fillText(`(ACTUAL WEIGHT USER MAY ADD)`, 110,  line(44));--}}
-    {{--star.fillText(`(ITEM 9 MINUS ITEM 10)`, 110,  line(45));--}}
-    {{--star.fillText(`____________LB`, 900,  line(45));--}}
-    {{--star.fillText(`{{ $vehicle->payload }}`, 950,  line(45));--}}
+
+
+
+       star.fillText(`5.`, 40,  line(45));
+       star.fillText(`MINIMUM PAYLOAD PER BNQ 1013-110A`, 80,  line(45));
+       star.fillText(`OR AS SPECIFIED (CLAUSE 6.1.2)`, 110,  line(46));
+       star.fillText(`____________KG`, 900,  line(46));
+       star.fillText(`680`, 950,  line(46));
+
+
+           star.fillText(`6.`, 40,  line(47));
+           star.fillText(`CURB WEIGHT-FRONT BASE VEHICLE`, 80,  line(47));
+           star.fillText(`____________LB`, 900,  line(47));
+           star.fillText(`{{ $vehicle->front_axel_weight_with_fuel }}`, 950,  line(47));
+
+
+      star.fillText(`7.`, 40,  line(48));
+      star.fillText(`CURB WEIGHT-REAR BASE VEHICLE`, 80,  line(48));
+      star.fillText(`____________LB`, 900,  line(48));
+      star.fillText(`{{ $vehicle->rear_axel_weight_with_fuel }}`, 950,  line(48));
+
+
+     star.fillText(`8.`, 40,  line(49));
+     star.fillText(`CURB WEIGHT BASE VEHICLE`, 80,  line(49));
+     star.fillText(`(ITEM 6 PLUS ITEM 7) `, 110,  line(50));
+     star.fillText(`____________KG`, 900,  line(50));
+     star.fillText(`{{ $vehicle->total_weight }}`, 950,  line(50));
+
+
+        star.fillText(`9.`, 40,  line(51));
+        star.fillText(`PAYLOAD OF BASIC VEHICLE`, 80,  line(51));
+        star.fillText(`(ITEM 4 MINUS ITEM 8)`, 110,  line(52));
+        star.fillText(`MUST MEET OR EXCEED ITEM 5`, 110,  line(53));
+        star.fillText(`____________LB`, 900,  line(53));
+        star.fillText(`{{ $vehicle->payload }}`, 950,  line(53));
+
+
+    star.fillText(`10.`, 33,  line(54));
+    star.fillText(`TOTAL WEIGHT OF OPTIONS AS`, 80,  line(54));
+    star.fillText(`SPECIFIED ON VEHICLE`, 110,  line(55));
+    star.fillText(`____________LB`, 900,  line(55));
+    star.fillText(`{{ $vehicle->oem_front_gawr - $vehicle->front_axel_weight_with_fuel }}`, 950,  line(55));
+
+
+
+
+
+    star.fillText(`11.`, 33,  line(56));
+      star.fillText(`REMAINING USABLE PAYLOAD `, 80,  line(56));
+    star.fillText(`(ACTUAL WEIGHT USER MAY ADD)`, 110,  line(57));
+    star.fillText(`(ITEM 9 MINUS ITEM 10)`, 110,  line(58));
+      star.fillText(`____________LB`, 900,  line(58));
+      star.fillText(`{{ $vehicle->oem_front_gawr - $vehicle->front_axel_weight_with_fuel }}`, 950,  line(58));
+
 
     // FOOTER
 
@@ -244,11 +294,10 @@
     star.textAlign = 'center';
     star.fillStyle = 'black';
 
-    star.fillText("THIS STICKER SHALL BE MOUNTED ON THE BODY (MODULE)", 625, line(45));
-    star.fillText("IN A CONSPICUOUS LOCATION", 625, line(46));
+    star.fillText("THIS STICKER SHALL BE MOUNTED ON THE BODY (MODULE)", 625, line(60));
+    star.fillText("IN A CONSPICUOUS LOCATION", 625, line(61));
 
     star.font = '36px sans-serif';
-
 
 
     // STAR OF LIFE STICKER START
@@ -259,37 +308,37 @@
         1220,
         1000  );
 
-    star.font = 'bold 36px sans-serif';
-    star.textBaseline = 'top'
-    star.textAlign = 'center';
-    star.fillStyle = 'black';
-
-    star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(51));
-    star.fillText(`ATTENTION`, 625, line(53));
-
-    star.font = '36px sans-serif';
-
-    star.fillText(`CETTE AMBULANCE, TELLE QU'ELLE EST CONSTRUITE, EST`, 625, line(54));
-    star.fillText(`COMFORME AUX EXIGENCES DE CHARGE UTILE RESTANTE`, 625, line(55));
-    star.fillText(`MINIMALE DE LA NORME BNQ 1013-110. LES UTILISATEURS NE`, 625, line(56));
-    star.fillText(`DOIVENT PAS DÉPASSER LE POIDS NOMINAL BRUT (PNBV)`, 625, line(57));
-    star.fillText(`SPÉCIFIÉ PAR LE CONSTRUCTEUR DU CHÂSSIS.`, 625, line(58));
-    star.fillText(`LES UTILISATEURS DOIVENT S'ASSURER QUE LA CHARGE UTILE`, 625, line(59));
-    star.fillText(`AJOUTÉE À L'AMBULANCE NE DÉPASSE PAS LA CHARGE UTILE`, 625, line(60));
-    star.fillText(`RESTANTE.`, 625, line(61));
-
-    star.font = 'bold 36px sans-serif';
-    star.fillText(`CAUTION`, 625, line(63));
-
-    star.font = '36px sans-serif';
-
-    star.fillText(`THIS AMBULANCE, AS MANUFACTURED, CONFORMS TO THE`, 625, line(64));
-    star.fillText(`MINIMAL PAYLOAD REQUIREMENTS OF STANDARD BNQ 1013-110.`, 625, line(65));
-    star.fillText(`USERS SHALL NOT LOAD VEHICLE ABOVE THE GROSS VEHICLE`, 625, line(66));
-    star.fillText(`WEIGHT RATING (GVWR) SPECIFIED BY THE CHASSIS`, 625, line(67));
-    star.fillText(`MANUFACTURER. USERS SHALL ENSURE THAT ANY ADDED`, 625, line(68));
-    star.fillText(`PAYLOAD DOES NOT EXCEED THE PAYLOAD ALLOWANCE.`, 625, line(69));
-
+    // star.font = 'bold 36px sans-serif';
+    // star.textBaseline = 'top'
+    // star.textAlign = 'center';
+    // star.fillStyle = 'black';
+    //
+    // star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(51));
+    // star.fillText(`ATTENTION`, 625, line(53));
+    //
+    // star.font = '36px sans-serif';
+    //
+    // star.fillText(`CETTE AMBULANCE, TELLE QU'ELLE EST CONSTRUITE, EST`, 625, line(54));
+    // star.fillText(`COMFORME AUX EXIGENCES DE CHARGE UTILE RESTANTE`, 625, line(55));
+    // star.fillText(`MINIMALE DE LA NORME BNQ 1013-110. LES UTILISATEURS NE`, 625, line(56));
+    // star.fillText(`DOIVENT PAS DÉPASSER LE POIDS NOMINAL BRUT (PNBV)`, 625, line(57));
+    // star.fillText(`SPÉCIFIÉ PAR LE CONSTRUCTEUR DU CHÂSSIS.`, 625, line(58));
+    // star.fillText(`LES UTILISATEURS DOIVENT S'ASSURER QUE LA CHARGE UTILE`, 625, line(59));
+    // star.fillText(`AJOUTÉE À L'AMBULANCE NE DÉPASSE PAS LA CHARGE UTILE`, 625, line(60));
+    // star.fillText(`RESTANTE.`, 625, line(61));
+    //
+    // star.font = 'bold 36px sans-serif';
+    // star.fillText(`CAUTION`, 625, line(63));
+    //
+    // star.font = '36px sans-serif';
+    //
+    // star.fillText(`THIS AMBULANCE, AS MANUFACTURED, CONFORMS TO THE`, 625, line(64));
+    // star.fillText(`MINIMAL PAYLOAD REQUIREMENTS OF STANDARD BNQ 1013-110.`, 625, line(65));
+    // star.fillText(`USERS SHALL NOT LOAD VEHICLE ABOVE THE GROSS VEHICLE`, 625, line(66));
+    // star.fillText(`WEIGHT RATING (GVWR) SPECIFIED BY THE CHASSIS`, 625, line(67));
+    // star.fillText(`MANUFACTURER. USERS SHALL ENSURE THAT ANY ADDED`, 625, line(68));
+    // star.fillText(`PAYLOAD DOES NOT EXCEED THE PAYLOAD ALLOWANCE.`, 625, line(69));
+    //
 
 
 
