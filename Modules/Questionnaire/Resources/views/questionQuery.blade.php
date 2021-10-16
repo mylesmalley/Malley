@@ -45,11 +45,15 @@
                                                 <tr>
                                                     <td>{{ $action->action }}</td>
             {{--                                        <td>{{ $action->option_id }}</td>--}}
-                                                    <td>{{ $action->option->option_description }}</td>
+                                                    <td>
+                                                        <a href="{{ route('option.home', [$action->option]) }}">
+                                                            {{ $action->option->option_name }} - {{ $action->option->option_description }}
+                                                        </a>
+                                                    </td>
 
                                                     <td><button
                                                             wire:click="deleteAction({{ $action->id }})"
-                                                            class="btn btn-sm btn-danger">x</button></td>
+                                                            class="btn btn-sm btn-danger">Delete Action</button></td>
                                                 </tr>
                                             @endforeach
                                             <tr>
