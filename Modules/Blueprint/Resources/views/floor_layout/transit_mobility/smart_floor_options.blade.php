@@ -8,12 +8,12 @@
             ],
         },
 
-        smartfloor_turny: {
-            image: '{{ mix('img/blueprint/seats/smart-seat.png') }}',
-            options: [
-                'FTM-C005-001', // SMARTSEAT - EZ M1 TIP AND FOLD TURNY
-            ],
-        },
+        {{--smartfloor_turny: {--}}
+        {{--    image: '{{ mix('img/blueprint/seats/smart-seat.png') }}',--}}
+        {{--    options: [--}}
+        {{--        'FTM-C005-001', // SMARTSEAT - EZ M1 TIP AND FOLD TURNY--}}
+        {{--    ],--}}
+        {{--},--}}
 
 
 
@@ -37,6 +37,22 @@
                 'FTM-D004-004',
             ],
         },
+
+        smart_wheel_driver: {
+            image: '{{ mix('img/blueprint/seats/smart-wheel-driver.png') }}',
+            options: [
+                'FTM-C005-001',
+            ],
+        },
+
+        smart_wheel_passenger: {
+            image: '{{ mix('img/blueprint/seats/smart-wheel-passenger.png') }}',
+            options: [
+                'FTM-C005-001',
+            ],
+        },
+
+
 
         {{--seatbelt_extension_8: {--}}
         {{--    image: '{{ mix('img/blueprint/seats/seatbelt-8.png') }}',--}}
