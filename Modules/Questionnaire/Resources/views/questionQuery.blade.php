@@ -50,35 +50,6 @@
 
                                                 </td>
                                             </tr>
-
-
-{{--                                                <tr>--}}
-{{--                                                <td colspan="3">--}}
-
-{{--                                                <form method="POST"--}}
-{{--                                                      action="{{ route('wizard.add_action') }}">--}}
-{{--                                                    @csrf--}}
-{{--                                                    <input type="hidden" name="wizard_answer_id" value="{{ $answer->id }}">--}}
-{{--                                                    <input type="hidden" name="wizard_id" value="{{ $question->wizard_id }}">--}}
-{{--                                                dsfadsfdsaf--}}
-
-{{--                                                    <div class="row">--}}
-{{--                                                        <div class="col-2">--}}
-{{--                                                            <input type="text" name="action">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="col-2">--}}
-{{--                                                            <input type="text" name="option_id">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="col-2">--}}
-{{--                                                            <input type="text" name="value">--}}
-{{--                                                        </div>--}}
-{{--                                                        <input type="submit">--}}
-{{--                                                    </div>--}}
-{{--                                                </form>--}}
-{{--                                                </td>--}}
-
-{{--                                            </tr>--}}
-
                                         </table>
                                     </div>
 
@@ -87,6 +58,13 @@
                             </td>
                         </tr>
                         @endforeach
+
+                        <tr>
+                            <td colspan="2">
+                                @livewire('questionnaire::new-answer', ['question'=>$question],key( $question->id ))
+
+                            </td>
+                        </tr>
                 </table>
             </div>
 
