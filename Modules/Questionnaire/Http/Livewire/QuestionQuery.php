@@ -90,12 +90,14 @@ class QuestionQuery extends Component
     }
 
 
-
-    public function deleteAnswer( WizardAnswer $id )
+    /**
+     * @param WizardAnswer $answer
+     */
+    public function deleteAnswer( WizardAnswer $answer ): void
     {
-        $id->delete();
-        return redirect('/questionnaire/'. $this->wizard_id . '/graph' );
-
+        $id = $answer->wizard_question_id;
+        $answer->delete();
+        $this->pickQuestionById( $id );
     }
 
     public function deleteQuestion( WizardQuestion $q )

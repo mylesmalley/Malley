@@ -25,9 +25,17 @@
                                     {{ \App\Models\WizardQuestion::find( $answer->next )->text }} ({{ $answer->next }})
                                 </button>
                             </td>
+                            <td>
+                                @if ( ! $answer->actions->count() )
+                                <button wire:click="deleteAnswer({{$answer->id}})"
+                                        class="btn btn-danger btn-sm">
+                                    Delete Answer
+                                </button>
+                                    @endif
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
+                            <td colspan="3">
                                 <div class="row">
                                     <div class="col-9 offset-3">
 
@@ -60,7 +68,7 @@
                         @endforeach
 
                         <tr>
-                            <td colspan="2">
+                            <td colspan="3">
                                 @livewire('questionnaire::new-answer', ['question'=>$question],key( $question->id ))
 
                             </td>
