@@ -35,6 +35,15 @@
 {{--        id="byLocationChartBig"></canvas>--}}
 
 
+    <a href="{{ route("inspection.fullPageGraphs", [
+                                    'start_date' => request()->input('start_date'),
+                                    'end_date' => request()->input('end_date'),
+                                    'order' => request()->input('order'),
+                                    'column' => request()->input('column'),
+                                    'focus_column' => 'location'
+                                                                    ]) }}">
+        Graphs</a>
+
     @if( count( $results))
 
     <div class="row ">
