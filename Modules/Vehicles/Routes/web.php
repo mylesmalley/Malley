@@ -16,9 +16,18 @@ Route::group(['prefix'=>'vehicles'], function () {
     });
 
 
-    Route::get('/inspections',    [InspectionReportController::class, "inspectionReportForm" ])->name('inspection.report');
-    Route::get('/inspectionsFocused',    [InspectionReportController::class, "focusedReport" ])->name('inspection.focused.report');
-    Route::post('/inspections',    [InspectionReportController::class, "inspectionReportForm" ])->name('inspection.report.post');
+    Route::get('/inspections',    [InspectionReportController::class, "inspectionReportForm" ])
+        ->name('inspection.report');
+
+    Route::get('/inspectionsFocused',    [InspectionReportController::class, "focusedReport" ])
+        ->name('inspection.focused.report');
+
+    Route::post('/inspections',    [InspectionReportController::class, "inspectionReportForm" ])
+        ->name('inspection.report.post');
+
+    Route::get('/inspectionsFPG',    [InspectionReportController::class, "fullPageGraphs" ])
+        ->name('inspection.fullPageGraphs');
+
 
 
     // giant spreadsheet

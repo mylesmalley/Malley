@@ -2,8 +2,8 @@
 
 @push('script_stack')
     <script>
-        let locationSummaryLabels = @json( array_keys( $locationSummmary ) );
-        let locationSummaryData = @json( array_values( $locationSummmary ) );
+        let locationSummaryLabels = @json( array_keys( $locationSummary ) );
+        let locationSummaryData = @json( array_values( $locationSummary ) );
 
         let typesLabels = @json( array_keys( $typesSummary ) );
         let typesData = @json( array_values( $typesSummary ) );
@@ -59,7 +59,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach( $locationSummmary as $k => $v )
+                                @foreach( $locationSummary as $k => $v )
                                     <tr>
                                         <td>
                                             <a href="{{ route("inspection.focused.report", [

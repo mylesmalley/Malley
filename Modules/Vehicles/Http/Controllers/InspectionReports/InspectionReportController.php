@@ -4,7 +4,11 @@ namespace Modules\Vehicles\Http\Controllers\InspectionReports;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inspection;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
 
@@ -15,19 +19,21 @@ use Illuminate\Validation\Rule;
 class InspectionReportController extends Controller
 {
 
+    public Collection $results ;
+    public array $locationSummary = [];
+    public array $severitySummary = [];
+    public array $sourcesSummary = [];
+    public array $typesSummary = [];
+
+
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return bool
      */
-    public function inspectionReportForm( Request $request )
+    public function setUp(  Request $request  ): bool
     {
-
-     //   dd(( $request->path() ));
-
-        $results = [];
-
-        if ($request->has(['start_date', 'end_date', 'order', 'column'])) {
-
+        if ($request->has(['start_date', 'end_date', 'order', 'column']))
+        {
             $request->validate([
                 'start_date' => 'sometimes|date',
                 'end_date' => 'sometimes|date',
@@ -41,56 +47,88 @@ class InspectionReportController extends Controller
                 ],
             ]);
 
-            $results = Inspection::with('vehicle')
+            $this->results = Inspection::with('vehicle')
                 ->whereDate('date_entered', '>=', $request->input('start_date'))
                 ->whereDate('date_entered', '<=', $request->input('end_date'))
                 ->orderBy($request->input('column'),
                     $request->input('order'))
                 ->get();
 
-        }
-        else
-        {
-            return redirect("/vehicles/inspections?start_date=".date('Y-m-d', strtotime('last month'))."&end_date=".date('Y-m-d', strtotime('today'))."&column=date_entered&order=asc");
-//                                /vehicles/inspections?start_date=2021-05-15&end_date=2021-06-15&column=date_entered&order=asc
-//                                /vehicles/inspections?start_date=2021-06-08&end_date=2021-05-15&column=date_entered&order=asc
-        }
+
+            foreach (Inspection::locations() as $loc) {
+                $this->locationSummary[$loc] = 0;
+            }
+            foreach (Inspection::types() as $loc) {
+                $this->typesSummary[$loc] = 0;
+            }
+            foreach (Inspection::sources() as $loc) {
+                $this->sourcesSummary[$loc] = 0;
+            }
+            foreach (['LOW','MEDIUM','HIGH','N/A'] as $loc) {
+                $this->severitySummary[$loc] = 0;
+            }
 
 
+            foreach ($this->results as $r)
+            {
+                $this->locationSummary[ $r->location ] += 1;
+                $this->typesSummary[ $r->type ] += 1;
+                $this->sourcesSummary[ $r->source ] += 1;
+                $this->severitySummary[ $r->severity ] += 1;
+            }
 
-        $locationSummmary = [];
-        $severitySummary = [];
-        $sourcesSummary = [];
-        $typesSummary = [];
 
-        foreach (Inspection::locations() as $loc) {
-            $locationSummmary[$loc] = 0;
-        }
-        foreach (Inspection::types() as $loc) {
-            $typesSummary[$loc] = 0;
-        }
-        foreach (Inspection::sources() as $loc) {
-            $sourcesSummary[$loc] = 0;
-        }
-        foreach (['LOW','MEDIUM','HIGH','N/A'] as $loc) {
-            $severitySummary[$loc] = 0;
+            return true;
         }
 
-        foreach ($results as $r)
-        {
-            $locationSummmary[ $r->location ] += 1;
-            $typesSummary[ $r->type ] += 1;
-            $sourcesSummary[ $r->source ] += 1;
-            $severitySummary[ $r->severity ] += 1;
-        }
+        return false;
 
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View|Redirector|RedirectResponse|Application
+     */
+    public function inspectionReportForm( Request $request ): \Illuminate\Contracts\View\View|Redirector|RedirectResponse|Application
+    {
+
+        if (!$this->setUp( $request) ) {
+            return redirect("/vehicles/inspections?start_date=".date('Y-m-d',
+                    strtotime('last month'))."&end_date="
+                .date('Y-m-d', strtotime('today'))
+                ."&column=date_entered&order=asc");
+        }
 
         return View::make('vehicles::inspections.inspectionReportForm', [
-            'results' => $results,
-            'locationSummmary' => $locationSummmary,
-            'typesSummary' =>   $typesSummary,
-            'sourcesSummary' => $sourcesSummary,
-            'severitySummary' => $severitySummary,
+            'results' => $this->results,
+            'locationSummary' => $this->locationSummary,
+            'typesSummary' =>   $this->typesSummary,
+            'sourcesSummary' => $this->sourcesSummary,
+            'severitySummary' => $this->severitySummary,
+        ]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|Redirector|Application|RedirectResponse
+     */
+    public function fullPageGraphs( Request $request ): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|Redirector|Application|RedirectResponse
+    {
+        if (!$this->setUp( $request) ) {
+            return redirect("/vehicles/inspections?start_date=".date('Y-m-d',
+                    strtotime('last month'))."&end_date="
+                .date('Y-m-d', strtotime('today'))
+                ."&column=date_entered&order=asc");
+        }
+
+        return view('vehicles::inspections.fullPageGraphs',[
+            'results' => $this->results,
+            'locationSummary' => $this->locationSummary,
+            'typesSummary' =>   $this->typesSummary,
+            'sourcesSummary' => $this->sourcesSummary,
+            'severitySummary' => $this->severitySummary,
         ]);
     }
 
