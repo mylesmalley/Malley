@@ -267,8 +267,8 @@
         star.fillText(`(ITEM 4 MINUS ITEM 8)`, 110,  line(52));
         star.fillText(`MUST MEET OR EXCEED ITEM 5`, 110,  line(53));
         star.fillText(`____________KG`, 900,  line(53));
-        star.fillText(`{{ number_format( $vehicle->payload * 0.453592 )  }}`, 950,  line(53));
-
+    {{--star.fillText(`{{ number_format( $vehicle->payload * 0.453592 )  }}`, 950,  line(53));--}}
+    star.fillText(`{{ number_format( ($vehicle->oem_gvwr - ( $vehicle->front_axel_weight_with_fuel + $vehicle->rear_axel_weight_with_fuel ) ) * 0.453592 )  }}`, 950,  line(53));
 
     star.fillText(`10.`, 33,  line(54));
     star.fillText(`TOTAL WEIGHT OF OPTIONS AS`, 80,  line(54));
@@ -285,8 +285,9 @@
     star.fillText(`(ACTUAL WEIGHT USER MAY ADD)`, 110,  line(57));
     star.fillText(`(ITEM 9 MINUS ITEM 10)`, 110,  line(58));
       star.fillText(`____________KG`, 900,  line(58));
-      star.fillText(`{{ number_format(( $vehicle->payload - $vehicle->weight_of_options ) * 0.453592 )  }}`, 950,  line(58));
+{{--      star.fillText(`{{ number_format(( $vehicle->payload - $vehicle->weight_of_options ) * 0.453592 )  }}`, 950,  line(58));--}}
 
+    star.fillText(`{{ number_format(( ($vehicle->oem_gvwr - ( $vehicle->front_axel_weight_with_fuel + $vehicle->rear_axel_weight_with_fuel ) ) - $vehicle->weight_of_options ) * 0.453592 )  }}`, 950,  line(58));
 
     // FOOTER
 
