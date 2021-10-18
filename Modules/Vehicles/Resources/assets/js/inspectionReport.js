@@ -47,62 +47,62 @@ let locChart = new Chart(
 
 
 //         canvii[i].style.width = '6in';
-
-let byLocationChartBig = document.getElementById('byLocationChartBig');
-
- let big = new Chart(
-    byLocationChartBig,
-    {
-        type: 'pie',
-        data: locationChartData,
-       options: {
-    plugins: {
-        datalabels: {
-            backgroundColor: function(context) {
-                return context.dataset.backgroundColor;
-            },
-            borderColor: 'white',
-                borderRadius: 25,
-                borderWidth: 2,
-                color: 'white',
-                display: function(context) {
-                var dataset = context.dataset;
-                var count = dataset.data.length;
-                var value = dataset.data[context.dataIndex];
-                return value > count * 1.5;
-            },
-            font: {
-                weight: 'bold'
-            },
-            padding: 6,
-                formatter: Math.round
-        }
-    },
-
-    // Core options
-    aspectRatio: 4 / 3,
-        cutoutPercentage: 32,
-        layout: {
-        padding: 32
-    },
-    elements: {
-        line: {
-            fill: false
-        },
-        point: {
-            hoverRadius: 7,
-                radius: 5
-        }
-    },
-},
-
-
-    }
-)
-byLocationChartBig.style.maxWidth = '7in';
-byLocationChartBig.style.maxHeight = '7in';
-big.update();
-
+//
+// let byLocationChartBig = document.getElementById('byLocationChartBig');
+//
+//  let big = new Chart(
+//     byLocationChartBig,
+//     {
+//         type: 'pie',
+//         data: locationChartData,
+//        options: {
+//     plugins: {
+//         datalabels: {
+//             backgroundColor: function(context) {
+//                 return context.dataset.backgroundColor;
+//             },
+//             borderColor: 'white',
+//                 borderRadius: 25,
+//                 borderWidth: 2,
+//                 color: 'white',
+//                 display: function(context) {
+//                 var dataset = context.dataset;
+//                 var count = dataset.data.length;
+//                 var value = dataset.data[context.dataIndex];
+//                 return value > count * 1.5;
+//             },
+//             font: {
+//                 weight: 'bold'
+//             },
+//             padding: 6,
+//                 formatter: Math.round
+//         }
+//     },
+//
+//     // Core options
+//     aspectRatio: 4 / 3,
+//         cutoutPercentage: 32,
+//         layout: {
+//         padding: 32
+//     },
+//     elements: {
+//         line: {
+//             fill: false
+//         },
+//         point: {
+//             hoverRadius: 7,
+//                 radius: 5
+//         }
+//     },
+// },
+//
+//
+//     }
+// )
+// byLocationChartBig.style.maxWidth = '7in';
+// byLocationChartBig.style.maxHeight = '7in';
+// big.update();
+//
 
 
 new Chart(

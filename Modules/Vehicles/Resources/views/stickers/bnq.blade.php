@@ -152,7 +152,9 @@
     star.textAlign = 'center';
     star.fillStyle = 'black';
 
-    star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(15));
+    // star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(15));
+    star.fillText(`WEIGHT / PAYLOAD CERTIFICATION STICKER NOTICE`, 625, line(15));
+
     star.fillText(`ATTENTION`, 625, line(17));
 
     star.font = '36px sans-serif';

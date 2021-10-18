@@ -27,37 +27,42 @@
     <h2 class="d-print-none">Summary</h2>
 
 
-    <canvas
-        class="piechart"
-        width="500"
-        height="500"
-        style="page-break-after: always;"
-        id="byLocationChartBig"></canvas>
+{{--    <canvas--}}
+{{--        class="piechart"--}}
+{{--        width="500"--}}
+{{--        height="500"--}}
+{{--        style="page-break-after: always; display: none;"--}}
+{{--        id="byLocationChartBig"></canvas>--}}
 
 
     @if( count( $results))
 
-    <div class="row d-print-none">
-        <div class="col-lg-3 col-sm-12 d-print-inline-flex" style="break-inside: avoid; page-break-after: auto; ">
+    <div class="row ">
+        <div class="col-lg-3 col-sm-12"
+             style="break-inside: avoid; page-break-after: auto; ">
 
-            <div class="card border-primary">
+            <div class="card border-primary"
+                 style="break-inside: avoid; page-break-after: always; ">
+
 
             <div class="card-header bg-primary text-white">
                 By Location
             </div>
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th>Count</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach( $locationSummmary as $k => $v )
-                        <tr>
-                            <td>
-                                <a href="{{ route("inspection.focused.report", [
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Location</th>
+                                    <th>Count</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach( $locationSummmary as $k => $v )
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route("inspection.focused.report", [
                                     'start_date' => request()->input('start_date'),
                                     'end_date' => request()->input('end_date'),
                                     'order' => request()->input('order'),
@@ -65,16 +70,22 @@
                                     'focus_column' => 'location',
                                     'focus_value' => $k,
                                 ]) }}">
-                                {{ $k }}</a>
-                            </td>
-                            <td>{{ $v }}</td>
-                            <td>{{ number_format( 100* ( $v /  count($results) ), 1) }}%</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                                {{ $k }}</a>
+                                        </td>
+                                        <td>{{ $v }}</td>
+                                        <td>{{ number_format( 100* ( $v /  count($results) ), 1) }}%</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <canvas class="piechart" id="byLocationChart"></canvas>
 
-                <canvas class="piechart" id="byLocationChart"></canvas>
+                        </div>
+                    </div>
+
+
 {{--                <canvas style=" height:3in !important;"  class="d-none d-print-block"  id="byLocationChartBig"></canvas>--}}
 
             </div>
@@ -89,12 +100,16 @@
 
 
 
-        <div class="col-lg-3 col-sm-12 d-print-inline-flex" style="break-inside: avoid; page-break-after: auto; ">
-            <div class="card border-primary">
+        <div class="col-lg-3 col-sm-12" style="break-inside: avoid; page-break-after: auto; ">
+            <div class="card border-primary"
+                 style="break-inside: avoid; page-break-after: always; ">
 
                 <div class="card-header bg-primary text-white">
                     By Source
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
@@ -123,8 +138,12 @@
                     @endforeach
                     </tbody>
                 </table>
-                <canvas class="piechart" id="bySourceChart"></canvas>
+                    </div>
+                    <div class="col-sm-6 col-md-12">
 
+                    <canvas class="piechart" id="bySourceChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -132,12 +151,19 @@
 
 
 
-        <div class="col-lg-3 col-sm-12 d-print-inline-flex" style="break-inside: avoid; page-break-after: auto; ">
-            <div class="card border-primary">
+        <div class="col-lg-3 col-sm-12 "
+             style="break-inside: avoid; page-break-after: auto; ">
+            <div class="card border-primary"
+                 style="break-inside: avoid; page-break-after: always; ">
 
                 <div class="card-header bg-primary text-white">
                     By Severity
                 </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
+
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
@@ -167,20 +193,28 @@
                     </tbody>
                 </table>
 
+                    </div>
+                            <div class="col-sm-6 col-md-12">
                 <canvas class="piechart" id="bySeverityChart"></canvas>
+                            </div>
+                </div>
 
             </div>
         </div>
 
 
 
-        <div class="col-lg-3 col-sm-12 d-print-inline-flex" style="break-inside: avoid; page-break-after: auto; ">
-            <div class="card border-primary">
+        <div class="col-lg-3 col-sm-12 " style="break-inside: avoid; page-break-after: auto; ">
+            <div class="card border-primary"
+                 style="break-inside: avoid; page-break-after: always; ">
 
                 <div class="card-header bg-primary text-white">
                     By Type
                 </div>
-                <table class="table table-striped table-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
+
+                    <table class="table table-striped table-sm">
                     <thead>
                     <tr>
                         <th>Type</th>
@@ -208,8 +242,12 @@
                     @endforeach
                     </tbody>
                 </table>
-                <canvas class="piechart" id="byTypeChart"></canvas>
+                    </div>
+                        <div class="col-sm-6 col-md-12">
 
+                        <canvas class="piechart" id="byTypeChart"></canvas>
+                        </div>
+                </div>
             </div>
         </div>
 
