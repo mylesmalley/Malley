@@ -23,30 +23,21 @@
 
 
 
-{{--    @if( $configuration->contains('FTM-Z900-001') )--}}
+    @if( $configuration->contains('DCM-Z100-001') )
 
-{{--        <a class="list-group-item list-group-item-action"--}}
-{{--           href="{{ route('blueprint.floor_layout', [ $blueprint ]) }}">--}}
+        <a class="list-group-item lis-group-item-action"
+           href="{{ route('blueprint.form', [ $blueprint,  71 ]) }}">
 
-{{--            <h4 class="text-primary">Floor Layout</h4>--}}
-{{--            <p>Drag and drop the components you want added to this vehicle design.</p>--}}
-{{--        </a>--}}
+            <h4 class="text-primary">Extras (Malley Only)</h4>
+            <p>Extra quote line items</p>
+        </a>
 
-{{--        @else--}}
-{{--            <a class="list-group-item  list-group-item-light" >--}}
+        @else
+            <a class="list-group-item  list-group-item-light" >
 
-{{--                <h4 class="">Floor Layout</h4>--}}
-{{--                <p>Before you can design the floor layout, complete the--}}
-{{--                        Configure Your Van form. </p>--}}
-{{--            </a>--}}
-{{--    @endif--}}
+                <h4 class="">Extras (Malley Only)</h4>
+                <p>Finish the configuration wizard before using this form.</p>
+            </a>
+    @endif
 
-
-{{--        <a class="list-group-item list-group-item-action"--}}
-{{--           href="{{ route('blueprint.form', [ $blueprint->id, 44]) }}">--}}
-{{--            href="{{ route('blueprint.form', [ $blueprint->id, 6]) }}">--}}
-
-{{--            <h4 class="text-primary">Malley-Only Options</h4>--}}
-{{--            <p>Quote Lines &amp; Discounts </p>--}}
-{{--        </a>--}}
 </div>
