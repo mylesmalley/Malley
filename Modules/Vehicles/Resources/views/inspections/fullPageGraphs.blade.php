@@ -68,7 +68,6 @@
                 "#9393ff",
                 "#00C49A",
                 "#F8E16C",
-                "#FFC2B4",
                 "#72839A",
                 "#FB8F67",
                 "#C1666B",
@@ -76,6 +75,7 @@
                 "#A0EADE",
                 "#b97eea",
                 "#bead3c",
+                "#FFC2B4",
                 "#58afcb",
             ];
 
@@ -85,7 +85,7 @@
                     // render 'label', 'value', 'percentage', 'image' or custom function, default is 'percentage'
                     render: 'label',
                     // font size, default is defaultFontSize
-                    fontSize: 96,
+                    fontSize: 20,
                     position: 'border',
                     // overlap: false,
                     // font color, can be color array for each data or function for dynamic color, default is defaultFontColor
