@@ -15,6 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use JetBrains\PhpStorm\ArrayShape;
 use Mpdf\HTMLParserMode;
@@ -589,6 +590,7 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
+        Log::info("Compiling drawing package.");
 
         $this->compile( $this->blueprint );
 

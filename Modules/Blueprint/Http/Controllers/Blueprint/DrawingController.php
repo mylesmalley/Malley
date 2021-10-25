@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Modules\Blueprint\Jobs\CreateDrawingPackage;
 use Modules\Blueprint\Jobs\EmailDrawingPackage;
 use Modules\Blueprint\Jobs\ProcessDrawing;
+use Modules\Blueprint\Jobs\UpgradeBlueprint;
 use Throwable;
 
 
@@ -38,42 +39,54 @@ class DrawingController extends Controller
      */
     public function generateDrawingPackage(Blueprint $blueprint ): RedirectResponse
     {
-        Log::info("Drawing package requested for B-$blueprint->id");
-
 
         $image_blocks = $blueprint->platform->drawingElements()->get();
-        $events = [];
 
-
-        foreach( $image_blocks as $block )
+        if( count( $image_blocks ) > 0 )
         {
-            $events[] = new ProcessDrawing( $blueprint, $block );
+            Log::info("Drawing package requested for B-$blueprint->id");
+
+            $events = [];
+
+            foreach( $image_blocks as $block )
+            {
+                $events[] = new ProcessDrawing( $blueprint, $block );
+            }
+
+            $user = Auth::user();
+
+            Bus::batch($events)
+                ->then(function () use ($blueprint, $user) {
+                    Log::info("Images processed for B-$blueprint->id");
+                    // All jobs completed successfully...
+                    Bus::chain([
+                        new CreateDrawingPackage( $blueprint ),
+                        new EmailDrawingPackage( $blueprint, $user ),
+                    ])->dispatch();
+                })
+                ->catch(function (Batch $batch, Throwable $e) {
+                    // First batch job failure detected...
+                    Log::debug("Image processing batch failed");
+
+                    Bugsnag::notifyException($e);
+                })
+                ->finally(function (Batch $batch) {
+                    Log::info("Drawing package assembled and dispatched");
+
+                    // The batch has finished executing...
+                })->dispatch();
+
         }
+        else
+        {
+            Log::info("Drawing package requested for B-$blueprint->id that has no rendered images");
 
-        $user = Auth::user();
-
-        Bus::batch($events)
-
-        ->then(function () use ($blueprint, $user) {
-            Log::info("Images processed for B-$blueprint->id");
-            // All jobs completed successfully...
+            $user = Auth::user();
             Bus::chain([
                 new CreateDrawingPackage( $blueprint ),
                 new EmailDrawingPackage( $blueprint, $user ),
             ])->dispatch();
-        })
-        ->catch(function (Batch $batch, Throwable $e) {
-            // First batch job failure detected...
-            Log::debug("Image processing batch failed");
-
-            Bugsnag::notifyException($e);
-        })
-        ->finally(function (Batch $batch) {
-            Log::info("Drawing package assembled and dispatched");
-
-            // The batch has finished executing...
-        })->dispatch();
-
+        }
 
 
         return redirect()

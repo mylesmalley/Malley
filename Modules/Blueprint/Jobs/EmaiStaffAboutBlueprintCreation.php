@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Modules\Blueprint\Emails\BlueprintCreatedNotification;
 
@@ -38,6 +39,8 @@ class EmaiStaffAboutBlueprintCreation implements ShouldQueue
      */
     public function handle()
     {
+        Log::info("Dispatch email about blueprint creation");
+
         //$usersToReceive = User::where('email_when_blueprint_created', true)->pluck('email');
         $usersToReceive = ['mmalley@malleyindustries.com','myles@mylesmalley.ca'];
         if (count($usersToReceive))

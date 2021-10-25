@@ -45,6 +45,7 @@ class ProcessDrawing implements ShouldQueue
      */
     public function handle()
     {
+        Log::info("Processing an image");
 
         // all media available for a base van
         $allMedia = FormElementItem::where('form_element_id', $this->formElement->id)
@@ -109,6 +110,6 @@ class ProcessDrawing implements ShouldQueue
             Log::error("Problem rendering image");
         }
 
-
     }
+
 }
