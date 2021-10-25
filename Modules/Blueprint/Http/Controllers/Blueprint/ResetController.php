@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
+use Illuminate\Support\Facades\Log;
 
 class ResetController extends Controller
 {
@@ -37,6 +38,7 @@ class ResetController extends Controller
 
         // clear out the selected answers so the forms are reset too.
         BlueprintWizardAnswer::where('blueprint_id', $blueprint->id)->delete();
+        Log::info("B-$blueprint->id reset by user");
 
         return redirect()
             ->route('blueprint.home', [ $blueprint ])

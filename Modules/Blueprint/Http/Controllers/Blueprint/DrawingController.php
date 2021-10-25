@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Log;
 use Modules\Blueprint\Jobs\CreateDrawingPackage;
 use Modules\Blueprint\Jobs\EmailDrawingPackage;
 use Modules\Blueprint\Jobs\ProcessDrawing;
@@ -37,6 +38,9 @@ class DrawingController extends Controller
      */
     public function generateDrawingPackage(Blueprint $blueprint ): RedirectResponse
     {
+        Log::info("Drawing package requested for B-$blueprint->id");
+
+
         $image_blocks = $blueprint->platform->drawingElements()->get();
         $events = [];
 
@@ -48,10 +52,10 @@ class DrawingController extends Controller
 
         $user = Auth::user();
 
-
         Bus::batch($events)
 
-        ->then(function (Batch $batch) use ($blueprint, $user) {
+        ->then(function () use ($blueprint, $user) {
+            Log::info("Images processed for B-$blueprint->id");
             // All jobs completed successfully...
             Bus::chain([
                 new CreateDrawingPackage( $blueprint ),
@@ -60,9 +64,13 @@ class DrawingController extends Controller
         })
         ->catch(function (Batch $batch, Throwable $e) {
             // First batch job failure detected...
+            Log::debug("Image processing batch failed");
+
             Bugsnag::notifyException($e);
         })
         ->finally(function (Batch $batch) {
+            Log::info("Drawing package assembled and dispatched");
+
             // The batch has finished executing...
         })->dispatch();
 

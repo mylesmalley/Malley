@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
+use Illuminate\Support\Facades\Log;
 use ImagickException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Imagick;
@@ -100,8 +101,12 @@ class ProcessDrawing implements ShouldQueue
                 ->usingName(str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ))
                 ->usingFileName(str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ) . '.png')
                 ->toMediaCollection('images', 's3');
+
+            Log::info("Rendered image ".str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ) . '.png'. ' for blueprint B-$this->>blueprint->id');
+
         } catch (ImagickException | FileCannotBeAdded $e) {
             Bugsnag::notifyException($e);
+            Log::error("Problem rendering image");
         }
 
 
