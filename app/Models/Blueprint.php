@@ -642,7 +642,7 @@ class Blueprint extends BaseModel implements HasMedia
                 if (array_key_exists($config->syspro_phantom, $list)) {
                     $list[$config->syspro_phantom] += 1;
                 } else {
-                    $list[$config->syspro_phantom] = 1;
+                    $list[$config->syspro_phantom] = $config->quantity;
                 }
                 $counter++;
 

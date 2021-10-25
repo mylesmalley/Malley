@@ -75,7 +75,7 @@
                     Configuration
                 </div>
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action"
+                    <a class="list-group-item list-group-item-action list-group-item-secondary"
                        href="{{ route('blueprint.syspro_dat', [$blueprint]) }}">Syspro DAT File</a>
 
                     <a class="list-group-item list-group-item-action"
