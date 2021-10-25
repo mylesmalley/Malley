@@ -45,6 +45,8 @@ class FloorLayoutController extends Controller
     public function change(Blueprint $blueprint, Request $request ):  JsonResponse
     {
 
+        // if an existing custom layout exists, start by undoing it
+
         if ( $blueprint->custom_layout )
         {
 
@@ -64,6 +66,7 @@ class FloorLayoutController extends Controller
                         ->first();
 
 
+                    // turn on an option that's turned off.
                     if ( $config->value === 0)
                     {
                         $config->update([
@@ -76,7 +79,7 @@ class FloorLayoutController extends Controller
                     {
                         $config->update([
                             'value' => 0,
-                            'quantity' => 0,
+                            'quantity' => 1,
                         ]);
                     }
                     // if the quantity is more than one, leave it on but lower it by one
