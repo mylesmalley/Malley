@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Blueprint\Http\Controllers\Blueprint\CreateController;
 use Modules\Blueprint\Http\Controllers\Blueprint\DrawingController;
+use Modules\Blueprint\Http\Controllers\Blueprint\ExportToSysproController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ResetController;
 use Modules\Blueprint\Http\Controllers\HomeController;
 use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome;
@@ -79,6 +80,14 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                  */
                 Route::put('/configuration', [ResetController::class, 'reset'])
                     ->name('blueprint.reset');
+
+
+                /**
+                 * SYSPRO DAT FILE
+                 */
+                Route::get('/syspro_dat', [ExportToSysproController::class, 'exportToSyspro'])
+                    ->name('blueprint.syspro_dat');
+
 
 
 
