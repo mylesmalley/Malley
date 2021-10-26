@@ -59,6 +59,11 @@
                     @includeIf('blueprint::blueprint.forms.mobility_grand_caravan')
                 @endif
 
+                {{-- RAM PROMASTER MOBILITY VANS --}}
+                @if( $blueprint->base_van_id == 12 )
+                    @includeIf('blueprint::blueprint.forms.mobility_pro_master')
+                @endif
+
             </div>
         </div>
     </div>
