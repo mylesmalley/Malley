@@ -24,6 +24,8 @@
                            href="{{ route('blueprint.create', [11]) }}">Transit Mobility</a>
                         <a class="list-group-item list-group-item-action"
                            href="{{ route('blueprint.create', [14]) }}">Grand Caravan Mobility</a>
+                        <a class="list-group-item list-group-item-action"
+                           href="{{ route('blueprint.create', [12]) }}">Ram ProMaster Mobility</a>
                     </div>
                 </div>
 
