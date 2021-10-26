@@ -2,7 +2,7 @@
 
 
 <ul>
-	@foreach( $configurations as $config)
+	@forelse( $configurations as $config)
 {{--		@if(!$config->option || $config->option->option_show_on_quote )--}}
 			<li>
 				@if (isset($showBoxes) && $showBoxes)
@@ -28,6 +28,9 @@
 				
 			</li>
 {{--		@endif--}}
-	@endforeach
+	@empty
+		<li>No options selected</li>
+
+	@endforelse
 </ul>
 </div>

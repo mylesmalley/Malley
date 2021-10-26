@@ -7,6 +7,7 @@ use App\Models\Media;
 use App\Models\Template;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use DateTime;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Queue\SerializesModels;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\MpdfException;
@@ -25,6 +27,7 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Throwable;
 
 
 class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
@@ -124,22 +127,28 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
         $notes_array = [];
         preg_match_all('/@NOTE=(.*?)@/s', $templateHTML, $notes_array);
 
-        foreach( $notes_array[1] as $matched )
-        {
-            // in case a camelcase or uppercase name was used for the note name
-            $match = strtolower($matched);
 
-            if ( is_array( $this->blueprint->notes ) && array_key_exists( $match ,  $this->blueprint->notes )  && strlen( $this->blueprint->notes[ $match ] ) >0  )
+        if ( $notes_array )
+        {
+
+            foreach( $notes_array[1] as $matched )
             {
-                $note = "<div class='notes'>{$this->blueprint->notes[ $match ]}</div>";
-                $templateHTML = str_replace("@NOTE=$match@", $note , $templateHTML );
-            }
-            else
-            {
-                // no note was supplied, so just delete it
-                $templateHTML = str_replace("@NOTE=$match@", "" , $templateHTML );
+                // in case a camelcase or uppercase name was used for the note name
+                $match = strtolower($matched);
+
+                if ( is_array( $this->blueprint->notes ) && array_key_exists( $match ,  $this->blueprint->notes )  && strlen( $this->blueprint->notes[ $match ] ) >0  )
+                {
+                    $note = "<div class='notes'>{$this->blueprint->notes[ $match ]}</div>";
+                    $templateHTML = str_replace("@NOTE=$match@", $note , $templateHTML );
+                }
+                else
+                {
+                    // no note was supplied, so just delete it
+                    $templateHTML = str_replace("@NOTE=$match@", "" , $templateHTML );
+                }
             }
         }
+
         // --- END NOTE PARSING   --- //
 
 
@@ -149,21 +158,21 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
         preg_match_all('/"@URL@(.*?)"/s', $templateHTML, $imageURLs);
 
         // run through each image hit and try to replace the image with the contents of the relevant file.
-        for ( $i = 0; $i < count( $imageURLs[0] ); $i++ )
+        if ( $imageURLs )
         {
-            $media = Media::where([
-                //   'model_type'=>'App\Models\Blueprint',
-                'file_name' => $imageURLs[1][$i],
-                'model_id'=>$this->blueprint->id
-            ])->first();
 
-            if ( $media )
+            for ( $i = 0; $i < count( $imageURLs[0] ); $i++ )
             {
-                $templateHTML = str_replace( $imageURLs[0][$i], "{$media->cdnUrl()}", $templateHTML );
-
+                $media = Media::where([
+                    //   'model_type'=>'App\Models\Blueprint',
+                    'file_name' => $imageURLs[1][$i],
+                    'model_id'=>$this->blueprint->id
+                ])->first();
+                if ( $media )
+                {
+                    $templateHTML = str_replace( $imageURLs[0][$i], "{$media->cdnUrl()}", $templateHTML );
+                }
             }
-
-
         }
 
         // --- END PARSING OF IMAGES  --- //
@@ -196,7 +205,11 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
     {
         $company = $this->blueprint->user->company;
 
-        $logoFile = $this->blueprint->user->company->getMedia('logo')->first(); //->getFirstMedia() ;
+        $logoFile = $this->blueprint
+            ->user
+            ->company
+            ->getMedia('logo')
+            ->first(); //->getFirstMedia() ;
 
         $image = null;
 
@@ -343,7 +356,7 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
         // image file content
         $stylesheet = file_get_contents( $stylesheet );
 
-        if ( $pdf )
+        if ($pdf === true)
         {
             $mpdf = new Mpdf([
                 'debug' => false,
@@ -372,7 +385,7 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
         // special notes page
         if ( $this->hasSpecialInstructions() )
         {
-            if ( $pdf )
+            if ($pdf === true)
             {
 
 
@@ -401,47 +414,49 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
 
 
 
-
-        foreach ( $renderPages as $section )
+        if ( $renderPages )
         {
-            if ($pdf)
+            foreach ( $renderPages as $section )
             {
-                $mpdf->setHTMLHeader($this->pageHeader( $section['title']) );
+                if ($pdf === true)
+                {
+                    $mpdf->setHTMLHeader($this->pageHeader( $section['title']) );
 
-                $mpdf->addPageByArray([
-                    'orientation'=> 'landscape',
-                    'margin-left' => 6,
-                    'margin-right' => 6,
-                    'margin-top' => 21,
-                    'margin-bottom' => 36,
-                    'margin-header' => 6,
-                    'margin-footer' => 6,
-                ]);
+                    $mpdf->addPageByArray([
+                        'orientation'=> 'landscape',
+                        'margin-left' => 6,
+                        'margin-right' => 6,
+                        'margin-top' => 21,
+                        'margin-bottom' => 36,
+                        'margin-header' => 6,
+                        'margin-footer' => 6,
+                    ]);
 
-                // split the resulting template
-                //  $chunks = str_split( $section['template'], 1500 );
-                /*
-                                for( $i = 0; $i < count( $chunks ); $i++ )
-                                {
-                                    $mpdf->WriteHTML( $chunks[$i] ) ;
-                                }
-                */
-                $mpdf->WriteHTML( $section['template'] ) ;
+                    // split the resulting template
+                    //  $chunks = str_split( $section['template'], 1500 );
+                    /*
+                                    for( $i = 0; $i < count( $chunks ); $i++ )
+                                    {
+                                        $mpdf->WriteHTML( $chunks[$i] ) ;
+                                    }
+                    */
+                    $mpdf->WriteHTML( $section['template'] ) ;
 
-                //  $chunks = str_split( $section['template'], 1500 );
-                $mpdf->setHTMLFooter( $this->pageFooter( ) );
-            }
-            else
-            {
-                $debugHtml .= $section['template'] ."<br /><br /><br /><br />";
-                //	$debugHtml .= strlen( $section['template'] )."<br />";
+                    //  $chunks = str_split( $section['template'], 1500 );
+                    $mpdf->setHTMLFooter( $this->pageFooter( ) );
+                }
+                else
+                {
+                    $debugHtml .= $section['template'] ."<br /><br /><br /><br />";
+                    //	$debugHtml .= strlen( $section['template'] )."<br />";
+                }
             }
         }
 
         // light pods page for instructions
         if ( $this->blueprint->lightPods )
         {
-            if ($pdf)
+            if ($pdf === true)
             {
 
 
@@ -473,7 +488,7 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
         // light pods page for instructions
         if ( $this->blueprint->hasMedia('floor_layouts') )
         {
-            if ($pdf)
+            if ($pdf === true)
             {
 
                 $mpdf->setHTMLHeader($this->pageHeader( "Floor Layout") );
@@ -502,7 +517,7 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
 
 
 
-        if ($pdf)
+        if ($pdf === true)
         {
 
 
@@ -518,17 +533,20 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
                 'margin-footer' => 10,
             ]);
 
-            $mpdf->SetColumns( 2);
-            $mpdf->WriteHTML( $this->allSelectedOptions(  ) ) ;
 
             $mpdf->setHTMLFooter($this->pageFooter( ) );
+               $mpdf->SetColumns( 2);
+
+            $mpdf->WriteHTML( $this->allSelectedOptions(  ) ) ;
+            $mpdf->SetColumns( 1);
+
         }
 
 
 
 
         //Output a PDF file directly to the browser
-        if ($pdf)
+        if ($pdf === true)
         {
             //   $mpdf->Output();
 
@@ -549,6 +567,7 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
             } catch (FileDoesNotExist | FileIsTooBig $e) {
               //  dd( $e );
                 Bugsnag::notifyException($e);
+                Log::error("Rendering of the package failed");
             }
 
             return $media;
@@ -566,9 +585,9 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
     /**
      * @return ThrottlesExceptions[]
      */
-    public function middleware(): array
+    #[Pure] public function middleware(): array
     {
-        return [new ThrottlesExceptions(5, 2)];
+        return [new ThrottlesExceptions(2, 2)];
     }
 
     /**
@@ -590,9 +609,21 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        Log::info("Compiling drawing package.");
+        Log::info("Compiling drawing package for user.");
 
-        $this->compile( $this->blueprint );
+        try {
+            $this->compile($this->blueprint);
+        } catch (Exception $d) {
+            dd($d);
+        }
 
+    }
+
+    /**
+     * @param Throwable $exception
+     */
+    public function failed(Throwable $exception)
+    {
+        Log::critical("Error: ",[ $exception]);
     }
 }

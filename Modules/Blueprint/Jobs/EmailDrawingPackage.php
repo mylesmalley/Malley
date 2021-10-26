@@ -2,7 +2,6 @@
 
 namespace Modules\Blueprint\Jobs;
 
-use App\Models\Media;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -10,11 +9,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Blueprint;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use JetBrains\PhpStorm\Pure;
 use Modules\Blueprint\Emails\DrawingCreated;
 use App\Models\User;
-use Mpdf\MpdfException;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
+use Throwable;
 
 
 class EmailDrawingPackage implements ShouldQueue
@@ -27,7 +28,6 @@ class EmailDrawingPackage implements ShouldQueue
     /**
      * @param Blueprint $blueprint
      * @param User $user
-     * @param Media $media
      */
     public function __construct( Blueprint $blueprint, User $user )
     {
@@ -42,9 +42,9 @@ class EmailDrawingPackage implements ShouldQueue
     /**
      * @return ThrottlesExceptions[]
      */
-    public function middleware(): array
+    #[Pure] public function middleware(): array
     {
-        return [new ThrottlesExceptions(5, 2)];
+        return [new ThrottlesExceptions(2, 1)];
     }
 
     /**
@@ -66,16 +66,33 @@ class EmailDrawingPackage implements ShouldQueue
     public function handle()
     {
 
-                    $media = $this
-                        ->blueprint
-                        ->getMedia('drawing')
-                        ->last();
+        $media = $this
+            ->blueprint
+            ->getMedia('drawing')
+            ->last();
 
         $usersToReceive = [ $this->user->email, 'mmalley@malleyindustries.com' ];
         if (count($usersToReceive))
         {
             Mail::to( $usersToReceive )
                 ->send( new DrawingCreated( $this->blueprint, $media ) );
+            Log::info("Email dispatch succeeded for B-{$this->blueprint->id} ",[ $usersToReceive]);
+
         }
+        else
+        {
+            Log::error("Email dispatch failed. No emails available to receive B-{$this->blueprint->id}");
+
+        }
+
+
+    }
+
+    /**
+     * @param Throwable $exception
+     */
+    public function failed(Throwable $exception)
+    {
+        Log::error("Email send failed ",[ $exception]);
     }
 }
