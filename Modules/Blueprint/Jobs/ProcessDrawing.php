@@ -103,7 +103,9 @@ class ProcessDrawing implements ShouldQueue
                 ->usingFileName(str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ) . '.png')
                 ->toMediaCollection('images', 's3');
 
-            Log::info("Rendered image ".str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label ) . '.png'. ' for blueprint B-$this->>blueprint->id');
+            Log::info("Rendered image ".str_replace( [' ','.','(',')',':',','], ['_'], $this->formElement->label )
+                . '.png'
+                . " for blueprint B-{$this->blueprint->id}");
 
         } catch (ImagickException | FileCannotBeAdded $e) {
             Bugsnag::notifyException($e);

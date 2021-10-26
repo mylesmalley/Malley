@@ -605,7 +605,6 @@ class CreateDrawingPackage implements ShouldQueue, ShouldBeUnique
      * Execute the job.
      *
      * @return void
-     * @throws MpdfException
      */
     public function handle()
     {
