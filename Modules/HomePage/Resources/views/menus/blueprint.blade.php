@@ -18,7 +18,7 @@
 
 
                 <div class="col-3">
-                    <h4>Create New Blueprints</h4>
+                    <h4>New Mobility &amp; Para-Transit</h4>
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action"
                            href="{{ route('blueprint.create', [11]) }}">Transit Mobility</a>
@@ -29,6 +29,15 @@
                     </div>
                 </div>
 
+
+                <div class="col-3">
+                    <h4>New Ambulance &amp; BLS</h4>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action"
+                           href="{{ route('blueprint.create', [31]) }}">Transit BLS</a>
+
+                    </div>
+                </div>
 
             </div>
 

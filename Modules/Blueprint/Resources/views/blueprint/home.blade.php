@@ -64,6 +64,11 @@
                     @includeIf('blueprint::blueprint.forms.mobility_pro_master')
                 @endif
 
+                {{-- RAM PROMASTER MOBILITY VANS --}}
+                @if( $blueprint->base_van_id == 31 )
+                    @includeIf('blueprint::blueprint.forms.bls_transit')
+                @endif
+
             </div>
         </div>
     </div>

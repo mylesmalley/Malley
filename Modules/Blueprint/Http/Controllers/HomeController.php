@@ -35,7 +35,7 @@ class HomeController extends Controller
 //            ->when( ! Auth::user()->hasRole('super_admin'), function($query) {
 //                return $query->whereIn('base_van_id',[ 11 ] );
 //            })
-            ->whereIn('base_van_id',[ 11, 14, 12 ] )
+            ->whereIn('base_van_id',[ 11, 14, 12, 31 ] )
             ->with( 'platform' )
             ->orderBy('id','DESC')
             ->paginate( 20 );
