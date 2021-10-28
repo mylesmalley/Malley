@@ -109,28 +109,31 @@
                             </a>
                         @endforeach
 
-                        @if ( $wizard->start != $question->id )
-                            <div class="list-group-item">
+
+
+
+                    @endif
+
+
+                    @if ( $wizard->start != $question->id )
+                        <div class="list-group-item">
                                 <span class="float-start">
                                     <button
-                                        wire:click="restart"
-                                        class="btn btn-sm btn-outline-danger ">
+                                            wire:click="restart"
+                                            class="btn btn-sm btn-outline-danger ">
                                         Restart Wizard
                                     </button>
 
                                          &nbsp;
                                     <button
-                                          wire:click="back"
-                                          class="btn btn-sm btn-outline-secondary">
+                                            wire:click="back"
+                                            class="btn btn-sm btn-outline-secondary">
                                         Previous Question
                                     </button>
                                 </span>
-                                <a href="{{ route('blueprint.home', [ $blueprint->id ]) }}"
-                                   class="btn btn-sm btn-secondary float-end">Save and Come Back Later</a>
-                            </div>
-                        @endif
-
-
+                            <a href="{{ route('blueprint.home', [ $blueprint->id ]) }}"
+                               class="btn btn-sm btn-secondary float-end">Save and Come Back Later</a>
+                        </div>
                     @endif
                 </div>
 
