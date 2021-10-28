@@ -22,6 +22,10 @@
 
 
 
+
+
+
+
     @if( $configuration->contains('FTM-Z900-001') )
 
         <a class="list-group-item list-group-item-action"
@@ -39,6 +43,20 @@
                         Configure Your Van form. </p>
             </a>
     @endif
+
+
+        {{-- Medical Equipment form --- OPTIONAL --}}
+        @if( $configuration->contains('FTM-Z901-001') )
+
+            <a class="list-group-item list-group-item-action"
+               href="{{ route('blueprint.form', [ $blueprint->id, 72]) }}">
+
+                <h4 class="text-primary">Medical Equipment</h4>
+                <p>Drag and drop the components you want added to this vehicle design.</p>
+            </a>
+        @endif
+
+
 
 
         <a class="list-group-item list-group-item-action"
