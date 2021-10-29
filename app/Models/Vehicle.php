@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
@@ -256,7 +257,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Album[] $albums
  * @property-read int|null $albums_count
  * @property-read \App\Models\Blueprint|null $blueprint
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
+ * @property-read Collection|\App\Models\Contact[] $contacts
  * @property-read int|null $contacts_count
  * @property-read \App\Models\User $creator
  * @property-read \App\Models\Company $dealer
@@ -269,11 +270,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read null $prev
  * @property-read bool $valid_vin
  * @property-read string $vehicle_tile
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Inspection[] $inspections
+ * @property-read Collection|\App\Models\Inspection[] $inspections
  * @property-read int|null $inspections_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
  * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WorkOrder[] $work_orders
+ * @property-read Collection|\App\Models\WorkOrder[] $work_orders
  * @property-read int|null $work_orders_count
  * @method static Builder|Vehicle newModelQuery()
  * @method static Builder|Vehicle newQuery()
@@ -943,7 +944,8 @@ class Vehicle extends BaseModel implements HasMedia
     public function dates(): HasMany
     {
         return $this->hasMany( VehicleDate::class )
-            ->orderBy('timestamp');
+            ->where('current', true)
+            ->orderBy('timestamp', 'ASC');
     }
 
 
