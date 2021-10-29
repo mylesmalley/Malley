@@ -46,6 +46,76 @@
         </table>
 
     </div>
+    <br>
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            Add a new Date for {{ $vehicle->identifier }}
+        </div>
+        <div class="card-body">
+
+            <form action="">
+                @csrf
+                <div class="row">
+                    <div class="col-3">
+                        <label for="name">Name of Event</label>
+                        <select name="name"
+                                class="form-control"
+                                id="name">
+                            <option value="arrived">Date Arrived</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-3">
+                        <label for="date">Date</label>
+                        <input
+                                id="date"
+                                type="date"
+                                required
+                                name="date"
+                                class="form-control"
+                                value="{{ old('date') ?? \Carbon\Carbon::now('America/Moncton')->format('Y-m-d') }}"
+                        >
+                    </div>
+
+
+                    <div class="col-2">
+                        <label for="time">Time</label>
+                        <input
+                                id="time"
+                                type="time"
+                                required
+                                name="time"
+                                step="60000"
+                                class="form-control"
+                                value="{{ old('time') ?? \Carbon\Carbon::now('America/Moncton')->format('H:i') }}"
+                        >
+                    </div>
+
+
+
+                    <div class="col-3">
+
+                        <label for="notes">Notes</label>
+                        <input id="notes"
+                               name="notes"
+                               value="{{ old('notes' ) ?? '' }}"
+                               class="form-control"
+                               type="text">
+                    </div>
+
+                    <div class="col-1 " style="vertical-align: bottom;">
+                        <input type="submit" class="btn btn-primary" value="Add">
+                    </div>
+
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
 
 
 @endsection
