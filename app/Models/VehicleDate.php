@@ -8,13 +8,13 @@ class VehicleDate extends BaseModel
 {
 
     protected $fillable = [
-        'vehicle_id',
-        'event_name',
-        'user_id',
-        'notes',
-        'timestamp',
-        'update_ford',
-        'submitted_to_ford',
+        'vehicle_id', // int
+        'name', // nvarchar50
+        'user_id', //int
+        'notes', //nvarchar255
+        'timestamp', //datetime2
+        'update_ford', // bit
+        'submitted_to_ford', // but
     ];
 
     public $timestamps = true;

@@ -2,10 +2,10 @@
     <div class="card-header bg-primary text-white" >
         Dates
 
-        @if( Auth::user()->vdb_modify_photos )
-            <a href="{{ url('vehicles/'.$vehicle->id.'/dates' ) }}"
-               class='btn btn-sm btn-secondary float-end'>Edit Dates</a>
-        @endif
+{{--        @if( Auth::user()->vdb_modify_photos )--}}
+{{--            <a href="{{ url('vehicles/'.$vehicle->id.'/dates' ) }}"--}}
+{{--               class='btn btn-sm btn-secondary float-end'>Edit Dates</a>--}}
+{{--        @endif--}}
     </div>
     <table class="table table-striped table-sm detail-table">
         @foreach ( App\Models\Vehicle::dateFields() as $date )

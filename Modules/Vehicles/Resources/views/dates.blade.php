@@ -39,12 +39,21 @@
                     </label>
                 </td>
                 <td>
-                    <input type="date"
+                    {{ $vehicle->{$date} ? \Carbon\Carbon::create( $vehicle->{$date} )->format('Y-m-d\TH:i') : "" }}
+                    <input type="datetime-local"
                            class="form-control form-control-lg"
                            name="{{ $date }}"
                            id="{{ $date }}"
-                           value="{{ old( $date ) ?? $vehicle->{$date} ?? '' }}" >
+                           value="{{ old( $date ) ?? ($vehicle->{$date} ? \Carbon\Carbon::create( $vehicle->{$date} )->format('Y-m-d\TH:i') : "")  }}" >
                 </td>
+
+{{--                <td>--}}
+{{--                    <input type="date"--}}
+{{--                           class="form-control form-control-lg"--}}
+{{--                           name="{{ $date }}"--}}
+{{--                           id="{{ $date }}"--}}
+{{--                           value="{{ old( $date ) ?? $vehicle->{$date} ?? '' }}" >--}}
+{{--                </td>--}}
                 <td>
                     <input type="text"
                            aria-label="{{ $notes }}"
