@@ -2,16 +2,16 @@
     <div class="card-header bg-primary text-white" >
         Dates
 
-{{--        @if( Auth::user()->vdb_modify_photos )--}}
-{{--            <a href="{{ url('vehicles/'.$vehicle->id.'/dates' ) }}"--}}
-{{--               class='btn btn-sm btn-secondary float-end'>Edit Dates</a>--}}
-{{--        @endif--}}
+        @if( Auth::user()->vdb_modify_photos )
+            <a href="{{ route('vehicles.dates', [$vehicle]) }}"
+               class='btn btn-sm btn-secondary float-end'>Edit Dates</a>
+        @endif
     </div>
     <table class="table table-striped table-sm detail-table">
         @foreach( $vehicle->dates as $date )
             <tr>
                 <th role="row">
-                    {{ ucfirst( str_replace('_', ' ', $date->name ) ) }}
+                    {{ ucwords( str_replace('_', ' ', $date->name ) ) }}
                 </th>
                 <td>
                     {{ \Carbon\Carbon::create($date->timestamp)->format('Y-m-d') }}

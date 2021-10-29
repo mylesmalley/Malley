@@ -15,6 +15,7 @@ class VehicleDate extends BaseModel
         'timestamp', //datetime2
         'update_ford', // bit
         'submitted_to_ford', // but
+        'current', //bit
     ];
 
     public $timestamps = true;

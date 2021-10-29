@@ -17,9 +17,9 @@ Route::group(['prefix'=>'vehicles'], function () {
     });
 
 
-    Route::get('/mgt', [DatesController::class, 'migrate'])
-        ->name('vehicles.migrate_date');
-
+//    Route::get('/mgt', [DatesController::class, 'migrate'])
+//        ->name('vehicles.migrate_date');
+//
 
 
     Route::get('/inspections',    [InspectionReportController::class, "inspectionReportForm" ])
@@ -94,7 +94,7 @@ Route::group(['prefix'=>'vehicles'], function () {
     // create and look at a vehicle
     Route::get('create',    "VehiclesController@create");
     Route::post('',         "VehiclesController@store");
-    Route::get('/{vehicle}',    "VehiclesController@show")->name('vehicle.query');
+    Route::get('/{vehicle}',    "VehiclesController@show")->name('vehicle.home');
 
 
     // vehicle serials
@@ -127,11 +127,16 @@ Route::group(['prefix'=>'vehicles'], function () {
 
 
 
-    // vehicle dates
-    Route::get('/{vehicle}/dates',    "DatesController@edit");
-    Route::patch('/{vehicle}/dates',    "DatesController@update");
+//    // vehicle dates
+//    Route::get('/{vehicle}/dates',    "DatesController@edit");
+//    Route::patch('/{vehicle}/dates',    "DatesController@update");
+//
 
-
+    /**
+     * vehicle dates
+     */
+    Route::get('/{vehicle}/dates', [DatesController::class, 'show' ])
+        ->name('vehicles.dates');
 
 
     // vehicle ALBUMS

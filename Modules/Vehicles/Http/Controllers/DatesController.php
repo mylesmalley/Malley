@@ -23,10 +23,22 @@ class DatesController extends Controller
      * @param Vehicle $vehicle
      * @return View
      */
-    public function edit( Vehicle $vehicle ): View
+    public function show( Vehicle $vehicle ): View
     {
-        return view('vehicles::dates', [ 'vehicle'=>$vehicle]);
+        $vehicle->load('dates');
+        return view('vehicles::dates.show', [ 'vehicle' => $vehicle ]);
     }
+
+
+//
+//    /**
+//     * @param Vehicle $vehicle
+//     * @return View
+//     */
+//    public function edit( Vehicle $vehicle ): View
+//    {
+//        return view('vehicles::dates', [ 'vehicle'=>$vehicle]);
+//    }
 
 
     /**

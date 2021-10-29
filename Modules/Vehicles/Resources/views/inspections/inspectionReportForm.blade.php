@@ -292,7 +292,7 @@
         <tbody>
             @forelse( $results as $res )
                 <tr>
-                    <td><a href="{{ route('vehicle.query', [$res->vehicle_id ]) }}">{{ $res->vehicle->identifier }}</a></td>
+                    <td><a href="{{ route('vehicle.home', [$res->vehicle_id ]) }}">{{ $res->vehicle->identifier }}</a></td>
                     <td> {{ $res->date_entered }}  </td>
                     <td> {{ $res->description  }} </td>
 {{--                    <td> {{ $res->life_step }} </td>--}}
