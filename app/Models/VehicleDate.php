@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class VehicleDate extends BaseModel
 {
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'vehicle_id', // int
         'name', // nvarchar50
@@ -18,7 +21,65 @@ class VehicleDate extends BaseModel
         'current', //bit
     ];
 
+
+    /**
+     * @var bool
+     */
     public $timestamps = true;
+
+
+    /**
+     * @var array
+     */
+    protected static array $events = [
+        "at_york_or_thornton",
+        "entry_to_canada",
+        "exit_from_canada",
+        "in_service",
+        "lease_expiry_of_refurb",
+        "warranty_expiry",
+        'arrival',
+        'chassis_manufactured',
+        'delivery',
+        'lease_expired',
+        'leaving_malley_facility',
+        'malley_finished_conversion',
+        'next_renewal',
+        'of_purchase',
+        'warranty_registered',
+    ];
+
+
+    /**
+     * @var array
+     */
+    protected static array $ford_mapping = [
+
+    ];
+
+
+    public function ford_milestone()
+    {
+
+    }
+
+
+    /**
+     * @return array
+     */
+    public static function available_events(): array
+    {
+        return self::$events;
+    }
+
+
+
+
+
+
+
+
+
 
     /**
      * @return BelongsTo

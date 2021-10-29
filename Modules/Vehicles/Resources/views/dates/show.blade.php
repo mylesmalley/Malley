@@ -34,7 +34,7 @@
                         <td>
                             {{ $date->notes }}
                         </td>
-                        <td>
+                        <td class="text-end">
                             <a href="{{ route('vehicle.date.edit', [$vehicle, $date ]) }}"
                                class="btn btn-sm btn-success">Change</a>
                         </td>
@@ -65,7 +65,11 @@
                         <select name="name"
                                 class="form-control"
                                 id="name">
-                            <option value="arrived">Date Arrived</option>
+                            @foreach( \App\Models\VehicleDate::available_events() as $available_date )
+                                <option value="{{ $available_date }}">
+                                    {{ ucwords( str_replace('_', ' ', $available_date ) ) }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
