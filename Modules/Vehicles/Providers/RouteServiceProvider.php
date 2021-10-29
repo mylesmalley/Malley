@@ -60,6 +60,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('template', \App\Models\Template::class);
         Route::model('warrantyClaim', \App\Models\WarrantyClaim::class);
         Route::model('vehicle', \App\Models\Vehicle::class);
+        Route::model('vehicleDate', \App\Models\VehicleDate::class);
+
+
+
+
         Route::model('inspection', \App\Models\Inspection::class);
    //     Route::model('workOrder', \App\Models\WorkOrder::class);
   //      Route::model('workOrderLine', \App\Models\WorkOrderLine::class);

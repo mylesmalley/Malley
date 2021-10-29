@@ -3,7 +3,7 @@
         Dates
 
         @if( Auth::user()->vdb_modify_photos )
-            <a href="{{ route('vehicles.dates', [$vehicle]) }}"
+            <a href="{{ route('vehicle.dates', [$vehicle]) }}"
                class='btn btn-sm btn-secondary float-end'>Edit Dates</a>
         @endif
     </div>
