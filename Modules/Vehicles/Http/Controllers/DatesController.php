@@ -106,6 +106,16 @@ class DatesController extends Controller
             . $request->input('time'), 'America/Moncton')
             ->toIso8601String();
 
+        // turn off any duplicates
+        VehicleDate::where([
+            'vehicle_id' => $vehicle->id,
+            'name' => $request->input('name')
+        ])->update([
+            'current' => false,
+        ]);
+
+
+
         VehicleDate::create([
             'vehicle_id' => $vehicle->id,
             'user_id' => Auth::user()->id,

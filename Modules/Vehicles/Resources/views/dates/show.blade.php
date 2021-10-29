@@ -24,6 +24,8 @@
                 @forelse( $vehicle->dates as $date)
                     <tr>
                         <th role="row">
+{{--                            {{ ($date->current) ? '*' : '' }}--}}
+
                             {{ ucwords( str_replace('_', ' ', $date->name ) ) }}
                         </th>
                         <td>
