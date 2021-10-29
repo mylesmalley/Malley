@@ -9,11 +9,18 @@
         for  <a href="{{ route('vehicle.home', [$vehicle]) }}">{{ $vehicle->identifier }}</a>
     </h1>
 
+    @includeIf('vehicles::errors')
+
+
     <div class="card border-primary document-content-wrapper">
 
 
         <form action="{{ route('vehicle.date.update', [$vehicle, $date]) }}"
             method="POST">
+            <input type="hidden"
+                   name="name"
+                   id="name"
+                   value="{{ $date->name }}">
             @csrf
 
             <table class="table table-striped">
