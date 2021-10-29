@@ -26,9 +26,26 @@ class DatesController extends Controller
     public function show( Vehicle $vehicle ): View
     {
         $vehicle->load('dates');
-        return view('vehicles::dates.show', [ 'vehicle' => $vehicle ]);
+
+        return view('vehicles::dates.show', [
+            'vehicle' => $vehicle
+        ]);
     }
 
+
+    /**
+     * @param Vehicle $vehicle
+     * @param VehicleDate $date
+     * @return View
+     */
+    public function edit( Vehicle $vehicle,  VehicleDate $date ): View
+    {
+        return view('vehicles::dates.edit', [
+            'vehicle' => $vehicle,
+            'date' => $date
+        ]);
+
+    }
 
 //
 //    /**

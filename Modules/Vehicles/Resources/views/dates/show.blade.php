@@ -33,7 +33,8 @@
                             {{ $date->notes }}
                         </td>
                         <td>
-                            <a href="{{ route('vehicle.date.edit', [$vehicle, $date ]) }}" class="btn btn-sm btn-success">Change</a>
+                            <a href="{{ route('vehicle.date.edit', [$vehicle, $date ]) }}"
+                               class="btn btn-sm btn-success">Change</a>
                         </td>
                     </tr>
                 @empty
