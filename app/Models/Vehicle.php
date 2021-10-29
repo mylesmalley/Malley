@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -937,6 +938,18 @@ class Vehicle extends BaseModel implements HasMedia
 
 
     /**
+     * @return HasMany
+     */
+    public function dates(): HasMany
+    {
+        return $this->hasMany( VehicleDate::class )
+            ->orderBy('timestamp');
+    }
+
+
+
+
+    /**
      * @return array
      */
     public static function woPrefixes(): array
@@ -1136,7 +1149,7 @@ class Vehicle extends BaseModel implements HasMedia
     /**
      * work orders relates to the table work orders, whereas in the singular it refers to teh column on vehicles table
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function work_orders()
     {

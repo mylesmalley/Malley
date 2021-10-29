@@ -5,6 +5,7 @@ namespace Modules\Vehicles\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\VehicleDate;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -73,5 +74,52 @@ class DatesController extends Controller
 
         return redirect('/vehicles/'.$vehicle->id );
     }
+
+
+//
+//    public function migrate()
+//    {
+//
+//
+////        "date_in_service",
+////        'date_next_renewal',
+////        'date_chassis_manufactured',
+////        'date_malley_finished_conversion', // added 2020-06-24
+////        'date_warranty_registered', // added 2020-06-18
+////        "date_warranty_expiry",
+////        'date_of_purchase',
+////        'date_leaving_malley_facility', // added 2021-06-03
+//
+//        $col = 'date_leaving_malley_facility';
+//        $notes = "{$col}_notes";
+//        $event = str_replace('date_', '', $col);
+//
+//        $vehicles = Vehicle::whereNotNull($col )
+//            ->select(['id','user_id',$col,$notes])
+//            ->get();
+////        $recs2 = Vehicle::whereNotNull('date_arrival_notes')->get();
+////
+////        $recs3 = Vehicle::whereNotNull('date_arrival_notes')
+////            ->whereNull('date_arrival')
+////            ->get();
+//
+//        foreach( $vehicles as $v )
+//        {
+//            VehicleDate::create([
+//                'vehicle_id' => $v->id,
+//                'user_id' => $v->user_id,
+//                'name' => $event, // name of date field
+//                'notes' =>  $v->{$notes} ?? "", // use preset notes if provided
+//                'update_ford' => 0,
+//                //'update_ford' => strtoupper( $vehicle->make) === 'FORD',
+//                'submitted_to_ford' => 0,
+//                'timestamp' => Carbon::create( $v->{$col})->toIso8601String(),
+//            ])->save();
+//        }
+//
+//        dd( count( $vehicles ));
+//
+//       // dd( count($vehicles ), count($recs2), count($recs3));
+//    }
 
 }

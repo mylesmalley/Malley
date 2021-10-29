@@ -2,6 +2,7 @@
 
 // Dashboard stuff
 use Illuminate\Support\Facades\Route;
+use Modules\Vehicles\Http\Controllers\DatesController;
 use Modules\Vehicles\Http\Controllers\Documents\StickerController;
 use Modules\Vehicles\Http\Controllers\InspectionReports\InspectionReportController;
 use Modules\Vehicles\Http\Controllers\Warranty\ClaimController;
@@ -14,6 +15,11 @@ Route::group(['prefix'=>'vehicles'], function () {
         // hoome page
         Route::get('', "IndexController@show");
     });
+
+
+    Route::get('/mgt', [DatesController::class, 'migrate'])
+        ->name('vehicles.migrate_date');
+
 
 
     Route::get('/inspections',    [InspectionReportController::class, "inspectionReportForm" ])
@@ -121,9 +127,10 @@ Route::group(['prefix'=>'vehicles'], function () {
 
 
 
-    // vehicle serials
+    // vehicle dates
     Route::get('/{vehicle}/dates',    "DatesController@edit");
     Route::patch('/{vehicle}/dates',    "DatesController@update");
+
 
 
 
