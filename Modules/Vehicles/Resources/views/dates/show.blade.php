@@ -47,13 +47,15 @@
 
     </div>
     <br>
+    @includeIf('vehicles::errors')
+
     <div class="card border-primary">
         <div class="card-header bg-primary text-white">
             Add a new Date for {{ $vehicle->identifier }}
         </div>
         <div class="card-body">
 
-            <form action="">
+            <form action="{{ route('vehicle.date.store', [$vehicle]) }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-3">
@@ -70,12 +72,12 @@
                     <div class="col-3">
                         <label for="date">Date</label>
                         <input
-                                id="date"
-                                type="date"
-                                required
-                                name="date"
-                                class="form-control"
-                                value="{{ old('date') ?? \Carbon\Carbon::now('America/Moncton')->format('Y-m-d') }}"
+                            id="date"
+                            type="date"
+                            required
+                            name="date"
+                            class="form-control"
+                            value="{{ old('date') ?? \Carbon\Carbon::now('America/Moncton')->format('Y-m-d') }}"
                         >
                     </div>
 
@@ -83,13 +85,13 @@
                     <div class="col-2">
                         <label for="time">Time</label>
                         <input
-                                id="time"
-                                type="time"
-                                required
-                                name="time"
-                                step="60000"
-                                class="form-control"
-                                value="{{ old('time') ?? \Carbon\Carbon::now('America/Moncton')->format('H:i') }}"
+                            id="time"
+                            type="time"
+                            required
+                            name="time"
+                            step="60000"
+                            class="form-control"
+                            value="{{ old('time') ?? \Carbon\Carbon::now('America/Moncton')->format('H:i') }}"
                         >
                     </div>
 
@@ -105,7 +107,7 @@
                                type="text">
                     </div>
 
-                    <div class="col-1 " style="vertical-align: bottom;">
+                    <div class="col-1" style="vertical-align: bottom;">
                         <input type="submit" class="btn btn-primary" value="Add">
                     </div>
 

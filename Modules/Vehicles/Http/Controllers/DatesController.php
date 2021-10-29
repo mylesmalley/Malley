@@ -86,6 +86,44 @@ class DatesController extends Controller
         return redirect()->route('vehicle.dates', [ $vehicle ]);
     }
 
+
+
+    /**
+     * @param Request $request
+     * @param Vehicle $vehicle
+     * @return RedirectResponse
+     */
+    public function store( Request $request, Vehicle $vehicle ): RedirectResponse
+    {
+        $request->validate([
+            'date' => 'required|date',
+            'time' => 'string',
+            'notes' => 'nullable|string|max:255',
+            'name' => 'required|string',
+        ]);
+
+        $ts = Carbon::create($request->input('date') . ' '
+            . $request->input('time'), 'America/Moncton')
+            ->toIso8601String();
+
+        VehicleDate::create([
+            'vehicle_id' => $vehicle->id,
+            'user_id' => Auth::user()->id,
+            'timestamp' => $ts,
+            'name' => $request->input('name'), // name of date field
+            'notes' =>  $request->input('notes') ?? "", // use preset notes if provided
+            'update_ford' => strtoupper( $vehicle->make) === 'FORD',
+            'submitted_to_ford' => 0,
+            'current' => 1,
+        ])->save();
+
+        return redirect()->route('vehicle.dates', [ $vehicle ]);
+    }
+
+
+
+
+
 //
 //    /**
 //     * @param Vehicle $vehicle
@@ -104,7 +142,7 @@ class DatesController extends Controller
 //     */
 //    public function update( Request $request,  Vehicle $vehicle ): RedirectResponse
 //    {
-//        // repeat the same validatin on every value
+//        // repeat the same validation on every value
 //        $validations = array_fill_keys( Vehicle::dateFields(), 'nullable|string|max:50' );
 //
 //    //    dd( $request->all() );
@@ -172,7 +210,7 @@ class DatesController extends Controller
 ////            ->get();
 //
 //        foreach( $vehicles as $v )
-//        {
+//        {}
 //            VehicleDate::create([
 //                'vehicle_id' => $v->id,
 //                'user_id' => $v->user_id,

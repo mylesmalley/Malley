@@ -144,11 +144,10 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/{vehicle}/deleteDate/{vehicleDate}', [DatesController::class, 'delete' ])
         ->name('vehicle.date.delete');
 
-
     Route::post('/{vehicle}/dates/{vehicleDate}', [DatesController::class, 'update' ])
         ->name('vehicle.date.update');
 
-    Route::post('/{vehicle}/dates', [DatesController::class, 'store' ])
+    Route::post('/{vehicle}/storedate', [DatesController::class, 'store' ])
         ->name('vehicle.date.store');
 
 
