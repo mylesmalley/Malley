@@ -5,6 +5,8 @@ namespace Modules\Vehicles\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
@@ -21,19 +23,44 @@ class ReportsController extends Controller
      */
     public function productionBuildListReport(): View
     {
-        $records = Vehicle::select(['id', 'computed_vehicle_number'
+
+
+        $records = Vehicle::select(['vehicles.id', 'computed_vehicle_number'
             ,'malley_number',
             'customer_number','refurb_number',
-            'company_id','vin','work_order','date_delivery',
-            'date_lease_expiry_of_refurb','make','model','year',
+            'company_id','vin','work_order',
+
+            'delivery.timestamp as date_delivery',
+            'lease_expiry.timestamp AS date_lease_expiry_of_refurb',
+
+            'make','model','year',
             'customer_name' ])
             // grab the first work order number
-       //     ->addSelect(DB::Raw("RIGHT(LEFT(work_order,8), 4) AS unit_number"))
-        ->where('work_order','like','A00%')
+            //     ->addSelect(DB::Raw("RIGHT(LEFT(work_order,8), 4) AS unit_number"))
+            ->where('work_order','like','A00%')
             ->orWhere('work_order','like', 'AAL%')
-             ->with('dealer')
+            ->with('dealer')
+
+            ->leftjoin('vehicle_dates as delivery', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'delivery.vehicle_id')
+                    ->where('delivery.name','delivery');
+            })
+            // bring in the next renewal
+            ->leftjoin('vehicle_dates as lease_expiry', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'lease_expiry.vehicle_id')
+                    ->where('lease_expiry.name','lease_expiry_of_refurb');
+            })
+
+
+
             ->orderBy('computed_vehicle_number','DESC')
             ->paginate(100);
+
+
+      //  dd( $records );
+
+
+
 
 
         return view('vehicles::reports.productionBuildList', [
@@ -50,8 +77,8 @@ class ReportsController extends Controller
     public function transitionReport( int $date = 2020 ): View
     {
 
-        $start = new Carbon(new \DateTime("{$date}-04-01"),
-            new \DateTimeZone('America/Moncton')); // equivalent to previous instance
+        $start = new Carbon(new DateTime("{$date}-04-01"),
+            new DateTimeZone('America/Moncton')); // equivalent to previous instance
 
         $start->addDay();
         $end = $start->copy()->addYear();
@@ -95,12 +122,47 @@ class ReportsController extends Controller
 
     public function USChassisInCanadaReport()
     {
-        $records = Vehicle::where('date_exit_from_canada', null)
-            ->where('date_entry_to_canada', '!=', '')
+//        $records = Vehicle::where('date_exit_from_canada', null)
+//            ->where('date_entry_to_canada', '!=', '')
+//
+//            ->orderBy('date_entry_to_canada','asc')
+//            ->paginate(30);
 
-            ->orderBy('date_entry_to_canada','asc')
+
+        $records = Vehicle::select([
+                'vehicles.id',
+                'work_order',
+                'vin',
+                'customer_name',
+                'make', 'model', 'year', 'drive',
+                'entry_to_canada.timestamp as date_entry_to_canada',
+            ])
+
+            ->whereHas('dates', function( Builder $builder ){
+
+                $builder->where('name', '=', 'entry_to_canada');
+
+            })
+            ->whereDoesntHave('dates', function( Builder $builder ){
+
+                $builder->where('name', '=', 'exit_from_canada');
+
+            })
+            ->leftjoin('vehicle_dates as entry_to_canada', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'entry_to_canada.vehicle_id')
+                    ->where('entry_to_canada.name','entry_to_canada');
+            })
+            ->leftjoin('vehicle_dates as exit_from_canada', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'exit_from_canada.vehicle_id')
+                    ->where('exit_from_canada.name','exit_from_canada');
+            })
+//            ->where('date_entry_to_canada', '!=', '')
+
+         //   ->orderBy('date_entry_to_canada','asc')
             ->paginate(30);
 
+
+//        dd( $records);
 
         return view('vehicles::reports.USChassisInCanadaReport', [
             'rows' => $records,

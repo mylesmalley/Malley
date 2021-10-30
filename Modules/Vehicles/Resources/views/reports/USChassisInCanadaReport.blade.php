@@ -34,10 +34,10 @@
                 <td>{{ $row->vin }}</td>
                 <td>{{ $row->drive }}</td>
 
-                <td>{{ $row->date_entry_to_canada ?? "" }}</td>
+                <td>{{ \Carbon\Carbon::create($row->date_entry_to_canada)->format('Y-m-d') ?? "" }}</td>
 {{--                <td>{{ $row->date_exit_from_canada ?? "" }}</td>--}}
 
-                <td><a href="{{ url('/vehicles/'.$row->id) }}" class="btn btn-sm btn-success">Go</a></td>
+                <td><a href="{{ route('vehicle.home', [$row->id]) }}" class="btn btn-sm btn-success">Go</a></td>
             </tr>
         @empty
 

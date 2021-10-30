@@ -43,8 +43,8 @@
                 <td class="d-print-table-cell">{{ $row->year }} {{ $row->make }} {{ $row->model }}</td>
                 <td class="d-print-table-cell">{{ $row->vin }}</td>
 
-                <td class="d-print-table-cell">{{ $row->date_lease_expiry_of_refurb ?? "" }}</td>
-                <td class="d-print-table-cell">{{ $row->date_delivery ?? "" }}</td>
+                <td class="d-print-table-cell">{{ \Carbon\Carbon::create($row->date_lease_expiry_of_refurb)->format('Y-m-d') ?? "" }}</td>
+                <td class="d-print-table-cell">{{ \Carbon\Carbon::create($row->date_delivery)->format('Y-m-d') ?? "" }}</td>
 
                 <td  class="d-print-none"><a href="{{ url('/vehicles/'.$row->id) }}" class="btn btn-sm btn-success">View</a></td>
             </tr>
