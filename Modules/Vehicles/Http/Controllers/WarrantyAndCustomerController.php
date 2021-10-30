@@ -19,6 +19,7 @@ class WarrantyAndCustomerController extends Controller
 
     /**
      * @param Vehicle $vehicle
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit( Vehicle $vehicle )
     {

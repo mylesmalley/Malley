@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -371,6 +373,28 @@ class Vehicle extends BaseModel implements HasMedia
     }
 
 
+    /**
+     * @return Collection
+     */
+    public function milestones(): Collection
+    {
+        return $this->dates()
+            ->where('current', '=', true)
+            ->pluck('timestamp', 'name');
+    }
+
+    /**
+     * @param string $name
+     * @param string $format
+     * @return mixed
+     */
+    public function milestone( string $name, string $format = 'Y-m-d' ): mixed
+    {
+        if ($this->milestones()->has($name)) {
+            return Carbon::create( $this->milestones()->get($name ))->format($format);
+        }
+        return null;
+    }
 
 
     /**

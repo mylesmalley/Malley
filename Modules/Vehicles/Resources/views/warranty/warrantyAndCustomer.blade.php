@@ -45,7 +45,7 @@
                     <input type="date"
                            name="date_of_purchase"
 
-                           value="{{ old('date_of_purchase') ?? $vehicle->date_of_purchase ?? "" }}"
+                           value="{{ old('date_of_purchase') ?? $vehicle->milestone('of_purchase') ?? "" }}"
                            id="date_of_purchase"
                            class="form-control form-control-lg">
                 </div>
@@ -58,7 +58,7 @@
                     <input type="date"
                            name="date_warranty_registered"
 
-                           value="{{ old('date_warranty_registered') ?? $vehicle->date_warranty_registered ?? "" }}"
+                           value="{{ old('date_warranty_registered') ?? $vehicle->milestone('warranty_registered')  ?? "" }}"
                            id="date_warranty_registered"
                            class="form-control form-control-lg">
                 </div>
@@ -71,7 +71,7 @@
                     <input type="date"
                            name="date_warranty_expiry"
 
-                           value="{{ old('date_warranty_expiry') ?? $vehicle->date_warranty_expiry ?? "" }}"
+                           value="{{ old('date_warranty_expiry') ?? $vehicle->milestone('warranty_expiry')  ?? "" }}"
                            id="date_warranty_expiry"
                            class="form-control form-control-lg">
                 </div>
