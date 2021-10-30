@@ -33,7 +33,7 @@
                 <td>{{ $row->year }} {{ $row->make }} {{ $row->model }}</td>
                 <td>{{ $row->vin }}</td>
 {{--                <td>{{ $row->drive }}</td>--}}
-                <td>{{ $row->date_at_york_or_thornton_notes }}</td>
+                <td>{{ \Carbon\Carbon::create($row->date_at_york_or_thornton_notes)->format('Y-m-d') }}</td>
 
                 <td><a href="{{ url('/vehicles/'.$row->id) }}" class="btn btn-sm btn-success">Go</a></td>
             </tr>

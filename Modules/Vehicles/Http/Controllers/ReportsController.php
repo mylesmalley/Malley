@@ -119,8 +119,10 @@ class ReportsController extends Controller
     }
 
 
-
-    public function USChassisInCanadaReport()
+    /**
+     * @return View
+     */
+    public function USChassisInCanadaReport(): View
     {
 //        $records = Vehicle::where('date_exit_from_canada', null)
 //            ->where('date_entry_to_canada', '!=', '')
@@ -173,11 +175,49 @@ class ReportsController extends Controller
 
     public function atThorntonOrYork()
     {
-        $records = Vehicle::where('date_exit_from_canada', null)
-            ->where('date_at_york_or_thornton', '!=', '')
+//        $records = Vehicle::where('date_exit_from_canada', null)
+//            ->where('date_at_york_or_thornton', '!=', '')
+//
+//            ->orderBy('date_at_york_or_thornton','asc')
+//            ->paginate(20);
+//
+//
 
+
+
+        $records = Vehicle::select([
+            'vehicles.id',
+            'work_order',
+            'vin',
+            'customer_name',
+            'make', 'model', 'year', 'drive',
+            'at_york_or_thornton.timestamp as date_at_york_or_thornton',
+        ])
+
+            ->whereHas('dates', function( Builder $builder ){
+
+            $builder->where('name', '=', 'at_york_or_thornton');
+
+            })
+            ->whereDoesntHave('dates', function( Builder $builder ){
+
+                $builder->where('name', '=', 'exit_from_canada');
+
+            })
+            ->leftjoin('vehicle_dates as at_york_or_thornton', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'at_york_or_thornton.vehicle_id')
+                    ->where('at_york_or_thornton.name','at_york_or_thornton');
+            })
+            ->leftjoin('vehicle_dates as exit_from_canada', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'exit_from_canada.vehicle_id')
+                    ->where('exit_from_canada.name','exit_from_canada');
+            })
             ->orderBy('date_at_york_or_thornton','asc')
             ->paginate(20);
+
+
+
+
     //    "date_at_york_or_thornton",
    //     "date_arrived_at_york_or_thornton_notes",
 
