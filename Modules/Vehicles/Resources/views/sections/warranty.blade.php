@@ -21,15 +21,15 @@
                         </tr>
                         <tr>
                             <td>Date Warranty Registered</td>
-                            <td>{{ $vehicle->date_warranty_registered ?? '' }}</td>
+                            <td>{{ $vehicle->milestone('warranty_registered') ?? '' }}</td>
                         </tr>
                         <tr>
                             <td> Warranty Expiry</td>
-                            <td>{{ $vehicle->date_warranty_expiry ?? '' }}</td>
+                            <td>{{ $vehicle->milestone('warranty_expiry') ?? '' }}</td>
                         </tr>
                         <tr>
                             <td>Date of Purchase</td>
-                            <td>{{ $vehicle->date_of_purchase ?? '' }}</td>
+                            <td>{{ $vehicle->milestone('of_purchase') ?? '' }}</td>
                         </tr>
                         <tr>
                             <td>
