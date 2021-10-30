@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use DNS2D;
-use DNS1D;
 use View;
 use Mpdf\Mpdf;
 

@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\WarrantyClaim;
 use App\Models\Vehicle;
 use App\Rules\ValidVinRule;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use \Illuminate\Http\Request;
-use \Illuminate\Http\RedirectResponse;
-use JetBrains\PhpStorm\Pure;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * Class InspectionController
@@ -21,10 +18,9 @@ class CreateController extends Controller
 {
     /**
      * @param Vehicle $vehicle
-     * @param WarrantyClaim $claim
-     * @return Application|Factory|View
+     * @return View
      */
-    public function create( Vehicle $vehicle ): Application|Factory|View
+    public function create( Vehicle $vehicle ): View
     {
 
         return view('vehicles::warranty.create',
@@ -37,13 +33,10 @@ class CreateController extends Controller
     /**
      * @param Request $request
      * @param Vehicle $vehicle
-     * @param WarrantyClaim $claim
      * @return RedirectResponse
      */
     public function store( Request $request, Vehicle $vehicle ): RedirectResponse
     {
-
-//        dd( $request->all() );
         $request->validate([
             'first_name' => "required|string|max:50",
             'last_name' => "required|string|max:50",
@@ -77,7 +70,9 @@ class CreateController extends Controller
 
 
         $claim->save();
-        return redirect("/vehicles/{$vehicle->id}");
+
+        return redirect()
+            ->route('vehicle.home', [$vehicle]);
     }
 
 
@@ -90,7 +85,7 @@ class CreateController extends Controller
      *
      * @return string
      */
-    #[Pure] private function pin(): string
+    private function pin(): string
     {
         $text = "";
         $possible = "ACDEFGHJKLMNPRTUVWXY34679";
