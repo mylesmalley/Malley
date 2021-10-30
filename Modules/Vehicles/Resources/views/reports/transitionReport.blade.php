@@ -33,8 +33,9 @@
                 <td>{{ $row->year }} {{ $row->make }} {{ $row->model }}</td>
                 <td>{{ $row->vin }}</td>
 
-                <td>{{ $row->date_in_service ?? "" }}</td>
-                <td>{{ $row->date_next_renewal ?? "" }}</td>
+                <td>{{ \Carbon\Carbon::create($row->date_in_service)->format('Y-m-d') ?? "" }}</td>
+                <td>{{ \Carbon\Carbon::create($row->date_next_renewal)->format('Y-m-d') ?? "" }}</td>
+{{--                <td>{{ $row->date_next_renewal ?? "" }}</td>--}}
 
                 <td><a href="{{ url('/vehicles/'.$row->id) }}" class="btn btn-sm btn-success">Go</a></td>
             </tr>

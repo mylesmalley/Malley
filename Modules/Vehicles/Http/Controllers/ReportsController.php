@@ -4,8 +4,11 @@ namespace Modules\Vehicles\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
+use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Database\Query\JoinClause;
 /**
  * Class VehiclesSerialsController
  * @package App\Programs\Vehicles\Controllers
@@ -54,12 +57,59 @@ class ReportsController extends Controller
     //  dd( $start );
 
        // select * from vehicles where date_next_renewal IS NOT NULL AND date_in_service IS NOT NULL
+//
+//        $records = Vehicle::whereHas('dates', function( Builder $query ) use ($start, $end) {
+//                        $query->where('name','=','in_service')
+//                            ->where('timestamp', '>=', $start )
+//                            ->where('timestamp', '<=', $end );
+//                    })
+//            ->with('dates',  function( $query ){
+//                $query->whereIn('name', ['in_service','next_renewal'])
+//                    ->where('current', true);
+//
+//                //test comment to see syncing
+//            })
+//            ->where('customer_name', 'like', '%New Brunswick%')
+//            //->orderBy('timestamp')
+//            ->get();
 
-        $records = Vehicle::where('date_in_service','>=', $start)
-            ->where('date_in_service', '<',  $end)
+
+        $records = Vehicle::whereHas('dates', function( Builder $query ) use ($start, $end) {
+            $query->where('name','=','in_service')
+                ->where('timestamp', '>=', $start )
+                ->where('timestamp', '<=', $end );
+            })->select(['vehicles.id',
+                'vin',
+                'customer_name',
+                'in_service.timestamp AS date_in_service',
+                'next_renewal.timestamp AS date_next_renewal',
+                'malley_number',
+                'customer_number'
+            ])
+
+            ->join('vehicle_dates as in_service', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'in_service.vehicle_id')
+                    ->where('in_service.name','in_service');
+            })
+            ->join('vehicle_dates as next_renewal', function(JoinClause $join){
+                $join->on('vehicles.id', '=', 'next_renewal.vehicle_id')
+                    ->where('next_renewal.name','next_renewal');
+            })
             ->where('customer_name', 'like', '%New Brunswick%')
             ->orderBy('date_in_service')
+            //->orderBy('timestamp')
             ->get();
+
+
+
+      //dd(  $records->first() );
+
+
+//        $records = Vehicle::where('date_in_service','>=', $start)
+//            ->where('date_in_service', '<',  $end)
+//            ->where('customer_name', 'like', '%New Brunswick%')
+//            ->orderBy('date_in_service')
+//            ->get();
 
         return view('vehicles::reports.transitionReport', [
             'rows' => $records,
