@@ -6,6 +6,7 @@ use Modules\Vehicles\Http\Controllers\DatesController;
 use Modules\Vehicles\Http\Controllers\Documents\StickerController;
 use Modules\Vehicles\Http\Controllers\InspectionReports\InspectionReportController;
 use Modules\Vehicles\Http\Controllers\Reporting\FordMilestoneComplianceReport;
+use Modules\Vehicles\Http\Controllers\Reporting\PendingFordMilestoneNotificationsReport;
 use Modules\Vehicles\Http\Controllers\Warranty\ClaimController;
 use Modules\Vehicles\Http\Controllers\Warranty\WorkOrderFromWarrantyClaimController;
 
@@ -43,6 +44,8 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/reports/ford_compliance',    [FordMilestoneComplianceReport::class, "view" ])
         ->name('vehicles.reports.ford_compliance');
 
+    Route::get('/reports/pending_ford_milestones',    [PendingFordMilestoneNotificationsReport::class, "view" ])
+        ->name('vehicles.reports.pending_ford_milestones');
 
 
 

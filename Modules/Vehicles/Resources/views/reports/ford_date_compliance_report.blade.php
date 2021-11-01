@@ -7,8 +7,12 @@
 
     <div class="card border-primary">
         <div class="card-body">
-            <p>This report shows all Ford vehicles tracked by the vehicle database that have arrived at Malley and have not left us yet.
-                The date columns below are the ones required by Ford for compliance with our QVM certification.</p>
+            <p>This report shows all Ford vehicles tracked by the vehicle database that we are required to report major milestones to Ford.
+                The date columns below are the ones required for compliance with our QVM certification.</p>
+            <p><a href="{{ route('vehicles.reports.ford_compliance') }}?show_not_here">Show vans not yet here</a>
+{{--                <a href="{{ route('vehicles.reports.ford_compliance') }}?show_departed">Show vans have left</a>--}}
+
+            </p>
         </div>
     </div>
 
