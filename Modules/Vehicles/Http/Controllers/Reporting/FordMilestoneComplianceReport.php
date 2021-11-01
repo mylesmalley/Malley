@@ -6,23 +6,40 @@ use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\VehicleDate;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class FordMilestoneComplianceReport extends Controller
 {
     /**
      * @return View
      */
-    public function view(): View
+    public function view( Request $request ): View
     {
-        $hide_not_arrived = true;
-        $hide_departed = true;
+        $request->validate([
+           'hide_not_arrived' => [
+                'sometimes',
+                Rule::in(['true','false']),
+            ],
+           'hide_departed'  => [
+               'sometimes',
+               Rule::in(['true','false']),
+           ],
+        ]);
+       // ?hide_departed=true&hide_not_arrived=true
+
+       // $hide_not_arrived = $request->input('hide_not_arrived') ?? false;
+        $hide_not_arrived = !$request->exists('show_not_here');
+        $hide_departed = !$request->exists('show_departed');
+//        $hide_departed = $request->exists('hide_departed');
+
 
         $vehicles = Vehicle::select([
                 'id','vin','work_order','malley_number','customer_number',
                 'make','model','year','customer_name'
             ])
-            ->when( $hide_not_arrived, function( $query ){
+            ->when(  $hide_not_arrived, function( $query ){
                 $query->whereHas('dates', function( Builder $query){
                     $query->where('name', '=' ,'arrival')
                         ->where('current', '=', true);
