@@ -12,6 +12,7 @@
                         ID
                     </th>
                     <th>Vehicle</th>
+                    <th>Code</th>
                     <th>Milestone</th>
                     <th></th>
                 </tr>
@@ -23,6 +24,7 @@
                         <td>{{ $event->id }}</td>
                         <td><a href="{{ route('vehicle.home', [$event->vehicle_id]) }}">{{ $event->vehicle->vin }}</a></td>
                         <td>{{ $event->name }}</td>
+                        <td>{{ \App\Models\VehicleDate::ford_milestone_code($event->name) }}</td>
                         <td>
                             <form action="{{ route('vehicles.submit_milestone_to_ford', [$event]) }}"
                                 method="POST">

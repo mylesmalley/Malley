@@ -82,6 +82,23 @@ class VehicleDate extends BaseModel
     ];
 
 
+    /**
+     * returns the short milestone code from Ford
+     *
+     * @param string $event_name
+     * @return string
+     */
+    public static function ford_milestone_code( string $event_name ): string
+    {
+        return self::$ford_mapping[ $event_name ] ?? 'ERROR';
+    }
+
+
+    /**
+     * returns the keys from the ford Milestones list to compare with the full dates table list
+     *
+     * @return array
+     */
     public static function ford_milestone(): array
     {
         return array_keys( self::$ford_mapping );
@@ -89,6 +106,8 @@ class VehicleDate extends BaseModel
 
 
     /**
+     * returns a list of all available date milestones that can be added to a vehicle.
+     *
      * @return array
      */
     public static function available_events(): array
