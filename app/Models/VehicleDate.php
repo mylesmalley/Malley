@@ -47,14 +47,39 @@ class VehicleDate extends BaseModel
         'next_renewal',
         'of_purchase',
         'warranty_registered',
+
+        // newly required
+        'incoming_inspection',    // Inspection Complete
+        'work_scheduled' , // Work Scheduled
+        'work_expected_to_be_completed', // Work Estimated to be Completed
+        'work_started', // Work Started
+        'work_completed', // Work Completed
+        'released_to_carrier', // Released to Carrier
+        'compound_exit',  // Compound Exit
+
+        // optional fields for Ford
+        'pre_production_damage_identified', //Damage Identified
     ];
 
 
     /**
      * @var array
+     * key : malley milestone    value : ford milestone code
      */
     protected static array $ford_mapping = [
+        'arrival' => 'R1', // Vehicle Received
 
+        // newly required
+        'incoming_inspection'  =>  'XB',    // Inspection Complete
+        'work_scheduled' => 'AV', // Work Scheduled
+        'work_expected_to_be_completed' => 'X2', // Work Estimated to be Completed
+        'work_started' => 'X6', // Work Started
+        'work_completed' => 'X5', // Work Completed
+        'released_to_carrier' => 'J1', // Released to Carrier
+        'compound_exit' => 'OA',  // Compound Exit
+
+        // optional fields for Ford
+        'pre_production_damage_identified' => 'A0', //Damage Identified
     ];
 
 
