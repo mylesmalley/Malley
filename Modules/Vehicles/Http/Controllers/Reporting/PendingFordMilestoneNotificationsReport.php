@@ -30,6 +30,60 @@ class PendingFordMilestoneNotificationsReport extends Controller
      */
     public function submit( VehicleDate $vehicleDate )
     {
-        dd( $vehicleDate );
+
+
+        $data = [
+            "vin" => $vehicleDate->vehicle->vin,
+            "code" => VehicleDate::ford_milestone_code($vehicleDate->name),
+            "statusUpdateTs" => $vehicleDate->timestamp,
+            "references" => [
+                [
+                    "qualifier" => "senderName",
+                    "value" => "Malley Industries Inc."
+                ],
+                [
+                    "qualifier" => "receiverCode",
+                    "value" => "FORDIT",
+                ],
+                [
+                    "qualifier" => "scac",
+                    "value" => "MALLEY",
+                ],
+                [
+                    "qualifier" => "ms1LocationCode",
+                    "value" => "DIEPPE",
+                ],
+                [
+                    "qualifier" => "ms1StateOrProvinceCode",
+                    "value" => "NB",
+                ],
+                [
+                    "qualifier" => "ms1CountryCode",
+                    "value" => "Canada",
+                ],
+                [
+                    "qualifier" => "compoundCode",
+                    "value" => "NA",
+                ],
+                [
+                    "qualifier" => "yardCode",
+                    "value" => "NA",
+                ],
+                [
+                    "qualifier" => "bayCode",
+                    "value" => "NA",
+                ],
+                [
+                    "qualifier" => "partnerType",
+                    "value" => "UP",
+                ]
+            ]
+
+        ];
+
+
+
+        dd( json_encode( $data) );
+
     }
 }
