@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class VehicleDate extends BaseModel
 {
-
     /**
      * @var string[]
      */
@@ -79,13 +78,13 @@ class VehicleDate extends BaseModel
         'compound_exit' => 'OA',  // Compound Exit
 
         // optional fields for Ford
-        'pre_production_damage_identified' => 'A0', //Damage Identified
+//        'pre_production_damage_identified' => 'A0', //Damage Identified
     ];
 
 
-    public function ford_milestone()
+    public static function ford_milestone(): array
     {
-
+        return array_keys( self::$ford_mapping );
     }
 
 
