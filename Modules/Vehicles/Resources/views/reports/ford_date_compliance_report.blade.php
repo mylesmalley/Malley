@@ -6,6 +6,15 @@
 
 
     <div class="card border-primary">
+        <div class="card-body">
+            <p>This report shows all Ford vehicles tracked by the vehicle database that have arrived at Malley and have not left us yet.
+                The date columns below are the ones required by Ford for compliance with our QVM certification.</p>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card border-primary">
         <table class="table table-sm table-striped table-hover">
             <thead>
                 <tr>
@@ -13,6 +22,7 @@
                     @foreach( $milestones as $m )
                         <th>{{ ucwords( str_replace('_',' ', $m)) }}</th>
                     @endforeach
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,14 +37,21 @@
 
                         </td>
                         @foreach( $milestones as $m )
-                            <td>
-                                @if ( $r->{$m} == true )
-                                    yes
-                                @else
-                                    x
-                                @endif
-                            </td>
+                            @if ( $r->{$m} == true )
+                                <td class="table-success">
+                                    Yes
+                                </td>
+                            @else
+                                <td class="table-danger">
+                                    No
+                                </td>
+                            @endif
                         @endforeach
+                        <td>
+                            <a href="{{ route('vehicle.dates', [$r->id]) }}" class="btn btn-sm btn-secondary">
+                                Edit
+                            </a>
+                        </td>
                     </tr>
                 @empty
                     <tr>

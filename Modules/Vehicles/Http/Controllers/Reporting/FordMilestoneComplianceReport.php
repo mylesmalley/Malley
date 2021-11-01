@@ -73,7 +73,10 @@ class FordMilestoneComplianceReport extends Controller
 
         $results = json_decode( json_encode($results ) );
 
-        return view('vehicles::reports.ford_date_compliance_report', ['results' => $results, 'milestones'=> $milestones ]);
+        return view('vehicles::reports.ford_date_compliance_report', [
+            'results' => $results,
+            'milestones'=> $milestones
+        ]);
       //  dd( json_decode( json_encode($results ) ) );
     }
 }
