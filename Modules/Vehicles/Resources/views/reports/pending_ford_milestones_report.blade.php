@@ -11,6 +11,9 @@
                     <th>
                         ID
                     </th>
+                    <th>Vehicle</th>
+                    <th>Milestone</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -18,6 +21,16 @@
                 @foreach( $pending as $event )
                     <tr>
                         <td>{{ $event->id }}</td>
+                        <td><a href="{{ route('vehicle.home', [$event->vehicle_id]) }}">{{ $event->vehicle->vin }}</a></td>
+                        <td>{{ $event->name }}</td>
+                        <td>
+                            <form action="{{ route('vehicles.submit_milestone_to_ford', [$event]) }}"
+                                method="POST">
+                                @csrf
+                                <input type="submit" class="btn btn-primary" value="SEND">
+
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
