@@ -78,7 +78,9 @@ class DatesController extends Controller
             'timestamp' => $ts,
             'name' => $request->input('name'), // name of date field
             'notes' =>  $request->input('notes') ?? "", // use preset notes if provided
-            'update_ford' => strtoupper( $vehicle->make) === 'FORD',
+            'update_ford' => strtoupper( $vehicle->make) === 'FORD'
+                && in_array( $request->input('name'),
+                    VehicleDate::ford_milestone() ),
             'submitted_to_ford' => 0,
             'current' => 1,
         ])->save();
@@ -122,7 +124,9 @@ class DatesController extends Controller
             'timestamp' => $ts,
             'name' => $request->input('name'), // name of date field
             'notes' =>  $request->input('notes') ?? "", // use preset notes if provided
-            'update_ford' => strtoupper( $vehicle->make) === 'FORD',
+            'update_ford' => strtoupper( $vehicle->make) === 'FORD'
+                && in_array( $request->input('name'),
+                VehicleDate::ford_milestone() ),
             'submitted_to_ford' => 0,
             'current' => 1,
         ])->save();
