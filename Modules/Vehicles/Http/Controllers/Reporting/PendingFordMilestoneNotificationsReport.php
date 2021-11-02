@@ -4,8 +4,10 @@ namespace Modules\Vehicles\Http\Controllers\Reporting;
 
 use App\Http\Controllers\Controller;
 use App\Models\VehicleDate;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-
+use GuzzleHttp\Client;
+use Modules\Vehicles\Jobs\FordMilestoneUpdate;
 
 class PendingFordMilestoneNotificationsReport extends Controller
 {
@@ -27,63 +29,13 @@ class PendingFordMilestoneNotificationsReport extends Controller
 
     /**
      * @param VehicleDate $vehicleDate
+     * @return RedirectResponse
      */
-    public function submit( VehicleDate $vehicleDate )
+    public function submit( VehicleDate $vehicleDate ): RedirectResponse
     {
+        FordMilestoneUpdate::dispatch( $vehicleDate );
 
-
-        $data = [
-            "vin" => $vehicleDate->vehicle->vin,
-            "code" => VehicleDate::ford_milestone_code($vehicleDate->name),
-            "statusUpdateTs" => $vehicleDate->timestamp,
-            "references" => [
-                [
-                    "qualifier" => "senderName",
-                    "value" => "Malley Industries Inc."
-                ],
-                [
-                    "qualifier" => "receiverCode",
-                    "value" => "FORDIT",
-                ],
-                [
-                    "qualifier" => "scac",
-                    "value" => "MALLEY",
-                ],
-                [
-                    "qualifier" => "ms1LocationCode",
-                    "value" => "DIEPPE",
-                ],
-                [
-                    "qualifier" => "ms1StateOrProvinceCode",
-                    "value" => "NB",
-                ],
-                [
-                    "qualifier" => "ms1CountryCode",
-                    "value" => "Canada",
-                ],
-                [
-                    "qualifier" => "compoundCode",
-                    "value" => "NA",
-                ],
-                [
-                    "qualifier" => "yardCode",
-                    "value" => "NA",
-                ],
-                [
-                    "qualifier" => "bayCode",
-                    "value" => "NA",
-                ],
-                [
-                    "qualifier" => "partnerType",
-                    "value" => "UP",
-                ]
-            ]
-
-        ];
-
-
-
-        dd( json_encode( $data) );
-
+        return redirect()
+            ->back();
     }
 }
