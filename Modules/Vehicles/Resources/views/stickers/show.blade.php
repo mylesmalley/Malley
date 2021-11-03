@@ -26,6 +26,11 @@
 
 @endif
 
+@if( $location === 'bqfr' )
+    @includeIf('vehicles::stickers.bnqFR')
+
+@endif
+
 @if( $location === 'us' )
     @includeIf('vehicles::stickers.star')
 
