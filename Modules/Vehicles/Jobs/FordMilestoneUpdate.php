@@ -2,6 +2,7 @@
 
 namespace Modules\Vehicles\Jobs;
 
+use App\Models\Vehicle;
 use App\Models\VehicleDate;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Batchable;
@@ -20,6 +21,10 @@ class FordMilestoneUpdate implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Batchable;
 
     public VehicleDate $date;
+    public Vehicle $vehicle;
+
+    public int $tries = 1;
+    public int $backoff = 60;
 
     /**
      * Create a new job instance.
@@ -28,8 +33,12 @@ class FordMilestoneUpdate implements ShouldQueue
      */
     public function __construct( VehicleDate $date )
     {
-        $this->date = $date->load('vehicle');
+        $this->date = $date;
+        $this->vehicle = Vehicle::find( $this->date->vehicle_id );
     }
+
+
+
 
     /**
      * Execute the job.
@@ -38,57 +47,10 @@ class FordMilestoneUpdate implements ShouldQueue
      */
     public function handle()
     {
-        Log::info("Vehicle {$this->date->vehicle_id} pinged Ford");
+        Log::info("Vehicle {$this->date->vehicle_id} pinged Ford date {$this->date->id}");
 
 
-        $data = [
-            "vin" => $this->date->vehicle->vin,
-            "code" => VehicleDate::ford_milestone_code($this->date->name),
-            "statusUpdateTs" => $this->date->timestamp,
-            "references" => [
-                [
-                    "qualifier" => "senderName",
-                    "value" => "Malley Industries Inc."
-                ],
-                [
-                    "qualifier" => "receiverCode",
-                    "value" => "FORDIT",
-                ],
-                [
-                    "qualifier" => "scac",
-                    "value" => "MALLEY",
-                ],
-                [
-                    "qualifier" => "ms1LocationCode",
-                    "value" => "DIEPPE",
-                ],
-                [
-                    "qualifier" => "ms1StateOrProvinceCode",
-                    "value" => "NB",
-                ],
-                [
-                    "qualifier" => "ms1CountryCode",
-                    "value" => "Canada",
-                ],
-                [
-                    "qualifier" => "compoundCode",
-                    "value" => "NA",
-                ],
-                [
-                    "qualifier" => "yardCode",
-                    "value" => "NA",
-                ],
-                [
-                    "qualifier" => "bayCode",
-                    "value" => "NA",
-                ],
-                [
-                    "qualifier" => "partnerType",
-                    "value" => "UP",
-                ]
-            ]
-
-        ];
+        $data = $this->date->freight_verify_api_payload();
 
         $client = new Client([
             // Base URI is used with relative requests
@@ -98,7 +60,7 @@ class FordMilestoneUpdate implements ShouldQueue
         ]);
 
         $response = $client->request('POST',
-            config('malley.freight_verify_endpoint'), [
+            config('malley.freight_verify_domain').config('malley.freight_verify_endpoint'), [
                 'auth' => [config('malley.freight_verify_user'), config('malley.freight_verify_pass')],
                 'json' => $data,
             ]);
@@ -127,7 +89,7 @@ class FordMilestoneUpdate implements ShouldQueue
      */
     public function failed(Throwable $exception)
     {
-        Log::critical("Vehicle {$this->date->id} FAILED to ping Ford" ,[ $exception]);
+        Log::critical("Date {$this->date->id} FAILED to ping Ford" ,[ $exception ]);
         $this->date->update([
             'submitted_to_ford' => false,
         ]);

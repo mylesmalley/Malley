@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use JetBrains\PhpStorm\ArrayShape;
 
 class VehicleDate extends BaseModel
 {
@@ -116,10 +117,60 @@ class VehicleDate extends BaseModel
     }
 
 
-
-
-
-
+    /**
+     * @return array
+     */
+    #[ArrayShape(["vin" => "string", "code" => "string", "statusUpdateTs" => "string", "references" => "\string[][]"])]
+    public function freight_verify_api_payload(): array
+    {
+        return [
+            "vin" => (string) $this->vehicle->vin,
+            "code" => $this->ford_milestone_code($this->attributes['name']),
+            "statusUpdateTs" => (string) $this->attributes['timestamp'],
+            "references" => [
+                [
+                    "qualifier" => "senderName",
+                    "value" => "Malley Industries Inc."
+                ],
+                [
+                    "qualifier" => "receiverCode",
+                    "value" => "FORDIT",
+                ],
+                [
+                    "qualifier" => "scac",
+                    "value" => "MALLEY",
+                ],
+                [
+                    "qualifier" => "ms1LocationCode",
+                    "value" => "UX",
+                ],
+                [
+                    "qualifier" => "ms1StateOrProvinceCode",
+                    "value" => "NB",
+                ],
+                [
+                    "qualifier" => "ms1CountryCode",
+                    "value" => "Canada",
+                ],
+                [
+                    "qualifier" => "compoundCode",
+                    "value" => "UX",
+                ],
+                [
+                    "qualifier" => "yardCode",
+                    "value" => "NA",
+                ],
+                [
+                    "qualifier" => "bayCode",
+                    "value" => "NA",
+                ],
+                [
+                    "qualifier" => "partnerType",
+                    "value" => "UP",
+                ]
+            ]
+        ];
+    }
 
 
 

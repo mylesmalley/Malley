@@ -47,8 +47,13 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/reports/pending_ford_milestones',    [PendingFordMilestoneNotificationsReport::class, "view" ])
         ->name('vehicles.reports.pending_ford_milestones');
 
+
+    Route::get('/milestone/{vehicleDate}/test',    [PendingFordMilestoneNotificationsReport::class, "test" ])
+        ->name('vehicles.test_ford_milestone');
+
     Route::post('/milestone/{vehicleDate}',    [PendingFordMilestoneNotificationsReport::class, "submit" ])
         ->name('vehicles.submit_milestone_to_ford');
+
 
 
 
