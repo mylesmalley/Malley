@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <h1 class="text-center">Ford Date Compliance Report</h1>
+    <h1 class="text-center"> Date Compliance Report</h1>
 
 
     <div class="card border-primary">
         <div class="card-body">
-            <p>This report shows all Ford vehicles tracked by the vehicle database that we are required to report major milestones to Ford.
+            <p>This report shows all vehicles tracked by the vehicle database that are missing dates.
                 The date columns below are the ones required for compliance with our QVM certification.</p>
             <p><a href="{{ route('vehicles.reports.ford_compliance') }}?show_not_here">Show vans not yet here</a>
 {{--                <a href="{{ route('vehicles.reports.ford_compliance') }}?show_departed">Show vans have left</a>--}}
