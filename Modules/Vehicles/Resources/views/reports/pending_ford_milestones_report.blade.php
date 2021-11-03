@@ -32,6 +32,7 @@
                                 <input type="submit" class="btn btn-primary" value="SEND">
 
                             </form>
+                            <a href="{{ route('vehicles.test_ford_milestone', [ $event ]) }}" class="btn btn-info">Test</a>
                         </td>
                     </tr>
                 @endforeach

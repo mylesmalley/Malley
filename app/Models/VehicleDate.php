@@ -142,7 +142,7 @@ class VehicleDate extends BaseModel
                 ],
                 [
                     "qualifier" => "ms1LocationCode",
-                    "value" => "UX",
+                    "value" => ($this->attributes['name'] !== 'arrival') ? "UX" : 'CB3893'
                 ],
                 [
                     "qualifier" => "ms1StateOrProvinceCode",
@@ -154,7 +154,7 @@ class VehicleDate extends BaseModel
                 ],
                 [
                     "qualifier" => "compoundCode",
-                    "value" => "UX",
+                    "value" => ($this->attributes['name'] !== 'arrival') ? "UX" : 'CB3893'
                 ],
                 [
                     "qualifier" => "yardCode",
