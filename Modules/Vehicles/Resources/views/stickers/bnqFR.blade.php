@@ -83,36 +83,36 @@
     //// blank
     //  star.textAlign = 'left';
     star.font = ' bold 36px sans-serif';
-    star.fillText(`Initial Conditions`, 320,  line(5));
-    star.fillText(`Final Conditions`, 930,  line(5));
+    star.fillText(`Conditions Initiales:`, 320,  line(5));
+    star.fillText(`Conditions Finales (2 Heures):`, 930,  line(5));
     star.font = ' 36px sans-serif';
     //// blank
 
      star.textAlign = 'right';
-    star.fillText(`Temperature __________ °C`, 560,  line(7));
+    star.fillText(`Température __________ °C`, 560,  line(7));
     star.fillText(`{{ round(  $vehicle->o2_test_temperature  )  }}`, 450,  line(7));
-    star.fillText(`Pressure __________ psi`, 560,  line(8));
+    star.fillText(`Pression: __________ psi`, 560,  line(8));
     star.fillText(`{{ round( $vehicle->os_test_start_pressure )  }}`, 450,  line(8));
 
-    star.fillText(`Temperature __________ °C`, 1150,  line(7));
+    star.fillText(`Température __________ °C`, 1150,  line(7));
     star.fillText(`{{ round( $vehicle->o2_test_temperature  )  }}`, 1025,  line(7));
-    star.fillText(`Pressure __________ psi`, 1150,  line(8));
+    star.fillText(`Pression: __________ psi`, 1150,  line(8));
     star.fillText(`{{ round( $vehicle->os_test_final_pressure )  }}`, 1025,  line(8));
 
 
     star.textAlign = 'center';
-    star.fillText(`Max Allowable Pressure Loss 5 psi   Pressure Loss _______ psi`, 625,  line(9));
+    star.fillText(`Perte de pression maximale permise: 5 psi.  Perte de pression, ______psi`, 625,  line(9));
     star.textAlign = 'right';
-    star.fillText(`{{ round( $vehicle->os_test_final_pressure - $vehicle->os_test_start_pressure, 1 ) }}`, 1025,  line(9));
+    star.fillText(`{{ round( $vehicle->os_test_final_pressure - $vehicle->os_test_start_pressure, 1 ) }}`, 1080,  line(9));
 
     star.textAlign = 'left';
 
     star.fillText(`Date`, 50,  line(11));
-    star.fillText(`of Test ____________`, 50,  line(12));
+    star.fillText(`du test ____________`, 50,  line(12));
     star.fillText(`{{ $vehicle->o2_test_date  }}`, 200,  line(12));
 
-    star.fillText(`Authorized Ambulance `, 410,  line(11));
-    star.fillText(`Manufacturer Representative ________________`, 410,  line(12));
+    star.fillText(`Signature de l'opérateur `, 410,  line(11));
+    star.fillText(`ayant fait le test: ___________________________`, 410,  line(12));
 
 
     // E N D  O F  O X Y G E N  S E C T I O N
