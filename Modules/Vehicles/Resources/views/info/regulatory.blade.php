@@ -127,29 +127,54 @@
 
             <br>
 
+                        @if(  !$vehicle->milestone('chassis_manufactured') || !$vehicle->milestone('work_completed') )
+                            <div class="row">
+                                <div class=" col-8 offset-">
+
+                                    <div class="card border-danger">
+                                        <div class="card-header bg-danger text-white">
+                                            Before you Start
+                                        </div>
+                                        <div class="card-body text-danger">
+                                            Please  <a href="{{ route('vehicle.dates', [ $vehicle ]) }}">click here</a> to set a chassis manufactured date and a date completed.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        @endif
+
 
             <h3>Vehicle Details </h3>
             <div class='row'>
-                <div class='col-md-4'>
-                    <div class="form-group">
-                        <label class="control-label" for="date_chassis_manufactured">Date Chassis Manufactured </label>
-                        <input type="date"
-                               name="date_chassis_manufactured"
-                               value="{{ old('date_chassis_manufactured') ?? $vehicle->date_chassis_manufactured ?? "" }}"
-                               id="date_chassis_manufactured"
-                               class="form-control">
-                    </div>
-                </div>
-                <div class='col-md-4'>
-                    <div class="form-group">
-                        <label class="control-label" for="date_malley_finished_conversion">Date Malley Completed Work </label>
-                        <input type="date"
-                               name="date_malley_finished_conversion"
-                               value="{{ old('date_malley_finished_conversion') ?? $vehicle->date_malley_finished_conversion ?? "" }}"
-                               id="date_malley_finished_conversion"
-                               class="form-control">
-                    </div>
-                </div>
+
+{{--                --}}
+{{--                <div class='col-md-4'>--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label class="control-label" for="date_chassis_manufactured">Date Chassis Manufactured </label>--}}
+{{--                        <input type="date"--}}
+{{--                               name="date_chassis_manufactured"--}}
+{{--                               value="{{ old('date_chassis_manufactured') ?? $vehicle->date_chassis_manufactured ?? "" }}"--}}
+{{--                               value="{{ old('chassis_manufactured') ?? $vehicle->milestone('chassis_manufactured')  ?? "" }}"--}}
+
+{{--                               id="date_chassis_manufactured"--}}
+{{--                               class="form-control">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class='col-md-4'>--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label class="control-label" for="date_malley_finished_conversion">Date Malley Completed Work </label>--}}
+{{--                        <input type="date"--}}
+{{--                               name="date_malley_finished_conversion"--}}
+{{--                               value="{{ old('date_malley_finished_conversion') ?? $vehicle->date_malley_finished_conversion ?? "" }}"--}}
+{{--                               value="{{ old('work_completed') ?? $vehicle->milestone('work_completed')  ?? "" }}"--}}
+
+{{--                               id="date_malley_finished_conversion"--}}
+{{--                               class="form-control">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
                 <div class='col-md-4'>
                     <div class="form-group">
                         <label class="control-label" for="manufacturer_code">Vehicle Type </label>
