@@ -317,7 +317,7 @@
         1265,
         15,
         1220,
-        1850);
+        1950);
 
 
     star.font = 'bold 36px sans-serif';
@@ -325,173 +325,182 @@
     star.textAlign = 'center';
     star.fillStyle = 'black';
 
-    star.fillText("ELECTRICAL LOAD TEST CERTIFICATION AND AMD 005", 1850, 25);
+    star.fillText("CERTIFICAT DE TEST COURANT ÉLECTRIQUE ET AMD 005", 1850, 25);
 
 
-    star.font = ' 36px sans-serif';
+    star.font = ' 32px sans-serif';
     //  star.textAlign = 'left';
     star.fillStyle = 'black';
 
     star.textAlign = 'left';
 
     star.fillText(`A`, col(52), line(1));
-    star.fillText(`The data herein is based upon turning on the following electrical`,col(54), line(1));
-    star.fillText(`electrical equipment and electrical load(s) simultaneously.`,col(54), line(2));
+
+
+
+
+    star.fillText(`Les données ci-dessous sont basées sur allumé les équipements`,col(54), line(1));
+    star.fillText(`électriques suivants et la/les charge(s) électrique(s) simultanément.`,col(54), line(2));
 
     star.fillText(`1`, col(53), line(3));
-    star.fillText(`Ignition system`,col(56), line(3));
+    star.fillText(`Système d'ignition`,col(56), line(3));
 
     star.fillText(`2`, col(53), line(4));
-    star.fillText(`Headlights (low beam) and all CMVSS / FMVSS lighting`,col(56), line(4));
+    star.fillText(`Phare principaux (basse intensité) incluant tous les `,col(56), line(4));
+    star.fillText(`feux de roule selon NSVAC`,col(56), line(5));
 
-    star.fillText(`3`, col(53), line(5));
-    star.fillText(`Windshield wipers (low speed)`,col(56), line(5));
+    star.fillText(`3`, col(53), line(6));
+    star.fillText(`Essuie glace (basse vitesse)`,col(56), line(6));
 
-    star.fillText(`4`, col(53), line(6));
-    star.fillText(`Cab air conditioning (at coldest setting with highest)`,col(56), line(6));
-    star.fillText(`blower speed)`,col(56), line(7));
+    star.fillText(`4`, col(53), line(6+1));
+    star.fillText(`A/C de la cabine avant (A/C et ventilateur en position`,col(56), line(6+1));
+    star.fillText(`maximum)`,col(56), line(7+1));
 
-    star.fillText(`5`, col(53), line(8));
-    star.fillText(`Radio in receiving mode (or equal load if not equipped - 5A)`,col(56), line(8));
+    star.fillText(`5`, col(53), line(8+1));
+    star.fillText(`Radiocommunication en mode de réception (charge équivalente,`,col(56), line(8+1));
+    star.fillText(`si non équipé - 5A)`,col(56), line(8+2));
 
-    star.fillText(`6`, col(53), line(9));
-    star.fillText(`Patient module dome lighting (high intensity setting)`,col(56), line(9));
+    star.fillText(`6`, col(53), line(9+2));
+    star.fillText(`Éclairage intérieur du module (haute intensité)`,col(56), line(9+2));
 
-    star.fillText(`7`, col(53), line(10));
-    star.fillText(`Patient module air conditioning (at coldest setting with`,col(56), line(10));
-    star.fillText(`highest blower speed)`,col(56), line(11));
+    star.fillText(`7`, col(53), line(10+2));
+    star.fillText(`A/C du module (A/C et ventilateur en position maximum)`,col(56), line(10+2));
 
-    star.fillText(`8`, col(53), line(12));
-    star.fillText(`Emergency warning lighting system in`,col(56), line(12));
-    star.fillText(`"clear-right-of-way-mode (3.8.2)`,col(56), line(13));
+    star.fillText(`8`, col(53), line(12+1));
+    star.fillText(`Système de feux d'urgence en mode ''clear-right-of-way''`,col(56), line(12+1));
+    star.fillText(`(selon KKK 3.8.2)`,col(56), line(13+1));
 
-    star.fillText(`9`, col(53), line(14));
-    star.fillText(`20 amp medical load or equivalent`,col(56), line(`14`));
+    star.fillText(`9`, col(53), line(14+1));
+    star.fillText(`20 ampère de charge (équipement médical ou équivalent)`,col(56), line(14+1));
 
-    star.fillText(`10`, col(53), line(15));
-    star.fillText(`Left and right side flood lights`,col(56), line(15));
+    star.fillText(`10`, col(53), line(15+1));
+    star.fillText(`Lumières de scène côté droit et gauche`,col(56), line(15+1));
 
-    star.fillText(`11`, col(53), line(16));
-    star.fillText(`Rear flood lights`,col(56), line(16));
+    star.fillText(`11`, col(53), line(16+1));
+    star.fillText(`Lumières de scène arrière`,col(56), line(16+1));
 
-    star.fillText(`12`, col(53), line(17));
-    star.fillText(`Optional 12 volt DC equipment and lights`,col(56), line(17));
+    star.fillText(`12`, col(53), line(17+1));
+    star.fillText(`Tous les équipeents et éclairages optionnels 12V DC`,col(56), line(17+1));
 
 
-    star.fillText(`This vehicle  X  is / __ is not equipped with a load management system. `, col(52), line(19));
-
-    star.fillText(`NOTE: If equipped with an electrical load management system, certain`, col(52), line(21));
-    star.fillText(`loads / functions listed above may have been inhibited automatically from`, col(52), line(22));
-    star.fillText(`operating by the load management system during testing. If equipped `, col(52), line(23));
-    star.fillText(`with an accessible electrical load management override switch, the`, col(52), line(24));
-    star.fillText(`switch was activated during testing to provide the maximum attainable`, col(52), line(25));
-    star.fillText(`electrical load.`, col(52), line(26));
+    star.fillText(`Ce véhicule est  X  / n'est pas ___ équipé d'un système de gestion de courant. `, col(52), line(19+1));
 
 
 
 
-    star.fillText(`B`, col(52), line(28));
-    star.fillText(`Name of ambulance manufacturer`,col(54), line(28));
-    star.fillText(`________________________`, col(78), line(28));
-    star.fillText(`Malley Industries Inc.`, col(80), line(28));
-
-    star.fillText(`C`, col(52), line(29));
-    star.fillText(`Ambulance type / model`,col(54), line(29));
-    star.fillText(`________________________`, col(78), line(29));
-    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->model }}`, col(80), line(29));
-
-    star.fillText(`D`, col(52), line(30));
-    star.fillText(`Chassis manufacturer`,col(54), line(30));
-    star.fillText(`________________________`, col(78), line(30));
-    star.fillText(`{{ $vehicle->make }}`, col(80), line(30));
-
-    star.fillText(`E`, col(52), line(31));
-    star.fillText(`Vehicle Identification Number`,col(54), line(31));
-    star.fillText(`________________________`, col(78), line(31));
-    star.fillText(`{{ $vehicle->vin }}`, col(80), line(31));
-
-    star.fillText(`F`, col(52), line(32));
-    star.fillText(`Electrical Generating System Data`,col(54), line(32));
-
-    star.fillText(`1`, col(53), line(33));
-    star.fillText(`Alternator make / model`,col(56), line(33));
-    star.fillText(`________________________`, col(78), line(33));
-    star.fillText(`OEM`, col(80), line(33));
-
-    star.fillText(`2`, col(53), line(34));
-    star.fillText(`Maximum 12 volt DC manufacturer's current `, col(56), line(34));
-    star.fillText(`rating at 200 F (93 C) at 14 volt DC`,col(56), line(35));
-    star.fillText(`_______`, col(89.5), line(35));
-    star.fillText(`Amp`, col(95), line(35));
-    star.fillText(`{{ $vehicle->alternator_amperage}}`, col(90.5), line(35));
-
-
-    star.fillText(`G`, col(52), line(36));
-    star.fillText(`Test Data`,col(54), line(36));
-
-        star.fillText(`1`, col(53), line(37));
-        star.fillText(`Lowest DC voltage at common point with loads 1-11`,col(56), line(37));
-        star.fillText(`_______`, col(89.5), line(37));
-        star.fillText(`Volt`, col(95), line(37));
-        star.fillText(`{{ round( $vehicle->load_test_1_lowest ,1) }}`, col(90.5), line(37));
-
-       star.fillText(`2`, col(53), line(38));
-        star.fillText(`Lowest DC voltage at common point with loads 1-12`,col(56), line(38));
-        star.fillText(`_______`, col(89.5), line(38));
-        star.fillText(`Volt`, col(95), line(38));
-        star.fillText(`{{ round( $vehicle->load_test_2_lowest, 1)}}`, col(90.5), line(38));
-
-        star.fillText(`3`, col(53), line(39));
-        star.fillText(`Engine Speed Setting`,col(56), line(39));
-        star.fillText(`_______`, col(89.5), line(39));
-        star.fillText(`RPM`, col(95), line(39));
-        star.fillText(`1500`, col(90.5), line(39));
-
-
-    star.fillText(`4`, col(53), line(40));
-    star.fillText(`DC current draw at common point with loads 1-11`,col(56), line(40));
-    star.fillText(`_______`, col(89.5), line(40));
-    star.fillText(`Amp`, col(95), line(40));
-    star.fillText(`{{ round( $vehicle->load_test_1_highest,1 ) }}`, col(90.5), line(40));
-
-
-
-    star.fillText(`5`, col(53), line(41));
-    star.fillText(`DC current draw at common point with loads 1-12`,col(56), line(41));
-    star.fillText(`without load management system`,col(56), line(42));
-    star.fillText(`_______`, col(89.5), line(42));
-    star.fillText(`Amp`, col(95), line(42));
-    star.fillText(`{{ round( $vehicle->load_test_2_highest,1 ) }}`, col(90.5), line(42));
+    star.fillText(`NOTÉ: SI CE VÉHICULE EST MUNI D'UN SYSTÈME DE GESTION DE ,`, col(52), line(21+1));
+    star.fillText(`COURANT CERTAINES FONCTIONS LISTÉES CI-DESSUS PEUVENT AVOIR `, col(52), line(22+1));
+    star.fillText(`ÉTÉ AUTOMATIQUEMENT COUPÉES DE LEUR ALIMENTATION PAR CE   `, col(52), line(23+1));
+    star.fillText(`SYSTÈME. SI MUNI D'UN SYSTÈME DE DÉVIATION DE COURANT, `, col(52), line(24+1));
+    star.fillText(`CELUI-CI DOIT ÊTRE ACTIONNÉ POUR PERMETTRE D'ATTEINDRE `, col(52), line(25+1));
+    star.fillText(`LA CONSOMMATION MAXIMALE.`, col(52), line(26+1));
 
 
 
 
-    star.fillText(`H`, col(52), line(43));
-    star.fillText(`Generating reserve`,col(54), line(43));
+    star.fillText(`B`, col(52), line(28+1));
+    star.fillText(`Nom du fabricant d'ambulance`,col(54), line(28+1));
+    star.fillText(`________________________`, col(78), line(28+1));
+    star.fillText(`Malley Industries Inc.`, col(80), line(28+1));
 
-        star.fillText(`1`, col(53), line(44));
-        star.fillText(`Generating reserve (+) overload (-) with loads 1-11`,col(56), line(44));
-        star.fillText(`_______`, col(89.5), line(44));
-        star.fillText(`Amp`, col(95), line(44));
-        star.fillText(`{{ round(  $vehicle->alternator_amperage -$vehicle->load_test_1_highest  ,1) }}`, col(90.5), line(44));
+    star.fillText(`C`, col(52), line(29+1));
+    star.fillText(`Type d'ambulance | Modèle`,col(54), line(29+1));
+    star.fillText(`________________________`, col(78), line(29+1));
+    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->model }}`, col(80), line(29+1));
 
-    star.fillText(`2`, col(53), line(45));
-    star.fillText(`Generating reserve (+) overload (-) with loads 1-12`,col(56), line(45));
-    star.fillText(`without load management system`,col(56), line(46));
-    star.fillText(`_______`, col(89.5), line(46));
-    star.fillText(`Amp`, col(95), line(46));
-    star.fillText(`{{ round(  $vehicle->alternator_amperage -$vehicle->load_test_2_highest,1 ) }}`, col(90.5), line(46));
+    star.fillText(`D`, col(52), line(30+1));
+    star.fillText(`Fabricant du châssis`,col(54), line(30+1));
+    star.fillText(`________________________`, col(78), line(30+1));
+    star.fillText(`{{ $vehicle->make }}`, col(80), line(30+1));
+
+    star.fillText(`E`, col(52), line(31+1));
+    star.fillText(`Numéro de série du véhicule (VIN)`,col(54), line(31+1));
+    star.fillText(`________________________`, col(78), line(31+1));
+    star.fillText(`{{ $vehicle->vin }}`, col(80), line(31+1));
+
+    star.fillText(`F`, col(52), line(32+1));
+    star.fillText(`Données du système de charge`,col(54), line(32+1));
+
+    star.fillText(`1`, col(53), line(33+1));
+    star.fillText(`Marque / modèle alternateur / générateur`,col(56), line(33+1));
+    star.fillText(`________________________`, col(78), line(33+1));
+    star.fillText(`OEM`, col(80), line(33+1));
+
+    star.fillText(`2`, col(53), line(34+1));
+    star.fillText(`Capacité maximum 12V DC selon le fabricant`, col(56), line(34+1));
+    star.fillText(`à 200F (93C) à 14V DC`,col(56), line(35+1));
+    star.fillText(`_______`, col(89.5), line(35+1));
+    star.fillText(`A`, col(95), line(35+1));
+    star.fillText(`{{ $vehicle->alternator_amperage}}`, col(90.5), line(35+1));
 
 
-    star.fillText(`I`, col(53), line(47));
-    star.fillText(`Date of test`,col(56), line(47));
-    star.fillText(`________________________`, col(78), line(47));
-    star.fillText(`{{ $vehicle->load_test_date }}`, col(80), line(47));
+    star.fillText(`G`, col(52), line(36+1));
+    star.fillText(`Données d'essais`,col(54), line(36+1));
+
+        star.fillText(`1`, col(53), line(37+1));
+        star.fillText(`Plus bas voltage au point principal avec charge 1-11`,col(56), line(37+1));
+        star.fillText(`_______`, col(89.5), line(37+1));
+        star.fillText(`V`, col(95), line(37+1));
+        star.fillText(`{{ round( $vehicle->load_test_1_lowest ,1) }}`, col(90.5), line(37+1));
+
+       star.fillText(`2`, col(53), line(38+1));
+        star.fillText(`Plus bas voltage au point principal avec charge 1-12`,col(56), line(38+1));
+        star.fillText(`_______`, col(89.5), line(38+1));
+        star.fillText(`V`, col(95), line(38+1));
+        star.fillText(`{{ round( $vehicle->load_test_2_lowest, 1)}}`, col(90.5), line(38+1));
+
+        star.fillText(`3`, col(53), line(39+1));
+        star.fillText(`Vitesse du moteur`,col(56), line(39+1));
+        star.fillText(`_______`, col(89.5), line(39+1));
+        star.fillText(`RPM`, col(95), line(39+1));
+        star.fillText(`1500`, col(90.5), line(39+1));
 
 
-    star.fillText(`J`, col(53), line(48));
-    star.fillText(`The electrical system has been tested and is in compliance`,col(56), line(48));
-    star.fillText(`with AMD standard 005`,col(56), line(49));
+    star.fillText(`4`, col(53), line(40+1));
+    star.fillText(`Consommation courant DC au point principal`,col(56), line(40+1));
+    star.fillText(`avec charge 1-11`,col(56), line(40+2));
+    star.fillText(`_______`, col(89.5), line(40+2));
+    star.fillText(`A`, col(95), line(40+2));
+    star.fillText(`{{ round( $vehicle->load_test_1_highest,1 ) }}`, col(90.5), line(40+2));
+
+
+
+    star.fillText(`5`, col(53), line(41+2));
+    star.fillText(`Consommation courant DC au point principal avec `,col(56), line(41+2));
+    star.fillText(`charge 1-12 sans système de gestion du courant`,col(56), line(42+2));
+    star.fillText(`_______`, col(89.5), line(42+2));
+    star.fillText(`A`, col(95), line(42+2));
+    star.fillText(`{{ round( $vehicle->load_test_2_highest,1 ) }}`, col(90.5), line(42+2));
+
+
+
+
+    star.fillText(`H`, col(52), line(43+2));
+    star.fillText(`Charge de réserve`,col(54), line(43+2));
+
+        star.fillText(`1`, col(53), line(44+2));
+        star.fillText(`Charge de réserve (+) surcharge (-) avec charge 1-11`,col(56), line(44+2));
+        star.fillText(`_______`, col(89.5), line(44+2));
+        star.fillText(`A`, col(95), line(44+2));
+        star.fillText(`{{ round(  $vehicle->alternator_amperage -$vehicle->load_test_1_highest  ,1) }}`, col(90.5), line(44+2));
+
+    star.fillText(`2`, col(53), line(45+2));
+    star.fillText(`Charge de réserve (+) surcharge (-) avec charge 1-12`,col(56), line(45+2));
+    star.fillText(`sans système de gestion du courant`,col(56), line(46+2));
+    star.fillText(`_______`, col(89.5), line(46+2));
+    star.fillText(`A`, col(95), line(46+2));
+    star.fillText(`{{ round(  $vehicle->alternator_amperage -$vehicle->load_test_2_highest,1 ) }}`, col(90.5), line(46+2));
+
+
+    star.fillText(`I`, col(52), line(47+2));
+    star.fillText(`Date des tests`,col(56), line(47+2));
+    star.fillText(`________________________`, col(78), line(47+2));
+    star.fillText(`{{ $vehicle->load_test_date }}`, col(80), line(47+2));
+
+
+    star.fillText(`J`, col(52), line(48+2));
+    star.fillText(`Le système électrique à été essayer et conforme `,col(56), line(48+2));
+    star.fillText(`avec le standard AMD 005`,col(56), line(49+2));
 
 
     /**
@@ -500,24 +509,24 @@
 
     star.strokeRect(
         1265,
-        1910,
+        2015,
         1220,
         217);
 
-    star.drawImage( bg_logo, col(52) , line(52) );
+    star.drawImage( bg_logo, col(52) , line(52+3) );
     star.textAlign = 'right';
 
-    star.fillText(`Malley Industries Inc.`, col(98), line(52));
-    star.fillText(`1100 Aviation Avenue`, col(98), line(53));
-    star.fillText(`Dieppe, New Brunswick, Canada`, col(98), line(54));
-    star.fillText(`E1A 9A3`, col(98), line(55));
+    star.fillText(`Malley Industries Inc.`, col(98), line(52+3));
+    star.fillText(`1100 Aviation Avenue`, col(98), line(53+3));
+    star.fillText(`Dieppe, New Brunswick, Canada`, col(98), line(54+3));
+    star.fillText(`E1A 9A3`, col(98), line(55+3));
 
     star.textAlign = 'left';
-    star.fillText(`Tel: 1 (877) 859-8591`, col(52), line(54));
-    star.fillText(`Fax: 1 (877) 857-1745`, col(52), line(55));
+    star.fillText(`Tel: 1 (877) 859-8591`, col(52), line(54+3));
+    star.fillText(`Fax: 1 (877) 857-1745`, col(52), line(55+3));
 
     star.textAlign = 'center';
-    star.fillText(`www.malleyindustries.com`, 1875, line(56));
+    star.fillText(`www.malleyindustries.com`, 1875, line(56+3));
 
 
 </script>
