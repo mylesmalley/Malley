@@ -153,7 +153,7 @@
     star.fillStyle = 'black';
 
     // star.fillText(`CERTIFICAT DE POIDS / CHARGE UTILE`, 625, line(15));
-    star.fillText(`WEIGHT / PAYLOAD CERTIFICATION STICKER NOTICE`, 625, line(15));
+    star.fillText(`CERTIFICAT DE CAPACITÉ DE CHARGE/POIDS`, 625, line(15));
 
     star.fillText(`ATTENTION`, 625, line(17));
 
@@ -192,11 +192,11 @@
     star.font = ' 28px sans-serif';
 
     star.fillText(`_____________________________________________`, 625,  line(35));
-    star.fillText(`AMBULANCE MANUFACTURER'S NAME. `, 625,  line(36));
+    star.fillText(`NOM DU FABRICANT D'AMBULANCE`, 625,  line(36));
 
 
     star.fillText(`_________________________________              _____________    `   , 625,  line(38));
-    star.fillText(`           CHASSIS MODEL.                               YEAR OF MANUFACTURE `, 625,  line(39));
+    star.fillText(`          MODÈLE DU CHÂSSIS.                            DATE DE FABRICATION `, 625,  line(39));
 
 
 
@@ -209,29 +209,29 @@
     // LIST
     star.textAlign = 'left';
 
-    star.font = ' 36px sans-serif';
+    star.font = ' 32px sans-serif';
     star.fillText(`1.`, 40,  line(41));
-    star.fillText(`VEHICLE TYPE, MODEL, PROD #`, 80,  line(41));
-    star.fillText(`_________________________`, 700,  line(41));
-    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->ambulance_model }} | {{ $vehicle->malley_number }}`, 750,  line(41));
+    star.fillText(`TYPE DE VÉHICULE, MODÈLE, # PRODUCTION`, 80,  line(41));
+    star.fillText(`__________________`, 800,  line(41));
+    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->ambulance_model }} | {{ $vehicle->malley_number }}`, 900,  line(41));
 
 
         star.fillText(`2.`, 40,  line(42));
-        star.fillText(`CHASSIS MANUFACTURER GAWR-FRONT`, 80,  line(42));
+        star.fillText(`PNBE AVANT DU FABRICANT DU CHÂSSIS`, 80,  line(42));
         star.fillText(`____________KG`, 900,  line(42));
         star.fillText(`{{ number_format( $vehicle->oem_front_gawr * 0.453592 ) }}`, 950,  line(42));
 
 
 
      star.fillText(`3.`, 40,  line(43));
-     star.fillText(`CHASSIS MANUFACTURER GAWR-REAR`, 80,  line(43));
+     star.fillText(`PNBE ARRIÈRE DU FABRICANT DU CHÂSSIS`, 80,  line(43));
      star.fillText(`____________KG`, 900,  line(43));
      star.fillText(`{{ number_format( $vehicle->oem_rear_gawr * 0.453592 ) }}`, 950,  line(43));
 
 
 
        star.fillText(`4.`, 40,  line(44));
-       star.fillText(`CHASSIS MANUFACTURER GVWR`, 80,  line(44));
+       star.fillText(`PNBV DU FABRICANT DU CHÂSSIS`, 80,  line(44));
        star.fillText(`____________KG`, 900,  line(44));
        star.fillText(`{{ number_format( $vehicle->oem_gvwr * 0.453592 ) }}`, 950,  line(44));
 
@@ -239,42 +239,42 @@
 
 
        star.fillText(`5.`, 40,  line(45));
-       star.fillText(`MINIMUM PAYLOAD PER BNQ 1013-110A`, 80,  line(45));
-       star.fillText(`OR AS SPECIFIED (CLAUSE 6.1.2)`, 110,  line(46));
+       star.fillText(`CHARGE UTILE MINIMALE SELON BNQ 1013-110A`, 80,  line(45));
+       star.fillText(`COMME SPÉCIFIÉ DANS (CLAUSE 6.1.2)`, 110,  line(46));
        star.fillText(`____________KG`, 900,  line(46));
        star.fillText(`680`, 950,  line(46));
 
 
            star.fillText(`6.`, 40,  line(47));
-           star.fillText(`CURB WEIGHT-FRONT BASE VEHICLE`, 80,  line(47));
+           star.fillText(`POIDS À VUE - AVANT DU VÉHICULE DE BASE`, 80,  line(47));
            star.fillText(`____________KG`, 900,  line(47));
            star.fillText(`{{ number_format( $vehicle->front_axel_weight_with_fuel * 0.453592 ) }}`, 950,  line(47));
 
 
       star.fillText(`7.`, 40,  line(48));
-      star.fillText(`CURB WEIGHT-REAR BASE VEHICLE`, 80,  line(48));
+      star.fillText(`POIDS À VUE - ARRIÈRE DU VÉHICULE DE BASE`, 80,  line(48));
       star.fillText(`____________KG`, 900,  line(48));
       star.fillText(`{{  number_format($vehicle->rear_axel_weight_with_fuel * 0.453592 )  }}`, 950,  line(48));
 
 
      star.fillText(`8.`, 40,  line(49));
-     star.fillText(`CURB WEIGHT BASE VEHICLE`, 80,  line(49));
-     star.fillText(`(ITEM 6 PLUS ITEM 7) `, 110,  line(50));
+     star.fillText(`POIDS À VUE DU VÉHICULE DE BASE`, 80,  line(49));
+     star.fillText(`(ITEM 6 PLUS ITEM 7)(PARA 3.5.1)`, 110,  line(50));
      star.fillText(`____________KG`, 900,  line(50));
      star.fillText(`{{ number_format( ( $vehicle->front_axel_weight_with_fuel + $vehicle->rear_axel_weight_with_fuel )  * 0.453592 ) }}`, 950,  line(50));
 
 
         star.fillText(`9.`, 40,  line(51));
-        star.fillText(`PAYLOAD OF BASIC VEHICLE`, 80,  line(51));
-        star.fillText(`(ITEM 4 MINUS ITEM 8)`, 110,  line(52));
-        star.fillText(`MUST MEET OR EXCEED ITEM 5`, 110,  line(53));
+        star.fillText(`CHARGE UTILE DU VÉHICULE DE BASE`, 80,  line(51));
+        star.fillText(`(ITEM 4 MOINS ITEM 8)`, 110,  line(52));
+        star.fillText(`DOIT ÊTRE EQUIVALENT OU PLUS HAUT`, 110,  line(53));
         star.fillText(`____________KG`, 900,  line(53));
     {{--star.fillText(`{{ number_format( $vehicle->payload * 0.453592 )  }}`, 950,  line(53));--}}
     star.fillText(`{{ number_format( ($vehicle->oem_gvwr - ( $vehicle->front_axel_weight_with_fuel + $vehicle->rear_axel_weight_with_fuel ) ) * 0.453592 )  }}`, 950,  line(53));
 
     star.fillText(`10.`, 33,  line(54));
-    star.fillText(`TOTAL WEIGHT OF OPTIONS AS`, 80,  line(54));
-    star.fillText(`SPECIFIED ON VEHICLE`, 110,  line(55));
+    star.fillText(`POIDS TOTAL DES OPTIONS SPÉCIFIC`, 80,  line(54));
+    star.fillText(`SUR CEVÉHICULE`, 110,  line(55));
     star.fillText(`____________KG`, 900,  line(55));
     star.fillText(`{{ number_format(($vehicle->weight_of_options ?? 0)  * 0.453592 )  }}`, 950,  line(55));
 
@@ -283,9 +283,9 @@
 
 
     star.fillText(`11.`, 33,  line(56));
-      star.fillText(`REMAINING USABLE PAYLOAD `, 80,  line(56));
-    star.fillText(`(ACTUAL WEIGHT USER MAY ADD)`, 110,  line(57));
-    star.fillText(`(ITEM 9 MINUS ITEM 10)`, 110,  line(58));
+      star.fillText(`CHARGE UTILE RESTANTE `, 80,  line(56));
+    star.fillText(`(VRAI POIDS POUVANT ÊTRE AJOUTÉ PAR`, 110,  line(57));
+    star.fillText(` L'UTILISATEUR) (ITEM 9 MOINS ITEM 10)`, 110,  line(58));
       star.fillText(`____________KG`, 900,  line(58));
 {{--      star.fillText(`{{ number_format(( $vehicle->payload - $vehicle->weight_of_options ) * 0.453592 )  }}`, 950,  line(58));--}}
 
@@ -298,8 +298,8 @@
     star.textAlign = 'center';
     star.fillStyle = 'black';
 
-    star.fillText("THIS STICKER SHALL BE MOUNTED ON THE BODY (MODULE)", 625, line(60));
-    star.fillText("IN A CONSPICUOUS LOCATION", 625, line(61));
+    star.fillText("CE COLLANT DOIT ÊTRE INSTALLER SUR LE", 625, line(60));
+    star.fillText("MODULE À UN ENDROIT VISIBLE", 625, line(61));
 
     star.font = '36px sans-serif';
 
