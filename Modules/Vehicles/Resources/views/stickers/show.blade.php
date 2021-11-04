@@ -50,9 +50,11 @@
 
 @endif
 
-
-
-@includeIf('vehicles::stickers.door')
+@if( $location === 'bqfr' )
+    @includeIf('vehicles::stickers.door_FR')
+@else
+    @includeIf('vehicles::stickers.door')
+@endif
 
 
 @includeIf('vehicles::stickers.tire')
