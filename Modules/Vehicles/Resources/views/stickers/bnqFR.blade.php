@@ -212,8 +212,8 @@
     star.font = ' 32px sans-serif';
     star.fillText(`1.`, 40,  line(41));
     star.fillText(`TYPE DE VÉHICULE, MODÈLE, # PRODUCTION`, 80,  line(41));
-    star.fillText(`__________________`, 800,  line(41));
-    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->ambulance_model }} | {{ $vehicle->malley_number }}`, 900,  line(41));
+    star.fillText(`__________________`, 900,  line(41));
+    star.fillText(`{{ $vehicle->ambulance_type }} | {{ $vehicle->ambulance_model }} | {{ $vehicle->malley_number }}`, 810,  line(41));
 
 
         star.fillText(`2.`, 40,  line(42));
