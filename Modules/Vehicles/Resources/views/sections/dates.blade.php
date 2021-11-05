@@ -2,10 +2,10 @@
     <div class="card-header bg-primary text-white" >
         Dates
 
-        @if( Auth::user()->vdb_modify_photos )
+{{--        @if( Auth::user()->vdb_modify_photos )--}}
             <a href="{{ route('vehicle.dates', [$vehicle]) }}"
                class='btn btn-sm btn-secondary float-end'>Edit Dates</a>
-        @endif
+{{--        @endif--}}
     </div>
     <table class="table table-striped table-sm detail-table">
         @foreach( $vehicle->dates as $date )
