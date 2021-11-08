@@ -104,31 +104,48 @@
 
         <div class="row">
 
-            <div class='col-md-4'>
-                <div class="form-group">
-                    <label class="control-label"
-                           for="date_in_service">Date In Service</label>
-                    <input type="date"
-                           name="date_in_service"
-                           required
-                           value="{{ old('date_in_service') ?? $vehicle->date_in_service ?? "" }}"
-                           id="date_in_service"
-                           class="form-control form-control-lg">
-                </div>
-            </div>
 
-            <div class='col-md-4'>
-                <div class="form-group">
-                    <label class="control-label"
-                           for="date_lease_expired">Date Lease Expiress</label>
-                    <input type="date"
-                           name="date_lease_expired"
-                           required
-                           value="{{ old('date_lease_expired') ?? $vehicle->date_lease_expired ?? "" }}"
-                           id="date_lease_expired"
-                           class="form-control form-control-lg">
-                </div>
-            </div>
+            @if(  !$vehicle->milestone('in_service') || !$vehicle->milestone('lease_expired') )
+                    <div class=" col-8 offset-2">
+
+                        <div class="card border-danger">
+                            <div class="card-header bg-danger text-white">
+                                Before you Start
+                            </div>
+                            <div class="card-body text-danger">
+                                Please  <a href="{{ route('vehicle.dates', [ $vehicle ]) }}">click here</a> to set the IN SERVICE and LEASE EXPIRED date.
+                            </div>
+                        </div>
+                    </div>
+
+            @endif
+
+{{--            --}}
+{{--            <div class='col-md-4'>--}}
+{{--                <div class="form-group">--}}
+{{--                    <label class="control-label"--}}
+{{--                           for="date_in_service">Date In Service</label>--}}
+{{--                    <input type="date"--}}
+{{--                           name="date_in_service"--}}
+{{--                           required--}}
+{{--                           value="{{ old('date_in_service') ?? $vehicle->date_in_service ?? "" }}"--}}
+{{--                           id="date_in_service"--}}
+{{--                           class="form-control form-control-lg">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class='col-md-4'>--}}
+{{--                <div class="form-group">--}}
+{{--                    <label class="control-label"--}}
+{{--                           for="date_lease_expired">Date Lease Expiress</label>--}}
+{{--                    <input type="date"--}}
+{{--                           name="date_lease_expired"--}}
+{{--                           required--}}
+{{--                           value="{{ old('date_lease_expired') ?? $vehicle->date_lease_expired ?? "" }}"--}}
+{{--                           id="date_lease_expired"--}}
+{{--                           class="form-control form-control-lg">--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
 
 

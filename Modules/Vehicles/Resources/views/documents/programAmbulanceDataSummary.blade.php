@@ -68,11 +68,11 @@
     </tr>
     <tr style="padding-bottom:10px;">
         <td>Start Date of Lease:</td>
-        <td>{{  Carbon\Carbon::createFromDate( $vehicle->date_in_service )->format('d M Y') ?? 'MISSING IN SERVICE DATE' }}</td>
+        <td>{{ $vehicle->milestone('in_service', 'd M Y') ?? 'MISSING IN SERVICE DATE' }}</td>
     </tr>
     <tr style="padding-bottom:10px;">
         <td>Lease Completion Date:</td>
-        <td>{{ Carbon\Carbon::createFromDate( $vehicle->date_lease_expired )->format('d M Y') ?? "MISSING LEASE EXPIRED DATE" }}</td>
+        <td>{{ $vehicle->milestone('lease_expired', 'd M Y') ?? "MISSING LEASE EXPIRED DATE" }}</td>
     </tr>
     <tr style="padding-bottom:10px;">
         <td>Total Monthly Lease Payment:</td>
