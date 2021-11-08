@@ -2,10 +2,10 @@
 
 
 use Illuminate\Support\Facades\Route;
-//use \Modules\Index\Http\Controllers\BaseVanController;
 use \Modules\Index\Http\Controllers\Component\ComponentController;
 use \Modules\Index\Http\Controllers\Component\HomeController;
 use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
+use Modules\Index\Http\Controllers\Index\ComponentListController;
 
 
 Route::group(["prefix" => "index"], function(){
@@ -30,6 +30,8 @@ Route::group(["prefix" => "index"], function(){
         Route::post('/tag', "Index\TagController@create")
             ->name('platform.tags.create');
 
+        Route::get('/componentList', [ ComponentListController::class, 'report'])
+            ->name('platform.component_list_report');
 
 
         // forms
