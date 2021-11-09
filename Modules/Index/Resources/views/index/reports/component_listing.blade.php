@@ -1,9 +1,9 @@
 
         @foreach( $options as $option )
-               <h4>{{ $option->option_name }}<br>
+               <h4><a href="{{ route('option.home', [ $option ]) }}">{{ $option->option_name }}</a><br>
                 {{ $option->option_description }}</h4>
 
-               <table>
+               <table cellpadding="3" border="1">
                         <thead>
                         <tr>
                             <th>StockCode</th>
@@ -14,8 +14,8 @@
                         <tbody>
                             @forelse( $option->components as $c )
                                 <tr>
-                                    <td>{{ $c->component_stock_code }}</td>
-                                    <td>{{ $c->component_description }}</td>
+                                    <td><a href="{{ route('stock_code_query', [$c->component_stock_code]) }}">{{ $c->component_stock_code }}</a></td>
+                                    <td valign="top">{{ $c->component_description }} <br> {{ $c->component_long_description ?? '' }}</td>
                                     <td>{{ $c->component_material_qty }}</td>
                                 </tr>
                             @empty
@@ -25,5 +25,7 @@
                             @endforelse
                         </tbody>
                     </table>
+               <br>
                <hr>
+
         @endforeach

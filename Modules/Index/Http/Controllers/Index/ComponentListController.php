@@ -23,7 +23,7 @@ class ComponentListController extends Controller
             }])
             ->where('obsolete', '=', false)
             ->where('no_components', '=', false)
-            ->select(['id', 'option_name', 'option_description'])
+            ->select(['id', 'option_name', 'option_description',])
             ->get();
 
         return view('index::index.reports.component_listing', [ 'options' => $options ]);
