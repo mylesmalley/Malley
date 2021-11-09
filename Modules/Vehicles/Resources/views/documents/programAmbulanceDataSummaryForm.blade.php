@@ -105,7 +105,7 @@
         <div class="row">
 
 
-            @if(  !$vehicle->milestone('in_service') || !$vehicle->milestone('lease_expired') )
+            @if(  !$vehicle->milestone('in_service') || !$vehicle->milestone('lease_expirey') )
                     <div class=" col-8 offset-2">
 
                         <div class="card border-danger">

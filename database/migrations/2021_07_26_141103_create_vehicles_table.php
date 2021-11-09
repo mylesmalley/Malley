@@ -275,8 +275,8 @@ class CreateVehiclesTable extends Migration
             $table->date('date_warranty_expiry');
             $table->string('date_warranty_expiry_notes');
 
-            $table->date('date_lease_expired');
-            $table->string('date_lease_expired_notes');
+//            $table->date('date_lease_expirey');
+//            $table->string('date_lease_expired_notes');
 
             $table->date('date_entry_to_canada');
             $table->string('date_entry_to_canada_notes');

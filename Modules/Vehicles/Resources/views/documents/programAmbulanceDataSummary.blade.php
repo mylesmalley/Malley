@@ -72,7 +72,7 @@
     </tr>
     <tr style="padding-bottom:10px;">
         <td>Lease Completion Date:</td>
-        <td>{{ $vehicle->milestone('lease_expired', 'd M Y') ?? "MISSING LEASE EXPIRED DATE" }}</td>
+        <td>{{ $vehicle->milestone('lease_expirey', 'd M Y') ?? "MISSING LEASE EXPIRED DATE" }}</td>
     </tr>
     <tr style="padding-bottom:10px;">
         <td>Total Monthly Lease Payment:</td>
