@@ -4,13 +4,14 @@ namespace Modules\Index\Http\Controllers\Option;
 
 
 use App\Http\Controllers\Controller;
-use \App\Models\BaseVan;
-use \App\Models\Option;
-use \App\Models\Tag;
+use App\Models\BaseVan;
+use App\Models\Option;
+use App\Models\Tag;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use \Illuminate\View\View;
-use \Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -18,10 +19,8 @@ class IndexController extends Controller
      * @param BaseVan $baseVan
      * @return View
      */
-    public function show( BaseVan $baseVan, Request $request)
+    public function show( BaseVan $baseVan, Request $request): View
     {
-
-        // $categories = json_decode($baseVan->categories,  JSON_OBJECT_AS_ARRAY);
 
         $categories = Tag::where('base_van_id', $baseVan->id)
             ->where('model', 'option')
@@ -34,7 +33,6 @@ class IndexController extends Controller
         $db = Option::where('base_van_id', $baseVan->id);
         $db->with([
             'tags',
-            // 'errors',
         ]);
 
 //        if ( isset( $request->filter ) && in_array( $request->filter, array_keys($categories) ) )
@@ -99,14 +97,20 @@ class IndexController extends Controller
     }
 
 
-
-    public function editPreferences()
+    /**
+     * @return View
+     */
+    public function editPreferences(): View
     {
         return view('index::index.preferences',['user'=>Auth::user() ]);
     }
 
 
-    public function savePreferences( Request $request )
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function savePreferences( Request $request ): RedirectResponse
     {
         $user = User::findOrFail( $request->user_id );
 
