@@ -162,16 +162,14 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/{vehicle}/dates/{vehicleDate}', [DatesController::class, 'edit' ])
         ->name('vehicle.date.edit');
 
-    Route::get('/{vehicle}/deleteDate/{vehicleDate}', [DatesController::class, 'delete' ])
-        ->name('vehicle.date.delete');
-
     Route::post('/{vehicle}/dates/{vehicleDate}', [DatesController::class, 'update' ])
         ->name('vehicle.date.update');
 
     Route::post('/{vehicle}/storedate', [DatesController::class, 'store' ])
         ->name('vehicle.date.store');
 
-
+    Route::patch('/{vehicle}/dates/{vehicleDate}/retire', [DatesController::class, 'retire' ])
+        ->name('vehicle.date.retire');
 
 
     // vehicle ALBUMS

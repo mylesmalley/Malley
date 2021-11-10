@@ -23,7 +23,7 @@ class DatesController extends Controller
      * @param Vehicle $vehicle
      * @return View
      */
-    public function show( Vehicle $vehicle ): View
+    public function show(Vehicle $vehicle): View
     {
         $vehicle->load('dates');
 
@@ -38,7 +38,7 @@ class DatesController extends Controller
      * @param VehicleDate $date
      * @return View
      */
-    public function edit( Vehicle $vehicle,  VehicleDate $date ): View
+    public function edit(Vehicle $vehicle, VehicleDate $date): View
     {
         return view('vehicles::dates.edit', [
             'vehicle' => $vehicle,
@@ -54,7 +54,7 @@ class DatesController extends Controller
      * @param VehicleDate $date
      * @return RedirectResponse
      */
-    public function update( Request $request, Vehicle $vehicle, VehicleDate $date ): RedirectResponse
+    public function update(Request $request, Vehicle $vehicle, VehicleDate $date): RedirectResponse
     {
         $request->validate([
             'date' => 'required|date',
@@ -77,17 +77,16 @@ class DatesController extends Controller
             'user_id' => Auth::user()->id,
             'timestamp' => $ts,
             'name' => $request->input('name'), // name of date field
-            'notes' =>  $request->input('notes') ?? "", // use preset notes if provided
-            'update_ford' => strtoupper( $vehicle->make) === 'FORD'
-                && in_array( $request->input('name'),
-                    VehicleDate::ford_milestone() ),
+            'notes' => $request->input('notes') ?? "", // use preset notes if provided
+            'update_ford' => strtoupper($vehicle->make) === 'FORD'
+                && in_array($request->input('name'),
+                    VehicleDate::ford_milestone()),
             'submitted_to_ford' => 0,
             'current' => 1,
         ])->save();
 
-        return redirect()->route('vehicle.dates', [ $vehicle ]);
+        return redirect()->route('vehicle.dates', [$vehicle]);
     }
-
 
 
     /**
@@ -95,7 +94,7 @@ class DatesController extends Controller
      * @param Vehicle $vehicle
      * @return RedirectResponse
      */
-    public function store( Request $request, Vehicle $vehicle ): RedirectResponse
+    public function store(Request $request, Vehicle $vehicle): RedirectResponse
     {
         $request->validate([
             'date' => 'required|date',
@@ -117,24 +116,36 @@ class DatesController extends Controller
         ]);
 
 
-
         VehicleDate::create([
             'vehicle_id' => $vehicle->id,
             'user_id' => Auth::user()->id,
             'timestamp' => $ts,
             'name' => $request->input('name'), // name of date field
-            'notes' =>  $request->input('notes') ?? "", // use preset notes if provided
-            'update_ford' => strtoupper( $vehicle->make) === 'FORD'
-                && in_array( $request->input('name'),
-                VehicleDate::ford_milestone() ),
+            'notes' => $request->input('notes') ?? "", // use preset notes if provided
+            'update_ford' => strtoupper($vehicle->make) === 'FORD'
+                && in_array($request->input('name'),
+                    VehicleDate::ford_milestone()),
             'submitted_to_ford' => 0,
             'current' => 1,
         ])->save();
 
-        return redirect()->route('vehicle.dates', [ $vehicle ]);
+        return redirect()->route('vehicle.dates', [$vehicle]);
     }
 
 
+    /**
+     * @param Vehicle $vehicle
+     * @param VehicleDate $date
+     * @return RedirectResponse
+     */
+    public function retire(Vehicle $vehicle, VehicleDate $date ): RedirectResponse
+    {
+        $date->update([
+            'current' => false,
+        ]);
+        return redirect()
+            ->route('vehicle.dates', [$vehicle]);
+    }
 
 
 

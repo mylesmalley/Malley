@@ -94,12 +94,20 @@
                     </tr>
                 </tbody>
             </table>
+        </form>
 
             <div class="card-footer">
                 <div class="row">
                     <div class="col-2 text-start">
-                        <a href="{{ route('vehicle.date.delete', [$vehicle, $date ]) }}"
-                           class="btn btn-danger">Delete</a>
+                        <form action="{{ route('vehicle.date.retire', [$vehicle, $date ]) }}"
+                            method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <input type="submit"
+                               class="btn btn-danger"
+                                   value="Delete">
+                        </form>
+
                     </div>
                     <div class="col-10 text-end">
                         <a href="{{ route('vehicle.dates', [$vehicle ]) }}"
@@ -111,7 +119,6 @@
                 </div>
 
             </div>
-        </form>
 
     </div>
 
