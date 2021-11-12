@@ -4,7 +4,7 @@
         @if( !$option->obsolete )
             @if( Auth::user()->can_edit_options )
 
-            <a href="{{ url('/index/option/'.$option->id.'/photos') }}"
+            <a href="{{ route('option.wizard_image.get', [$option]) }}"
                class='btn btn-sm btn-secondary float-end'>Edit</a>
                 @endif
         @endif

@@ -6,6 +6,7 @@ use \Modules\Index\Http\Controllers\Component\ComponentController;
 use \Modules\Index\Http\Controllers\Component\HomeController;
 use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
 use Modules\Index\Http\Controllers\Index\ComponentListController;
+use Modules\Index\Http\Controllers\Option\WizardImageController;
 
 
 Route::group(["prefix" => "index"], function(){
@@ -253,6 +254,18 @@ Route::group(["prefix" => "index"], function(){
         Route::post('/{option}/drawings', 'Option\DrawingController@create');
         Route::delete('/{option}/drawings/{media}', 'Option\DrawingController@destroy');
         Route::get('/{option}/drawings/{media}', 'Drawing\TagController@drawingTags');
+
+
+
+            // wizard_image
+            Route::get('/{option}/wizard_image', [WizardImageController::class, 'form'])
+                ->name('option.wizard_image.form');
+
+            Route::post('/{option}/wizard_image', [WizardImageController::class, 'set'])
+                ->name('option.wizard_image.set');
+
+            Route::delete('/{option}/wizard_image', [WizardImageController::class, 'delete'])
+                ->name('option.wizard_image.delete');
 
 
 
