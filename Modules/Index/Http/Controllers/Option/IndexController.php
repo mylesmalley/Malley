@@ -6,6 +6,7 @@ namespace Modules\Index\Http\Controllers\Option;
 use App\Http\Controllers\Controller;
 use App\Models\BaseVan;
 use App\Models\Option;
+use App\Models\OptionTag;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,9 @@ class IndexController extends Controller
             ->orderBy('name', 'ASC')
             ->pluck('name', 'id')->toArray();
 
+
+        $tags = $request->tags ?? null;
+
         /**
          * start building the query...
          */
@@ -42,13 +46,47 @@ class IndexController extends Controller
 //            $db->where('option_name', 'like', $filter_string );
 //        }
 
-        if (isset($request->filter) && in_array($request->filter, array_keys($categories))) {
-            //      $filter_string = "{$baseVan->option_prefix}-{$request->filter}%";
-            $db->whereHas('tags', function ($q) use ($request) {
-                $q->where('tag_id', $request->filter);
-            });
-//            $db->where('option_name', 'like', $filter_string );
+
+        if ( !$tags )
+        {
+
+            if (isset($request->filter) && in_array($request->filter, array_keys($categories))) {
+                //      $filter_string = "{$baseVan->option_prefix}-{$request->filter}%";
+                $db->whereHas('tags', function ($q) use ($request) {
+                    $q->where('tag_id', $request->filter);
+                });
+    //            $db->where('option_name', 'like', $filter_string );
+            }
+
         }
+        else
+        {
+            $tags = explode( ',', $tags );
+
+            $options = [];
+
+            foreach( $tags as $t)
+            {
+                $options[] = OptionTag::where('tag_id', '=', $t )
+                    ->pluck('option_id')
+                    ->toArray();
+            }
+
+            $remaining = $options[0];
+
+            foreach( $options as $o )
+            {
+                $remaining = array_intersect( $remaining, $o );
+            }
+
+            $db->whereIn('id', $remaining);
+
+//            $db->whereHas('tags', function ($q) use ($tags) {
+//                $q->whereIn('tag_id', $tags);
+//            })
+
+        }
+
 
         /**
          * filter if the user does not want to see obsolete items
