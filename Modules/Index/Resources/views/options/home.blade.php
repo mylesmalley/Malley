@@ -178,15 +178,19 @@
 
     <h2>Media</h2>
     <div class="row">
-        <div class="col-6">
-
-        @includeIf('index::options.parts.drawings')
+        <div class="col-4">
+            @includeIf('index::options.parts.drawings')
         </div>
-            <div class="col-6">
-
-        @includeIf('index::options.parts.photos')
-            </div>
-
+        <div class="col-4">
+            @includeIf('index::options.parts.wizard_image')
+        </div>
+        <div class="col-4">
+            @includeIf('index::options.parts.photos')
+        </div>
     </div>
 
+
+    <br>
+    <br>
+    <br>
 @endsection
