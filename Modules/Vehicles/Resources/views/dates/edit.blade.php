@@ -15,7 +15,9 @@
     <div class="card border-primary document-content-wrapper">
 
 
-        <form action="{{ route('vehicle.date.update', [$vehicle, $date]) }}"
+        <form
+                id="update-form"
+                action="{{ route('vehicle.date.update', [$vehicle, $date]) }}"
             method="POST">
             <input type="hidden"
                    name="name"
@@ -72,10 +74,10 @@
                                     <label for="time">Time</label>
                                     <input
                                             id="time"
-                                            type="time"
+                                            type="text"
                                             required
                                             name="time"
-                                            step="60000"
+{{--                                            step="60000"--}}
                                             class="form-control"
                                             value="{{ old('time') ?? \Carbon\Carbon::create($date->timestamp)->format('H:i:s') }}"
                                     >
@@ -113,7 +115,9 @@
                         <a href="{{ route('vehicle.dates', [$vehicle ]) }}"
                            class="btn btn-secondary">Discard Changes</a>
 
-                        <input type="submit" class="btn btn-primary " value="Save Changes">
+                        <input
+                                form="update-form"
+                                type="submit" class="btn btn-primary " value="Save Changes">
 
                     </div>
                 </div>

@@ -58,7 +58,7 @@ class DatesController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'time' => 'string',
+            'time' => 'required|string',
             'notes' => 'nullable|string|max:255',
             'name' => 'required|string',
         ]);
@@ -98,7 +98,7 @@ class DatesController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'time' => 'string',
+            'time' => 'required|string',
             'notes' => 'nullable|string|max:255',
             'name' => 'required|string',
         ]);
@@ -106,6 +106,8 @@ class DatesController extends Controller
         $ts = Carbon::create($request->input('date') . ' '
             . $request->input('time'), 'America/Moncton')
             ->toIso8601String();
+
+
 
         // turn off any duplicates
         VehicleDate::where([
@@ -128,6 +130,9 @@ class DatesController extends Controller
             'submitted_to_ford' => 0,
             'current' => 1,
         ])->save();
+
+    //    dd( $request->input('date'), $request->input('time'), $ts );
+
 
         return redirect()->route('vehicle.dates', [$vehicle]);
     }

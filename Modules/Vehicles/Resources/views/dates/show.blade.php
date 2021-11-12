@@ -92,10 +92,10 @@
                         <label for="time">Time</label>
                         <input
                             id="time"
-                            type="time"
-                            required
+                            type="text"
+{{--                            required--}}
                             name="time"
-                            step="60000"
+{{--                            step="60000"--}}
                             class="form-control"
                             value="{{ old('time') ?? \Carbon\Carbon::now('America/Moncton')->format('H:i') }}"
                         >
