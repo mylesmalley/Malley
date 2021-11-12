@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 
@@ -122,15 +121,37 @@ class WizardAction extends Model
         {
             case "switch_on":
                 $config->value = 0;
+                $config->quantity = 1;
+
                 break;
             case "switch_off":
                 $config->value = 1;
+                $config->quantity = 1;
+
                 break;
             case "increment":
-                $config->value --;
+
+                if ($config->quantity === 1)
+                {
+                    $config->value = 0;
+                    $config->quantity = 1;
+                }
+                else
+                {
+                    $config->value --;
+                }
                 break;
             case "decrement":
-                $config->value ++;
+                if (! $config->value )
+                {
+                    $config->value = true;
+                    $config->quantity = 1;
+                }
+                else
+                {
+                    $config->value ++;
+                }
+
                 break;
 
             default:
