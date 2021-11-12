@@ -10,6 +10,7 @@ use App\Models\FormElementItem;
 use App\Models\TemplateOption;
 use App\Models\LayoutOption;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use \Illuminate\View\View;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -203,28 +204,9 @@ class RevisionController extends Controller
 
         // copy any components from the old to new, but preserve old
 
-//        if ( $request->option_syspro_phantom  )
-//        {
-//            // if a phantom is provided, try to import the components
-//            $import = $new->importComponentsFromSyspro();
-//
-//            // if no phantom was found in syspro, send an error message.
-//            if (!$import )
-//            {
-//                $errors[] = "The Syspro phantom number provided doesn't appear to be valid or there was a problem recovering components.";
-//            }
-//            else
-//            {
-//                $this->messages[] = "Synced components from Syspro using the phantom provided. ";
-//            }
-//        }
-//        else
-//        {
-//            // the phantom hasn't changed so just straight up copy over
+
         $this->copyComponents( $old, $new );
         $this->messages[] = "Copied components from the old revision";
-//
-//        }
 
 
 
@@ -238,6 +220,8 @@ class RevisionController extends Controller
         // fix references to form images to reference duplicated drawings
         $this->copyDrawingsAndUpdateReferences( $old, $new );
         $this->copyPhotos( $old, $new );
+        $this->copyWizardImage( $old, $new );
+
 
 
         // duplicate the tags to the new revision
@@ -287,18 +271,10 @@ class RevisionController extends Controller
             ->update(['option_id' => $new->id]);
 
 
-
-
-
+        Log::info("Option $old->id ($old->option_name), replaced by $new->id ");
 
         return $new;
     }
-
-
-
-
-
-
 
 
 
@@ -533,6 +509,22 @@ class RevisionController extends Controller
         foreach( $media as $med )
         {
             $med->copy( $new, 'photos', 's3');
+        }
+        return true;
+    }
+
+
+    /**
+     * @param Option $old
+     * @param Option $new
+     * @return bool
+     */
+    private function copyWizardImage(  Option $old, Option $new ): bool
+    {
+        $media = $old->getMedia('wizard_image');
+        foreach( $media as $med )
+        {
+            $med->copy( $new, 'wizard_image', 's3');
         }
         return true;
     }
