@@ -42,7 +42,16 @@
                                         <h5>Actions</h5>
                                         <table class="table table-sm table-striped">
                                             @foreach( $answer->actions as $action)
-                                                <tr>
+                                                <tr
+                                                    @switch( $action->action)
+                                                        @case('switch_on')
+                                                             class="table-success"
+                                                        @case('switch_off')
+                                                            class="table-danger"
+                                                        @default
+                                                            class="table-info"
+                                                        @endswitch
+                                                >
                                                     <td>{{ $action->action }}</td>
             {{--                                        <td>{{ $action->option_id }}</td>--}}
                                                     <td>
