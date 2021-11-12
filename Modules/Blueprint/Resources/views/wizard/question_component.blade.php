@@ -78,7 +78,7 @@
                                     {
                                      $image = \App\Models\Media::where(['model_id'=>$answer->actions[0]->option_id,
                                         'model_type'=>'App\Models\Option',
-                                        'collection_name'=>'drawings'])->first();
+                                        'collection_name'=>'wizard_image'])->first();
                                     }
 
                                  @endphp

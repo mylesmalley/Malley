@@ -6,10 +6,20 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-7">
                         <input class="form-control form-control-sm"
                                aria-label=""
                                 type="text" wire:model="question.text" >
+                    </div>
+                    <div class="col-3">
+                        <select wire:model="question.type"
+                                aria-label=""
+                                class="form-control">
+                            <option value="selection">Swlection</option>
+                            <option value="redirect">Redirect</option>
+                            <option value="checkboxes">Checkoxes</option>
+                            <option value="thumbnail_selection">Thumbnail Selection</option>
+                        </select>
                     </div>
                     <div class="col-2">
                         <button wire:click="saveText()" class="btn btn-success">Save</button>
