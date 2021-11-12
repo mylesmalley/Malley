@@ -62,15 +62,35 @@ class WizardAction extends Model
         {
             case "switch_on":
                 $config->value = 1;
+                $config->quantity = 1;
                 break;
             case "switch_off":
                 $config->value = 0;
+                $config->quantity = 1;
                 break;
             case "increment":
-                $config->value ++;
+                if ( !$config->value )
+                {
+                    $config->value = 1;
+                    $config->quantity = 1;
+                }
+                else
+                {
+                    $config->quantity ++;
+                }
                 break;
             case "decrement":
-                $config->value --;
+                if ( $config->quantity === 1)
+                {
+                    $config->value = 0;
+                    $config->quantity = 1;
+                }
+                else
+                {
+                    $config->value = 1;
+                    $config->quantity --;
+                }
+
                 break;
 //            case "set_value":
 //                $config->value = $this->attributes['value'];
