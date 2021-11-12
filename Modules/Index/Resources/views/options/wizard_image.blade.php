@@ -26,7 +26,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<h1>{{ $option->fullName }} Photos</h1>
+			<h1>{{ $option->fullName }} Wizard Image</h1>
 			<h3 class="text-secondary">{{ $option->option_description }}</h3>
 		</div>
 	</div>
@@ -44,6 +44,14 @@
 
 
 				<div class="card-body">
+					@if ( $option->hasMedia('wizard_image'))
+						<img src="{{ $option->getFirstMedia('wizard_image')->cdnUrl() }}"
+							 style="width:100%;"
+							 alt="">
+
+						@endif
+
+
 					<form enctype="multipart/form-data"
 						  method="POST"
 						  class="form-inline"
@@ -52,13 +60,12 @@
 						{{ csrf_field() }}
 
 								<input
-										max="10000"
-										name="upload[]"
-										multiple
+										max="1024"
+										name="upload"
 										type="file"
 										class="form-control" >
 
-								<input type="submit" class="btn btn-dark" value="Upload Photos">
+								<input type="submit" class="btn btn-dark" value="Upload Image">
 					</form>
 
 
@@ -67,45 +74,5 @@
 		</div>
 	</div>
 	<br>
-
-{{--	<div class="row">--}}
-{{--		<div class="col-12">--}}
-{{--			<div class="card">--}}
-{{--				<div class="card-header">--}}
-{{--					Photos--}}
-{{--				</div>--}}
-
-
-{{--				<table class="table table-striped">--}}
-{{--					<tbody>--}}
-{{--						@foreach($option->getMedia('photos') as $photo)--}}
-{{--							<tr>--}}
-{{--								<td>--}}
-{{--									<img width="400" src="{{ $photo->cdnUrl() }}" alt="{{ $photo->name }}" />--}}
-{{--								</td>--}}
-
-{{--								<td style="float:left; vertical-align: top">--}}
-{{--									Media ID: {{ $photo->id }} <br>--}}
-{{--									AWS Path: {{ $photo->getPath() }} <br>--}}
-{{--									<br>--}}
-{{--									@optionEditor--}}
-{{--										@if (! $option->obsolete )--}}
-{{--										<form action="{{ url( '/index/option/'.$option->id.'/photos/'.$photo->id ) }}" method="POST">--}}
-{{--											{{ method_field('DELETE') }}--}}
-{{--											{{ csrf_field() }}--}}
-{{--											<input type="submit" class="btn btn-danger btn-xl" value="Delete this Photo">--}}
-{{--										</form>--}}
-{{--										@endif--}}
-{{--									@endoptionEditor--}}
-
-{{--								</td>--}}
-{{--							</tr>--}}
-{{--						@endforeach--}}
-{{--					</tbody>--}}
-{{--				</table>--}}
-{{--			</div>--}}
-{{--		</div>--}}
-{{--	</div>--}}
-
 
 @endsection

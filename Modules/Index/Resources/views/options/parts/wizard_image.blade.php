@@ -4,7 +4,7 @@
         @if( !$option->obsolete )
             @if( Auth::user()->can_edit_options )
 
-            <a href="{{ route('option.wizard_image.get', [$option]) }}"
+            <a href="{{ route('option.wizard_image.form', [$option]) }}"
                class='btn btn-sm btn-secondary float-end'>Edit</a>
                 @endif
         @endif
@@ -12,9 +12,9 @@
 
     <div class="card-body">
         @if ( $option->getFirstMedia('wizard_image') )
-            <img width="185"
-                 alt="wizard iamge"
-                 src="{{ $option->getFirstMedia('wizard_image')->cdnURL() }}"  />
+            <img src="{{ $option->getFirstMedia('wizard_image')->cdnUrl() }}"
+                 style="width:100%;"
+                 alt="">
         @endif
 
     </div>
