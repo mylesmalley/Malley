@@ -6,6 +6,7 @@ use \Modules\Index\Http\Controllers\Component\ComponentController;
 use \Modules\Index\Http\Controllers\Component\HomeController;
 use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
 use Modules\Index\Http\Controllers\Index\ComponentListController;
+use Modules\Index\Http\Controllers\Index\WizardController;
 use Modules\Index\Http\Controllers\Option\WizardImageController;
 
 
@@ -23,6 +24,16 @@ Route::group(["prefix" => "index"], function(){
         // option index home page
         Route::get('/', "Option\IndexController@show")
             ->name('platform.home');
+
+
+        Route::get('/wizards', [WizardController::class, 'index'])
+            ->name('platform.wizards');
+
+
+
+
+
+
 
         // create a new option for a platform
         Route::get('/create', "Option\CreateController@create");

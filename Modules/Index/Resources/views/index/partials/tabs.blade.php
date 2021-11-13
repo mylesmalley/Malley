@@ -4,7 +4,7 @@
         'forms' => "/index/basevan/{$basevan->id}/forms",
         'layouts' => "/index/basevan/{$basevan->id}/layouts",
         'templates' => "/index/basevan/{$basevan->id}/templates",
-
+        'wizards' => route('platform.wizards', [$basevan] ),
     ];
     $target = $selected ?? "options";
 @endphp

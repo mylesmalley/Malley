@@ -62,6 +62,8 @@
                 <h4>Test Indexes</h4>
 
                         <div class="list-group">
+                            <a class="list-group-item list-group-item-action"
+                               href="{{ route('platform.home', [31]) }}" >BLS Transit </a>
                     <a class="list-group-item list-group-item-action"
                         href="{{ url('/index/basevan/10') }}" >Tests </a>
                 </div>
