@@ -31,12 +31,22 @@
                 <tr>
                     <td>{{ $wizard->name }}</td>
                     <td>
-
+                        <a href="{{ url('/questionnaire/'. $wizard->id .'/graph')  }}"
+                            class="btn btn-primary"
+                        >Edit Graph</a>
                     </td>
 
                 </tr>
             @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="100"><a href="{{ route('platform.wizard.create', [$basevan]) }}"
+                        class="btn btn-success"
+                        >Create Wizard</a>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
 
     </div>

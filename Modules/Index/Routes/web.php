@@ -29,6 +29,8 @@ Route::group(["prefix" => "index"], function(){
         Route::get('/wizards', [WizardController::class, 'index'])
             ->name('platform.wizards');
 
+        Route::get('/wizards', [WizardController::class, 'create'])
+            ->name('platform.wizard.create');
 
 
 
