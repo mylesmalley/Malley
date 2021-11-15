@@ -53,7 +53,7 @@ class FordMilestoneComplianceReport extends Controller
             })
 //            ->whereRaw("UPPER(make) = 'FORD'")
             ->with('dates')
-            ->where('created_at','>','2021-08-01')
+            ->where('created_at','>','2020-07-01')
             ->where('vin','!=','')
             ->orderBy('created_at', 'DESC')
             ->get();
