@@ -13,7 +13,6 @@
     @includeIf('blueprint::floor_layout.transit_mobility.standard_floor_options')
 
 @endif
-@includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
 
 <script>
     @if ( $configuration->contains('FTM-Z200-002') || $configuration->contains('FTM-Z200-003') )

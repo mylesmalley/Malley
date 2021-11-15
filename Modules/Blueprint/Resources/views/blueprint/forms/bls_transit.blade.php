@@ -59,6 +59,18 @@
         <h4 class="text-primary">Stretcher Mount (with wheelchair lift)</h4>
         <p>Brand and model of stretcher mounts for configurations with a wheelchair lift.</p>
     </a>
+
+
+    <a class="list-group-item list-group-item-action"
+       href="{{ route('blueprint.floor_layout', [ $blueprint ]) }}">
+
+        <h4 class="text-primary">Floor Layout</h4>
+        <p>Drag and drop the components you want added to this vehicle design.</p>
+    </a>
+
+
+
+
 {{--@endif--}}
 
 
