@@ -51,6 +51,14 @@
             <h4 class="text-primary">Rear-Entry Wheelchair Lift</h4>
             <p>Brand and model of wheelchair lift for vehicles needing wheelchair access from the rear..</p>
         </a>
+
+
+    <a class="list-group-item list-group-item-action"
+       href="{{ route('blueprint.wizard', [ $blueprint, 12]) }}">
+
+        <h4 class="text-primary">Stretcher Mount (with wheelchair lift)</h4>
+        <p>Brand and model of stretcher mounts for configurations with a wheelchair lift.</p>
+    </a>
 {{--@endif--}}
 
 

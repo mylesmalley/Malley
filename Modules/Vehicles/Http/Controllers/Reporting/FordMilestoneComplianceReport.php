@@ -37,7 +37,7 @@ class FordMilestoneComplianceReport extends Controller
 
         $vehicles = Vehicle::select([
                 'id','vin','work_order','malley_number','customer_number',
-                'make','model','year','customer_name'
+                'make','model','year','customer_name','work_order',
             ])
             ->when(  $hide_not_arrived, function( $query ){
                 $query->whereHas('dates', function( Builder $query){
@@ -53,7 +53,7 @@ class FordMilestoneComplianceReport extends Controller
             })
 //            ->whereRaw("UPPER(make) = 'FORD'")
             ->with('dates')
-            ->where('created_at','>','2020-07-01')
+            ->where('created_at','>','2021-07-01')
             ->where('vin','!=','')
             ->orderBy('created_at', 'DESC')
             ->get();

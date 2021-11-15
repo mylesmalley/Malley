@@ -36,7 +36,7 @@
                             <a href="{{ route('vehicle.home', [$r->id]) }}">
                                 {{ $r->year . ' ' . $r->make . ' ' . $r->model }}<br>
                                 {{ $r->vin }}<br>
-                                {{ $r->customer_name ?? 'No customer name' }}
+                                {{ $r->customer_name ?? 'No customer name' }} {{ $r->identifier ?? '.' }}
                             </a>
 
                         </td>
