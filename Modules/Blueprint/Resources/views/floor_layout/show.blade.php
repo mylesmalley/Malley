@@ -32,10 +32,18 @@
 
 
     <div class="row">
-        <div class="col-9">
+        <div class="col-12">
             <div id="konvaStage"></div>
         </div>
-        <div class="col-3">
+
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            @livewire("blueprint::floor-layout-progress", [$blueprint] )
+
+        </div>
+        <div class="col-6">
             <div class="card border-primary">
                 <div class="card-header bg-primary text-white">
                     Instructions
@@ -45,16 +53,9 @@
                     <p>Drag any item you have added to the floor layout around to wherever you'd like it positioned.</p>
                     <p>Double-click on any item on the floor layout to delete it.</p>
                     <p>Any changes you make are saved automatically. You can leave this form and come back later.</p>
-{{--                    <p>Click "Confirm Seat Layout" when you are done.</p>--}}
+                    {{--                    <p>Click "Confirm Seat Layout" when you are done.</p>--}}
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-6">
-            @livewire("blueprint::floor-layout-progress", [$blueprint] )
-
         </div>
     </div>
 
