@@ -26,8 +26,8 @@
                     y: 60,
                     zIndex: 100,
                 });
-                floorLayer.add(bg);
-                floorLayer.draw();
+                seatLayer.add(bg);
+                seatLayer.draw();
             });
         @endif
 
@@ -40,13 +40,25 @@
                     y: 110,
                     zIndex: 100,
                 });
-                floorLayer.add(bg);
-                floorLayer.draw();
+                seatLayer.add(bg);
+                seatLayer.draw();
             });
         @endif
 
 
 
+        // 6139 	FTB-Z993-004 	1 	LAYOUT - ONE STRETCHER POSITION
+        @if( $c->contains('FTB-Z993-004') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 500,
+                    y: 130,
+                    zIndex: 100,
+                });
+                seatLayer.add(bg);
+                seatLayer.draw();
+            });
+        @endif
 
 
     @endif
@@ -55,8 +67,7 @@
 
 
     // 6138 	FTB-Z993-003 	1 	LAYOUT - REAR ENTRY RAMP
-    // 6139 	FTB-Z993-004 	1 	LAYOUT - ONE STRETCHER POSITION
-    // 6140 	FTB-Z993-005 	1 	LAYOUT - TWO STRETCHER POSITIONS
+
 
 
 
@@ -90,8 +101,8 @@
                     y: 60,
                     zIndex: 100,
                 });
-                floorLayer.add(bg);
-                floorLayer.draw();
+                seatLayer.add(bg);
+                seatLayer.draw();
             });
         @endif
 
@@ -103,11 +114,63 @@
                 y: 110,
                 zIndex: 100,
             });
-            floorLayer.add(bg);
-            floorLayer.draw();
+            seatLayer.add(bg);
+            seatLayer.draw();
         });
         @endif
 
+
+
+
+        // 6140 	FTB-Z993-005 	1 	LAYOUT - TWO STRETCHER POSITIONS
+        @if( $c->contains('FTB-Z993-005') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
+            bg.setAttrs({
+                x: 600,
+                y: 70,
+                zIndex: 100,
+            });
+            seatLayer.add(bg);
+            seatLayer.draw();
+        });
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
+            bg.setAttrs({
+                x: 600,
+                y: 190,
+                zIndex: 100,
+            });
+            seatLayer.add(bg);
+            seatLayer.draw();
+        });
+        @endif
+
+
+        //  FTB-Z993-006   ---  LAYOUT - ONE STRETCHER POSITION ON DRIVER SIDE
+        @if( $c->contains('FTB-Z993-006') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
+            bg.setAttrs({
+                x: 600,
+                y: 190,
+                zIndex: 100,
+            });
+            seatLayer.add(bg);
+            seatLayer.draw();
+        });
+        @endif
+
+
+        // 6139 	FTB-Z993-004 	1 	LAYOUT - ONE STRETCHER POSITION
+        @if( $c->contains('FTB-Z993-004') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
+            bg.setAttrs({
+                x: 600,
+                y: 130,
+                zIndex: 100,
+            });
+            seatLayer.add(bg);
+            seatLayer.draw();
+        });
+        @endif
 
     @endif
 
