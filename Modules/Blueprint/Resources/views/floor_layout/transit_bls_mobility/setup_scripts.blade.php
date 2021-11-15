@@ -81,6 +81,7 @@
             floorLayer.draw();
         });
 
+
         // 6136 	FTB-Z993-001 	1 	LAYOUT - SIDE ENTRY LIFT
         @if( $c->contains('FTB-Z993-001') )
             Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-side.png') }}` , function (bg) {
