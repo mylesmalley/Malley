@@ -48,7 +48,7 @@
                         Inspection Report</a>
                     <a class="list-group-item list-group-item-action"
                        href="{{ route("vehicles.reports.ford_compliance" ) }}">
-                        Ford Date Compliance Report</a>
+                        Date Compliance Report</a>
 
 
                 </div>

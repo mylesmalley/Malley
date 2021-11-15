@@ -19,6 +19,10 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
 
     Route::prefix('blueprint')->group(function() {
 
+        Route::get('/', function(){
+            return redirect()->route('my_blueprints');
+        });
+
         // My Blueprint Home Page
         Route::get('my_blueprints/{user?}', [ HomeController::class, 'my_blueprints' ])
             ->name('my_blueprints');

@@ -47,7 +47,7 @@ class Wizard extends Model
 
         'start_notes', // instructions or whatever
         'end_notes', // what do now?
-
+        'base_van_id', // platform
         'completed_form_option', // option that gets triggered when the wizard is complete
     ];
 

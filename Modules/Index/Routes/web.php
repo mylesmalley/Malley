@@ -29,10 +29,11 @@ Route::group(["prefix" => "index"], function(){
         Route::get('/wizards', [WizardController::class, 'index'])
             ->name('platform.wizards');
 
-        Route::get('/wizards', [WizardController::class, 'create'])
+        Route::get('/wizard/create', [WizardController::class, 'create'])
             ->name('platform.wizard.create');
 
-
+        Route::post('/wizard/create', [WizardController::class, 'store'])
+            ->name('platform.wizard.store');
 
 
 
