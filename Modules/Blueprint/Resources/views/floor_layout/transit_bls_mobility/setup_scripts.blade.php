@@ -1,7 +1,12 @@
 
 <script>
+
+    /*
+        REGULAR WHEELBASE
+     */
     // 6122 	FTB-Z997-001 	1 	CHASSIS SELECTION - 148" MID ROOF
-    @if( $c->contains('FTB-Z997-001') )
+    // 6123 	FTB-Z997-002 	1 	CHASSIS SELECTION - 148" HIGH ROOF
+    @if( $c->contains('FTB-Z997-001') || $c->contains('FTB-Z997-002') )
         Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/ftm-148wb-interior.png') }}` , function (bg) {
             bg.setAttrs({
                 x: 0,
@@ -13,39 +18,55 @@
         });
 
 
-    // 6136 	FTB-Z993-001 	1 	LAYOUT - SIDE ENTRY LIFT
-    // 6137 	FTB-Z993-002 	1 	LAYOUT - REAR ENTRY LIFT
-    // 6138 	FTB-Z993-003 	1 	LAYOUT - REAR ENTRY RAMP
-    // 6139 	FTB-Z993-004 	1 	LAYOUT - ONE STRETCHER POSITION
-    // 6140 	FTB-Z993-005 	1 	LAYOUT - TWO STRETCHER POSITIONS
-    //
-
+        // 6136 	FTB-Z993-001 	1 	LAYOUT - SIDE ENTRY LIFT
+        @if( $c->contains('FTB-Z993-001') )
             Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-side.png') }}` , function (bg) {
                 bg.setAttrs({
                     x: 350,
                     y: 60,
-                    zIndex: 1000,
-
+                    zIndex: 100,
                 });
                 floorLayer.add(bg);
                 floorLayer.draw();
             });
+        @endif
 
 
-    @endif
-
-    // 6123 	FTB-Z997-002 	1 	CHASSIS SELECTION - 148" HIGH ROOF
-    @if( $c->contains('FTB-Z997-002') )
-        Konva.Image.fromURL(  `{{ mix('img/blueprint/floors/ftm-148wb-interior.png') }}` , function (bg) {
-            bg.setAttrs({
-                x: 0,
-                y: 0,
-                zindex:0,
+        // 6137 	FTB-Z993-002 	1 	LAYOUT - REAR ENTRY LIFT
+        @if( $c->contains('FTB-Z993-002') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-rear.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 785,
+                    y: 110,
+                    zIndex: 100,
+                });
+                floorLayer.add(bg);
+                floorLayer.draw();
             });
-            floorLayer.add(bg);
-            floorLayer.draw();
-        });
+        @endif
+
+
+
+
+
     @endif
+
+
+
+
+    // 6138 	FTB-Z993-003 	1 	LAYOUT - REAR ENTRY RAMP
+    // 6139 	FTB-Z993-004 	1 	LAYOUT - ONE STRETCHER POSITION
+    // 6140 	FTB-Z993-005 	1 	LAYOUT - TWO STRETCHER POSITIONS
+
+
+
+
+
+
+    /*
+        EXTENDED WHEELBASE
+     */
+
 
 
     // 6124 	FTB-Z997-003 	1 	CHASSIS SELECTION - 148" HIGH ROOF EXTENDED
@@ -59,6 +80,34 @@
             floorLayer.add(bg);
             floorLayer.draw();
         });
+
+        // 6136 	FTB-Z993-001 	1 	LAYOUT - SIDE ENTRY LIFT
+        @if( $c->contains('FTB-Z993-001') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-side.png') }}` , function (bg) {
+                bg.setAttrs({
+                    x: 350,
+                    y: 60,
+                    zIndex: 100,
+                });
+                floorLayer.add(bg);
+                floorLayer.draw();
+            });
+        @endif
+
+        // 6137 	FTB-Z993-002 	1 	LAYOUT - REAR ENTRY LIFT
+        @if( $c->contains('FTB-Z993-002') )
+            Konva.Image.fromURL(  `{{ mix('img/blueprint/other/wheelchair-lift-rear.png') }}` , function (bg) {
+            bg.setAttrs({
+                x: 915,
+                y: 110,
+                zIndex: 100,
+            });
+            floorLayer.add(bg);
+            floorLayer.draw();
+        });
+        @endif
+
+
     @endif
 
 
