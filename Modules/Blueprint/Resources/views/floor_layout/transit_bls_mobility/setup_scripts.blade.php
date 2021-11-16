@@ -52,7 +52,7 @@
             Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
                 bg.setAttrs({
                     x: 500,
-                    y: 130,
+                    y: 180,
                     zIndex: 100,
                 });
                 seatLayer.add(bg);
@@ -149,8 +149,8 @@
         @if( $c->contains('FTB-Z993-006') )
             Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
             bg.setAttrs({
-                x: 600,
-                y: 190,
+                x: 630,
+                y: 180,
                 zIndex: 100,
             });
             seatLayer.add(bg);
@@ -163,8 +163,8 @@
         @if( $c->contains('FTB-Z993-004') )
             Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
             bg.setAttrs({
-                x: 600,
-                y: 130,
+                x: 630,
+                y: 180,
                 zIndex: 100,
             });
             seatLayer.add(bg);
