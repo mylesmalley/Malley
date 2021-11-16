@@ -21,14 +21,16 @@ class QuestionnaireController extends Controller
 
 
         foreach (WizardQuestion::where('wizard_id', $wizard->id )->get() as $q) {
-            $graph .= "Q{$q->id}[\" {$q->text} ({$q->id})\"];\r ";
+            $graph .= "Q{$q->id}[\" ".htmlentities( $q->text ) ." ({$q->id})\"];\r ";
      //       $graph .= "click Q{$q->id} call test() \"Tooltip\"; \r";
 
 //              click Q{$q->id} \"http://www.github.com \r";
         }
 
-        foreach (WizardAnswer::where('wizard_id', $wizard->id )->orderBy('wizard_question_id')->get() as $a) {
-            $graph .= "  Q{$a->wizard_question_id} -- {$a->text} {$a->id} --> Q{$a->next}; \r";
+        foreach (WizardAnswer::where('wizard_id', $wizard->id )
+                     ->orderBy('position')
+                     ->get() as $a) {
+            $graph .= "  Q{$a->wizard_question_id} -- ".htmlentities( $a->text ) . " {$a->id} --> Q{$a->next}; \r";
 
         }
 
