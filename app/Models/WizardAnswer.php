@@ -44,6 +44,7 @@ class WizardAnswer extends Model
         'text', // text of the answer
         'next', // ID of next question
         'wizard_id',
+        'position', // added to sort order that answers are shown
     ];
 
     /**

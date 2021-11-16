@@ -66,7 +66,8 @@ class WizardQuestion extends Model
      */
     public function answers(): HasMany
     {
-        return $this->hasMany( WizardAnswer::class );
+        return $this->hasMany( WizardAnswer::class )
+            ->orderBy('position','DESC');
     }
 
 
