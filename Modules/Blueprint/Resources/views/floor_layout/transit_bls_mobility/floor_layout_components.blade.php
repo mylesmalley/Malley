@@ -19,7 +19,35 @@
             options: [
                 'FTB-D002-001',
             ],
-        }
+        },
+
+
+
+        // freedman seats
+        freedman_single_fixed_passenger: {
+            image: '{{ mix('img/blueprint/seats/single-fixed.png') }}',
+            options: [
+                'FTB-S000-001',
+            ],
+        },
+        freedman_single_fixed_driver: {
+            image: '{{ mix('img/blueprint/seats/single-fixed.png') }}',
+            options: [
+                'FTB-S000-002',
+            ],
+        },
+        freedman_single_folding_passenger: {
+            image: '{{ mix('img/blueprint/seats/single-passenger.png') }}',
+            options: [
+                'FTB-S001-001',
+            ],
+        },
+        freedman_single_folding_driver: {
+            image: '{{ mix('img/blueprint/seats/single-driver.png') }}',
+            options: [
+                'FTB-S001-002',
+            ],
+        },
 
 
 

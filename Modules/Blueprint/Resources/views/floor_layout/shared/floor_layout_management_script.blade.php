@@ -12,6 +12,9 @@
     let floorLayer = new Konva.Layer();
     stage.add(floorLayer);
 
+    let fixedComponentLayer = new Konva.Layer();
+    stage.add(fixedComponentLayer);
+
     let seatLayer = new Konva.Layer();
     stage.add(seatLayer);
 
@@ -66,6 +69,16 @@
 
     function add_image( list, stored_x = null, stored_y = null )
     {
+
+        if ( !options[list] )
+        {
+            console.error('could not find ' + list );
+            return false;
+        }
+        else
+        {
+            console.log( 'found '+list+' and placed at '+stored_x + " " + stored_y);
+        }
 
         Konva.Image.fromURL( options[list].image, function (image )  {
 
@@ -150,6 +163,7 @@
     {
         for (let i = 0; i < preset.children.length; i++ )
         {
+            console.log(preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y );
             add_image(  preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y )
         }
     }

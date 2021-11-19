@@ -39,18 +39,23 @@ class FloorLayoutProgress extends Component
 
             foreach( $layout->children as $c )
             {
-                foreach( $c->attrs->options as $o)
-                {
 
-                    if ( array_key_exists( $o, $this->progress ))
+                if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') )
+                {
+                    foreach( $c->attrs->options as $o)
                     {
-                        $this->progress[$o] ++;
-                    }
-                    else
-                    {
-                        $this->progress[$o] = 1;
+
+                        if ( array_key_exists( $o, $this->progress ))
+                        {
+                            $this->progress[$o] ++;
+                        }
+                        else
+                        {
+                            $this->progress[$o] = 1;
+                        }
                     }
                 }
+
             }
         }
 

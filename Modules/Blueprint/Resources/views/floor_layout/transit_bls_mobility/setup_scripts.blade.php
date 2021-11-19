@@ -1,31 +1,71 @@
 
-@includeIf('blueprint::floor_layout.transit_bls_mobility.floor_layout_components')
 
 
-<div id="menu" class="card border-danger">
-    <div class="card-header">
+<div id="menu" class="card border-dark">
+    <div class="card-header bg-dark text-white">
+        Options
+    </div>
 
         <div class="list-group">
 
-            {{--    @if( ! $configuration->contains('FTB-Z999-001') )--}}
+            <!-- WHEELCHAIR LIFT OR RAMP  -->
+            @if( $c->contains('FTB-Z993-001') || $c->contains('FTB-Z993-002') || $c->contains('FTB-Z993-003') )
 
-            <span class="list-group-item list-group-item-action"
-                onclick="add_image('wheelchair_ltrack')" >
-                Wheelchair Position
-            </span>
-            <span class="list-group-item list-group-item-action"
-                  onclick="add_image('wheelchair_smartfloor')" >
-                Wheelchair Position
-            </span>
-            <span class="list-group-item list-group-item-action"
-                  onclick="add_image('wheelchair_slide_and_click')" >
-                Wheelchair Position
-            </span>
+                <!-- L TRACK FLOORING  -->
+                @if( $c->contains('FTB-Z996-003') )
+                    <span class="list-group-item list-group-item-action"
+                        onclick="add_image('wheelchair_ltrack')" >
+                        Wheelchair Position
+                    </span>
+                @endif
+
+                <!-- SMARTFLOOR -->
+                @if( $c->contains('FTB-Z996-002') )
+                    <span class="list-group-item list-group-item-action"
+                          onclick="add_image('wheelchair_smartfloor')" >
+                        Wheelchair Position
+                    </span>
+                @endif
+
+                <!-- SNC FOR LONSEAL   -->
+                @if( $c->contains('FTB-Z996-001') )
+                    <span class="list-group-item list-group-item-action"
+                          onclick="add_image('wheelchair_slide_and_click')" >
+                        Wheelchair Position
+                    </span>
+                @endif
+
+            @endif
+
+
+            <!-- SEATING FOR LONSEAL flooring   -->
+            @if( $c->contains('FTB-Z996-001') || $c->contains('FTB-Z996-003'))
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_single_fixed_passenger')" >
+                        Freedman Single Fixed (Passenger)
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_single_fixed_driver')" >
+                        Freedman Single Fixed (Drover)
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_single_folding_passenger')" >
+                        Freedman Single Folding (Passenger)
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_single_folding_driver')" >
+                        Freedman Single Folding (Drover)
+                </span>
+            @endif
+
+
+
+
         </div>
 
     </div>
-    <div class="card-body">
-</div>
+
+@includeIf('blueprint::floor_layout.transit_bls_mobility.floor_layout_components')
 
 <script>
 
@@ -54,8 +94,8 @@
                     y: 60,
                     zIndex: 100,
                 });
-                seatLayer.add(bg);
-                seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
             });
         @endif
 
@@ -68,8 +108,8 @@
                     y: 110,
                     zIndex: 100,
                 });
-                seatLayer.add(bg);
-                seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
             });
         @endif
 
@@ -83,8 +123,8 @@
                     y: 180,
                     zIndex: 100,
                 });
-                seatLayer.add(bg);
-                seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
             });
         @endif
 
@@ -129,8 +169,8 @@
                     y: 60,
                     zIndex: 100,
                 });
-                seatLayer.add(bg);
-                seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
             });
         @endif
 
@@ -142,8 +182,8 @@
                 y: 110,
                 zIndex: 100,
             });
-            seatLayer.add(bg);
-            seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
         });
         @endif
 
@@ -158,8 +198,8 @@
                 y: 70,
                 zIndex: 100,
             });
-            seatLayer.add(bg);
-            seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
         });
             Konva.Image.fromURL(  `{{ mix('img/blueprint/other/stretcher.png') }}` , function (bg) {
             bg.setAttrs({
@@ -167,8 +207,8 @@
                 y: 190,
                 zIndex: 100,
             });
-            seatLayer.add(bg);
-            seatLayer.draw();
+                fixedComponentLayer.add(bg);
+                fixedComponentLayer.draw();
         });
         @endif
 
@@ -181,8 +221,8 @@
                 y: 180,
                 zIndex: 100,
             });
-            seatLayer.add(bg);
-            seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
         });
         @endif
 
@@ -195,8 +235,8 @@
                 y: 180,
                 zIndex: 100,
             });
-            seatLayer.add(bg);
-            seatLayer.draw();
+            fixedComponentLayer.add(bg);
+            fixedComponentLayer.draw();
         });
         @endif
 
