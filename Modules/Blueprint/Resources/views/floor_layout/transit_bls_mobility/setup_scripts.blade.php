@@ -1,4 +1,14 @@
 
+@includeIf('blueprint::floor_layout.transit_bls_mobility.floor_layout_components')
+
+
+<div id="menu" class="card border-danger">
+    <div class="card-header">
+        Smart Floor Items
+    </div>
+    <div class="card-body">
+</div>
+
 <script>
 
     /*

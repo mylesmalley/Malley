@@ -71,7 +71,6 @@
 
 @push('scripts')
     <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>
-    @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
 
     {{-- REgular transit mobility - legacy stuff--}}
     @if( (int)$blueprint->base_van_id === 11)
@@ -80,6 +79,10 @@
 
     {{-- BLS--}}
     @if( (int)$blueprint->base_van_id === 31)
+
         @include('blueprint::floor_layout.transit_bls_mobility.setup_scripts', [ 'c' => $configuration ])
     @endif
+
+    @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
+
 @endpush
