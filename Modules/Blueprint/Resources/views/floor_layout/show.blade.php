@@ -79,7 +79,6 @@
 
     {{-- BLS--}}
     @if( (int)$blueprint->base_van_id === 31)
-
         @include('blueprint::floor_layout.transit_bls_mobility.setup_scripts', [ 'c' => $configuration ])
     @endif
 

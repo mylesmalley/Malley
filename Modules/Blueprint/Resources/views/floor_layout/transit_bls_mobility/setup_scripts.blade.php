@@ -4,7 +4,25 @@
 
 <div id="menu" class="card border-danger">
     <div class="card-header">
-        Smart Floor Items
+
+        <div class="list-group">
+
+            {{--    @if( ! $configuration->contains('FTB-Z999-001') )--}}
+
+            <span class="list-group-item list-group-item-action"
+                onclick="add_image('wheelchair_ltrack')" >
+                Wheelchair Position
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('wheelchair_smartfloor')" >
+                Wheelchair Position
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('wheelchair_slide_and_click')" >
+                Wheelchair Position
+            </span>
+        </div>
+
     </div>
     <div class="card-body">
 </div>

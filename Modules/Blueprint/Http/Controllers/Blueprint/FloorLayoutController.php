@@ -16,8 +16,6 @@ class FloorLayoutController extends Controller
 {
 
     /**
-     * home page of an individual blueprint
-     *
      * @param Blueprint $blueprint
      * @return View
      * @throws AuthorizationException
@@ -109,27 +107,31 @@ class FloorLayoutController extends Controller
 
         foreach( $layout->children as $c )
         {
-            foreach( $c->attrs->options as $o)
+            if ( $c->attrs->options )
             {
-                $config = Configuration::where('blueprint_id', $blueprint->id)
-                    ->where('name', $o )
-                    ->where('obsolete', false)
-                    ->first();
+
+                foreach( $c->attrs->options as $o)
+                {
+                    $config = Configuration::where('blueprint_id', $blueprint->id)
+                        ->where('name', $o )
+                        ->where('obsolete', false)
+                        ->first();
 
 
-                if ( $config->value )
-                {
-                    $config->update([
-                        'quantity' => $config->quantity + 1,
-                    ]);
-                }
-                // necessary because incrementing the quantity results in two if starting from the default
-                else
-                {
-                    $config->update([
-                        'value' => 1,
-                        'quantity' => 1,
-                    ]);
+                    if ( $config->value )
+                    {
+                        $config->update([
+                            'quantity' => $config->quantity + 1,
+                        ]);
+                    }
+                    // necessary because incrementing the quantity results in two if starting from the default
+                    else
+                    {
+                        $config->update([
+                            'value' => 1,
+                            'quantity' => 1,
+                        ]);
+                    }
                 }
 
             }
@@ -143,37 +145,37 @@ class FloorLayoutController extends Controller
         ]);
     }
 
-
-    /**
-     * actually adds the staged configuration to the
-     * blueprint based on the custom layout stored.
-     *
-     * @param Blueprint $blueprint
-     * @return RedirectResponse
-     */
-    public function store( Blueprint $blueprint ): RedirectResponse
-    {
-//        $layout = json_decode( $blueprint->custom_layout );
 //
-//        foreach( $layout->children as $c )
-//        {
-//            foreach( $c->attrs->options as $o)
-//            {
-//                 $config = Configuration::where('blueprint_id', $blueprint->id)
-//                    ->where('name', $o )
-//                    ->where('obsolete', false)
-//                    ->first();
-//
-//                 $config->update([
-//                     'value' => 1,
-//                     'quantity' => $config->quantity + 1,
-//                 ]);
-//            }
-//        }
-//
-//        return redirect()
-//            ->route('blueprint.home', [$blueprint])
-//            ->with('success','Floor layout added to this Blueprint');
-    }
+//    /**
+//     * actually adds the staged configuration to the
+//     * blueprint based on the custom layout stored.
+//     *
+//     * @param Blueprint $blueprint
+//     * @return RedirectResponse
+//     */
+//    public function store( Blueprint $blueprint ): RedirectResponse
+//    {
+////        $layout = json_decode( $blueprint->custom_layout );
+////
+////        foreach( $layout->children as $c )
+////        {
+////            foreach( $c->attrs->options as $o)
+////            {
+////                 $config = Configuration::where('blueprint_id', $blueprint->id)
+////                    ->where('name', $o )
+////                    ->where('obsolete', false)
+////                    ->first();
+////
+////                 $config->update([
+////                     'value' => 1,
+////                     'quantity' => $config->quantity + 1,
+////                 ]);
+////            }
+////        }
+////
+////        return redirect()
+////            ->route('blueprint.home', [$blueprint])
+////            ->with('success','Floor layout added to this Blueprint');
+//    }
 
 }

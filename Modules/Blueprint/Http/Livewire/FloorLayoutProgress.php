@@ -76,3 +76,6 @@ class FloorLayoutProgress extends Component
         return view('blueprint::floor_layout.components.floor_layout_progress');
     }
 }
+
+
+//myles-OptiPlex-3050 [2021-11-19 18:33:55] local_live.ERROR: Undefined property: stdClass::$options {"userId":3,"exception":"[object] (ErrorException(code: 0): Undefined property: stdClass::$options at /home/myles/Dropbox/PhpstormProjects/Malley/Modules/Blueprint/Http/Controllers/Blueprint/FloorLayoutController.php:112)
