@@ -6,6 +6,7 @@ use \Modules\Index\Http\Controllers\Component\ComponentController;
 use \Modules\Index\Http\Controllers\Component\HomeController;
 use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
 use Modules\Index\Http\Controllers\Index\ComponentListController;
+use Modules\Index\Http\Controllers\Index\PricingController;
 use Modules\Index\Http\Controllers\Index\WizardController;
 use Modules\Index\Http\Controllers\Option\WizardImageController;
 
@@ -35,6 +36,13 @@ Route::group(["prefix" => "index"], function(){
         Route::post('/wizard/create', [WizardController::class, 'store'])
             ->name('platform.wizard.store');
 
+
+        /**
+         * PRICING FOR INDEXES
+         */
+
+        Route::get('/pricing', [PricingController::class, 'index'])
+            ->name('platform.pricing.index');
 
 
 

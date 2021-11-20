@@ -9,7 +9,7 @@
 
     if ( Auth::user()->can('option.set_pricing') )
     {
-        $tabs['pricing'] ='pricing';
+        $tabs['pricing'] = route('platform.pricing.index', [$basevan]);
     }
 
 
