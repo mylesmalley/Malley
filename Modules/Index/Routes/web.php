@@ -40,9 +40,15 @@ Route::group(["prefix" => "index"], function(){
         /**
          * PRICING FOR INDEXES
          */
-
         Route::get('/pricing', [PricingController::class, 'index'])
             ->name('platform.pricing.index');
+
+
+
+
+
+
+
 
 
 
