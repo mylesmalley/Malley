@@ -56,6 +56,23 @@
                       onclick="add_image('freedman_single_folding_driver')" >
                         Freedman Single Folding (Drover)
                 </span>
+
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_double_fixed_passenger')" >
+                        Freedman Double Fixed (Passenger)
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_double_fixed_driver')" >
+                        Freedman Double Fixed (Drover)
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_double_folding_passenger')" >
+                        Freedman Double Folding (Passenger)
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('freedman_double_folding_driver')" >
+                        Freedman Double Folding (Drover)
+                </span>
             @endif
 
 

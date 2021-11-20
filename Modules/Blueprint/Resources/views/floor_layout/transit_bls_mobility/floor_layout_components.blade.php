@@ -49,7 +49,33 @@
             ],
         },
 
-
+        freedman_double_fixed_passenger: {
+            image: '{{ mix('img/blueprint/seats/double-fixed.png') }}',
+            options: [
+                'FTB-S002-001',
+            ],
+        },
+        freedman_double_fixed_driver: {
+            image: '{{ mix('img/blueprint/seats/double-fixed.png') }}',
+            options: [
+                'FTB-S002-002',
+            ],
+        },
+        freedman_double_folding_passenger: {
+            image: '{{ mix('img/blueprint/seats/double-passenger.png') }}',
+            options: [
+                'FTB-S003-001',
+            ],
+        },
+        freedman_double_folding_driver: {
+            image: '{{ mix('img/blueprint/seats/double-driver.png') }}',
+            options: [
+                'FTB-S003-002',
+            ],
+        },
+        
+        
+        
 
     };
 </script>
