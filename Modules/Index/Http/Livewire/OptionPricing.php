@@ -25,10 +25,10 @@ class OptionPricing extends Component
 
 
     public array $rules = [
-        "option_price_tier_2"           => 'required|numeric',
-        "option_price_tier_3"           => 'required|numeric',
-        "option_price_dealer_offset"    => 'numeric',
-        "option_price_msrp_offset"      => 'numeric',
+        "option.option_price_tier_2"           => 'required|numeric',
+        "option.option_price_tier_3"           => 'required|numeric',
+        "option.option_price_dealer_offset"    => 'numeric',
+        "option.option_price_msrp_offset"      => 'numeric',
     ];
 
 
