@@ -6,6 +6,13 @@
         'templates' => "/index/basevan/{$basevan->id}/templates",
         'wizards' => route('platform.wizards', [$basevan] ),
     ];
+
+    if ( Auth::user()->can('option.set_pricing') )
+    {
+        $tabs['pricing'] ='pricing';
+    }
+
+
     $target = $selected ?? "options";
 @endphp
 <div class="card-header bg-primary   ">
