@@ -11,6 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
       @includeIf('homepage::googleAnalytics')
+    @livewireStyles
 
       @yield('stylesheet')
 
@@ -35,8 +36,14 @@
 
 		</div>
 
+@livewireScripts
+
+
         <script src="{{ mix('js/homepage.js') }}"></script>
         <script src="{{ mix('js/index.js') }}"></script>
+
+
+
 
     <script>
       @yield('javascript')

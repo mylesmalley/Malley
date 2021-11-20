@@ -31,6 +31,13 @@ class OptionPricing extends Component
         "option_price_msrp_offset"      => 'numeric',
     ];
 
+
+    public function toggle_status()
+    {
+        $this->active = !$this->active;
+    }
+
+
     /**
      *
      */
