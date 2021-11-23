@@ -22,11 +22,11 @@ namespace App\Models;
 class MediaTag extends BaseModel
 {
 
-    protected $table = "media_tags";
+    protected string $table = "media_tags";
 
-    public $timestamps = false;
+    public bool $timestamps = false;
 
-    protected $fillable = [
+    protected array $fillable = [
     	'media_id',
 	    'id',
 	    'tag_id',

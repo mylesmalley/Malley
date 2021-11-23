@@ -39,9 +39,9 @@ use App\Models\BaseModel;
  */
 class FormElement extends BaseModel
 {
-	protected $table = "form_elements";
+	protected string  $table = "form_elements";
 
-	protected $fillable = [
+	protected array $fillable= [
 		'label',
 		'type',
         'form_id',

@@ -28,17 +28,17 @@ class OptionRule extends Model
 	/**
 	 * @var string
 	 */
-    protected $table = 'option_rules';
+    protected string  $table = 'option_rules';
 	
 	/**
 	 * @var bool
 	 */
-    public $timestamps = false;
+    public bool $timestamps= false;
 	
 	/**
 	 * @var array
 	 */
-    protected $fillable = [
+    protected array $fillable= [
         'option_id',
 	    'rule_type',
 	    'related_option_id'

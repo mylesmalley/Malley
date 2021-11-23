@@ -8,39 +8,19 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 
 
-/**
- * App\Models\Announcement
- *
- * @property int $id
- * @property string $content
- * @property mixed|null $start_date
- * @property mixed|null $end_date
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $user_id
- * @property int|null $media_id
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement active()
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement query()
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereEndDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereMediaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereStartDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Announcement whereUserId($value)
- * @mixin \Eloquent
- */
 class Announcement extends Model
 {
     use HasFactory;
 
-    protected $table = 'announcements';
+    /**
+     * @var string
+     */
+    protected string $table = 'announcements';
 
-    public $fillable = [
+    /**
+     * @var array|string[]
+     */
+    public array $fillable = [
         'content',
         'user_id',
         'start_date',
@@ -50,13 +30,19 @@ class Announcement extends Model
         'media_id',
     ];
 
+    /**
+     * @var string[]
+     */
     protected  $casts = [
         'start_date' => 'date:y-m-d',
         'end_date' => 'date:y-m-d',
     ];
 
 
-    protected  $dates = [
+    /**
+     * @var string[]
+     */
+    protected $dates = [
         'start_date',
         'end_date',
         'created_at',

@@ -34,12 +34,12 @@ class FormElementRule extends BaseModel
 	/**
 	 * @var string
 	 */
-    protected $table = 'form_element_rules';
+    protected string  $table = 'form_element_rules';
 
 	/**
 	 * @var array
 	 */
-    protected $fillable =
+    protected array $fillable=
     [
         'form_element_id',
 	    'options',
@@ -59,7 +59,7 @@ class FormElementRule extends BaseModel
 	/**
 	 * @var bool
 	 */
-    public $timestamps = false;
+    public bool $timestamps= false;
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

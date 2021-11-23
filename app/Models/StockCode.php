@@ -30,7 +30,7 @@ class StockCode extends Model
 	 * custom view on the sql server under SysproCompanyM
 	 * @var string
 	 */
-	protected $table = "blueprintStockCodeView";
+	protected string  $table = "blueprintStockCodeView";
 	
 	protected $primaryKey = "StockCode";
 	
@@ -38,7 +38,7 @@ class StockCode extends Model
 	
 	public $keyType =  'string';
 	
-	public $timestamps = false;
+	public bool $timestamps= false;
 	
 	public $with = ['latestPricing'];
 	

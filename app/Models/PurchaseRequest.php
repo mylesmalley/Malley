@@ -49,14 +49,14 @@ use Illuminate\Support\Facades\DB;
 class PurchaseRequest extends BaseModel
 {
 
-	protected $table = 'purchase_requests';
+	protected string  $table = 'purchase_requests';
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected $fillable = [
+    protected array $fillable= [
         'id',
 
         // timestamps
@@ -81,7 +81,7 @@ class PurchaseRequest extends BaseModel
         'stock'
     ];
 
-    public $timestamps = true;
+    public bool $timestamps= true;
 
     /**
      * Get the format for database stored dates.

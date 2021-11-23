@@ -43,7 +43,7 @@ use \App\Models\BaseModel;
  */
 class Element extends BaseModel
 {
-	protected $fillable = [
+	protected array $fillable= [
 		'sheet',
 		'label',
 		'type',

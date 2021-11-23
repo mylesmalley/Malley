@@ -7,35 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * App\Models\BlueprintWizardAnswer
- *
- * @property int $id
- * @property int|null $blueprint_id
- * @property int|null $wizard_answer_id
- * @property int|null $wizard_question_id
- * @property int|null $wizard_id
- * @property-read \App\Models\WizardAnswer $answer
- * @property-read \App\Models\Blueprint|null $blueprint
- * @method static Builder|BlueprintWizardAnswer newModelQuery()
- * @method static Builder|BlueprintWizardAnswer newQuery()
- * @method static Builder|BlueprintWizardAnswer query()
- * @method static Builder|BlueprintWizardAnswer whereBlueprintId($value)
- * @method static Builder|BlueprintWizardAnswer whereId($value)
- * @method static Builder|BlueprintWizardAnswer whereWizardAnswerId($value)
- * @method static Builder|BlueprintWizardAnswer whereWizardId($value)
- * @method static Builder|BlueprintWizardAnswer whereWizardQuestionId($value)
- * @mixin \Eloquent
- */
 class BlueprintWizardAnswer extends Model
 {
     use HasFactory;
 
-    protected $table = 'blueprint_wizard_answers';
+    protected string $table = 'blueprint_wizard_answers';
 
-    public $timestamps = false;
+    public bool $timestamps = false;
 
-    protected $fillable = [
+    protected array $fillable = [
         'id', // self
         'blueprint_id', // parent
         'wizard_answer_id', // the answer

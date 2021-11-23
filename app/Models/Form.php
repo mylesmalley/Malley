@@ -40,12 +40,12 @@ class Form extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected $table = "forms";
+	protected string  $table = "forms";
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		'name',
 		'visibility',
         'base_van_id',

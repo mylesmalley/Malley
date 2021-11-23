@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CustomLayout extends BaseModel
 {
 
-    public $timestamps = true;
+    public bool $timestamps = true;
 
-    public $table = "custom_layouts";
+    public string $table = "custom_layouts";
 
-    public $fillable = [
+    public array $fillable = [
         "blueprint_id",
         "name",
         "layout",

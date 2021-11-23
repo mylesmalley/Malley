@@ -97,7 +97,7 @@ class Opportunity extends Model
 	/**
 	 * @var string
 	 */
-	protected $table = "opportunities";
+	protected string  $table = "opportunities";
 
 	/**
 	 * @return string
@@ -111,7 +111,7 @@ class Opportunity extends Model
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		"description",
 		"customer",
 		"user_id",

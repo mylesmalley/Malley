@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Blueprint\Http\Controllers\Blueprint\CreateController;
+use Modules\Blueprint\Http\Controllers\Blueprint\CustomLayoutController;
 use Modules\Blueprint\Http\Controllers\Blueprint\DrawingController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ExportToSysproController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ResetController;
@@ -104,6 +105,17 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 // for adding and removing parts, moving them etc. staged changes stored on blueprint model
                 Route::patch('/floor_layout', [FloorLayoutController::class, 'change'])
                     ->name('blueprint.floor_layout.change');
+
+
+
+                // show the form, varied by the floor layout and other options
+                Route::get('/custom_layout/{name}', [CustomLayoutController::class, 'show'])
+                    ->name('blueprint.custom_layout');
+                // for adding and removing parts, moving them etc. staged changes stored on blueprint model
+                Route::patch('/custom_layout/{name}', [CustomLayoutController::class, 'change'])
+                    ->name('blueprint.custom_layout.change');
+
+
                 // committing staged options to the blueprint configuration.
 //                Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
 //                    ->name('blueprint.floor_layout.store');

@@ -10,7 +10,7 @@ class VehicleDate extends BaseModel
     /**
      * @var string[]
      */
-    protected $fillable = [
+    protected array $fillable= [
         'vehicle_id', // int
         'name', // nvarchar50
         'user_id', //int
@@ -25,7 +25,7 @@ class VehicleDate extends BaseModel
     /**
      * @var bool
      */
-    public $timestamps = true;
+    public bool $timestamps= true;
 
 
     /**

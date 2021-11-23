@@ -7,82 +7,15 @@ use App\Models\User;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 
-/**
- * App\Models\BugReport
- *
- * @property int $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
- * @property int $user_id
- * @property int|null $related_id
- * @property string $title
- * @property string|null $type
- * @property string|null $browser
- * @property string|null $full_version
- * @property string|null $major_version
- * @property string|null $app_name
- * @property string|null $user_agent
- * @property string|null $os
- * @property string|null $user_notes
- * @property string|null $dev_notes
- * @property string $status
- * @property int $urgency
- * @property string $program
- * @property string|null $related_table
- * @property string|null $url
- * @property int|null $assigned_user_id
- * @property bool $engineering_task
- * @property string|null $due_date
- * @property string|null $file_locations
- * @property float|null $priority
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BugReportActivity[] $activities
- * @property-read int|null $activities_count
- * @property-read User|null $assignedUser
- * @property-read string $colour
- * @property-read string $urgency_label
- * @property-read string $user_name
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
- * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BugReportActivity[] $nextActivities
- * @property-read int|null $next_activities_count
- * @property-read User $user
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport query()
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereAppName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereAssignedUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereBrowser($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereDevNotes($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereDueDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereEngineeringTask($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereFileLocations($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereFullVersion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereMajorVersion($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereOs($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport wherePriority($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereProgram($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereRelatedId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereRelatedTable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereUrgency($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereUserAgent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BugReport whereUserNotes($value)
- * @mixin \Eloquent
- */
+
+
 class BugReport  extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
-	protected $table = 'bug_reports';
+	protected string $table = 'bug_reports';
 
-    protected $fillable = [
+    protected array $fillable = [
         'id',
 	    'created_at',
 	    'updated_at',

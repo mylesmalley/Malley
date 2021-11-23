@@ -64,14 +64,14 @@ use Illuminate\Support\Facades\DB;
 class InventoryItem extends BaseModel
 {
 
-	protected $table = 'inventory_items';
+	protected string  $table = 'inventory_items';
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected $fillable = [
+    protected array $fillable= [
         'id',
 
         // timestamps

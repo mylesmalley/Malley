@@ -87,7 +87,7 @@ class Company extends BaseModel implements HasMedia
     use InteractsWithMedia;
     use HasFactory;
 
-    protected $fillable = [
+    protected array $fillable= [
     	"name",
     	"address_1",
     	"address_2",

@@ -37,7 +37,7 @@ class MonthlyBudget extends Model
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		"month",
 		"budget_ambulance",
 		"budget_mobility",
@@ -63,12 +63,12 @@ class MonthlyBudget extends Model
 	/**
 	 * @var string
 	 */
-	protected $table = "monthly_budgets";
+	protected string  $table = "monthly_budgets";
 	
 	/**
 	 * @var bool
 	 */
-	public $timestamps = false;
+	public bool $timestamps= false;
 	
 	protected $casts = [
 		'month' => 'date',

@@ -37,12 +37,12 @@ class OpportunityNote extends Model
 	/**
 	 * @var string
 	 */
-	protected $table = "opportunity_notes";
+	protected string  $table = "opportunity_notes";
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		"opportunity_id",
 		"user_id",
 		"purchase_order",

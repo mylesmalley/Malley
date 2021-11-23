@@ -14,112 +14,16 @@ use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
-
-/**
- * App\Models\Blueprint
- *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property string|null $customer_name
- * @property int $user_id
- * @property int $base_van_id
- * @property string|null $customer_address_1
- * @property string|null $customer_address_2
- * @property string|null $customer_address_3
- * @property string|null $customer_city
- * @property string|null $customer_province
- * @property string|null $customer_country
- * @property string|null $customer_postalcode
- * @property string|null $customer_phone
- * @property string|null $customer_fax
- * @property string|null $customer_website
- * @property string|null $customer_logo
- * @property mixed|string $status
- * @property string|null $number
- * @property array|null $notes
- * @property string $currency
- * @property float $exchange_rate
- * @property bool $is_locked
- * @property bool|null $has_custom_layout
- * @property string|null $custom_layout
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $layout_id
- * @property bool $quotes_visible
- * @property bool $renders_visible
- * @property int $terms
- * @property string|null $quote_number
- * @property string|null $customer_email
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Configuration[] $configuration
- * @property-read int|null $configuration_count
- * @property-read array $drawings
- * @property-read array $selected
- * @property-read mixed $status_id
- * @property-read string $url
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Element[] $imageElements
- * @property-read int|null $image_elements_count
- * @property-read \App\Models\Layout|null $layout
- * @property-read \App\Models\LightPod|null $lightPods
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintLog[] $log
- * @property-read int|null $log_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\App\Models\Media[] $media
- * @property-read int|null $media_count
- * @property-read \App\Models\BaseVan $platform
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Render[] $renders
- * @property-read int|null $renders_count
- * @property-read \App\Models\User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vehicle[] $vehicles
- * @property-read int|null $vehicles_count
- * @method static Builder|Blueprint newModelQuery()
- * @method static Builder|Blueprint newQuery()
- * @method static Builder|Blueprint query()
- * @method static Builder|Blueprint searchByKeyword($keyword)
- * @method static Builder|Blueprint whereBaseVanId($value)
- * @method static Builder|Blueprint whereCreatedAt($value)
- * @method static Builder|Blueprint whereCurrency($value)
- * @method static Builder|Blueprint whereCustomLayout($value)
- * @method static Builder|Blueprint whereCustomerAddress1($value)
- * @method static Builder|Blueprint whereCustomerAddress2($value)
- * @method static Builder|Blueprint whereCustomerAddress3($value)
- * @method static Builder|Blueprint whereCustomerCity($value)
- * @method static Builder|Blueprint whereCustomerCountry($value)
- * @method static Builder|Blueprint whereCustomerEmail($value)
- * @method static Builder|Blueprint whereCustomerFax($value)
- * @method static Builder|Blueprint whereCustomerLogo($value)
- * @method static Builder|Blueprint whereCustomerName($value)
- * @method static Builder|Blueprint whereCustomerPhone($value)
- * @method static Builder|Blueprint whereCustomerPostalcode($value)
- * @method static Builder|Blueprint whereCustomerProvince($value)
- * @method static Builder|Blueprint whereCustomerWebsite($value)
- * @method static Builder|Blueprint whereDescription($value)
- * @method static Builder|Blueprint whereExchangeRate($value)
- * @method static Builder|Blueprint whereHasCustomLayout($value)
- * @method static Builder|Blueprint whereId($value)
- * @method static Builder|Blueprint whereIsLocked($value)
- * @method static Builder|Blueprint whereLayoutId($value)
- * @method static Builder|Blueprint whereName($value)
- * @method static Builder|Blueprint whereNotes($value)
- * @method static Builder|Blueprint whereNumber($value)
- * @method static Builder|Blueprint whereQuoteNumber($value)
- * @method static Builder|Blueprint whereQuotesVisible($value)
- * @method static Builder|Blueprint whereRendersVisible($value)
- * @method static Builder|Blueprint whereStatus($value)
- * @method static Builder|Blueprint whereTerms($value)
- * @method static Builder|Blueprint whereUpdatedAt($value)
- * @method static Builder|Blueprint whereUserId($value)
- * @mixin \Eloquent
- */
 class Blueprint extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
     use Searchable;
 
 
-	protected $table = "blueprints";
+	protected string $table = "blueprints";
 
 
-	protected $fillable = [
+	protected array $fillable = [
 		//  "number", <- deprecated because blueprints are designs, not vehicles
 		"name",
 		"description",

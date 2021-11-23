@@ -115,11 +115,11 @@ class Staff extends Authenticatable
 {
 	use Notifiable;
 	
-	protected $table = "staff";
+	protected string  $table = "staff";
 	
 	protected $username = 'username';
 	
-	protected $fillable = [
+	protected array $fillable= [
 		'first_name',
 		'last_name',
 		'username',

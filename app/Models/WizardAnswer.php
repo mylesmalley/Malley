@@ -34,11 +34,11 @@ class WizardAnswer extends Model
 {
     use HasFactory;
 
-    protected $table = 'wizard_answers';
+    protected string  $table = 'wizard_answers';
 
-    public $timestamps = false;
+    public bool $timestamps= false;
 
-    protected $fillable = [
+    protected array $fillable= [
         'id', // me
         'wizard_question_id', // parent question
         'text', // text of the answer

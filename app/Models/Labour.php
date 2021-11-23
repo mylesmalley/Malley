@@ -49,13 +49,13 @@ class Labour extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected $table = "labour";
+	protected string  $table = "labour";
 
     protected string $timezone = 'America/Moncton';
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		'user_id',
 		'job',
 		'start',
@@ -67,7 +67,7 @@ class Labour extends BaseModel
 	];
 
 
-	public $timestamps = false;
+	public bool $timestamps= false;
 
 //	/**
 //	 * @var array

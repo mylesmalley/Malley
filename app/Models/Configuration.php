@@ -86,12 +86,12 @@ class Configuration extends BaseModel
 	/**
 	 * @var string
 	 */
-    protected $table = "configurations";
+    protected string $table = "configurations";
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable = [
 	    "blueprint_id",
 		"name",
 		"description",

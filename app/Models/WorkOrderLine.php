@@ -36,13 +36,13 @@ class WorkOrderLine extends BaseModel
     /**
      * @var string
      */
-    protected $table = 'work_order_lines';
+    protected string  $table = 'work_order_lines';
 
 
     /**
      * @var string[]
      */
-    protected $fillable = [
+    protected array $fillable= [
         'id',
         'work_order_id',
         'order',

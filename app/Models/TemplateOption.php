@@ -24,12 +24,12 @@ use App\Models\BaseModel;
  */
 class TemplateOption extends BaseModel
 {
-    protected $fillable = [
+    protected array $fillable= [
     	'option_id',
 	    'template_id',
     ];
 	
-	public $timestamps = false;
+	public bool $timestamps= false;
 
 	public $table = "template_options";
 	

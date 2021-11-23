@@ -30,14 +30,14 @@ use App\Models\BaseModel;
 class Inventory extends BaseModel
 {
 
-	protected $table = 'inventory';
+	protected string  $table = 'inventory';
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected $fillable = [
+    protected array $fillable= [
         'id',
 
         // timestamps

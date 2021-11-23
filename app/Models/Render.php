@@ -30,7 +30,7 @@ use \App\Models\BaseModel;
  */
 class Render extends BaseModel
 {
-	protected $fillable = [
+	protected array $fillable= [
 		"blueprint_id",
 		"template_id",
 		"sales_drawing",

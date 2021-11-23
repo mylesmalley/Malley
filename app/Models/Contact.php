@@ -54,7 +54,7 @@ use \App\Models\BaseModel;
  */
 class Contact extends BaseModel
 {
-	protected $fillable = [
+	protected array $fillable= [
 		"name",
 		"contact_type",
 		"company",

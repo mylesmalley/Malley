@@ -32,12 +32,12 @@ class ManualJob extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected $table = "manual_jobs";
+	protected string  $table = "manual_jobs";
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		'id',
 		'job',
 		'description',
@@ -48,7 +48,7 @@ class ManualJob extends BaseModel
 	/**
 	 * @var bool
 	 */
-	public $timestamps = false;
+	public bool $timestamps= false;
 
 	/**
 	 * @param string $string

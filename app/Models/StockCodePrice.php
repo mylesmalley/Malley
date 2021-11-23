@@ -43,11 +43,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class StockCodePrice extends Model
 {
-    protected $table = "stockcode_prices";
+    protected string  $table = "stockcode_prices";
 
     protected $connection = "mssql";
 
-    protected $fillable = [
+    protected array $fillable= [
 	    'id',
 		'stockcode',
 		'batch',

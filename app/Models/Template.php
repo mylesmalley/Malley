@@ -51,12 +51,12 @@ class Template extends BaseModel //implements Auditable
 	/**
 	 * @var string
 	 */
-	protected $table = "templates";
+	protected string  $table = "templates";
 
 	/**
 	 * @var array
 	 */
-    protected $fillable = [
+    protected array $fillable= [
     	"base_van",
     	"name",
         "page_id",

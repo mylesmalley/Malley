@@ -39,12 +39,12 @@ class OpportunityLog extends Model
 	/**
 	 * @var string
 	 */
-	protected $table = "opportunity_logs";
+	protected string  $table = "opportunity_logs";
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		'id',
 		'user_id',
 		'created_at',

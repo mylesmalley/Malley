@@ -28,12 +28,12 @@ class FunnelStatus extends Model
 	/**
 	 * @var string
 	 */
-    protected $table = "funnel_statuses";
+    protected string  $table = "funnel_statuses";
 	
 	/**
 	 * @var array
 	 */
-    protected $fillable = [
+    protected array $fillable= [
     	'name',
     ];
 	

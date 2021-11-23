@@ -142,9 +142,9 @@ class Option extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $table = "options";
+    protected string  $table = "options";
 
-    protected $fillable = [
+    protected array $fillable= [
         "option_name",
         "option_description",
         "option_short_description",

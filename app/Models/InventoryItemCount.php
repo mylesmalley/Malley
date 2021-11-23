@@ -37,14 +37,14 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 class InventoryItemCount extends BaseModel
 {
 
-	protected $table = 'inventory_item_counts';
+	protected string  $table = 'inventory_item_counts';
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected $fillable = [
+    protected array $fillable= [
         'id',
         'created_at',
 	    'updated_at',

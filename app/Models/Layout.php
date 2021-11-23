@@ -43,9 +43,9 @@ class Layout extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
-	protected $table = 'layouts';
+	protected string  $table = 'layouts';
 
-	protected $fillable = [
+	protected array $fillable= [
 		'base_van_id',
 		'visibility',
 		'name',

@@ -37,7 +37,7 @@ class Wizard extends Model
 {
     use HasFactory;
 
-    protected $table = 'wizards';
+    protected string  $table = 'wizards';
 
     protected  $fillable = [
         'id',
@@ -51,7 +51,7 @@ class Wizard extends Model
         'completed_form_option', // option that gets triggered when the wizard is complete
     ];
 
-    public $timestamps = false;
+    public bool $timestamps= false;
 
     /**
      * @return HasMany

@@ -62,13 +62,13 @@ class Inspection extends Model
     /**
      * @var string
      */
-    protected $table = "inspections";
+    protected string  $table = "inspections";
 
 
     /**
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable= [
         'vin',
         'date_entered',
         'work_order',

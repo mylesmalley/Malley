@@ -31,9 +31,9 @@ use \App\Models\BaseModel;
  */
 class OptionLog extends BaseModel
 {
-    protected $table = "option_logs";
+    protected string  $table = "option_logs";
 
-    protected $fillable = [
+    protected array $fillable= [
     	"type",
     	"message",
     	"user_id",

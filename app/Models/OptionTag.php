@@ -22,11 +22,11 @@ namespace App\Models;
 class OptionTag extends BaseModel
 {
 
-    protected $table = "option_tags";
+    protected string  $table = "option_tags";
 
-    public $timestamps = false;
+    public bool $timestamps= false;
 
-    protected $fillable = [
+    protected array $fillable= [
     	'option_id',
 	    'id',
 	    'tag_id',

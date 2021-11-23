@@ -26,19 +26,19 @@ class Tag extends Model
     /**
      * @var string
      */
-    protected $table = "tags";
+    protected string  $table = "tags";
 
 
     /**
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable= [
         'vin',
         'name',
     ];
 
 
-    public $timestamps = false;
+    public bool $timestamps= false;
 
     protected function vehicles()
     {

@@ -3,10 +3,11 @@
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
 use App\Models\Configuration;
+use App\Models\CustomLayout;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use \Illuminate\Contracts\View\Factory as View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,8 @@ class CustomLayoutController extends Controller
 {
 
     protected array $custom_layout_locations = [
-        ""
+        "floor" => 'blueprint::floor_layout.show',
+        'ceiling' => 'blueprint::floor_layout.show',
     ];
 
 
@@ -25,9 +27,24 @@ class CustomLayoutController extends Controller
      * @return View
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint ): View
+    public function show( Blueprint $blueprint, string $location ): View
     {
         $this->authorize('home', $blueprint );
+
+        if ( ! array_key_exists( $location, $this->custom_layout_locations ) )
+        {
+            Log::error("Tried to access a floor layout that isn't allowed.");
+        }
+
+        $layout = CustomLayout::firstOrCreate([
+                    'name' => $location,
+                    'blueprint_id' => $blueprint->id
+                ]);
+
+        if ($layout->wasRecentlyCreated) {
+            Log::info("Created empty custom layout for B-".$blueprint->id." at ".$location);
+        }
+
 
         return view('blueprint::floor_layout.show', [
             'blueprint' => $blueprint,
@@ -62,7 +79,7 @@ class CustomLayoutController extends Controller
                 if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') ) {
                     // loop through each option associated to the component
                     foreach ($c->attrs->options as $o) {
-                        // grab the config item matchng that option name
+                        // grab the config item matching that option name
                         $config = Configuration::where('blueprint_id', $blueprint->id)
                             ->where('name', $o)
                             ->where('obsolete', false)

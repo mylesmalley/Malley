@@ -40,12 +40,12 @@ class FormElementItem extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected $table = "form_element_items";
+	protected string  $table = "form_element_items";
 	
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		'option_id',
 		'media_id',
 		'form_element_id',

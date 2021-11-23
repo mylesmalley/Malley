@@ -38,9 +38,9 @@ use Illuminate\Support\Facades\DB;
 class Sheet extends BaseModel
 {
 
-    protected $table = "sheets";
+    protected string  $table = "sheets";
 
-    protected $fillable = [
+    protected array $fillable= [
     	"name",
     	"special_instructions",
     	"prerequisite",

@@ -28,12 +28,12 @@ class Department extends Model
 	/**
 	 * @var string
 	 */
-	protected $table = "departments";
+	protected string $table = "departments";
 
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable = [
 		"id",
 		'name',
 	];

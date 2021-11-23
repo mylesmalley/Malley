@@ -32,7 +32,7 @@ class WizardAction extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected array $fillable= [
         'id',
         'wizard_answer_id',
         'option_id',
@@ -40,7 +40,7 @@ class WizardAction extends Model
         'value'
     ];
 
-    public $timestamps = false;
+    public bool $timestamps= false;
 
 
     /**

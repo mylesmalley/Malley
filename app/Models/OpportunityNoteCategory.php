@@ -26,12 +26,12 @@ class OpportunityNoteCategory extends Model
 	/**
 	 * @var string
 	 */
-	protected $table = "opportunity_note_categories";
+	protected string  $table = "opportunity_note_categories";
 	
 	/**
 	 * @var array
 	 */
-	protected $fillable = [
+	protected array $fillable= [
 		"category",
 		'badge_style',
 	];
