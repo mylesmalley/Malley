@@ -115,14 +115,10 @@ class Blueprint extends BaseModel implements HasMedia
     use InteractsWithMedia;
     use Searchable;
 
-	/**
-	 * @var string
-	 */
+
 	protected $table = "blueprints";
 
-	/**
-	 * @var array
-	 */
+
 	protected $fillable = [
 		//  "number", <- deprecated because blueprints are designs, not vehicles
 		"name",
@@ -253,6 +249,16 @@ class Blueprint extends BaseModel implements HasMedia
     {
         return $this->hasMany("\App\Models\Configuration")
             ->orderBy('name');
+    }
+
+
+
+    /**
+     * @return HasMany
+     */
+    public function custom_layouts(): HasMany
+    {
+        return $this->hasMany(CustomLayout::class );
     }
 
 
