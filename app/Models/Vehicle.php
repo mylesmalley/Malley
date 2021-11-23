@@ -15,13 +15,13 @@ class Vehicle extends BaseModel implements HasMedia
     use InteractsWithMedia;
     use Searchable;
 
-    protected string $table = 'vehicles';
+    protected $table = 'vehicles';
 
     protected $hidden = [
         "raw_nhtsa_data",
     ];
 
-    protected array $fillable = [
+    protected $fillable = [
         'vin',
         'malley_number',
         'customer_number',

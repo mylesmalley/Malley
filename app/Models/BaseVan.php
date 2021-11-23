@@ -17,14 +17,14 @@ class BaseVan extends BaseModel implements HasMedia
 	 * database table
 	 * @var string
 	 */
-	protected string $table = "base_vans";
+	protected $table = "base_vans";
 
 
 	/**
 	 * mass assignable form fields
 	 * @var array
 	 */
-	protected array $fillable = [
+	protected $fillable = [
 		"name",
 		"option_prefix",
         "visibility",

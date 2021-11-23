@@ -40,9 +40,9 @@ class WizardQuestion extends Model
 
     protected string  $table = 'wizard_questions';
 
-    public bool $timestamps= false;
+    public $timestamps= false;
 
-    protected array $fillable= [
+    protected $fillable= [
         'id', // self
         'wizard_id', // parent
         'text', // the question

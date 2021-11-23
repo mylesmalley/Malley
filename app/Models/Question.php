@@ -80,9 +80,9 @@ class Question extends BaseModel
 {
     use NodeTrait;
 	
-	public bool $timestamps= false;
+	public $timestamps= false;
 
-	protected array $fillable= [
+	protected $fillable= [
 		'question',
         'category',
 		'layout_id',

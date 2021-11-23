@@ -20,10 +20,10 @@ class Blueprint extends BaseModel implements HasMedia
     use Searchable;
 
 
-	protected string $table = "blueprints";
+	protected $table = "blueprints";
 
 
-	protected array $fillable = [
+	protected $fillable = [
 		//  "number", <- deprecated because blueprints are designs, not vehicles
 		"name",
 		"description",

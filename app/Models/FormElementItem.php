@@ -45,7 +45,7 @@ class FormElementItem extends BaseModel
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		'option_id',
 		'media_id',
 		'form_element_id',

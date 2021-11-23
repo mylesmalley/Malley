@@ -42,7 +42,7 @@ class WorkOrderLine extends BaseModel
     /**
      * @var string[]
      */
-    protected array $fillable= [
+    protected $fillable= [
         'id',
         'work_order_id',
         'order',

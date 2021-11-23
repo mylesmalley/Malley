@@ -38,7 +38,7 @@ class StockCode extends Model
 	
 	public $keyType =  'string';
 	
-	public bool $timestamps= false;
+	public $timestamps= false;
 	
 	public $with = ['latestPricing'];
 	

@@ -36,9 +36,9 @@ class WizardAnswer extends Model
 
     protected string  $table = 'wizard_answers';
 
-    public bool $timestamps= false;
+    public $timestamps= false;
 
-    protected array $fillable= [
+    protected $fillable= [
         'id', // me
         'wizard_question_id', // parent question
         'text', // text of the answer

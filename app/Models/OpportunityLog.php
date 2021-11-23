@@ -44,7 +44,7 @@ class OpportunityLog extends Model
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		'id',
 		'user_id',
 		'created_at',

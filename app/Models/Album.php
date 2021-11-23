@@ -20,20 +20,14 @@ class Album extends BaseModel implements HasMedia
 	use NodeTrait;
     use InteractsWithMedia;
 
-	/**
-	 * @var bool
-	 */
-	public bool $timestamps = false;
 
-	/**
-	 * @var string
-	 */
-	public string $table = "albums";
+	public $timestamps = false;
 
-	/**
-	 * @var array
-	 */
-	protected array $fillable = [
+
+	protected $table = "albums";
+
+
+	protected $fillable = [
 		'name',
 		"public",
         'search_string'

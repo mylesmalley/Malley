@@ -71,7 +71,7 @@ class InventoryItem extends BaseModel
         'updated_at',
     ];
 
-    protected array $fillable= [
+    protected $fillable= [
         'id',
 
         // timestamps

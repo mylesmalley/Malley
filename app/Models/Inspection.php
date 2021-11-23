@@ -68,7 +68,7 @@ class Inspection extends Model
     /**
      * @var array
      */
-    protected array $fillable= [
+    protected $fillable= [
         'vin',
         'date_entered',
         'work_order',

@@ -56,7 +56,7 @@ class PurchaseRequest extends BaseModel
         'updated_at',
     ];
 
-    protected array $fillable= [
+    protected $fillable= [
         'id',
 
         // timestamps
@@ -81,7 +81,7 @@ class PurchaseRequest extends BaseModel
         'stock'
     ];
 
-    public bool $timestamps= true;
+    public $timestamps= true;
 
     /**
      * Get the format for database stored dates.

@@ -53,7 +53,7 @@ class Payroll extends BaseModel
 	/**
 	 * @var array
 	 */
-    protected array $fillable= [
+    protected $fillable= [
     	'staff_id',
 	    'start',
 	    'end',

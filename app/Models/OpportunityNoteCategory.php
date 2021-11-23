@@ -31,7 +31,7 @@ class OpportunityNoteCategory extends Model
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		"category",
 		'badge_style',
 	];

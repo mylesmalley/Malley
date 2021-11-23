@@ -55,7 +55,7 @@ class Labour extends BaseModel
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		'user_id',
 		'job',
 		'start',
@@ -67,7 +67,7 @@ class Labour extends BaseModel
 	];
 
 
-	public bool $timestamps= false;
+	public $timestamps= false;
 
 //	/**
 //	 * @var array

@@ -34,7 +34,7 @@ class LayoutOption extends BaseModel
 {
     protected string  $table = 'layout_options';
 
-	protected array $fillable= [
+	protected $fillable= [
 		'layout_id',
 		'option_id',
 		'x_pos',

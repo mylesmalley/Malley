@@ -15,12 +15,12 @@ class Announcement extends Model
     /**
      * @var string
      */
-    protected string $table = 'announcements';
+    protected $table = 'announcements';
 
     /**
      * @var array|string[]
      */
-    public array $fillable = [
+    protected $fillable = [
         'content',
         'user_id',
         'start_date',

@@ -11,9 +11,9 @@ use Cache;
 
 class Drawing extends BaseModel
 {
-    protected string $table = "drawings";
+    protected $table = "drawings";
 
-    protected array $fillable = [
+    protected $fillable = [
     	'name',
     	'path',
     	'base_van',

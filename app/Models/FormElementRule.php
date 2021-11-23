@@ -39,7 +39,7 @@ class FormElementRule extends BaseModel
 	/**
 	 * @var array
 	 */
-    protected array $fillable=
+    protected $fillable=
     [
         'form_element_id',
 	    'options',
@@ -59,7 +59,7 @@ class FormElementRule extends BaseModel
 	/**
 	 * @var bool
 	 */
-    public bool $timestamps= false;
+    public $timestamps= false;
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -11,9 +11,9 @@ class Wizard extends Model
 {
     use HasFactory;
 
-    protected string $table = 'wizards';
+    protected $table = 'wizards';
 
-    protected array $fillable = [
+    protected $fillable = [
         'id',
         'name',
         'start', // id of first question
@@ -25,7 +25,7 @@ class Wizard extends Model
         'completed_form_option', // option that gets triggered when the wizard is complete
     ];
 
-    public bool $timestamps= false;
+    public $timestamps= false;
 
     /**
      * @return HasMany

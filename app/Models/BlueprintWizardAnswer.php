@@ -11,11 +11,11 @@ class BlueprintWizardAnswer extends Model
 {
     use HasFactory;
 
-    protected string $table = 'blueprint_wizard_answers';
+    protected $table = 'blueprint_wizard_answers';
 
-    public bool $timestamps = false;
+    public $timestamps = false;
 
-    protected array $fillable = [
+    protected $fillable = [
         'id', // self
         'blueprint_id', // parent
         'wizard_answer_id', // the answer

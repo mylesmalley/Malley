@@ -79,7 +79,7 @@ class WorkOrder extends BaseModel
     /**
      * @var string[]
      */
-    protected array $fillable= [
+    protected $fillable= [
         'id',
         'vehicle_id',
         'user_id',

@@ -5,9 +5,9 @@ namespace App\Models;
 
 class BlueprintLog extends BaseModel
 {
-    protected string $table = "blueprint_logs";
+    protected $table = "blueprint_logs";
 
-    protected array $fillable = [
+    protected $fillable = [
     	"type",
     	"message",
     	"user_id",

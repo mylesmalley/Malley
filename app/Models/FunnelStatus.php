@@ -33,7 +33,7 @@ class FunnelStatus extends Model
 	/**
 	 * @var array
 	 */
-    protected array $fillable= [
+    protected $fillable= [
     	'name',
     ];
 	

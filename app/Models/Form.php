@@ -45,7 +45,7 @@ class Form extends BaseModel
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		'name',
 		'visibility',
         'base_van_id',

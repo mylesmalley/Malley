@@ -44,7 +44,7 @@ class InventoryItemCount extends BaseModel
         'updated_at',
     ];
 
-    protected array $fillable= [
+    protected $fillable= [
         'id',
         'created_at',
 	    'updated_at',

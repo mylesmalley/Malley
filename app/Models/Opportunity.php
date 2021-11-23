@@ -111,7 +111,7 @@ class Opportunity extends Model
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		"description",
 		"customer",
 		"user_id",

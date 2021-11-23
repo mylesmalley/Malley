@@ -33,7 +33,7 @@ class OptionLog extends BaseModel
 {
     protected string  $table = "option_logs";
 
-    protected array $fillable= [
+    protected $fillable= [
     	"type",
     	"message",
     	"user_id",

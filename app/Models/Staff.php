@@ -119,7 +119,7 @@ class Staff extends Authenticatable
 	
 	protected $username = 'username';
 	
-	protected array $fillable= [
+	protected $fillable= [
 		'first_name',
 		'last_name',
 		'username',

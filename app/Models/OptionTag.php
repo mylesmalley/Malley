@@ -24,9 +24,9 @@ class OptionTag extends BaseModel
 
     protected string  $table = "option_tags";
 
-    public bool $timestamps= false;
+    public $timestamps= false;
 
-    protected array $fillable= [
+    protected $fillable= [
     	'option_id',
 	    'id',
 	    'tag_id',

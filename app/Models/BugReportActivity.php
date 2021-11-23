@@ -10,9 +10,9 @@ class BugReportActivity  extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
-	protected string $table = 'bug_report_activities';
+	protected $table = 'bug_report_activities';
 
-    protected array $fillable = [
+    protected $fillable = [
         'id',
         'bug_report_id',
         'sequence',

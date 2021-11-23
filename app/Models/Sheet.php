@@ -40,7 +40,7 @@ class Sheet extends BaseModel
 
     protected string  $table = "sheets";
 
-    protected array $fillable= [
+    protected $fillable= [
     	"name",
     	"special_instructions",
     	"prerequisite",

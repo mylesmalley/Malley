@@ -13,9 +13,9 @@ class BugReport  extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
-	protected string $table = 'bug_reports';
+	protected $table = 'bug_reports';
 
-    protected array $fillable = [
+    protected $fillable = [
         'id',
 	    'created_at',
 	    'updated_at',

@@ -41,7 +41,7 @@ class FormElement extends BaseModel
 {
 	protected string  $table = "form_elements";
 
-	protected array $fillable= [
+	protected $fillable= [
 		'label',
 		'type',
         'form_id',

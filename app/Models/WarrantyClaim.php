@@ -61,7 +61,7 @@ class WarrantyClaim extends BaseModel implements HasMedia
 
     protected string  $table = "warranty_claims";
 
-    protected array $fillable= [
+    protected $fillable= [
     	'first_name',
 	    'last_name',
 	    'email',

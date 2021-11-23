@@ -47,7 +47,7 @@ class StockCodePrice extends Model
 
     protected $connection = "mssql";
 
-    protected array $fillable= [
+    protected $fillable= [
 	    'id',
 		'stockcode',
 		'batch',

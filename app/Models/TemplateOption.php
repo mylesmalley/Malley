@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TemplateOption extends BaseModel
 {
-    protected array $fillable= [
+    protected $fillable= [
     	'option_id',
 	    'template_id',
     ];
 	
-	public bool $timestamps= false;
+	public $timestamps= false;
 
-	public string $table = "template_options";
+	protected $table = "template_options";
 	
 	
 	/**

@@ -17,18 +17,18 @@ class Folder extends BaseModel implements HasMedia
     /**
      * @var bool
      */
-    public bool $timestamps= false;
+    public $timestamps= false;
 
     /**
      * @var string
      */
-    public string $table = "folders";
+    protected $table = "folders";
 
 
     /**
      * @var string[]
      */
-    public array $fillable = [
+    protected $fillable = [
         "name"
     ];
 

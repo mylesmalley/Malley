@@ -33,12 +33,12 @@ class OptionRule extends Model
 	/**
 	 * @var bool
 	 */
-    public bool $timestamps= false;
+    public $timestamps= false;
 	
 	/**
 	 * @var array
 	 */
-    protected array $fillable= [
+    protected $fillable= [
         'option_id',
 	    'rule_type',
 	    'related_option_id'

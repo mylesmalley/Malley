@@ -56,7 +56,7 @@ class Template extends BaseModel //implements Auditable
 	/**
 	 * @var array
 	 */
-    protected array $fillable= [
+    protected $fillable= [
     	"base_van",
     	"name",
         "page_id",

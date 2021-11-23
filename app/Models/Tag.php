@@ -32,13 +32,13 @@ class Tag extends Model
     /**
      * @var array
      */
-    protected array $fillable= [
+    protected $fillable= [
         'vin',
         'name',
     ];
 
 
-    public bool $timestamps= false;
+    public $timestamps= false;
 
     protected function vehicles()
     {

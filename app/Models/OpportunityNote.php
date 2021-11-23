@@ -42,7 +42,7 @@ class OpportunityNote extends Model
 	/**
 	 * @var array
 	 */
-	protected array $fillable= [
+	protected $fillable= [
 		"opportunity_id",
 		"user_id",
 		"purchase_order",

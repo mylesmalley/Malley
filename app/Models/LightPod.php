@@ -32,7 +32,7 @@ class LightPod extends Model
 	/**\
 	 * @var array
 	 */
-    protected array $fillable= [
+    protected $fillable= [
     	'blueprint_id',
 	    'data',
 	    'instructions',
@@ -41,7 +41,7 @@ class LightPod extends Model
 	/**
 	 * @var bool
 	 */
-    public bool $timestamps= false;
+    public $timestamps= false;
 	
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

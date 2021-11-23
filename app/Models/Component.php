@@ -58,7 +58,7 @@ use Illuminate\Support\Facades\DB;
  */
 class Component extends \App\Models\BaseModel
 {
-    protected array $fillable=
+    protected $fillable=
     [
         'option_id',
         'component_sub_assembly',
