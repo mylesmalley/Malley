@@ -3,9 +3,12 @@
 namespace Modules\Index\Http\Livewire;
 
 
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Illuminate\View\View;
 use App\Models\Option;
+use Modules\Index\Jobs\CreateOptionRevision;
+use PHPUnit\Exception;
 
 class OptionPricing extends Component
 {
@@ -44,6 +47,14 @@ class OptionPricing extends Component
     public function save(): void
     {
         $this->validate();
+
+        try {
+            CreateOptionRevision::dispatch( $this->option );
+        } catch( \Exception $e )
+        {
+            Log::error( $e );
+        }
+
 
         dd("save");
     //    $this->option->save();

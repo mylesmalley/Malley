@@ -57,6 +57,7 @@ mix.setPublicPath('public')
     .copyDirectory(__dirname +  BlueprintAssets + "img/seats", "public/img/blueprint/seats")
     .copyDirectory(__dirname +  BlueprintAssets + "img/other", "public/img/blueprint/other")
     .copyDirectory(__dirname +  BlueprintAssets + "img/floors", "public/img/blueprint/floors")
+    .copyDirectory(__dirname +  BlueprintAssets + "img/bls", "public/img/blueprint/bls")
 
     .js(__dirname + BlueprintAssets + '/js/floor_layout.js', 'js/blueprint/floor_layout.js')
 
