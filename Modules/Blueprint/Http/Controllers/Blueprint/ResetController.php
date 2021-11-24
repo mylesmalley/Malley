@@ -2,6 +2,7 @@
 
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
+use App\Models\CustomLayout;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\BlueprintWizardAnswer;
 use Illuminate\Http\RedirectResponse;
@@ -34,6 +35,10 @@ class ResetController extends Controller
         $blueprint->update([
             'custom_layout' => '',
         ]);
+
+        // delete custom layouts on reset too
+        CustomLayout::where('blueprint_id', '=', $blueprint->id )
+            ->delete();
 
 
         // clear out the selected answers so the forms are reset too.
