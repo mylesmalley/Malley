@@ -2,6 +2,7 @@
 
 namespace Modules\Blueprint\Http\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 use App\Models\Blueprint;
 use App\Models\CustomLayout;
@@ -39,30 +40,26 @@ class CustomLayoutProgress extends Component
         $this->progress = [];
         $this->formatted_progress = [];
 
-        if ( $this->blueprint->custom_layout )
+        $layout = json_decode( $this->customLayout->layout );
+
+
+        foreach( $layout->children as $c )
         {
-            $layout = json_decode( $this->blueprint->custom_layout );
 
-
-            foreach( $layout->children as $c )
+            if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') )
             {
-
-                if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') )
+                foreach( $c->attrs->options as $o)
                 {
-                    foreach( $c->attrs->options as $o)
-                    {
 
-                        if ( array_key_exists( $o, $this->progress ))
-                        {
-                            $this->progress[$o] ++;
-                        }
-                        else
-                        {
-                            $this->progress[$o] = 1;
-                        }
+                    if ( array_key_exists( $o, $this->progress ))
+                    {
+                        $this->progress[$o] ++;
+                    }
+                    else
+                    {
+                        $this->progress[$o] = 1;
                     }
                 }
-
             }
         }
 
@@ -82,8 +79,10 @@ class CustomLayoutProgress extends Component
     }
 
 
-
-    public function render()
+    /**
+     * @return View
+     */
+    public function render(): View
     {
         return view('blueprint::floor_layout.components.floor_layout_progress');
     }

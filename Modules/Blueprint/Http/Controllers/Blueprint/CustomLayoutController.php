@@ -51,8 +51,9 @@ class CustomLayoutController extends Controller
         }
 
 
-        return view('blueprint::floor_layout.show', [
+        return view('blueprint::custom_layouts.show', [
             'blueprint' => $blueprint,
+            'layout' => $layout,
             'configuration' => $blueprint->activeOptionNames(),
         ]);
     }

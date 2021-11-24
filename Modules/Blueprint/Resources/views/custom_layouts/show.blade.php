@@ -39,10 +39,12 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
-            @livewire("blueprint::custom-layout-progress", [$blueprint] )
 
+        <div class="col-6">
+            @livewire("blueprint::custom-layout-progress", [$blueprint, $layout] )
         </div>
+
+
         <div class="col-6">
             <div class="card border-primary">
                 <div class="card-header bg-primary text-white">
@@ -53,7 +55,6 @@
                     <p>Drag any item you have added to the floor layout around to wherever you'd like it positioned.</p>
                     <p>Double-click on any item on the floor layout to delete it.</p>
                     <p>Any changes you make are saved automatically. You can leave this form and come back later.</p>
-                    {{--                    <p>Click "Confirm Seat Layout" when you are done.</p>--}}
                 </div>
             </div>
         </div>
@@ -70,18 +71,18 @@
 
 
 @push('scripts')
-    <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>
+{{--    <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>--}}
 
-    {{-- REgular transit mobility - legacy stuff--}}
-    @if( (int)$blueprint->base_van_id === 11)
-        @include('blueprint::floor_layout.transit_mobility.setup_scripts')
-    @endif
+{{--    --}}{{-- REgular transit mobility - legacy stuff--}}
+{{--    @if( (int)$blueprint->base_van_id === 11)--}}
+{{--        @include('blueprint::floor_layout.transit_mobility.setup_scripts')--}}
+{{--    @endif--}}
 
-    {{-- BLS--}}
-    @if( (int)$blueprint->base_van_id === 31)
-        @include('blueprint::floor_layout.transit_bls_mobility.setup_scripts', [ 'c' => $configuration ])
-    @endif
+{{--    --}}{{-- BLS--}}
+{{--    @if( (int)$blueprint->base_van_id === 31)--}}
+{{--        @include('blueprint::floor_layout.transit_bls_mobility.setup_scripts', [ 'c' => $configuration ])--}}
+{{--    @endif--}}
 
-    @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')
+{{--    @includeIf('blueprint::floor_layout.shared.floor_layout_management_script')--}}
 
 @endpush
