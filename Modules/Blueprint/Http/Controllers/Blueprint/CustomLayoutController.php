@@ -25,6 +25,8 @@ class CustomLayoutController extends Controller
 
 
     /**
+     * Figures out if and which custom layout the user should be shown.
+     *
      * @param Blueprint $blueprint
      * @param string $location
      * @return Response|RedirectResponse
@@ -34,6 +36,7 @@ class CustomLayoutController extends Controller
     {
         $this->authorize('home', $blueprint );
 
+        // prevent someone from creating a custom layout for a section that shouldn't exist
         if ( ! array_key_exists( $location, $this->custom_layout_locations ) )
         {
             Log::error("Tried to access a floor layout that isn't allowed.");
@@ -42,11 +45,13 @@ class CustomLayoutController extends Controller
                 ->withErrors(["Error"=>"That custom layout area doesn't exist."]);
         }
 
+        // find or create the matching layout
         $layout = CustomLayout::firstOrCreate([
                     'name' => $location,
                     'blueprint_id' => $blueprint->id
                 ]);
 
+        // log if it's created
         if ($layout->wasRecentlyCreated) {
             Log::info("Created empty custom layout for B-".$blueprint->id." at ".$location);
         }
@@ -72,7 +77,7 @@ class CustomLayoutController extends Controller
      */
     public function change(Blueprint $blueprint, string $name, Request $request ):  JsonResponse|RedirectResponse
     {
-
+        // grab the first layout that matches but redirect if it can't be found.
         try {
             $layout = CustomLayout::where( 'name', '=', $name)
                 ->where( 'blueprint_id', '=', $blueprint->id)
@@ -115,19 +120,17 @@ class CustomLayoutController extends Controller
                             'value' => 0,
                             'quantity' => 1,
                         ]);
-                    } // if the quantity is more than one, leave it on but lower it by one
+                    }
+                    // if the quantity is more than one, leave it on but lower it by one
                     else {
                         $config->update([
                             'value' => 1,
                             'quantity' => $config->quantity - 1,
                         ]);
                     }
-
-
                 }
             }
         }
-
 
 
         // update the blueprint with the new layout
@@ -143,14 +146,12 @@ class CustomLayoutController extends Controller
         {
             if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') )
             {
-
                 foreach( $c->attrs->options as $o)
                 {
                     $config = Configuration::where('blueprint_id', $blueprint->id)
                         ->where('name', $o )
                         ->where('obsolete', false)
                         ->first();
-
 
                     if ( $config->value )
                     {
@@ -167,17 +168,13 @@ class CustomLayoutController extends Controller
                         ]);
                     }
                 }
-
             }
         }
-
-
 
         // hopefully works?
         return response()->json([
             'message' => 'Success'
         ]);
     }
-
 
 }
