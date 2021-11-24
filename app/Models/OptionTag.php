@@ -22,7 +22,7 @@ namespace App\Models;
 class OptionTag extends BaseModel
 {
 
-    protected string  $table = "option_tags";
+    protected $table = "option_tags";
 
     public $timestamps= false;
 

@@ -36,7 +36,7 @@ class WorkOrderLine extends BaseModel
     /**
      * @var string
      */
-    protected string  $table = 'work_order_lines';
+    protected $table = 'work_order_lines';
 
 
     /**

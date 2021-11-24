@@ -34,7 +34,7 @@ class WizardAnswer extends Model
 {
     use HasFactory;
 
-    protected string  $table = 'wizard_answers';
+    protected $table = 'wizard_answers';
 
     public $timestamps= false;
 

@@ -49,7 +49,7 @@ use Illuminate\Support\Facades\DB;
 class PurchaseRequest extends BaseModel
 {
 
-	protected string  $table = 'purchase_requests';
+	protected $table = 'purchase_requests';
 
     protected $dates = [
         'created_at',

@@ -34,7 +34,7 @@ class FormElementRule extends BaseModel
 	/**
 	 * @var string
 	 */
-    protected string  $table = 'form_element_rules';
+    protected $table = 'form_element_rules';
 
 	/**
 	 * @var array

@@ -51,7 +51,7 @@ class Template extends BaseModel //implements Auditable
 	/**
 	 * @var string
 	 */
-	protected string  $table = "templates";
+	protected $table = "templates";
 
 	/**
 	 * @var array

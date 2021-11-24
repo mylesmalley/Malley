@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\DB;
 class Sheet extends BaseModel
 {
 
-    protected string  $table = "sheets";
+    protected $table = "sheets";
 
     protected $fillable= [
     	"name",

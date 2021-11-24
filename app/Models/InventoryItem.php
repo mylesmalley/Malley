@@ -64,7 +64,7 @@ use Illuminate\Support\Facades\DB;
 class InventoryItem extends BaseModel
 {
 
-	protected string  $table = 'inventory_items';
+	protected $table = 'inventory_items';
 
     protected $dates = [
         'created_at',

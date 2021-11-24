@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LayoutOption extends BaseModel
 {
-    protected string  $table = 'layout_options';
+    protected $table = 'layout_options';
 
 	protected $fillable= [
 		'layout_id',

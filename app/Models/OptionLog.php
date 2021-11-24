@@ -31,7 +31,7 @@ use \App\Models\BaseModel;
  */
 class OptionLog extends BaseModel
 {
-    protected string  $table = "option_logs";
+    protected $table = "option_logs";
 
     protected $fillable= [
     	"type",

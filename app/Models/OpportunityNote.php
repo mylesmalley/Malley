@@ -37,7 +37,7 @@ class OpportunityNote extends Model
 	/**
 	 * @var string
 	 */
-	protected string  $table = "opportunity_notes";
+	protected $table = "opportunity_notes";
 
 	/**
 	 * @var array

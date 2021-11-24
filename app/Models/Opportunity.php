@@ -97,7 +97,7 @@ class Opportunity extends Model
 	/**
 	 * @var string
 	 */
-	protected string  $table = "opportunities";
+	protected $table = "opportunities";
 
 	/**
 	 * @return string

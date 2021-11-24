@@ -26,7 +26,7 @@ class Tag extends Model
     /**
      * @var string
      */
-    protected string  $table = "tags";
+    protected $table = "tags";
 
 
     /**

@@ -62,7 +62,7 @@ class Inspection extends Model
     /**
      * @var string
      */
-    protected string  $table = "inspections";
+    protected $table = "inspections";
 
 
     /**

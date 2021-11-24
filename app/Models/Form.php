@@ -40,7 +40,7 @@ class Form extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected string  $table = "forms";
+	protected $table = "forms";
 
 	/**
 	 * @var array

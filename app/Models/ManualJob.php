@@ -32,7 +32,7 @@ class ManualJob extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected string  $table = "manual_jobs";
+	protected $table = "manual_jobs";
 
 	/**
 	 * @var array

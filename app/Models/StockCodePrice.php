@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class StockCodePrice extends Model
 {
-    protected string  $table = "stockcode_prices";
+    protected $table = "stockcode_prices";
 
     protected $connection = "mssql";
 

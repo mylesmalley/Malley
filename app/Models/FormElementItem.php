@@ -40,7 +40,7 @@ class FormElementItem extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected string  $table = "form_element_items";
+	protected $table = "form_element_items";
 	
 	/**
 	 * @var array

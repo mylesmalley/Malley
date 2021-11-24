@@ -26,7 +26,7 @@ class OpportunityNoteCategory extends Model
 	/**
 	 * @var string
 	 */
-	protected string  $table = "opportunity_note_categories";
+	protected $table = "opportunity_note_categories";
 	
 	/**
 	 * @var array

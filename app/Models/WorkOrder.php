@@ -74,7 +74,7 @@ class WorkOrder extends BaseModel
     /**
      * @var string
      */
-    protected string  $table = 'work_orders';
+    protected $table = 'work_orders';
 
     /**
      * @var string[]

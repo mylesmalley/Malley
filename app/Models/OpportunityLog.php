@@ -39,7 +39,7 @@ class OpportunityLog extends Model
 	/**
 	 * @var string
 	 */
-	protected string  $table = "opportunity_logs";
+	protected $table = "opportunity_logs";
 
 	/**
 	 * @var array

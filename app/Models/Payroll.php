@@ -47,7 +47,7 @@ class Payroll extends BaseModel
 	/**
 	 * @var string
 	 */
-    protected string  $table = "payroll";
+    protected $table = "payroll";
 
 
 	/**

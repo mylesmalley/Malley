@@ -28,7 +28,7 @@ class OptionRule extends Model
 	/**
 	 * @var string
 	 */
-    protected string  $table = 'option_rules';
+    protected $table = 'option_rules';
 	
 	/**
 	 * @var bool

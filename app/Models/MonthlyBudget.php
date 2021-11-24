@@ -63,7 +63,7 @@ class MonthlyBudget extends Model
 	/**
 	 * @var string
 	 */
-	protected string  $table = "monthly_budgets";
+	protected $table = "monthly_budgets";
 	
 	/**
 	 * @var bool

@@ -27,7 +27,7 @@ class LightPod extends Model
 	/**
 	 * @var string
 	 */
-    protected string  $table = 'light_pods';
+    protected $table = 'light_pods';
 	
 	/**\
 	 * @var array

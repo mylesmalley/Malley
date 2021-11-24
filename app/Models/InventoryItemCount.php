@@ -37,7 +37,7 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 class InventoryItemCount extends BaseModel
 {
 
-	protected string  $table = 'inventory_item_counts';
+	protected $table = 'inventory_item_counts';
 
     protected $dates = [
         'created_at',

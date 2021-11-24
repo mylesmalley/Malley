@@ -30,7 +30,7 @@ class StockCode extends Model
 	 * custom view on the sql server under SysproCompanyM
 	 * @var string
 	 */
-	protected string  $table = "blueprintStockCodeView";
+	protected $table = "blueprintStockCodeView";
 	
 	protected $primaryKey = "StockCode";
 	

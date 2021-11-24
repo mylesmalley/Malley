@@ -115,7 +115,7 @@ class Staff extends Authenticatable
 {
 	use Notifiable;
 	
-	protected string  $table = "staff";
+	protected $table = "staff";
 	
 	protected $username = 'username';
 	

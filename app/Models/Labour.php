@@ -49,7 +49,7 @@ class Labour extends BaseModel
 	/**
 	 * @var string
 	 */
-	protected string  $table = "labour";
+	protected $table = "labour";
 
     protected string $timezone = 'America/Moncton';
 	/**

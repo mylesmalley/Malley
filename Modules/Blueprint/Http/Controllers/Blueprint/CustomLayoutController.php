@@ -6,6 +6,7 @@ use App\Models\Configuration;
 use App\Models\CustomLayout;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -24,16 +25,20 @@ class CustomLayoutController extends Controller
 
     /**
      * @param Blueprint $blueprint
-     * @return View
+     * @param string $location
+     * @return View|RedirectResponse
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint, string $location ): View
+    public function show( Blueprint $blueprint, string $location ): View|RedirectResponse
     {
         $this->authorize('home', $blueprint );
 
         if ( ! array_key_exists( $location, $this->custom_layout_locations ) )
         {
             Log::error("Tried to access a floor layout that isn't allowed.");
+            return redirect()
+                ->back()
+                ->withErrors(["Error"=>"That custom layout area doesn't exist."]);
         }
 
         $layout = CustomLayout::firstOrCreate([

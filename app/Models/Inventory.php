@@ -30,7 +30,7 @@ use App\Models\BaseModel;
 class Inventory extends BaseModel
 {
 
-	protected string  $table = 'inventory';
+	protected $table = 'inventory';
 
     protected $dates = [
         'created_at',
