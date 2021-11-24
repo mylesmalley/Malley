@@ -96,40 +96,44 @@ class CustomLayoutController extends Controller
         $old = json_decode( $layout->layout );
 
         // loop through the children components
-        foreach( $old->children as $c )
+        if ( $old && $old->children )
         {
-            if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') ) {
-                // loop through each option associated to the component
-                foreach ($c->attrs->options as $o) {
-                    // grab the config item matching that option name
-                    $config = Configuration::where('blueprint_id', $blueprint->id)
-                        ->where('name', $o)
-                        ->where('obsolete', false)
-                        ->first();
+            foreach( $old->children as $c )
+            {
+                if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') ) {
+                    // loop through each option associated to the component
+                    foreach ($c->attrs->options as $o) {
+                        // grab the config item matching that option name
+                        $config = Configuration::where('blueprint_id', $blueprint->id)
+                            ->where('name', $o)
+                            ->where('obsolete', false)
+                            ->first();
 
 
-                    // turn on an option that's turned off.
-                    if ($config->value === 0) {
-                        $config->update([
-                            'value' => 1,
-                            'quantity' => 1,
-                        ]);
-                    } // if the quantity is one, just turn it off
-                    elseif ($config->quantity === 1) {
-                        $config->update([
-                            'value' => 0,
-                            'quantity' => 1,
-                        ]);
-                    }
-                    // if the quantity is more than one, leave it on but lower it by one
-                    else {
-                        $config->update([
-                            'value' => 1,
-                            'quantity' => $config->quantity - 1,
-                        ]);
+                        // turn on an option that's turned off.
+                        if ($config->value === 0) {
+                            $config->update([
+                                'value' => 1,
+                                'quantity' => 1,
+                            ]);
+                        } // if the quantity is one, just turn it off
+                        elseif ($config->quantity === 1) {
+                            $config->update([
+                                'value' => 0,
+                                'quantity' => 1,
+                            ]);
+                        }
+                        // if the quantity is more than one, leave it on but lower it by one
+                        else {
+                            $config->update([
+                                'value' => 1,
+                                'quantity' => $config->quantity - 1,
+                            ]);
+                        }
                     }
                 }
             }
+
         }
 
 
