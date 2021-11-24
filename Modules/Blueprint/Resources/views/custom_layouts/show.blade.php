@@ -80,8 +80,11 @@
 
 {{--     BLS--}}
     @if( (int)$blueprint->base_van_id === 31)
-        @includeIf('blueprint::custom_layouts.setup.transit_bls_components')
-        @include('blueprint::custom_layouts.setup.transit_bls_setup', [ 'c' => $configuration ])
+        @includeIf('blueprint::custom_layouts.setup.transit_bls.components')
+
+        @if ($layout->name === 'floor')
+            @include('blueprint::custom_layouts.setup.transit_bls.setup_floor', [ 'c' => $configuration ])
+        @endif
     @endif
 
 
