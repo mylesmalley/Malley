@@ -8,8 +8,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
@@ -27,10 +27,10 @@ class CustomLayoutController extends Controller
     /**
      * @param Blueprint $blueprint
      * @param string $location
-     * @return View|RedirectResponse
+     * @return Response|RedirectResponse
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint, string $location ): View|RedirectResponse
+    public function show( Blueprint $blueprint, string $location ): Response|RedirectResponse
     {
         $this->authorize('home', $blueprint );
 
@@ -52,35 +52,35 @@ class CustomLayoutController extends Controller
         }
 
 
-        return view('blueprint::custom_layouts.show', [
-            'blueprint' => $blueprint,
-            'layout' => $layout,
-            'configuration' => $blueprint->activeOptionNames(),
-        ]);
+        return response()
+                ->view('blueprint::custom_layouts.show', [
+                    'blueprint' => $blueprint,
+                    'layout' => $layout,
+                    'configuration' => $blueprint->activeOptionNames(),
+                ]);
     }
 
 
-
     /**
-     * handle the changes made to the custom layout
+     * handle the changes made to the custom
      * layout as they happen. mostly just staging
      *
      * @param Blueprint $blueprint
+     * @param string $name
      * @param Request $request
      * @return JsonResponse|RedirectResponse
      */
     public function change(Blueprint $blueprint, string $name, Request $request ):  JsonResponse|RedirectResponse
     {
 
-
         try {
             $layout = CustomLayout::where( 'name', '=', $name)
                 ->where( 'blueprint_id', '=', $blueprint->id)
                 ->firstOrFail();
         }
-        catch ( ModelNotFoundException $e )
+        catch ( ModelNotFoundException )
         {
-            Log::error("Custom layout $name for B-{$blueprint->id} not found");
+            Log::error("Custom layout $name for B-$blueprint->id not found");
             return redirect()
                 ->back()
                 ->withErrors(["Error"=>"That custom layout area doesn't exist."]);
