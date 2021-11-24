@@ -155,15 +155,15 @@
     let preset;
 
     @if( $blueprint->custom_layout )
-    preset = {!!  $blueprint->custom_layout  !!};
+    preset = {!!  $layout->layout  !!};
     @endif
 
     if ( preset )
     {
         for (let i = 0; i < preset.children.length; i++ )
-    {
-        console.log(preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y );
-        add_image(  preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y )
-    }
+        {
+            console.log(preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y );
+            add_image(  preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y )
+        }
     }
 </script>
