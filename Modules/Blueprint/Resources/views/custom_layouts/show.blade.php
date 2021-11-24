@@ -85,6 +85,9 @@
         @if ($layout->name === 'floor')
             @include('blueprint::custom_layouts.setup.transit_bls.setup_floor', [ 'c' => $configuration ])
         @endif
+        @if ($layout->name === 'equipment_enclosure')
+            @include('blueprint::custom_layouts.setup.transit_bls.setup_equipment_enclosure', [ 'c' => $configuration ])
+        @endif
     @endif
 
 
@@ -97,7 +100,7 @@
 
     <script>
         const width = 1100;
-        const height = 450;
+        const height = 650;
         const GRID_SIZE = 10;
 
         let stage = new Konva.Stage({
