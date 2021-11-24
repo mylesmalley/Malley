@@ -19,8 +19,9 @@ class CustomLayoutController extends Controller
 {
 
     protected array $custom_layout_locations = [
-        "floor" => 'blueprint::floor_layout.show',
-        'ceiling' => 'blueprint::floor_layout.show',
+        "floor" ,
+        'ceiling',
+        'equipment_enclosure',
     ];
 
 
@@ -37,7 +38,7 @@ class CustomLayoutController extends Controller
         $this->authorize('home', $blueprint );
 
         // prevent someone from creating a custom layout for a section that shouldn't exist
-        if ( ! array_key_exists( $location, $this->custom_layout_locations ) )
+        if ( ! in_array( $location, $this->custom_layout_locations ) )
         {
             Log::error("Tried to access a floor layout that isn't allowed.");
             return redirect()

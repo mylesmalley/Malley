@@ -62,10 +62,19 @@
 
 
     <a class="list-group-item list-group-item-action"
-       href="{{ route('blueprint.floor_layout', [ $blueprint ]) }}">
+       href="{{ route('blueprint.custom_layout', [ $blueprint, 'floor' ]) }}">
 
         <h4 class="text-primary">Floor Layout</h4>
         <p>Drag and drop the components you want added to this vehicle design.</p>
+    </a>
+
+
+
+    <a class="list-group-item list-group-item-action"
+       href="{{ route('blueprint.custom_layout', [ $blueprint, "equipment_enclosure" ]) }}">
+
+        <h4 class="text-primary">Equipment Enclosure Layout</h4>
+        <p>Drag and drop the components you want added to the rear-driver-side wall.</p>
     </a>
 
 
