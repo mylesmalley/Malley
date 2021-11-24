@@ -10,10 +10,14 @@
 
 
             <span class="list-group-item list-group-item-action"
-                  onclick="add_image('freedman_single_fixed_passenger')" >
-                    Freedman Single Fixed (Passenger)
+                  onclick="add_image('sharps_container_5qt')" >
+                    5 QT Sharps Container
             </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('oxygen_outlet_canada')" >
+                    OXYGEN OUTLET - DISS - CANADA
 
+            </span>
 
 
 

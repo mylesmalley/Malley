@@ -73,7 +73,26 @@
                 'FTB-S003-002',
             ],
         },
-        
+
+
+
+
+        sharps_container_5qt: {
+            image: '{{ mix('img/blueprint/bls/sharps-container.png') }}',
+            options: [
+                'FTB-M015-001',
+            ],
+        },
+
+
+        oxygen_outlet_canada: {
+            image: '{{ mix('img/blueprint/bls/oxygen-ohmeda.png') }}',
+            options: [
+                'FTB-M001-001',
+            ],
+        },
+
+
         
         
 
