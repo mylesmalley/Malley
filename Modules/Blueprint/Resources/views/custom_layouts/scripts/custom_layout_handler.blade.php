@@ -154,8 +154,8 @@
 
     let preset;
 
-    @if( $blueprint->custom_layout )
-    preset = {!!  $layout->layout  !!};
+    @if( $layout->layout )
+        preset = {!!  $blueprint->custom_layout  !!};
     @endif
 
     if ( preset )

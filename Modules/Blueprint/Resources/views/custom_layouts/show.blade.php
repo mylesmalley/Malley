@@ -74,13 +74,15 @@
     <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>
 
 {{--     REgular transit mobility - legacy stuff--}}
-    @if( (int)$blueprint->base_van_id === 11)
-        @include('blueprint::floor_layout.transit_mobility.setup_scripts')
-    @endif
+{{--    @if( (int)$blueprint->base_van_id === 11)--}}
+{{--        @include('blueprint::floor_layout.transit_mobility.setup_scripts')--}}
+{{--    @endif--}}
 
 {{--     BLS--}}
     @if( (int)$blueprint->base_van_id === 31)
-        @include('blueprint::floor_layout.transit_bls_mobility.setup_scripts', [ 'c' => $configuration ])
+
+        <!-- BLS SETUP -->
+        @include('blueprint::custom_layouts.setup.transit_bls_setup', [ 'c' => $configuration ])
     @endif
 
     @includeIf('blueprint::custom_layouts.scripts.custom_layout_handler')
