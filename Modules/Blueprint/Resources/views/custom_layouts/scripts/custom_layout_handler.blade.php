@@ -51,6 +51,8 @@
 
     function store_layout()
     {
+        console.log( seatLayer.toJSON() )
+
         fetch('{{ route('blueprint.custom_layout.change', [$blueprint, $layout->name ]) }}', {
             method: 'PATCH',
             headers: {

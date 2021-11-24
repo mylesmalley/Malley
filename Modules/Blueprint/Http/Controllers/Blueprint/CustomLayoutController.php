@@ -56,6 +56,7 @@ class CustomLayoutController extends Controller
             Log::info("Created empty custom layout for B-".$blueprint->id." at ".$location);
         }
 
+      //  dd( $layout );
 
         return response()
                 ->view('blueprint::custom_layouts.show', [
