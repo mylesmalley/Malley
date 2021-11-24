@@ -5,6 +5,7 @@ namespace Modules\Blueprint\Http\Controllers\Blueprint;
 use App\Models\Configuration;
 use App\Models\CustomLayout;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
@@ -61,75 +62,84 @@ class CustomLayoutController extends Controller
 
 
     /**
-     * handle the changes made to the floor
+     * handle the changes made to the custom layout
      * layout as they happen. mostly just staging
      *
      * @param Blueprint $blueprint
      * @param Request $request
-     * @return JsonResponse
+     * @return JsonResponse|RedirectResponse
      */
-    public function change(Blueprint $blueprint, Request $request ):  JsonResponse
+    public function change(Blueprint $blueprint, string $name, Request $request ):  JsonResponse|RedirectResponse
     {
 
-        // if an existing custom layout exists, start by undoing it
 
-        if ( $blueprint->custom_layout )
+        try {
+            $layout = CustomLayout::where( 'name', '=', $name)
+                ->where( 'blueprint_id', '=', $blueprint->id)
+                ->firstOrFail();
+        }
+        catch ( ModelNotFoundException $e )
         {
-
-            // store the existing layout
-            $old = json_decode( $blueprint->custom_layout );
-
-            // loop through the children components
-            foreach( $old->children as $c )
-            {
-                if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') ) {
-                    // loop through each option associated to the component
-                    foreach ($c->attrs->options as $o) {
-                        // grab the config item matching that option name
-                        $config = Configuration::where('blueprint_id', $blueprint->id)
-                            ->where('name', $o)
-                            ->where('obsolete', false)
-                            ->first();
-
-
-                        // turn on an option that's turned off.
-                        if ($config->value === 0) {
-                            $config->update([
-                                'value' => 1,
-                                'quantity' => 1,
-                            ]);
-                        } // if the quantity is one, just turn it off
-                        elseif ($config->quantity === 1) {
-                            $config->update([
-                                'value' => 0,
-                                'quantity' => 1,
-                            ]);
-                        } // if the quantity is more than one, leave it on but lower it by one
-                        else {
-                            $config->update([
-                                'value' => 1,
-                                'quantity' => $config->quantity - 1,
-                            ]);
-                        }
-
-
-                    }
-                }
-            }
-
-
+            Log::error("Custom layout $name for B-{$blueprint->id} not found");
+            return redirect()
+                ->back()
+                ->withErrors(["Error"=>"That custom layout area doesn't exist."]);
         }
 
+
+        // store the existing layout
+        $old = json_decode( $layout->layout );
+
+        // loop through the children components
+        foreach( $old->children as $c )
+        {
+            if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') ) {
+                // loop through each option associated to the component
+                foreach ($c->attrs->options as $o) {
+                    // grab the config item matching that option name
+                    $config = Configuration::where('blueprint_id', $blueprint->id)
+                        ->where('name', $o)
+                        ->where('obsolete', false)
+                        ->first();
+
+
+                    // turn on an option that's turned off.
+                    if ($config->value === 0) {
+                        $config->update([
+                            'value' => 1,
+                            'quantity' => 1,
+                        ]);
+                    } // if the quantity is one, just turn it off
+                    elseif ($config->quantity === 1) {
+                        $config->update([
+                            'value' => 0,
+                            'quantity' => 1,
+                        ]);
+                    } // if the quantity is more than one, leave it on but lower it by one
+                    else {
+                        $config->update([
+                            'value' => 1,
+                            'quantity' => $config->quantity - 1,
+                        ]);
+                    }
+
+
+                }
+            }
+        }
+
+
+
         // update the blueprint with the new layout
-        $blueprint->update([
-            'custom_layout' => $request->input('layout'),
+        $layout->update([
+            'layout' => $request->input('layout'),
         ]);
 
 
         // loop through the new layout and update the configuration
-        $layout = json_decode(  $request->input('layout') );
+        $configs_in_layout = json_decode(  $request->input('layout') );
 
-        foreach( $layout->children as $c )
+        foreach( $configs_in_layout->children as $c )
         {
             if ( property_exists($c, 'attrs' ) &&  property_exists( $c->attrs, 'options') )
             {
@@ -169,37 +179,5 @@ class CustomLayoutController extends Controller
         ]);
     }
 
-//
-//    /**
-//     * actually adds the staged configuration to the
-//     * blueprint based on the custom layout stored.
-//     *
-//     * @param Blueprint $blueprint
-//     * @return RedirectResponse
-//     */
-//    public function store( Blueprint $blueprint ): RedirectResponse
-//    {
-////        $layout = json_decode( $blueprint->custom_layout );
-////
-////        foreach( $layout->children as $c )
-////        {
-////            foreach( $c->attrs->options as $o)
-////            {
-////                 $config = Configuration::where('blueprint_id', $blueprint->id)
-////                    ->where('name', $o )
-////                    ->where('obsolete', false)
-////                    ->first();
-////
-////                 $config->update([
-////                     'value' => 1,
-////                     'quantity' => $config->quantity + 1,
-////                 ]);
-////            }
-////        }
-////
-////        return redirect()
-////            ->route('blueprint.home', [$blueprint])
-////            ->with('success','Floor layout added to this Blueprint');
-//    }
 
 }
