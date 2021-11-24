@@ -82,7 +82,6 @@
 
     </div>
 
-@includeIf('blueprint::custom_layouts.setup.transit_bls_components')
 
 <script>
 
