@@ -16,7 +16,6 @@
             <span class="list-group-item list-group-item-action"
                   onclick="add_image('oxygen_outlet_canada')" >
                     OXYGEN OUTLET - DISS - CANADA
-
             </span>
 
 

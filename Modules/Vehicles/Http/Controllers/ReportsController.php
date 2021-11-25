@@ -43,12 +43,15 @@ class ReportsController extends Controller
 
             ->leftjoin('vehicle_dates as delivery', function(JoinClause $join){
                 $join->on('vehicles.id', '=', 'delivery.vehicle_id')
-                    ->where('delivery.name','delivery');
+                    ->where('delivery.name','delivery')
+                    ->where('delivery.current', '=', true);
             })
             // bring in the next renewal
             ->leftjoin('vehicle_dates as lease_expiry', function(JoinClause $join){
                 $join->on('vehicles.id', '=', 'lease_expiry.vehicle_id')
-                    ->where('lease_expiry.name','lease_expiry_of_refurb');
+                    ->where('lease_expiry.name','lease_expiry_of_refurb')
+                    ->where('lease_expiry.current', '=', true);
+
             })
 
 
