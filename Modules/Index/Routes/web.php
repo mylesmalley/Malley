@@ -8,6 +8,7 @@ use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
 use Modules\Index\Http\Controllers\Index\ComponentListController;
 use Modules\Index\Http\Controllers\Index\PricingController;
 use Modules\Index\Http\Controllers\Index\WizardController;
+use Modules\Index\Http\Controllers\Option\RevisionController;
 use Modules\Index\Http\Controllers\Option\WizardImageController;
 
 
@@ -212,6 +213,8 @@ Route::group(["prefix" => "index"], function(){
         Route::get('{option}/revision','Option\RevisionController@create');
             Route::post('revision','Option\RevisionController@store');
             Route::post('revisionFromComponentsPage','Option\RevisionController@revisionFromComponentsPage');
+//            Route::post('revisionFromLivewirePricing',[RevisionController::class, 'generate_revision_from_pricing_livewire_component'])
+//                ->name('option.revision.create_from_livewire_pricing');
 
         Route::get('{option}/retire','Option\RetireController@form');
         Route::post('retire','Option\RetireController@retire');
@@ -301,7 +304,8 @@ Route::group(["prefix" => "index"], function(){
 
 
 
-            Route::get('/{option}/pricing', 'Option\PricingController@form');
+            Route::get('/{option}/pricing', 'Option\PricingController@form')
+                ->name('option.pricing.form');
             Route::post('/{option}/pricing', 'Option\RevisionController@revisionFromPricing')
                 ->name('option_revision_from_pricing');
 

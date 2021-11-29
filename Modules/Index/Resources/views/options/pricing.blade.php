@@ -24,10 +24,12 @@
     </div>
 
 
-    @if ($message = \Session::get('success'))
+    @if ($messages = \Session::get('success'))
         <div class="alert alert-success alert-block">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
+            @foreach( $messages as $message )
+            <strong>{{ $message }}</strong><br>
+                @endforeach
         </div>
     @endif
     @if ($message = \Session::get('error'))
@@ -114,18 +116,19 @@
 {{--                        </tr>--}}
                     </tbody>
                 </table>
+
+                <div class="card-footer ">
+                    <label for="engineering_notes">Reason for change</label>
+                    <input type="text" name="engineering_notes"
+                           id="engineering_notes"
+                           placeholder="reason for this update"
+                           value="{{ old('engineering_notes', "Updating pricing ".date('Y-m-d')) }}"
+                           class="form-control" />
+
+                    <input type="submit" class="btn btn-primary" value="Save New Pricing">
+                </div>
             </div>
 
-            <div class="card-footer ">
-                <label for="engineering_notes">Reason for change</label>
-                <input type="text" name="engineering_notes"
-                       id="engineering_notes"
-                       placeholder="reason for this update"
-                       value="{{ old('engineering_notes', "Updating pricing ".date('Y-m-d')) }}"
-                       class="form-control" />
-
-                <input type="submit" class="btn btn-primary" value="Save New Pricing">
-            </div>
         </div>
 
 

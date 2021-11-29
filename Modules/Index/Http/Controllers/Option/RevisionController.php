@@ -114,11 +114,46 @@ class RevisionController extends Controller
         $errors = [];
         $this->messages[] = "Pushed new changes to Syspro";
 
-        return redirect("/index/option/{$new->id}/home")->with(['errors'=>$errors, 'info'=>$this->messages ]);
-//        return redirect("/index/option/".$new->nextID."/components");
-
+        if ( $new->nextID )
+        {
+            return redirect()->route('option.pricing.form', [ $new->nextID ])
+                ->with([ 'success'=>$this->messages ]);
+        }
+        
+        return redirect()->route('option.home', [$new] )
+            ->with(['errors'=>$errors, 'info'=>$this->messages ]);
+        
+ 
 
     }
+
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function generate_revision_from_pricing_livewire_component( Request $request ): bool
+    {
+
+        $request->validate([
+            'engineering_notes' => 'required|string', //change notes
+            "option_name"     => 'required', // used to find revisions
+            "option_price_tier_2"    => 'required|numeric|lte:option_price_tier_3',
+            "option_price_tier_3"    =>  'required|numeric|gte:option_price_tier_2',
+
+        ]);
+
+        return true;
+
+        //$new = $this->generateRevision( $request );
+
+        // container for any errors to be passed to the user upon redirection
+        $errors = [];
+        $this->messages[] = "Pushed new changes to Syspro";
+
+    }
+
+
 
 
 
