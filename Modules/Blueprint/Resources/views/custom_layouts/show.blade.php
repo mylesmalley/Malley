@@ -126,6 +126,11 @@
         let canvas_x;
         let canvas_y;
 
+        window.addEventListener('load', function(){
+            Livewire.emit('update_floor_layout_progress');
+
+        });
+
         window.addEventListener('mousemove', function(e){
             page_x = e.pageX;
             page_y = e.pageY;
@@ -151,7 +156,7 @@
 
         function store_layout()
         {
-            console.log( seatLayer.toJSON() )
+            //console.log( seatLayer.toJSON() )
 
             fetch('{{ route('blueprint.custom_layout.change', [$blueprint, $layout->name ]) }}', {
                 method: 'PATCH',
@@ -162,11 +167,17 @@
                     layout: seatLayer.toJSON(),
                     '_token': document.head.querySelector('meta[name="csrf-token"]').content
                 }),
+            }).then(function(response) {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                Livewire.emit('update_floor_layout_progress');
             });
 
 
             // fire off livewire event to update progress box
-            Livewire.emit('update_floor_layout_progress');
+
         }
 
         function add_image( list, stored_x = null, stored_y = null )
@@ -174,13 +185,9 @@
 
             if ( !options[list] )
             {
-                console.error('could not find ' + list );
                 return false;
             }
-            else
-            {
-                console.log( 'found '+list+' and placed at '+stored_x + " " + stored_y);
-            }
+
 
             Konva.Image.fromURL( options[list].image, function (image )  {
 
@@ -245,8 +252,11 @@
 
 
                 seatLayer.add(image);
-                store_layout();
-
+                if( !stored_y || !stored_x )
+                {
+                    // don't update if you're just loading what's there.
+                    store_layout();
+                }
 
             });
 
@@ -265,7 +275,7 @@
         {
             for (let i = 0; i < preset.children.length; i++ )
             {
-                console.log(preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y );
+         //       console.log(preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y );
                 add_image(  preset.children[i].attrs.grouping, preset.children[i].attrs.x, preset.children[i].attrs.y )
             }
         }
