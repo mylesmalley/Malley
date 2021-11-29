@@ -76,6 +76,21 @@
 
 
 
+        smartseat: {
+            image: '{{ mix('img/blueprint/seats/smart-seat.png') }}',
+            options: [
+                'FTB-S010-001',
+            ],
+        },
+
+        smartseat_ez_passenger_side: {
+            image: '{{ mix('img/blueprint/seats/smart-wheel-passenger.png') }}',
+            options: [
+                'FTB-S015-001',
+            ],
+        },
+
+
 
         sharps_container_5qt: {
             image: '{{ mix('img/blueprint/bls/sharps-container.png') }}',
@@ -165,6 +180,14 @@
                 'FTB-E045-001',
             ],
         },
+
+        shoulder_harness_label: {
+            image: '{{ mix('img/blueprint/other/shoulder-harness.png') }}',
+            options: [
+                'FTB-D010-001',
+            ],
+        },
+
 
 
 

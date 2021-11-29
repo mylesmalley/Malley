@@ -25,6 +25,21 @@
                           onclick="add_image('wheelchair_smartfloor')" >
                         Wheelchair Position
                     </span>
+                        <span class="list-group-item list-group-item-action"
+                              onclick="add_image('smartseat')" >
+                        SmartSeat
+                    </span>
+                        <span class="list-group-item list-group-item-action"
+                              onclick="add_image('smartseat_ez_passenger_side')" >
+                        SMARTSEAT - EZ M1 TIP AND FOLD TURNY - PASSENGER SIDE
+                    </span>
+
+                        <span class="list-group-item list-group-item-action"
+                              onclick="add_image('shoulder_harness_label')" >
+                        Shoulder Harness
+                    </span>
+
+
                 @endif
 
                 <!-- SNC FOR LONSEAL   -->
