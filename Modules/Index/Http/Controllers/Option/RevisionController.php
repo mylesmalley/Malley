@@ -128,30 +128,30 @@ class RevisionController extends Controller
     }
 
 
-    /**
-     * @param Request $request
-     * @return bool
-     */
-    public function generate_revision_from_pricing_livewire_component( Request $request ): bool
-    {
-
-        $request->validate([
-            'engineering_notes' => 'required|string', //change notes
-            "option_name"     => 'required', // used to find revisions
-            "option_price_tier_2"    => 'required|numeric|lte:option_price_tier_3',
-            "option_price_tier_3"    =>  'required|numeric|gte:option_price_tier_2',
-
-        ]);
-
-        return true;
-
-        //$new = $this->generateRevision( $request );
-
-        // container for any errors to be passed to the user upon redirection
-        $errors = [];
-        $this->messages[] = "Pushed new changes to Syspro";
-
-    }
+//    /**
+//     * @param Request $request
+//     * @return bool
+//     */
+//    public function generate_revision_from_pricing_livewire_component( Request $request ): bool
+//    {
+//
+//        $request->validate([
+//            'engineering_notes' => 'required|string', //change notes
+//            "option_name"     => 'required', // used to find revisions
+//            "option_price_tier_2"    => 'required|numeric|lte:option_price_tier_3',
+//            "option_price_tier_3"    =>  'required|numeric|gte:option_price_tier_2',
+//
+//        ]);
+//
+//        return true;
+//
+//        //$new = $this->generateRevision( $request );
+//
+//        // container for any errors to be passed to the user upon redirection
+//        $errors = [];
+//        $this->messages[] = "Pushed new changes to Syspro";
+//
+//    }
 
 
 
