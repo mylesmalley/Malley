@@ -15,11 +15,50 @@
             </span>
             <span class="list-group-item list-group-item-action"
                   onclick="add_image('oxygen_outlet_canada')" >
-                    OXYGEN OUTLET - DISS - CANADA
+                    Oxygen Outlet - DISS - Canada
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('flowmeter_diss')" >
+                    Oxygen Flowmeter - DISS - Canada
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('oxygen_outlet_ohmeda')" >
+                    Oxygen Outlet - OHMEDA
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('flowmeter_ohmeda')" >
+                    Oxygen Flowmteer - OHMEDA
             </span>
 
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('outlet_110v')" >
+                    110V Outlet
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('incubator_plug')" >
+                    Incubator Plug
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('suction_unit')" >
+                    Suction Unit
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('coat_hook')" >
+                    Coat Hook
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('spineboard_escurement')" >
+                   Spineboard Bracket (one side)
+            </span>
 
-
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('switch_for_air_exchanger')" >
+                    Air Exchanger Switch
+            </span>
+            <span class="list-group-item list-group-item-action"
+                  onclick="add_image('switch_for_ceiling_lights')" >
+                    Ceiling Light Switch
+            </span>
 
         </div>
 

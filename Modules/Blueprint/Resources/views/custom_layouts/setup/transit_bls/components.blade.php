@@ -86,15 +86,88 @@
 
 
         oxygen_outlet_canada: {
-            image: '{{ mix('img/blueprint/bls/oxygen-ohmeda.png') }}',
+            image: '{{ mix('img/blueprint/bls/oxygen-iso-diss.png') }}',
             options: [
                 'FTB-M001-001',
             ],
         },
 
+        oxygen_outlet_ohmeda: {
+            image: '{{ mix('img/blueprint/bls/oxygen-ohmeda.png') }}',
+            options: [
+                'FTB-M001-002',
+            ],
+        },
 
-        
-        
+
+        flowmeter_diss: {
+            image: '{{ mix('img/blueprint/bls/oxygen-flow-iso-diss.png') }}',
+            options: [
+                'FTB-M005-001',
+            ],
+        },
+
+        flowmeter_ohmeda: {
+            image: '{{ mix('img/blueprint/bls/oxygen-flow-ohmeda.png') }}',
+            options: [
+                'FTB-M006-001',
+            ],
+        },
+
+
+
+        outlet_110v: {
+            image: '{{ mix('img/blueprint/bls/2-prong-outlet.png') }}',
+            options: [
+                'FTB-E020-001',
+            ],
+        },
+
+
+        incubator_plug: {
+            image: '{{ mix('img/blueprint/bls/2-prong-outlet.png') }}',
+            options: [
+                'FTB-E030-001',
+            ],
+        },
+
+        suction_unit: {
+            image: '{{ mix('img/blueprint/bls/suction-unit.png') }}',
+            options: [
+                'FTB-M030-001',
+            ],
+        },
+
+
+        coat_hook: {
+            image: '{{ mix('img/blueprint/bls/coat-hanger.png') }}',
+            options: [
+                'FTB-N001-001',
+            ],
+        },
+
+        spineboard_escurement: {
+            image: '{{ mix('img/blueprint/bls/seatbelt-securement.png') }}',
+            options: [
+                'FTB-M040-001',
+            ],
+        },
+
+        switch_for_air_exchanger: {
+            image: '{{ mix('img/blueprint/bls/wall-switch.png') }}',
+            options: [
+                'FTB-E040-001',
+            ],
+        },
+        switch_for_ceiling_lights: {
+            image: '{{ mix('img/blueprint/bls/wall-switch.png') }}',
+            options: [
+                'FTB-E045-001',
+            ],
+        },
+
+
+
 
     };
 </script>
