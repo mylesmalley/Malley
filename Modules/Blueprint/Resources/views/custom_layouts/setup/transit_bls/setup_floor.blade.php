@@ -17,6 +17,10 @@
                         onclick="add_image('wheelchair_ltrack')" >
                         Wheelchair Position
                     </span>
+                        <span class="list-group-item list-group-item-action"
+                              onclick="add_image('shoulder_harness_label')" >
+                        Shoulder Harness
+                    </span>
                 @endif
 
                 <!-- SMARTFLOOR -->
@@ -88,6 +92,20 @@
                       onclick="add_image('freedman_double_folding_driver')" >
                         Freedman Double Folding (Drover)
                 </span>
+
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('belt_extension_8')" >
+                        8" Belt Extension
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('belt_extension_12')" >
+                        12" Belt Extension
+                </span>
+                <span class="list-group-item list-group-item-action"
+                      onclick="add_image('belt_extension_18')" >
+                        18" Belt Extension
+                </span>
+
             @endif
 
 

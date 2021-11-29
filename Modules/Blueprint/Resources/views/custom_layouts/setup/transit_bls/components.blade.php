@@ -188,6 +188,27 @@
             ],
         },
 
+        belt_extension_8: {
+            image: '{{ mix('img/blueprint/seats/seatbelt-8.png') }}',
+            options: [
+                'FTB-S020-001',
+            ],
+        },
+        belt_extension_12: {
+            image: '{{ mix('img/blueprint/seats/seatbelt-12.png') }}',
+            options: [
+                'FTB-S021-001',
+            ],
+        },
+        belt_extension_18: {
+            image: '{{ mix('img/blueprint/seats/seatbelt-18.png') }}',
+            options: [
+                'FTB-S022-001',
+            ],
+        },
+
+
+
 
 
 
