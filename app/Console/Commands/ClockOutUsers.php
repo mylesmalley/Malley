@@ -2,15 +2,10 @@
 
 namespace App\Console\Commands;
 
-//use App\Programs\SysproReports\Mail\PurchasingReminderEmail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Modules\BugReport\Mail\DigestEmail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User;
-
-//use App\Programs\SysproReports\Models\PurchaseRequest;
 
 class ClockOutUsers extends Command
 {
@@ -30,8 +25,6 @@ class ClockOutUsers extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -39,11 +32,9 @@ class ClockOutUsers extends Command
     }
 
     /**
-     * Execute the console command.
      *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
 
         $time = Carbon::now('America/Moncton')->toIso8601String();
@@ -55,6 +46,6 @@ class ClockOutUsers extends Command
                 'flagged' => true,
             ]);
 
-        return false;
+        Log::info("Clocked out active labour users.");
     }
 }

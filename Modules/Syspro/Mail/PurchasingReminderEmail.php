@@ -2,35 +2,28 @@
 
 namespace Modules\Syspro\Mail;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Models\PurchaseRequest;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class PurchasingReminderEmail extends Mailable
 {
-    //use Queueable, SerializesModels;
     use SerializesModels;
 
-    public $purch;
+    public Collection $purchaseRequests;
 
     /**
-     * PurchasingReminderEmail constructor.
      * @param Collection $purchaseRequests
      */
     public function __construct( Collection $purchaseRequests )
     {
-        $this->purch = $purchaseRequests;
+        $this->purchaseRequests = $purchaseRequests;
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
+     * @return PurchasingReminderEmail
      */
-    public function build( )
+    public function build( ): PurchasingReminderEmail
     {
         return $this
             ->subject("Purchase Request Reminder.")

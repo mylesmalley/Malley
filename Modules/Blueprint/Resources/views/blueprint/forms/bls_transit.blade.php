@@ -31,22 +31,47 @@
 
 
             {{-- ONE STRETCHER POSITION --}}
-            @if(  $configuration->contains('FTB-Z993-004') )
-
-                <a class="list-group-item list-group-item-action"
-                   href="{{ route('blueprint.wizard', [ $blueprint, 6]) }}">
-                    <h4 class="text-primary">Stretcher Position</h4>
-                    <p>Brand and model of stretcher mount.</p>
-                </a>
+            @if(  $configuration->contains('FTB-Z993-004')  )
+                {{-- Stretcher configuration wizard done?--}}
+                @if( !$configuration->contains('FTB-Z999-002') )
+                    <a class="list-group-item list-group-item-action"
+                       href="{{ route('blueprint.wizard', [ $blueprint, 6]) }}">
+                        <h4 class="text-primary">Stretcher Position</h4>
+                        <p>Brand and model of stretcher mount.</p>
+                    </a>
+                @else
+                    <div class="list-group-item list-group-item-success">
+                        <h4 class="text-success">Stretcher Position Configured
+                            <img src="{{ mix('img/checkmark.png') }}"
+                                 class="float-end"
+                                 width="30"
+                                 height="30"
+                                 alt="">
+                        </h4>
+                    </div>
+                @endif
             @endif
 
 
             @if(  $configuration->contains('FTB-Z993-005') )
-                <a class="list-group-item list-group-item-action"
-                   href="{{ route('blueprint.wizard', [ $blueprint, 7]) }}">
-                    <h4 class="text-primary">Two Stretcher Positions</h4>
-                    <p>Brand and model of stretcher mounts for two-position configurations.</p>
-                </a>
+                {{-- Stretcher configuration wizard done?--}}
+                @if( !$configuration->contains('FTB-Z999-002') )
+                    <a class="list-group-item list-group-item-action"
+                       href="{{ route('blueprint.wizard', [ $blueprint, 7]) }}">
+                        <h4 class="text-primary">Two Stretcher Positions</h4>
+                        <p>Brand and model of stretcher mounts for two-position configurations.</p>
+                    </a>
+                @else
+                    <div class="list-group-item list-group-item-success">
+                        <h4 class="text-success">Stretcher Position Configured
+                            <img src="{{ mix('img/checkmark.png') }}"
+                                 class="float-end"
+                                 width="30"
+                                 height="30"
+                                 alt="">
+                        </h4>
+                    </div>
+                @endif
             @endif
 
 
@@ -75,11 +100,24 @@
 
 {{--            LAYOUT - ONE STRETCHER POSITION ON DRIVER SIDE--}}
             @if(  $configuration->contains('FTB-Z993-006') )
-                <a class="list-group-item list-group-item-action"
-                   href="{{ route('blueprint.wizard', [ $blueprint, 12]) }}">
-                    <h4 class="text-primary">Stretcher Mount (with wheelchair lift)</h4>
-                    <p>Brand and model of stretcher mounts for configurations with a wheelchair lift.</p>
-                </a>
+                {{-- Stretcher configuration wizard done?--}}
+                @if( !$configuration->contains('FTB-Z999-002') )
+                    <a class="list-group-item list-group-item-action"
+                       href="{{ route('blueprint.wizard', [ $blueprint, 12]) }}">
+                        <h4 class="text-primary">Stretcher Mount (with wheelchair lift)</h4>
+                        <p>Brand and model of stretcher mounts for configurations with a wheelchair lift.</p>
+                    </a>
+                @else
+                    <div class="list-group-item list-group-item-success">
+                        <h4 class="text-success">Stretcher Position Configured
+                            <img src="{{ mix('img/checkmark.png') }}"
+                                 class="float-end"
+                                 width="30"
+                                 height="30"
+                                 alt="">
+                        </h4>
+                    </div>
+                @endif
             @endif
 
 
@@ -97,13 +135,13 @@
 
         {{-- USAGE - PATIENT TRANSFER / BLS VEHICLE --}}
         @if( $configuration->contains('FTB-Z998-002'))
-        <a class="list-group-item list-group-item-action"
-           href="{{ route('blueprint.custom_layout', [ $blueprint, "equipment_enclosure" ]) }}">
+            <a class="list-group-item list-group-item-action"
+               href="{{ route('blueprint.custom_layout', [ $blueprint, "equipment_enclosure" ]) }}">
 
-            <h4 class="text-primary">Equipment Enclosure Layout</h4>
-            <p>Drag and drop the components you want added to the rear-driver-side wall.</p>
-        </a>
-            @endif
+                <h4 class="text-primary">Equipment Enclosure Layout</h4>
+                <p>Drag and drop the components you want added to the rear-driver-side wall.</p>
+            </a>
+        @endif
 
     @endif
 

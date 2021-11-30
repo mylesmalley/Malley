@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
-use \Modules\Syspro\Mail\PurchasingReminderEmail;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Modules\Syspro\Mail\PurchasingReminderEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-
 use App\Models\PurchaseRequest;
+
 
 class PurchaseRequestReminder extends Command
 {
@@ -35,11 +37,9 @@ class PurchaseRequestReminder extends Command
     }
 
     /**
-     * Execute the console command.
      *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
 
         // catch orders that have been received, waiting on updates, or on hold for some other reason
@@ -59,12 +59,13 @@ class PurchaseRequestReminder extends Command
 
         if ( $reqs->count() )
         {
-            $users = \App\Models\User::where('can_edit_purchase_requests', true)->pluck('email');
+            $users = User::where('can_edit_purchase_requests', true)->pluck('email');
 
             Mail::to( $users )
                 ->send( new PurchasingReminderEmail( $reqs ) );
+
+            Log::info("Dispatched purchase request emails.");
         }
 
-        return false;
     }
 }

@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands;
 
-//use App\Programs\SysproReports\Mail\PurchasingReminderEmail;
+use Illuminate\Support\Facades\Log;
 use Modules\BugReport\Mail\DigestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 
-//use App\Programs\SysproReports\Models\PurchaseRequest;
 
 class EngineeringDigestEmail extends Command
 {
@@ -37,34 +36,11 @@ class EngineeringDigestEmail extends Command
     }
 
     /**
-     * Execute the console command.
      *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
 
-        // catch orders that have been received, waiting on updates, or on hold for some other reason
-
-//        if (date('H') == 16)
-//        {
-//            $reqs = PurchaseRequest::whereIn('status', [5, 4])
-//                ->get();
-//        }
-//        else
-//        {
-//            $reqs = PurchaseRequest::whereIn('status', [5, 4, 3])
-//                ->get();
-//        }
-
-
-//
-//        if ( $reqs->count() )
-//        {
-//            $users = \App\User::where('can_edit_purchase_requests', true)->pluck('email');
-//
-//
-//        }
 
         foreach( User::where('can_edit_purchase_requests', true)->get() as $user )
         {
@@ -72,6 +48,6 @@ class EngineeringDigestEmail extends Command
                 ->send( new DigestEmail( $user ) );
         }
 
-        return false;
+        Log::info("Sent engineering digest emails");
     }
 }
