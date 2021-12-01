@@ -180,7 +180,7 @@
 
         }
 
-        function add_image( list, stored_x = null, stored_y = null )
+        function add_image( list, stored_x = null, stored_y = null, draggable = true, force_update = false )
         {
 
             if ( !options[list] )
@@ -213,12 +213,11 @@
                 image.setAttr('source', options[list].image);
 
 
-                image.draggable(true);
 
 
-                image.on('dblclick', function (event) {
+                image.addEventListener('dblclick', function (event) {
 
-                    // stops the contextmnu event from propagating up to the canvas event
+                    // stops the context menu event from propagating up to the canvas event
                     event.cancelBubble = true;
 
                     if( window.confirm("Delete this object?") )
@@ -230,29 +229,33 @@
 
                 });
 
+                if ( draggable )
+                {
+                    image.draggable(true);
 
-                // round the object's position to snap to grid
-                image.addEventListener('dragend', function( ){
+                    // round the object's position to snap to grid
+                    image.addEventListener('dragend', function( ){
 
-                    // snap the location to the bounding box of the stage to make sure nothing gets hidden
-                    if ( image.x() < 0 ) image.x(0);
-                    if ( image.y() < 0 ) image.y(0);
-                    if ( ( image.x() + image.width()) > width ) image.x(width  - image.width());
-                    if ( ( image.y() + image.height()) > height ) image.y(width  - image.height());
+                        // snap the location to the bounding box of the stage to make sure nothing gets hidden
+                        if ( image.x() < 0 ) image.x(0);
+                        if ( image.y() < 0 ) image.y(0);
+                        if ( ( image.x() + image.width()) > width ) image.x(width  - image.width());
+                        if ( ( image.y() + image.height()) > height ) image.y(width  - image.height());
 
-                    image.position({
-                        x: Math.round( image.x() / GRID_SIZE) * GRID_SIZE,
-                        y: Math.round( image.y() / GRID_SIZE) * GRID_SIZE,
+                        image.position({
+                            x: Math.round( image.x() / GRID_SIZE) * GRID_SIZE,
+                            y: Math.round( image.y() / GRID_SIZE) * GRID_SIZE,
+                        });
+
+                        seatLayer.draw();
+
+                        store_layout();
                     });
-
-                    seatLayer.draw();
-
-                    store_layout();
-                });
+                }
 
 
                 seatLayer.add(image);
-                if( !stored_y || !stored_x )
+                if( force_update || !stored_y || !stored_x )
                 {
                     // don't update if you're just loading what's there.
                     store_layout();

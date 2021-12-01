@@ -47,8 +47,10 @@
                     Coat Hook
             </span>
             <span class="list-group-item list-group-item-action"
-                  onclick="add_image('spineboard_escurement')" >
-                   Spineboard Bracket (one side)
+                  onclick="
+                  add_image( 'spineboard_escurement', 100, 0, false, true );
+                  add_image( 'spineboard_escurement', 300, 0, false, true );" >
+                   Spine Board Bracket (one side)
             </span>
 
             <span class="list-group-item list-group-item-action"
