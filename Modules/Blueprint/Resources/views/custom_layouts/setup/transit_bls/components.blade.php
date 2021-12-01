@@ -140,7 +140,7 @@
 
 
         incubator_plug: {
-            image: '{{ mix('img/blueprint/bls/2-prong-outlet.png') }}',
+            image: '{{ mix('img/blueprint/bls/thumbnail_incubator-plug.png') }}',
             options: [
                 'FTB-E030-001',
             ],

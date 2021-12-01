@@ -48,8 +48,8 @@
             </span>
             <span class="list-group-item list-group-item-action"
                   onclick="
-                  add_image( 'spineboard_escurement', 100, 0, false, true );
-                  add_image( 'spineboard_escurement', 300, 0, false, true );" >
+                  add_image( 'spineboard_escurement', 200, 75, false, true );
+                  add_image( 'spineboard_escurement', 650, 75, false, true );" >
                    Spine Board Bracket (one side)
             </span>
 
