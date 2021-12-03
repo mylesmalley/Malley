@@ -34,6 +34,15 @@ class WizardAnswer extends Model
             'wizard_question_id' );
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function next_question(): BelongsTo
+    {
+        return $this->belongsTo(WizardQuestion::class,
+            'next' );
+    }
+
 
     /**
      * @return WizardQuestion

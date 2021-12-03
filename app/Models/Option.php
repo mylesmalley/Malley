@@ -705,7 +705,9 @@ class Option extends BaseModel implements HasMedia
     {
         return $this->hasMany(WizardAction::class )
             ->with(['answer',
-                'answer.question']);
+                'answer.question',
+                'answer.next_question',
+                'answer.question.wizard']);
     }
 
 }
