@@ -697,4 +697,14 @@ class Option extends BaseModel implements HasMedia
         return ($related) ? (int) $related->aggregate : 0;
     }
 
+
+    /**
+     * @return HasMany
+     */
+    public function wizard_usage(): HasMany
+    {
+        return $this->hasMany(WizardAction::class )
+            ->with(['answer']);
+    }
+
 }

@@ -171,4 +171,13 @@ class WizardAction extends Model
         return $this->belongsTo(Option::class );
     }
 
+
+    /**
+     * @return BelongsTo
+     */
+    public function answer(): BelongsTo
+    {
+        return $this->belongsTo(WizardAnswer::class, 'wizard_answer_id'  );
+    }
+
 }
