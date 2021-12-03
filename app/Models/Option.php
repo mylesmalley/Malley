@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Support\Facades\Auth;
-use \Illuminate\Support\Collection;
+use Illuminate\Support\Collection;
 
 
 class Option extends BaseModel implements HasMedia
@@ -108,13 +110,10 @@ class Option extends BaseModel implements HasMedia
     }
 
 
-
-	/**
-	 *
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-	 */
-    public function templates()
+    /**
+     * @return BelongsToMany
+     */
+    public function templates(): BelongsToMany
     {
     	return $this->belongsToMany(
     		'App\Models\Template',
@@ -127,7 +126,7 @@ class Option extends BaseModel implements HasMedia
 	 *
 	 * @return HasMany
 	 */
-    public function rules()
+    public function rules(): HasMany
     {
     	return $this->hasMany("App\Models\OptionRule");
     }
@@ -138,16 +137,16 @@ class Option extends BaseModel implements HasMedia
 	 *
 	 * @return HasMany
 	 */
-    public function relatedRules()
+    public function relatedRules(): HasMany
     {
 	    return $this->hasMany("App\Models\OptionRule", 'related_option_id' );
     }
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
@@ -157,16 +156,14 @@ class Option extends BaseModel implements HasMedia
 	 */
     public function explodeName(): array
     {
-    	$parts = explode('-', $this->attributes['option_name']);
-
-	    return $parts;
+        return explode('-', $this->attributes['option_name']);
     }
 
 
 	/**
 	 * @return HasMany
 	 */
-    public function formElementItems()
+    public function formElementItems(): HasMany
     {
     	return $this->hasMany('App\Models\FormElementItem');
     }
@@ -183,7 +180,7 @@ class Option extends BaseModel implements HasMedia
 	    {
 		    return $name[0];
 	    }
-	    // return the nothing if it doesnt' conform to XXX-X000-000
+	    // return the nothing if it doesn't conform to XXX-X000-000
 	    return "";
 
     }
@@ -199,7 +196,7 @@ class Option extends BaseModel implements HasMedia
 		{
 			return $name[1];
 		}
-		// return the full name if it doesnt' conform to XXX-X000-000
+		// return the full name if it doesn't conform to XXX-X000-000
 		return $name[0];
 
 	}
@@ -216,7 +213,7 @@ class Option extends BaseModel implements HasMedia
 			return $name[2];
 		}
 
-		// return the nothing if it doesnt' conform to XXX-X000-000
+		// return the nothing if it doesn't conform to XXX-X000-000
 		return "";
 	}
 
@@ -224,7 +221,7 @@ class Option extends BaseModel implements HasMedia
 	/**
 	 * @return HasMany
 	 */
-	public function components()
+	public function components(): HasMany
     {
         return $this->hasMany('App\Models\Component')
 	        ->orderBy('component_stock_code','ASC');
@@ -236,12 +233,12 @@ class Option extends BaseModel implements HasMedia
     public function getHasComponentsAttribute(): bool
     {
         if ( $this->attributes['no_components'] ) return true;
-        return ( $this->components()->count() ) ? true : false;
+        return (bool)$this->components()->count();
     }
 
     /**
-     * returns the BomStructure componnets for the syspro phantom number
-     * @return [type] [description]
+     * returns the BomStructure components for the syspro phantom number
+     * @return array
      */
     public function sysproComponents(): array
     {
@@ -260,6 +257,7 @@ class Option extends BaseModel implements HasMedia
         }
         return $normalized;
     }
+
 
 	/**
 	 * @return array
@@ -320,18 +318,31 @@ class Option extends BaseModel implements HasMedia
         $this->attributes['option_description'] = strtoupper( $value );
     }
 
-    public function base_van()
+
+    /**
+     * @return BelongsTo
+     */
+    public function base_van(): BelongsTo
     {
         return $this->belongsTo("\App\Models\BaseVan");
     }
 
-    public function platform()
+
+    /**
+     * @return BelongsTo
+     */
+    public function platform(): BelongsTo
     {
         return $this->base_van();
     }
 
 
-    public static function formData( BaseVan $baseVan, array $option_names )
+    /**
+     * @param BaseVan $baseVan
+     * @param array $option_names
+     * @return Collection
+     */
+    public static function formData( BaseVan $baseVan, array $option_names ): Collection
     {
     	// makes a short form of option name available
 	    // use X000 instead of XXX-X000-000 if rev is 0
@@ -342,35 +353,47 @@ class Option extends BaseModel implements HasMedia
 		    }
 	    }
 	    unset($value);
-    //	dd($option_names);
-        $results = DB::table("options")
+
+        return DB::table("options")
                     ->select(['id','option_name','option_description','option_short_description','option_long_lead_time','option_value'])
                     ->where( 'base_van_id', $baseVan->id )
                     ->whereIn('option_name', $option_names )
                     ->orderBy('option_value','desc')
                     ->get();
-        return $results;
     }
 
 
-
-    public function getPriceTier1Attribute()
+    /**
+     * @return string
+     */
+    public function getPriceTier1Attribute(): string
     {
         return number_format($this->attributes['option_price_tier_1'],2,'.','');
     }
 
-    public function getPriceTier2Attribute()
+
+    /**
+     * @return string
+     */
+    public function getPriceTier2Attribute(): string
     {
         return number_format($this->attributes['option_price_tier_2'],2,'.','');
     }
 
-    public function getPriceTier3Attribute()
+
+    /**
+     * @return string
+     */
+    public function getPriceTier3Attribute(): string
     {
         return number_format($this->attributes['option_price_tier_3'],2,'.','');
     }
 
 
-    public function log()
+    /**
+     * @return HasMany
+     */
+    public function log(): HasMany
     {
         return $this->hasMany('\App\Models\OptionLog');
     }
@@ -380,26 +403,20 @@ class Option extends BaseModel implements HasMedia
 	 */
     public function fingerprintString(): string
     {
-        $string = $this->attributes['option_name'] ?? '' .
-        $this->attributes['option_description'] .
-        $this->attributes['option_syspro_phantom'] .
-     //   $this->attributes['option_positive_requirements'] .
-   //     $this->attributes['option_negative_requirements'] .
-        $this->attributes['option_price_tier_3'] .
-        $this->attributes['option_price_tier_2'] .
-        $this->attributes['option_price_tier_1'] .
-        $this->attributes['option_long_lead_time'];
-
-       return $string;
+        return $this->attributes['option_name'] ?? '' .
+            $this->attributes['option_description'] .
+            $this->attributes['option_syspro_phantom'] .
+            $this->attributes['option_price_tier_3'] .
+            $this->attributes['option_price_tier_2'] .
+            $this->attributes['option_price_tier_1'] .
+            $this->attributes['option_long_lead_time'];
     }
 
 
-
-
-
-
-
-    public function tags()
+    /**
+     * @return BelongsToMany
+     */
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Tag', 'option_tags');
     }
@@ -419,7 +436,7 @@ class Option extends BaseModel implements HasMedia
 	/**
 	 * @return null|string
 	 */
-    public function imagePath()
+    public function imagePath(): ?string
     {
         if ($this->attributes['image_path'])
         {
@@ -428,10 +445,10 @@ class Option extends BaseModel implements HasMedia
         return null;
     }
 
-	/**
-	 * @return null
-	 */
-    public function getNextIDAttribute()
+    /**
+     * @return mixed
+     */
+    public function getNextIDAttribute(): mixed
     {
 
 	   $a = Option::query()
@@ -477,8 +494,8 @@ class Option extends BaseModel implements HasMedia
     /**
      * @return bool
      */
-	public function importComponentsFromSyspro( )
-	{
+	public function importComponentsFromSyspro( ): bool
+    {
 		if (!$this->option_syspro_phantom) return false;
 
 		DB::table('components')
@@ -548,7 +565,7 @@ class Option extends BaseModel implements HasMedia
      * @param $keyword
      * @return mixed
      */
-    public function scopeSearchByKeyword($query, $keyword)
+    public function scopeSearchByKeyword($query, $keyword): mixed
     {
         if ($keyword) {
 
@@ -556,12 +573,9 @@ class Option extends BaseModel implements HasMedia
 
             $query->where(function ($query) use ($keyword) {
                 $query->select(['id', 'option_name', 'option_description','option_syspro_phantom'])
-                    ->where('option_name', 'like', "%{$keyword}%")
-                    ->orWhere('option_description', 'like', "%{$keyword}%")
-                    ->orWhere('option_syspro_phantom', 'like', "%{$keyword}%");
-//                    ->orWhereHas('user.company', function ($q) use ($keyword) {
-//                        $q->where('name', 'like', "%{$keyword}%");
-//                    });
+                    ->where('option_name', 'like', "%$keyword%")
+                    ->orWhere('option_description', 'like', "%$keyword%")
+                    ->orWhere('option_syspro_phantom', 'like', "%$keyword%");
             });
         }
         return $query->limit(10);
@@ -597,7 +611,7 @@ class Option extends BaseModel implements HasMedia
     /**
      * @return Collection
      */
-    public function errors()
+    public function errors(): Collection
     {
         $errors = [];
         // is the option on any forms?
@@ -655,10 +669,10 @@ class Option extends BaseModel implements HasMedia
     }
 
 
-
-
-
-    public function revisions()
+    /**
+     * @return Collection
+     */
+    public function revisions(): Collection
     {
         return Option::where('option_name', $this->attributes['option_name'] )
             ->orderBy('revision','DESC')
@@ -667,17 +681,21 @@ class Option extends BaseModel implements HasMedia
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      * used this to fix eager loading n+1 queries
      */
-    public function componentCount()
+    public function componentCount(): HasOne
     {
         return $this->hasOne('App\Models\Component')
             ->selectRaw('option_id, count(*) as aggregate')
             ->groupBy('option_id');
     }
 
-    public function getComponentCountAttribute()
+
+    /**
+     * @return int
+     */
+    public function getComponentCountAttribute(): int
     {
 
         $related = $this->getRelation('componentCount');
