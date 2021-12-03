@@ -7,10 +7,7 @@
         'wizards' => route('platform.wizards', [$basevan] ),
     ];
 
-    if ( Auth::user()->can('option.set_pricing') )
-    {
-        $tabs['pricing'] = route('platform.pricing.index', [$basevan]);
-    }
+
 
 
     $target = $selected ?? "options";

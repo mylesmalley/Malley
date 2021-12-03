@@ -54,5 +54,9 @@
             </td>
         @endif
 
+    <td>
+        {{ $option->option_show_on_quote == true ? "show" : "" }}
+    </td>
+
 
 </tr>
