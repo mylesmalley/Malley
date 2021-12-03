@@ -19,7 +19,7 @@ class UserDayContainer extends Component
 
     public ?array $payload;
 
-    public $listeners = [
+    public array $listeners = [
         'loadData',
         'lockUserDay',
         'unlockUserDay',

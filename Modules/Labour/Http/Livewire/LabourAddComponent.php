@@ -38,7 +38,7 @@ class LabourAddComponent extends Component
         'end_minutes' => 'required|int|min:0|max:59'
     ];
 
-    public $listeners = [
+    public array $listeners = [
         'addLabourRecord',
         'selectedJob',
         'cancel',

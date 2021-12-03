@@ -27,7 +27,7 @@ class LabourEditComponent extends Component
     public string $job;
 
 
-    public $listeners = [
+    public array $listeners = [
         'editLabourRecord',
         'deselectLabourRecord',
         'selectedJob',

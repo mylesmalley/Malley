@@ -14,7 +14,7 @@ class LoginForm extends Component
     public string $pin = '';
     public bool $retry = false;
 
-    protected $listeners = [
+    public array $listeners = [
         'selectedUser'
     ];
 

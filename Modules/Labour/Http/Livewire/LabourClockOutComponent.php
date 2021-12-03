@@ -16,7 +16,7 @@ class LabourClockOutComponent extends Component
     public int $labour_id;
     public Labour $labour;
 
-    public $listeners = [
+    public array $listeners = [
         'clockOutLabourRecord',
         'deselectLabourRecord',
         'cancel',
