@@ -390,13 +390,6 @@ class Option extends BaseModel implements HasMedia
     }
 
 
-    /**
-     * @return HasMany
-     */
-    public function log(): HasMany
-    {
-        return $this->hasMany('\App\Models\OptionLog');
-    }
 
 	/**
 	 * @return string
