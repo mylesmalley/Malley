@@ -13,7 +13,7 @@ class Progress extends Component
     public array $progress;
     public Wizard $wizard;
     public Blueprint $blueprint;
-    protected $listeners = [ "submittedAnswers" ];
+    protected array $listeners = [ "submittedAnswers" ];
 
     public function mount()
     {

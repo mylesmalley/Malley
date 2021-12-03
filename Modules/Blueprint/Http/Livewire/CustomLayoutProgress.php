@@ -18,7 +18,7 @@ class CustomLayoutProgress extends Component
     public array $formatted_progress = [];
 
 
-    protected $listeners = [
+    protected array $listeners = [
         'update_floor_layout_progress'
     ];
 

@@ -2,13 +2,14 @@
 
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View as PreView;
-use Illuminate\View\View;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
@@ -34,16 +35,16 @@ class QuoteController extends Controller
      * shows a page that allows for the creation and editing of quotes for blueprints
      *
      * @param Blueprint $blueprint
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint ): View
+    public function show( Blueprint $blueprint ): Response
     {
         $this->authorize('edit_configuration', $blueprint);
 
 
         // lets roll!
-        return view('blueprint::quote.show', [
+        return response()->view('blueprint::quote.show', [
             'blueprint' => $blueprint,
   //          'configurations' => $configs,
         ]);
@@ -298,15 +299,13 @@ class QuoteController extends Controller
 
 
         if (Auth::user()->email )
-        {
             try {
 
                 Mail::to( Auth::user()->email )
                     ->send( new QuoteMailer( $blueprint, $media ) );
-            } catch ( \Exception $e )
+            } catch ( Exception)
             {
             }
-        }
 
 
 

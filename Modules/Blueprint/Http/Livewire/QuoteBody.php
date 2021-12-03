@@ -3,9 +3,9 @@
 namespace Modules\Blueprint\Http\Livewire;
 
 use App\Models\Configuration;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Illuminate\View\View;
 use App\Models\Blueprint;
 
 class QuoteBody extends Component
@@ -15,11 +15,14 @@ class QuoteBody extends Component
     public Collection $configurations;
     public bool $showAllOptions ;
 
-    public $listeners = [
+    public array $listeners = [
         'reload_quote_body' //=> '$refresh',
     ];
 
-    public function reload_quote_body()
+    /**
+     *
+     */
+    public function reload_quote_body(): void
     {
         $this->configurations = $this->update_configurations();
     }
@@ -53,8 +56,8 @@ class QuoteBody extends Component
         return Configuration::where('blueprint_id', $this->blueprint->id )
             ->where('obsolete', false)
             ->when( ! $this->showAllOptions, function( $query ){
-                return $query->where('value', 1)
-                    ->where('name', 'not like', '%-Z9%');
+                return $query->where('value', 1);
+                   // ->where('name', 'not like', '%-Z9%');
             })
             ->orderBy('name', 'ASC')
             ->with(['option','option.componentCount','blueprint'])
@@ -62,10 +65,11 @@ class QuoteBody extends Component
     }
 
     /**
-     * @return View
+     * @return Response
      */
-    public function render(): View
+    public function render(): Response
     {
-        return view("blueprint::quote.components.quote_body");
+        return response()
+            ->view("blueprint::quote.components.quote_body");
     }
 }
