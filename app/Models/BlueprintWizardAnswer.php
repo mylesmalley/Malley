@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class BlueprintWizardAnswer extends Model
 {
@@ -33,12 +35,22 @@ class BlueprintWizardAnswer extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function answer(): BelongsTo
+    public function answer(): HasOne
     {
-        return $this->BelongsTo( WizardAnswer::class );
+        return $this->hasOne( WizardAnswer::class, 'id', 'wizard_answer_id' );
+          //  ->with('actions');
     }
+
+
+//    /**
+//     * @return HasMany
+//     */
+//    public function actions(): HasMany
+//    {
+//        return $this->answer()->actions();
+//    }
 
 
 
