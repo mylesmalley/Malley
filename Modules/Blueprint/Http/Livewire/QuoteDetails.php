@@ -3,7 +3,7 @@
 namespace Modules\Blueprint\Http\Livewire;
 
 
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Livewire\Component;
 use App\Models\Blueprint;
 
@@ -54,11 +54,10 @@ class QuoteDetails extends Component
 
 
     /**
-     * @return Response
+     * @return View
      */
-    public function render(): Response
+    public function render(): View
     {
-        return response()
-            ->view("blueprint::quote.components.quote_details");
+        return view("blueprint::quote.components.quote_details");
     }
 }

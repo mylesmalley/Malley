@@ -3,7 +3,7 @@
 namespace Modules\Blueprint\Http\Livewire;
 
 use App\Models\Configuration;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use App\Models\Blueprint;
@@ -65,11 +65,10 @@ class QuoteBody extends Component
     }
 
     /**
-     * @return Response
+     * @return View
      */
-    public function render(): Response
+    public function render(): View
     {
-        return response()
-            ->view("blueprint::quote.components.quote_body");
+        return view("blueprint::quote.components.quote_body");
     }
 }
