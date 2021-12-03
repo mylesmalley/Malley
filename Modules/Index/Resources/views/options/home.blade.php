@@ -151,6 +151,7 @@
     </div>
     <br>
 
+    <hr>
 
     <h2>Usage</h2>
 
@@ -165,6 +166,16 @@
             @includeIf('index::options.parts.blueprintUsage')
         </div>
     </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-12">
+            @includeIf('index::options.parts.usage_in_wizards')
+        </div>
+    </div>
+
+    <hr>
 
     <br>
     <h2>Revision History</h2>
