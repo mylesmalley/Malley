@@ -14,7 +14,7 @@ class Progress extends Component
     public array $progress;
     public Wizard $wizard;
     public Blueprint $blueprint;
-    protected array $listeners = [ "submittedAnswers" ];
+    protected $listeners = [ "submittedAnswers" ];
 
     public function mount()
     {

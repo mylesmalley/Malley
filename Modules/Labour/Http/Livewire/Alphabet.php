@@ -9,7 +9,7 @@ class Alphabet extends Component
 {
     public string $letter;
 
-    protected array $listeners = [
+    protected $listeners = [
         'deselectLetter',
         'hide',
     ];

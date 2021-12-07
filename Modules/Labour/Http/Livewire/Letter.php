@@ -13,7 +13,7 @@ class Letter extends Component
     public int $user;
     public Collection $users;
 
-    public array $listeners = [
+    public $listeners = [
         'letterSelected',
         'userDeselected',
         'hide'

@@ -19,7 +19,7 @@ class QuoteTotalLine extends Component
     public float $dealer;
     public float $msrp;
 
-    public array $listeners = [
+    public $listeners = [
         'update_totals',
     ];
 

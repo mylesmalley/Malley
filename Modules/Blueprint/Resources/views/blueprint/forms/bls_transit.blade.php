@@ -131,21 +131,21 @@
 {{--            @endif--}}
 
 {{--            @if(  $configuration->contains('FTB-Z990-002') )--}}
-                <a class="list-group-item list-group-item-action"
-                   href="{{ route('blueprint.wizard', [ $blueprint, 13]) }}">
-                    <h4 class="text-primary">Attendant Seats (One stretcher patient transfer)</h4>
-                    <p>For patient transfer vans with two stretcher locations.</p>
-                </a>
-            <a class="list-group-item list-group-item-action"
-               href="{{ route('blueprint.wizard', [ $blueprint, 14]) }}">
-                <h4 class="text-primary">Attendant Seats (Two Stretcher Positions)</h4>
-                <p>For patient transfer vans with two stretcher locations.</p>
-            </a>
-            <a class="list-group-item list-group-item-action"
-               href="{{ route('blueprint.wizard', [ $blueprint, 15]) }}">
-                <h4 class="text-primary">Attendant Seats (Stretcher and wheelchair Or wheelchair-only)</h4>
-                <p>For patient transfer vans with two stretcher locations.</p>
-            </a>
+{{--                <a class="list-group-item list-group-item-action"--}}
+{{--                   href="{{ route('blueprint.wizard', [ $blueprint, 13]) }}">--}}
+{{--                    <h4 class="text-primary">Attendant Seats (One stretcher patient transfer)</h4>--}}
+{{--                    <p>For patient transfer vans with two stretcher locations.</p>--}}
+{{--                </a>--}}
+{{--            <a class="list-group-item list-group-item-action"--}}
+{{--               href="{{ route('blueprint.wizard', [ $blueprint, 14]) }}">--}}
+{{--                <h4 class="text-primary">Attendant Seats (Two Stretcher Positions)</h4>--}}
+{{--                <p>For patient transfer vans with two stretcher locations.</p>--}}
+{{--            </a>--}}
+{{--            <a class="list-group-item list-group-item-action"--}}
+{{--               href="{{ route('blueprint.wizard', [ $blueprint, 15]) }}">--}}
+{{--                <h4 class="text-primary">Attendant Seats (Stretcher and wheelchair Or wheelchair-only)</h4>--}}
+{{--                <p>For patient transfer vans with two stretcher locations.</p>--}}
+{{--            </a>--}}
 {{--            @endif--}}
 
 

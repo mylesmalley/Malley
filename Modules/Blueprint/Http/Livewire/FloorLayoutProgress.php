@@ -18,7 +18,7 @@ class FloorLayoutProgress extends Component
     public array $formatted_progress = [];
 
 
-    protected array $listeners = [
+    protected $listeners = [
         'update_floor_layout_progress'
     ];
 

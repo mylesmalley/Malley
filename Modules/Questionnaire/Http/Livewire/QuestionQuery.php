@@ -26,7 +26,7 @@ class QuestionQuery extends Component
 //        $this->wizard_id = null;
     }
 
-    protected array $listeners = [
+    protected $listeners = [
         "pickQuestion",
 //        'render',
         'pickQuestionById',

@@ -15,7 +15,7 @@ class QuoteBody extends Component
     public Collection $configurations;
     public bool $showAllOptions ;
 
-    public array $listeners = [
+    public $listeners = [
         'reload_quote_body' //=> '$refresh',
     ];
 

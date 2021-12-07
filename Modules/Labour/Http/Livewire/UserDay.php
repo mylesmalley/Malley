@@ -24,7 +24,7 @@ class UserDay extends Component
     public bool $adding_row_indicator;
 
 
-    public array $listeners = [
+    public $listeners = [
      //   'refreshLabour',
         'lockUserDay',
         'unlockUserDay',
