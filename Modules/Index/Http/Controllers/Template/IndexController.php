@@ -6,7 +6,7 @@ use App\Models\BaseVan;
 use App\Models\Template;
 use App\Models\Option;
 use App\Http\Controllers\Controller;
-use \Illuminate\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 
@@ -17,9 +17,9 @@ class IndexController extends Controller
      * Shows a list of all available layouts for a platform
      *
      * @param BaseVan $baseVan
-     * @return View
+     * @return Response
      */
-    public function index(BaseVan $baseVan): View
+    public function index(BaseVan $baseVan): Response
     {
         $templates = $baseVan
         ->templates()
@@ -28,21 +28,30 @@ class IndexController extends Controller
             'production_drawing' => 0 ] )
         ->get();
 
-        return view('index::index.templates.index', [
-            'basevan' => $baseVan,
-            'templates' => $templates,
-        ]);
+        return response()
+            ->view('index::index.templates.index', [
+                'basevan' => $baseVan,
+                'templates' => $templates,
+            ]);
     }
+
+
+
+
+
+
+
+
 
 
     /**
      * Shows a view listing active options on a given template.
      *
      * @param BaseVan $baseVan
-     * @param Layout $layout
-     * @return View
+     * @param Template $template
+     * @return Response
      */
-    public function options( BaseVan $baseVan, Template $template ): View
+    public function options( BaseVan $baseVan, Template $template ): Response
     {
      //   $template->with('options');
 
@@ -66,12 +75,13 @@ class IndexController extends Controller
             ->get();
 
 
-        return view('index::index.templates.options', [
-            'activeOptions' => $activeOptions,
-            'remainingOptions' => $remainingOptions,
-            'basevan' => $baseVan,
-            'template' => $template,
-        ]);
+        return response()
+            ->view('index::index.templates.options', [
+                'activeOptions' => $activeOptions,
+                'remainingOptions' => $remainingOptions,
+                'basevan' => $baseVan,
+                'template' => $template,
+            ]);
     }
 
 }
