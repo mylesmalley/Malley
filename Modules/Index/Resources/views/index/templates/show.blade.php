@@ -6,15 +6,19 @@
         <h1>
             {{ $basevan->name }}
         </h1>
-        <h2 class="text-secondary">{{ $template->name }}</h2>
+        @if( $template )
+            <h2 class="text-secondary">{{ $template->name }}</h2>
+        @else
+            <h2 class="text-secondary">New Template</h2>
+        @endif
     </div>
 
 
 
-    <form action="{{ url( '/basevan/'.$basevan->id.'/templates/'.$template->id ) }}" method="POST">
+    <form action="{{ route('platform.templates.create_or_edit', [$basevan]) }}" method="POST">
         {{ method_field("PATCH") }}
         {{ csrf_field() }}
-        <input type="hidden" value="{{ $template->id }}" name="id">
+        <input type="hidden" value="{{ $template->id ?? '' }}" name="id">
 
 
         <div class="row">
@@ -32,7 +36,7 @@
                                 <input type="text"
                                        id="name"
                                        class="form-control"
-                                       value="{{ old('title') ?? str_replace( '*','', $template->name ) }}"
+                                       value="{{ old('title') || isset($template) ? $template->name : '' }}"
                                        name="name">
                             </div>
                             <div class="col-md-12">
@@ -40,7 +44,7 @@
                                 <textarea name="template"
                                           class="form-control"
                                           id="template"
-                                          cols="30" rows="10">{{ old('template') ?? $template->template }}</textarea>
+                                          cols="30" rows="10">{{ old('template') || isset($template) ? $template->template : '' }}</textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -49,7 +53,7 @@
                                 <input type="number"
                                        id="order"
                                        class="form-control"
-                                       value="{{ old('order') ?? $template->order }}"
+                                       value="{{ old('order') || isset($template) ? $template->order : 1  }}"
                                        name="order">
                             </div>
 
@@ -58,10 +62,12 @@
                                 <select name="visibility" class="form-control" id="visibility">
                                     @foreach(['1'=>"Visible",'0'=>'Hidden'] as $k => $v)
                                         <option
-                                                @if ( $k === old('visibility') || $template->visibility === $k)
-                                                selected
-                                                @endif
-                                                value="{{ $k }}">{{ $v }}</option>
+                                            @if (
+    (isset( $template) && $template->visibility === $k) || old('visibility') === $k
+     )
+                                            selected
+                                            @endif
+                                            value="{{ $k }}">{{ $v }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -72,7 +78,11 @@
 
                                     @foreach(['1'=>"Yes",'0'=>'No'] as $k => $v)
                                         <option
-                                                @if ( $k === old('sales_drawing') || $template->sales_drawing === $k)
+                                                @if (
+        (isset( $template) && $template->sales_drawing === $k) || old('sales_drawing') === $k
+
+
+)
                                                 selected
                                                 @endif
                                                 value="{{ $k }}">{{ $v }}</option>
@@ -86,7 +96,11 @@
 
                                     @foreach(['1'=>"Yes",'0'=>'No'] as $k => $v)
                                         <option
-                                                @if ( $k == old('production_drawing') || $template->production_drawing == $k)
+                                                @if (
+        (isset( $template) && $template->production_drawing === $k) || old('production_drawing') === $k
+
+
+)
                                                 selected
                                                 @endif
                                                 value="{{ $k }}">{{ $v }}</option>
@@ -98,7 +112,10 @@
                                 <select name="pdf" class="form-control" id="visibility">
                                     @foreach([ '0'=>'No', '1'=>"Yes"] as $k => $v)
                                         <option
-                                                @if ( $k == old('pdf') || $template->pdf == $k)
+                                                @if (
+        (isset( $template) && $template->pdf === $k) || old('pdf') === $k
+
+)
                                                 selected
                                                 @endif
                                                 value="{{ $k }}">{{ $v }}</option>

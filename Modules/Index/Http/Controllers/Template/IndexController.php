@@ -36,25 +36,6 @@ class IndexController extends Controller
     }
 
 
-    /**
-     * @param BaseVan $baseVan
-     * @param Template $template
-     * @return Response
-     */
-    public function show( BaseVan $baseVan, Template $template ): Response
-    {
-        return response()
-            ->view('index::index.templates.show',[
-                'basevan' => $baseVan,
-                'template' => $template,
-            ]);
-    }
-
-
-
-
-
-
 
     /**
      * Shows a view listing active options on a given template.

@@ -8,8 +8,9 @@ use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
 use Modules\Index\Http\Controllers\Index\ComponentListController;
 use Modules\Index\Http\Controllers\Index\PricingController;
 use Modules\Index\Http\Controllers\Index\WizardController;
-use Modules\Index\Http\Controllers\Option\RevisionController;
 use Modules\Index\Http\Controllers\Option\WizardImageController;
+use Modules\Index\Http\Controllers\Template\CreateAndEditController;
+use Modules\Index\Http\Controllers\Template\IndexController;
 
 
 Route::group(["prefix" => "index"], function(){
@@ -79,14 +80,21 @@ Route::group(["prefix" => "index"], function(){
 
 
         // TEMPLATES rev 2
-        Route::get('/templates', "Template\IndexController@index");
+
+
+
+        Route::get('/templates/{template?}', [CreateAndEditController::class, "form"])
+            ->name('platform.templates.create_or_edit');
+
+        Route::post('/templates', [CreateAndEditController::class, "store"])
+            ->name('platform.templates.store');
+
+        Route::get('/templates', [IndexController::class, "index"])
+            ->name('platform.templates.index');
+
         Route::get('/templates/{template}/options', "Template\IndexController@options");
-        Route::get('/templates/{template}', "Template\IndexController@show");
-        Route::post('/templates/{template}', "Template\OptionController@add");
-        Route::delete('/templates/{template}', "Template\OptionController@remove");
-
-
-
+        //   Route::post('/templates/{template}', "Template\OptionController@add");
+//        Route::delete('/templates/{template}', "Template\OptionController@remove");
 
 
 
