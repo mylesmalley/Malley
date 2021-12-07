@@ -4,9 +4,9 @@ namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-use Illuminate\Bus\Batch;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Bus;
@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 use Modules\Blueprint\Jobs\CreateDrawingPackage;
 use Modules\Blueprint\Jobs\EmailDrawingPackage;
 use Modules\Blueprint\Jobs\ProcessDrawing;
-use Modules\Blueprint\Jobs\UpgradeBlueprint;
 use Throwable;
 
 
@@ -64,15 +63,12 @@ class DrawingController extends Controller
                         new EmailDrawingPackage( $blueprint, $user ),
                     ])->dispatch();
                 })
-                ->catch(function (Batch $batch, Throwable $e) {
+                ->catch(function () {
                     // First batch job failure detected...
                     Log::debug("Image processing batch failed");
-
-                    Bugsnag::notifyException($e);
                 })
-                ->finally(function (Batch $batch) {
+                ->finally(function () {
                     Log::info("Drawing package assembled and dispatched");
-
                     // The batch has finished executing...
                 })->dispatch();
 
@@ -94,5 +90,7 @@ class DrawingController extends Controller
             ->with('success','Your drawings will be emailed to you shortly.');
 
     }
+
+
 
 }

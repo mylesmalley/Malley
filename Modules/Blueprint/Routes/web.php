@@ -116,6 +116,9 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                     ->name('blueprint.custom_layout.change');
 
 
+                Route::post('/custom_layout/{name}', [CustomLayoutController::class, 'store_drawing'])
+                    ->name('blueprint.custom_layout.store_drawing');
+
                 // committing staged options to the blueprint configuration.
 //                Route::post('/floor_layout', [FloorLayoutController::class, 'store'])
 //                    ->name('blueprint.floor_layout.store');

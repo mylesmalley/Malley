@@ -175,6 +175,22 @@
                 Livewire.emit('update_floor_layout_progress');
             });
 
+            fetch('{{ route('blueprint.custom_layout.store_drawing', [$blueprint, $layout->name ]) }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image: stage.toDataURL(),
+                    name: "{{ $layout->name  }}",
+                    '_token': document.head.querySelector('meta[name="csrf-token"]').content
+                }),
+            }).then(function(response) {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            });
+
 
             // fire off livewire event to update progress box
 

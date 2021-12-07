@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\InvalidBase64Data;
 
 
 class CustomLayoutController extends Controller
@@ -181,6 +185,30 @@ class CustomLayoutController extends Controller
         return response()->json([
             'message' => 'Success'
         ]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Blueprint $blueprint
+     * @param string $location_name
+     * @return Response
+     */
+    public function store_drawing( Request $request, Blueprint $blueprint, string $location_name ): Response
+    {
+        try{
+            $blueprint->addMediaFromBase64( $request->input('image') )
+            ->usingName( $request->input('name') )
+            ->usingFileName( $request->input('name') .'.png' )
+            ->toMediaCollection('images', 's3');
+
+        }
+        catch ( FileCannotBeAdded | FileDoesNotExist | FileIsTooBig | InvalidBase64Data $e )
+        {
+            Log::error("Failed to generate new copy of ". $request->input('name'), $e->getMessage() );
+        }
+
+        return response("Saved $location_name", 200);
     }
 
 }
