@@ -3,11 +3,11 @@
 
 namespace Modules\Labour\Models;
 
-//use App\Models\BaseModel;
 use App\Models\Labour;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\ArrayShape;
 
 
 class UserDay
@@ -16,6 +16,11 @@ class UserDay
     public Collection $labour;
     public Carbon $date;
 
+
+    /**
+     * @param User $user
+     * @param Carbon|null $date
+     */
     public function __construct( User $user, Carbon $date = null )
     {
         $this->user = $user;
@@ -29,7 +34,14 @@ class UserDay
             ->get();
     }
 
-    public static function get( int $user_id, string $date ): array
+
+    /**
+     * @param int $user_id
+     * @param string $date
+     * @return array
+     */
+    #[ArrayShape(['user' => "array", 'labour' => "array", 'date' => "mixed", 'dayName' => "mixed", 'monthDay' => "mixed"])]
+    public static function get(int $user_id, string $date ): array
     {
         $user = User::find( $user_id );
         $date = Carbon::create($date, 'America/Moncton' );
@@ -44,12 +56,14 @@ class UserDay
 
         foreach( $rawLabour as $lab )
         {
+
             $labour[] = [
                 'id' => $lab->id,
                 'user_id' => $lab->user_id ?? 1,
                 'job' => $lab->job,
                 'start' => $lab->start->format('g:i A'),
                 'end' => ($lab->end) ?  $lab->end->format('g:i A') : null,
+                'elapsed' => $lab->elapsed->forHumans(),
                 'department' => $lab->department->name ?? 'Not Set',
                 'flagged' => $lab->flagged,
                 'posted' => $lab->posted,

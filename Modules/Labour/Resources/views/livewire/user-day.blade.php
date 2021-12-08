@@ -1,6 +1,4 @@
-<div
-{{--    wire:key="{{ $user->id }}-{{ $date }}"--}}
->
+<div>
 
     <div class="card border-secondary">
         <div class="card-header bg-secondary text-white">
@@ -58,11 +56,11 @@
                                 @endif
                             </td>
 
-                        <td></td>
+                        <td>- {{ $lab->elapsed }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center"> No labour on this date</td>
+                        <td colspan="6" class="text-center"> No labour on this date?</td>
                     </tr>
                 @endforelse
 {{--                @if ( $adding_row_indicator )--}}

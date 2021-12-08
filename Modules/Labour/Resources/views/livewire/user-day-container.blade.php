@@ -59,7 +59,7 @@
                             @endif
                         </td>
 
-                        <td></td>
+                        <td>{{ $lab['elapsed'] }}</td>
                     </tr>
                 @empty
                     <tr>
