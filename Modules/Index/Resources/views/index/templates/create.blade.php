@@ -58,11 +58,7 @@
                                 <label for="visibility">Visibility</label>
                                 <select name="visibility" class="form-control" id="visibility">
                                     @foreach(['1'=>"Visible",'0'=>'Hidden'] as $k => $v)
-                                        <option
-                                            @if ( old('visibility') && old('visibility') === $k)
-                                            selected
-                                            @endif
-                                            value="{{ $k }}">{{ $v }}</option>
+                                        <option  {{ old('visibility') == $k ? 'selected' : '' }} value="{{ $k }}">{{ $v }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -72,11 +68,8 @@
                                 <select name="sales_drawing"  class="form-control"  id="sales_drawing">
 
                                     @foreach(['1'=>"Yes",'0'=>'No'] as $k => $v)
-                                        <option
-                                                @if ( old('sales_drawing') && old('sales_drawing') === $k)
-                                                selected
-                                                @endif
-                                                value="{{ $k }}">{{ $v }}</option>
+                                        <option  {{ old('sales_drawing') == $k ? 'selected' : '' }} value="{{ $k }}">{{ $v }}</option>
+
                                     @endforeach
                                 </select>
                             </div>
@@ -86,12 +79,8 @@
                                 <select name="production_drawing"  class="form-control"  id="production_drawing">
 
                                     @foreach(['1'=>"Yes",'0'=>'No'] as $k => $v)
-                                        <option
-                                                @if ( old('production_drawing') && old('production_drawing') === $k)
+                                        <option  {{ old('production_drawing') == $k ? 'selected' : '' }} value="{{ $k }}">{{ $v }}</option>
 
-                                                selected
-                                                @endif
-                                                value="{{ $k }}">{{ $v }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -99,12 +88,8 @@
                                 <label for="pdf">PDF</label>
                                 <select name="pdf" class="form-control" id="visibility">
                                     @foreach([ '0'=>'No', '1'=>"Yes"] as $k => $v)
-                                        <option
-                                                @if ( old('pdf') && old('pdf') === $k)
+                                        <option  {{ old('pdf') == $k ? 'selected' : '' }} value="{{ $k }}">{{ $v }}</option>
 
-                                                selected
-                                                @endif
-                                                value="{{ $k }}">{{ $v }}</option>
                                     @endforeach
                                 </select>
                             </div>

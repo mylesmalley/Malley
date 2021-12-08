@@ -48,7 +48,14 @@ class CreateAndEditController extends Controller
     public function store( BaseVan $baseVan, Request $request ): RedirectResponse
     {
         $request->validate([
+            'id' => 'sometimes|int',
             'title' => 'required|string',
+            'template' => 'required|string',
+            'order' => 'required|int',
+            'visibility' => 'required|int',
+            'sales_drawing' => 'required|int',
+            'production_drawing' => 'required|int',
+            'pdf' =>    'required|int',
         ]);
 
         Template::updateOrCreate( $request->all() );
