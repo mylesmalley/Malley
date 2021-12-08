@@ -157,7 +157,18 @@
 
 
 
+    <script>
+        document.querySelector('textarea').addEventListener('keydown', e => {
+            if ( e.key === 'Tab' && !e.shiftKey ) {
+                // execCommand operations are "Cmd|Ctrl+Z"-able
+                // note: execCommand is deprecated and may not work in the future
+                document.execCommand('insertText', false, "\t");
+                e.preventDefault();
+                return false;
+            }
+        });
 
+    </script>
 
 
 {{--        <p> Make sure you save this form before leaving the page.</p>--}}
@@ -197,3 +208,5 @@
 {{--    <br /> <br />--}}
 
 @endsection
+
+
