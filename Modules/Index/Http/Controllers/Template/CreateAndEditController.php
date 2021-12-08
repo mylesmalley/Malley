@@ -49,16 +49,27 @@ class CreateAndEditController extends Controller
     {
         $request->validate([
             'id' => 'sometimes|int',
-            'title' => 'required|string',
+            'name' => 'required|string',
             'template' => 'required|string',
             'order' => 'required|int',
+            'base_van' => 'required|int',
             'visibility' => 'required|int',
             'sales_drawing' => 'required|int',
             'production_drawing' => 'required|int',
             'pdf' =>    'required|int',
         ]);
 
-        Template::updateOrCreate( $request->all() );
+        if ( $request->has('id'))
+        {
+            Template::find( $request->input('id'))->update(
+                $request->except('id')
+            );
+        }
+        else
+        {
+            Template::create( $request->except('id'));
+        }
+
 
         return redirect()
             ->route('platform.templates.index', [$baseVan]);

@@ -15,8 +15,10 @@
 
 
     <form action="{{ route('platform.templates.store', [$basevan]) }}" method="POST">
-        {{ method_field("PATCH") }}
         {{ csrf_field() }}
+        <input type="hidden" value="{{ $basevan->id }}"
+               id="base_van"
+               name="base_van">
 
         <div class="row">
             <div class="col-12">
@@ -33,7 +35,7 @@
                                 <input type="text"
                                        id="name"
                                        class="form-control"
-                                       value="{{ old('title') }}"
+                                       value="{{ old('name') }}"
                                        name="name">
                             </div>
                             <div class="col-md-12">

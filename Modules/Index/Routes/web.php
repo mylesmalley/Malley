@@ -94,7 +94,7 @@ Route::group(["prefix" => "index"], function(){
 
             Route::get('/{template}/options', "Template\IndexController@options");
 
-            Route::patch('/', [CreateAndEditController::class, "store"])
+            Route::post('/', [CreateAndEditController::class, "store"])
                 ->name('platform.templates.store');
 
             Route::get('/', [IndexController::class, "index"])
