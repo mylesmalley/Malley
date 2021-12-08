@@ -2,12 +2,14 @@
 
 namespace Modules\Labour\Http\Livewire;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Labour;
-use Illuminate\View\View;
 
 class SysproJobs extends Component
 {
@@ -114,9 +116,9 @@ class SysproJobs extends Component
 
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): View|Factory|Application
     {
         return view('labour::livewire.syspro-jobs');
     }

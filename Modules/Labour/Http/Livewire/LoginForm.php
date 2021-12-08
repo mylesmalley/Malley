@@ -3,8 +3,10 @@
 namespace Modules\Labour\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Illuminate\View\View;
 
 class LoginForm extends Component
 {
@@ -53,9 +55,9 @@ class LoginForm extends Component
     }
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): View|Factory|Application
     {
         return view("labour::livewire.login-form");
     }

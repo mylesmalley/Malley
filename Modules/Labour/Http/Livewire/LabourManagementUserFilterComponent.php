@@ -4,9 +4,11 @@ namespace Modules\Labour\Http\Livewire;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Illuminate\View\View;
 use App\Models\User;
 
 
@@ -141,9 +143,9 @@ class LabourManagementUserFilterComponent extends Component
 
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): View|Factory|Application
     {
         return view('labour::management.user_filter');
     }

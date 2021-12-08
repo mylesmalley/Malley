@@ -4,8 +4,11 @@ namespace Modules\Labour\Http\Livewire;
 
 use App\Models\Labour;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Illuminate\View\View;
+
 
 class LabourEditComponent extends Component
 {
@@ -153,9 +156,9 @@ class LabourEditComponent extends Component
 
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): View|Factory|Application
     {
         return view('labour::livewire.labour-edit-component');
     }

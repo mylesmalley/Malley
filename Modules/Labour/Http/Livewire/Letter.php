@@ -2,10 +2,12 @@
 
 namespace Modules\Labour\Http\Livewire;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use App\Models\User;
-use Illuminate\View\View;
 
 class Letter extends Component
 {
@@ -87,9 +89,9 @@ class Letter extends Component
 
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): View|Factory|Application
     {
         return view("labour::livewire.letter");
     }

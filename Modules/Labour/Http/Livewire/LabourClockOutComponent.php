@@ -3,8 +3,10 @@
 namespace Modules\Labour\Http\Livewire;
 
 use App\Models\Labour;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Illuminate\View\View;
 
 class LabourClockOutComponent extends Component
 {
@@ -65,9 +67,9 @@ class LabourClockOutComponent extends Component
 
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): View|Factory|Application
     {
         return view('labour::livewire.labour-clock-out-component');
     }
