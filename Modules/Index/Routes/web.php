@@ -2,15 +2,16 @@
 
 
 use Illuminate\Support\Facades\Route;
-use \Modules\Index\Http\Controllers\Component\ComponentController;
-use \Modules\Index\Http\Controllers\Component\HomeController;
-use \Modules\Index\Http\Controllers\Component\ImportPhantomController;
+use Modules\Index\Http\Controllers\Component\ComponentController;
+use Modules\Index\Http\Controllers\Component\HomeController;
+use Modules\Index\Http\Controllers\Component\ImportPhantomController;
 use Modules\Index\Http\Controllers\Index\ComponentListController;
 use Modules\Index\Http\Controllers\Index\PricingController;
 use Modules\Index\Http\Controllers\Index\WizardController;
 use Modules\Index\Http\Controllers\Option\WizardImageController;
 use Modules\Index\Http\Controllers\Template\CreateAndEditController;
 use Modules\Index\Http\Controllers\Template\IndexController;
+use Modules\Index\Http\Controllers\Template\OptionController;
 
 
 Route::group(["prefix" => "index"], function(){
@@ -86,13 +87,12 @@ Route::group(["prefix" => "index"], function(){
          */
         Route::group(['prefix' => 'templates'], function () {
 
+            // template listing, creation and addition
             Route::get('/create', [CreateAndEditController::class, "create"])
                 ->name('platform.templates.create');
 
             Route::get('/{template}', [CreateAndEditController::class, "edit"])
                 ->name('platform.templates.edit');
-
-            Route::get('/{template}/options', "Template\IndexController@options");
 
             Route::post('/', [CreateAndEditController::class, "store"])
                 ->name('platform.templates.store');
@@ -100,10 +100,17 @@ Route::group(["prefix" => "index"], function(){
             Route::get('/', [IndexController::class, "index"])
                 ->name('platform.templates.index');
 
+            // template options
+            Route::get('/{template}/options', [ OptionController::class, 'options'])
+                ->name('platform.template.options');
+
+            Route::delete('/{template}/options', [ OptionController::class, 'remove'])
+                ->name('platform.template.option.delete');
+
+            Route::post('/{template}/options', [ OptionController::class, 'add'])
+                ->name('platform.template.option.add');
+
         });
-
-
-
     });
 
 
@@ -243,9 +250,6 @@ Route::group(["prefix" => "index"], function(){
         Route::post('/{option}/tag/{tag}',    "Option\TagController@create");
 
 
-        Route::get('/{option}/templates',    "Option\TemplateController@optionTemplates");
-        Route::delete('/{option}/templates/{template}',    "Option\TemplateController@remove");
-        Route::post('/{option}/templates/{template}',    "Option\TemplateController@add");
 
 
         // usage of this option in Blueprint

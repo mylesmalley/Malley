@@ -40,12 +40,12 @@
                     @foreach( $activeOptions as $option )
                         <tr>
                             <td>{{ $option->id }}</td>
-                            <td><a href="{{ url('index/option/'.$option->id.'/home') }}">{{ $option->option_name }} r{{  $option->revision  }}</a></td>
+                            <td><a href="{{ route('option.home', [ $option ] ) }}">{{ $option->option_name }} r{{  $option->revision  }}</a></td>
                             <td>{{ $option->option_description }}</td>
                             <td>{{ !$option->obsolete ? "Current" : "Obsolete" }}</td>
                             <td>
                                 <form
-                                        action="{{ url('index/basevan/'.$basevan->id.'/templates/'.$template->id ) }}"
+                                        action="{{ route('platform.template.option.delete', [$basevan, $template]) }}"
                                         method="POST"
                                 >
                                     {{ csrf_field() }}
@@ -88,12 +88,13 @@
                     @foreach( $remainingOptions as $option )
                         <tr>
                             <td>{{ $option->id }}</td>
-                            <td><a href="{{ url('index/option/'.$option->id.'/home') }}">{{ $option->option_name }} r{{  $option->revision  }}</a></td>
+                            <td><a href="{{ route('option.home', [ $option ] ) }}"
+                                >{{ $option->option_name }} r{{  $option->revision  }}</a></td>
                             <td>{{ $option->option_description }}</td>
                             <td>{{ !$option->obsolete ? "Current" : "Obsolete" }}</td>
                             <td>
                                 <form
-                                        action="{{ url('index/basevan/'.$basevan->id.'/templates/'.$template->id ) }}"
+                                        action="{{ route('platform.template.option.add', [$basevan, $template]) }}"
                                         method="POST" >
                                     {{ csrf_field() }}
                                     <input type="hidden" name="option_id" value="{{ $option->id }}" >
