@@ -1,9 +1,8 @@
-<?php
+<?php /** @noinspection PhpMissingFieldTypeInspection */
 
 namespace Modules\Labour\Http\Livewire;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Labour;

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpMissingFieldTypeInspection */
 
 namespace Modules\Labour\Http\Livewire;
 
@@ -26,7 +26,10 @@ class UserDayContainer extends Component
     ];
 
 
-    public function loadData( array $eventPayload = null )
+    /**
+     * @param array|null $eventPayload
+     */
+    public function loadData( array $eventPayload = null ): void
     {
         $this->payload = $eventPayload ?? $this->payload;
 
@@ -65,7 +68,10 @@ class UserDayContainer extends Component
     }
 
 
-    public function clockOutRow( int $labour_id, ): void
+    /**
+     * @param int $labour_id
+     */
+    public function clockOutRow( int $labour_id ): void
     {
         $this->lockUserDay();
         $this->selectedRow = $labour_id;
@@ -74,6 +80,9 @@ class UserDayContainer extends Component
         ]);
     }
 
+    /**
+     * @param int $labour_id
+     */
     public function editRow( int $labour_id ): void
     {
         $this->lockUserDay();
@@ -83,6 +92,11 @@ class UserDayContainer extends Component
         ]);
     }
 
+
+    /**
+     * @param string $date
+     * @param int $user_id
+     */
     public function addRow( string $date, int $user_id  ): void
     {
         $this->lockUserDay();

@@ -1,14 +1,13 @@
-<?php
+<?php /** @noinspection PhpMissingFieldTypeInspection */
 
 namespace Modules\Labour\Http\Livewire;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Livewire\Component;
 use Illuminate\View\View;
-use Modules\Labour\Models\UserDay as UD;
 use App\Models\User;
 use App\Models\Labour;
+
 
 class LabourAddComponent extends Component
 {
