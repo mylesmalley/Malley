@@ -70,14 +70,14 @@ class LabourEditComponent extends Component
 
         $start = Carbon::parse( $this->labour->start );
 
+        $this->start_hours = $start->format('g');
         $this->start_minutes = $start->format('i');
-        $this->start_hours = $start->format('H');
         $this->start_ampm = $start->format('A');
 
         $end = Carbon::parse( $this->labour->end );
 
+        $this->end_hours = $end->format('g');
         $this->end_minutes = $end->format('i');
-        $this->end_hours = $end->format('H');
         $this->end_ampm = $end->format('A');
 
         $this->department_id = $this->labour->department_id;

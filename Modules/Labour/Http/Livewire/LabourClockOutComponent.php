@@ -1,14 +1,10 @@
-<?php
+<?php /** @noinspection PhpMissingFieldTypeInspection */
 
 namespace Modules\Labour\Http\Livewire;
 
-use Carbon\Carbon;
 use App\Models\Labour;
-use Illuminate\Support\Collection;
 use Livewire\Component;
 use Illuminate\View\View;
-use Modules\Labour\Models\UserDay as UD;
-use App\Models\User;
 
 class LabourClockOutComponent extends Component
 {
@@ -16,6 +12,9 @@ class LabourClockOutComponent extends Component
     public int $labour_id;
     public Labour $labour;
 
+    /**
+     * @var string[]
+     */
     public $listeners = [
         'clockOutLabourRecord',
         'deselectLabourRecord',
@@ -39,17 +38,14 @@ class LabourClockOutComponent extends Component
 
     public function clockOutLabourRecord( array $payload )
     {
-        $this->labour_id = $payload['id'];
-        $this->labour = Labour::find( $payload['id'] );
+        $this->labour_id = $payload['labour_id'];
+        $this->labour = Labour::find( $payload['labour_id'] );
     }
 
 
     public function clock_out()
     {
-        if ( $this->labour )
-        {
-            $this->labour->finish();
-        }
+        $this->labour?->finish();
 
         $this->emit('unlockUserDay'); // tell all the user day components to update themselves
 
