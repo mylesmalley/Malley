@@ -111,7 +111,49 @@
         </div>
     </form>
 
+    <br><br>
 
+    <div class="row">
+        <div class="col-6">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">Instructions</div>
+                <div class="card-body">
+                    <p> Make sure you save this form before leaving the page.</p>
+                    <p> Paste <b>@OPTIONS@</b> wherever you want the list of options placed. For Sales docs, we show an unordered html list. Production drawings show tables with parts.</p>
+                    <p> To include an image, use this format: <b>&lt;img src="@URL@imagename.png" alt="Image Title" /&gt;</b></p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-6">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    Options That Appear Here
+                </div>
+                <div class="card-body">
+                    <ul>
+                        @forelse($template->options as $opt)
+                            <li>
+                                <a href="{{ route('option.home', [$opt->id]) }}">
+                                    {{ $opt->option_name }} - {{ $opt->option_description }}
+                                </a>
+                            </li>
+                        @empty
+                            <li>No options added yet....</li>
+                        @endforelse
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <br>
 
 
 

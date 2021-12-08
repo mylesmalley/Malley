@@ -19,10 +19,13 @@ class CreateAndEditController extends Controller
      */
     public function edit( BaseVan $baseVan, Template $template ): Response
     {
+        $template->load('options');
+
         return response()
             ->view('index::index.templates.edit',[
                 'basevan' => $baseVan,
                 'template' => $template,
+                'options' => $template->options,
             ]);
     }
 

@@ -110,15 +110,45 @@
     </form>
 
 
+    <br>
 
 
 
+    <div class="row">
+        <div class="col-6">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">Instructions</div>
+                <div class="card-body">
+                    <p> Make sure you save this form before leaving the page.</p>
+                    <p> Paste <b>@OPTIONS@</b> wherever you want the list of options placed. For Sales docs, we show an unordered html list. Production drawings show tables with parts.</p>
+                    <p> To include an image, use this format: <b>&lt;img src="@URL@imagename.png" alt="Image Title" /&gt;</b></p>
+                </div>
+            </div>
+        </div>
 
 
 
-{{--        <p> Make sure you save this form before leaving the page.</p>--}}
-{{--        <p> Paste <b>@OPTIONS@</b> wherever you want the list of options placed. For Sales docs, we show an unordered html list. Production drawings show tables with parts.</p>--}}
-{{--        <p> To include an image, use this format: <b>&lt;img src="@URL@imagename.png" alt="Image Title" /&gt;</b></p>--}}
+        <div class="col-6">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    Options That Appear Here
+                </div>
+                <div class="card-body">
+
+                    Save this template and then edit it to add options.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <br>
+
+
+
 
 
 {{--        <input type="submit" class="btn btn-primary">--}}
