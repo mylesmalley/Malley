@@ -23,7 +23,12 @@
                 </div>
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action"
-                       href="{{ route('blueprint.drawings.generate', [$blueprint]) }}">Get Drawing Package</a>
+                       href="{{ route('blueprint.drawings.generate', [$blueprint]) }}">Email Me Drawing Package</a>
+                </div>
+                <div class="card-footer text-center">
+                    <small>
+                        If you request a drawing package before completing all the forms, you may have missing images.
+                    </small>
                 </div>
             </div>
         </div>
@@ -37,6 +42,11 @@
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action"
                        href="{{ route('blueprint.quote', [$blueprint]) }}">Quote This Blueprint</a>
+                </div>
+                <div class="card-footer text-center">
+                    <small>
+                        As you select options in the forms on the right, they will appear on the quote.
+                    </small>
                 </div>
             </div>
         </div>
@@ -68,7 +78,11 @@
                 @if( $blueprint->base_van_id == 31 )
                     @includeIf('blueprint::blueprint.forms.bls_transit')
                 @endif
-
+                <div class="card-footer text-center">
+                    <small>
+                        As you configure this van, forms will be added to this list.
+                    </small>
+                </div>
             </div>
         </div>
     </div>

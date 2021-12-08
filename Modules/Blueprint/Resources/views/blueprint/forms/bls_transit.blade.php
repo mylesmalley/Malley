@@ -8,9 +8,6 @@
             <h4 class="text-primary">Chassis</h4>
             <p>Wheelbase, roof height, and style of vehicle.</p>
         </a>
-        <div class="list-group-item list-group-item-secondary">
-            As you configure this van, more forms will appear here.
-        </div>
 
     @else
         <div class="list-group-item list-group-item-success">
