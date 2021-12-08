@@ -17,10 +17,6 @@
     @includeIf('index::index.partials.tabs', ['selected' => 'templates'])
 
 
-
-    <script>
-
-    </script>
     <table class="table table-striped table-hover table-sm">
         <thead>
         <tr>
@@ -44,12 +40,16 @@
 
                     <a
                             class="btn btn-sm btn-warning"
-                            href="{{ url("/index/basevan/{$basevan->id}/templates/{$template->id}") }}">Edit Template</a>
+                            href="{{ route('platform.templates.edit', [$basevan, $template ]) }}">Edit Template</a>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+
+        <div class="card-footer text-end">
+            <a href="{{ route('platform.templates.create', [$basevan]) }}" class="btn btn-success">Create Template</a>
+        </div>
 
     </div>
 

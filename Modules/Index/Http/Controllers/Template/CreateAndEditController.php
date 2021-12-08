@@ -14,18 +14,28 @@ class CreateAndEditController extends Controller
 
     /**
      * @param BaseVan $baseVan
-     * @param Template|null $template
+     * @param Template $template
      * @return Response
      */
-    public function form( BaseVan $baseVan, Template $template = null ): Response
+    public function edit( BaseVan $baseVan, Template $template ): Response
     {
-
-
-
         return response()
-            ->view('index::index.templates.show',[
+            ->view('index::index.templates.edit',[
                 'basevan' => $baseVan,
                 'template' => $template,
+            ]);
+    }
+
+
+    /**
+     * @param BaseVan $baseVan
+     * @return Response
+     */
+    public function create( BaseVan $baseVan ): Response
+    {
+        return response()
+            ->view('index::index.templates.create',[
+                'basevan' => $baseVan,
             ]);
     }
 
@@ -38,7 +48,7 @@ class CreateAndEditController extends Controller
     public function store( BaseVan $baseVan, Request $request ): RedirectResponse
     {
         $request->validate([
-
+            'title' => 'required|string',
         ]);
 
         Template::updateOrCreate( $request->all() );

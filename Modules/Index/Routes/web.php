@@ -79,25 +79,28 @@ Route::group(["prefix" => "index"], function(){
         Route::delete('/layouts/{layout}', "Layout\OptionController@remove");
 
 
-        // TEMPLATES rev 2
 
 
+        /**
+         *  TEMPLATES TEMPLATES TEMPLATES
+         */
+        Route::group(['prefix' => 'templates'], function () {
 
-        Route::get('/templates/{template?}', [CreateAndEditController::class, "form"])
-            ->name('platform.templates.create_or_edit');
+            Route::get('/create', [CreateAndEditController::class, "create"])
+                ->name('platform.templates.create');
 
-        Route::post('/templates', [CreateAndEditController::class, "store"])
-            ->name('platform.templates.store');
+            Route::get('/{template}', [CreateAndEditController::class, "edit"])
+                ->name('platform.templates.edit');
 
-        Route::get('/templates', [IndexController::class, "index"])
-            ->name('platform.templates.index');
+            Route::get('/{template}/options', "Template\IndexController@options");
 
-        Route::get('/templates/{template}/options', "Template\IndexController@options");
-        //   Route::post('/templates/{template}', "Template\OptionController@add");
-//        Route::delete('/templates/{template}', "Template\OptionController@remove");
+            Route::patch('/', [CreateAndEditController::class, "store"])
+                ->name('platform.templates.store');
 
+            Route::get('/', [IndexController::class, "index"])
+                ->name('platform.templates.index');
 
-
+        });
 
 
 
