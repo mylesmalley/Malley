@@ -25,7 +25,7 @@
                                     <th>Date</th>
                                     <th>Started</th>
                                     <th>Stopped</th>
-                                    <th>Flag Issue?</th>
+{{--                                    <th>Flag Issue?</th>--}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,23 +42,23 @@
                                             @endif
 
                                         </td>
-                                        <td>
+{{--                                        <td>--}}
 
-                                            @if ( $history->end && !$history->posted )
-                                                <form action="{{ route('labour.flag') }}" method="POST">
-                                                    @method('PATCH')
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $history->id }}">
-                                                        @if (  $history->flagged )
-                                                            <input type="image" src="{{ mix('img/on-flag.png') }}" alt="flag" width="20">
-                                                        @else
-                                                            <input type="image" src="{{ mix('img/off-flag.png') }}" alt="flag" width="20">
-                                                        @endif
+{{--                                            @if ( $history->end && !$history->posted )--}}
+{{--                                                <form action="{{ route('labour.flag') }}" method="POST">--}}
+{{--                                                    @method('PATCH')--}}
+{{--                                                    @csrf--}}
+{{--                                                    <input type="hidden" name="id" value="{{ $history->id }}">--}}
+{{--                                                        @if (  $history->flagged )--}}
+{{--                                                            <input type="image" src="{{ mix('img/on-flag.png') }}" alt="flag" width="20">--}}
+{{--                                                        @else--}}
+{{--                                                            <input type="image" src="{{ mix('img/off-flag.png') }}" alt="flag" width="20">--}}
+{{--                                                        @endif--}}
 
-                                                </form>
-                                            @endif
+{{--                                                </form>--}}
+{{--                                            @endif--}}
 
-                                        </td>
+{{--                                        </td>--}}
                                     </tr>
                                     @empty
                                     <tr>
