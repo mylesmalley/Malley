@@ -32,19 +32,27 @@
                 @forelse( $ud['labour'] as $lab )
 
                     <tr
-                        @if ( !$locked )
-                        @if ( ! $lab['end'] )
-                        wire:click="clockOutRow({{ $lab['id'] }})"
-                        @else
-                        wire:click="editRow({{  $lab['id'] }})"
-                        @endif
-                        {{--                        @else--}}
-                        {{--                            wire:click="$emit('null')"--}}
-                        @endif
+{{--                        @if ( $locked )--}}
+{{--                            wire:click=""--}}
+{{--                            @if ( ! $lab['end'] )--}}
+{{--                                wire:click="$emit('cancel');clockOutRow({{ $lab['id'] }})"--}}
+{{--                            @else--}}
+{{--                                wire:click="$emit('cancel');editRow({{  $lab['id'] }})"--}}
+{{--                            @endif--}}
+{{--                        @else--}}
+                            @if ( ! $lab['end'] )
+                                wire:click="clockOutRow({{ $lab['id'] }})"
+                            @else
+                                wire:click="editRow({{  $lab['id'] }})"
+                            @endif
+
+{{--                        @endif--}}
                         class="
                         {{  $lab['id'] === $selectedRow ? 'table-info' : '' }}
                         {{  $lab['flagged'] ? 'table-warning' : '' }}
-                            "
+{{--                            {{ $locked ? 'table-dark' : '' }}--}}
+
+                                    "
                     >
 
                         <td>{{ $lab['job'] }}</td>

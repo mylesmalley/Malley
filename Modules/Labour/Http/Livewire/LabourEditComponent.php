@@ -65,6 +65,11 @@ class LabourEditComponent extends Component
      */
     public function editLabourRecord( array $payload )
     {
+
+        unset( $this->labour_id );
+        unset( $this->labour );
+
+
         $this->labour_id = $payload['id'];
         $this->labour = Labour::find( $payload['id'] );
 
