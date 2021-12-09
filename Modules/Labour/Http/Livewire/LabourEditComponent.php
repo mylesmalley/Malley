@@ -113,6 +113,7 @@ class LabourEditComponent extends Component
             'department_id' => $this->department_id,
             'start' =>  $newStart->toIso8601String(),
             'end' => $newEnd->toIso8601String(),
+            'flagged' => false, // if you are saving it, it shouldn't be flagged as a problem anymore
             'job' => $this->job,
         ]);
 
