@@ -5,16 +5,15 @@ namespace Modules\Vehicles\Http\Controllers\Reporting;
 use App\Http\Controllers\Controller;
 use App\Models\VehicleDate;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use GuzzleHttp\Client;
+use Illuminate\Http\Response;
 use Modules\Vehicles\Jobs\FordMilestoneUpdate;
 
 class PendingFordMilestoneNotificationsReport extends Controller
 {
     /**
-     * @return View
+     * @return Response
      */
-    public function view(  ): View
+    public function view(  ): Response
     {
         $pending = VehicleDate::where('update_ford', '=', true)
             ->where('submitted_to_ford', '=', false)
@@ -22,7 +21,8 @@ class PendingFordMilestoneNotificationsReport extends Controller
             ->with('vehicle')
             ->get();
 
-        return view('vehicles::reports.pending_ford_milestones_report', [
+        return response()
+            ->view('vehicles::reports.pending_ford_milestones_report', [
             'pending' => $pending,
         ]);
     }

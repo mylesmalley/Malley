@@ -7,15 +7,21 @@ use App\Models\Vehicle;
 use App\Models\VehicleDate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class FordMilestoneComplianceReport extends Controller
 {
     /**
-     * @return View
+     * Vehicles added to the database on or after 2021-06-01
+        that have a VIN assigned to them
+        that have an arrival date set
+        that do not have a compound exit date set
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function view( Request $request ): View
+    public function view( Request $request ): Response
     {
         $request->validate([
            'hide_not_arrived' => [
@@ -53,7 +59,7 @@ class FordMilestoneComplianceReport extends Controller
             })
 //            ->whereRaw("UPPER(make) = 'FORD'")
             ->with('dates')
-            ->where('created_at','>','2021-07-01')
+            ->where('created_at','>','2021-05-31')
             ->where('vin','!=','')
             ->orderBy('created_at', 'DESC')
             ->get();
@@ -90,7 +96,8 @@ class FordMilestoneComplianceReport extends Controller
 
         $results = json_decode( json_encode($results ) );
 
-        return view('vehicles::reports.ford_date_compliance_report', [
+        return response()
+            ->view('vehicles::reports.ford_date_compliance_report', [
             'results' => $results,
             'milestones'=> $milestones
         ]);
