@@ -8,6 +8,17 @@
 {{--        @endif--}}
     </div>
     <table class="table table-striped table-sm detail-table">
+        <tr>
+            <th role="row">
+                Added to Database
+            </th>
+            <td>
+                {{ \Carbon\Carbon::create($vehicle->created_at)->format('Y-m-d') }}
+            </td>
+            <td>
+
+            </td>
+        </tr>
         @foreach( $vehicle->dates as $date )
             <tr>
                 <th role="row">

@@ -39,6 +39,8 @@ class LabourAddComponent extends Component
         'end_minutes' => 'required|int|min:0|max:59'
     ];
 
+
+
     public $listeners = [
         'addLabourRecord',
         'selectedJob',
@@ -46,6 +48,22 @@ class LabourAddComponent extends Component
     ];
 
 
+    /**
+     * Listens for when the addLabourRecord event is fired
+     * clears the form of any contents, then updates based on the date and time provided.
+     *
+     * @param array $payload
+     */
+    public function addLabourRecord(array $payload)
+    {
+        $this->clear();
+        $this->user = User::find($payload['user_id']);
+        $this->date = Carbon::parse($payload['date'], 'America/Moncton');
+    }
+
+    /**
+     *  resets the form whenever a new user or date is chosen or when the function is cleared.
+     */
     public function clear(): void
     {
         unset(
@@ -53,12 +71,14 @@ class LabourAddComponent extends Component
             $this->date,
         );
 
-        $this->start_minutes = null;
-        $this->start_hours = null;
-        $this->end_minutes = null;
-        $this->end_hours = null;
-        $this->end_ampm = 'AM';
-        $this->start_ampm = 'AM';
+        $time = Carbon::now("America/Moncton");
+
+        $this->start_minutes = '00';
+        $this->start_hours = $time->copy()->subHour()->format('g');
+        $this->end_minutes = '00';
+        $this->end_hours = $time->format('g');
+        $this->end_ampm = $time->copy()->subHour()->format('A');
+        $this->start_ampm = $time->format('A');
     }
 
 
@@ -77,22 +97,8 @@ class LabourAddComponent extends Component
     }
 
 
-    public function addLabourRecord(array $payload)
-    {
-        $this->clear();
-        $this->user = User::find($payload['user_id']);
-        $this->date = Carbon::parse($payload['date'], 'America/Moncton');
-    }
 
-//    /**
-//     * listen for if any selected labour record has been deselected for any reason.
-//     * Reset the whole component
-//     */
-//    public function deselectLabourRecord(): void
-//    {
-//        unset ($this->user);
-//        unset ($this->date);
-//    }
+
 
 
 
