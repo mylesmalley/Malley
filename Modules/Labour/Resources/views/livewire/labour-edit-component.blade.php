@@ -10,7 +10,7 @@
 
         <div class="card-header bg-primary text-white">
             <h4>
-                Edit This Record
+                Editing Time for {{ $labour->user->first_name }} on {{ $labour->start->format('M d') }}
                 <a wire:click="cancel" class="btn btn-warning btn-sm float-end">Cancel</a>
 
             </h4>
@@ -190,9 +190,9 @@
                         @error('job') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
-
+                <br>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                         <input type="submit" value="Save Changes To Labour" class="btn btn-primary">
                     </div>
                 </div>

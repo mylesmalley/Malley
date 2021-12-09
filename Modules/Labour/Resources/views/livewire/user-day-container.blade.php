@@ -8,7 +8,7 @@
                     <div class="col-4 text-left">
                         {{ $ud['user']['first_name'] }} {{ $ud['user']['last_name'] }}
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4 text-center" >
                         {{ $ud['dayName'] }}
 
                     </div>

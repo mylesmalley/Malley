@@ -65,13 +65,16 @@ class LabourEditComponent extends Component
      */
     public function editLabourRecord( array $payload )
     {
+      //  dd( $this->labour_id );
 
-        unset( $this->labour_id );
-        unset( $this->labour );
+//        $this->labour_id = null;
+//        $this->labour = null;
 
 
         $this->labour_id = $payload['id'];
-        $this->labour = Labour::find( $payload['id'] );
+        $this->labour = Labour::where( 'id', '=', $payload['id'] )
+            ->with('user')
+            ->first();
 
         $start = Carbon::parse( $this->labour->start );
 
