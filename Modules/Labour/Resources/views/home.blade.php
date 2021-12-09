@@ -26,6 +26,7 @@
                                     <th>Started</th>
                                     <th>Stopped</th>
 {{--                                    <th>Flag Issue?</th>--}}
+                                    <th>Elapsed</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,6 +60,7 @@
 {{--                                            @endif--}}
 
 {{--                                        </td>--}}
+                                        <td>{{ $history->elapsed->forHumans(['parts'=>2]) }}</td>
                                     </tr>
                                     @empty
                                     <tr>

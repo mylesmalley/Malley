@@ -63,7 +63,7 @@ class UserDay
                 'job' => $lab->job,
                 'start' => $lab->start->format('g:i A'),
                 'end' => ($lab->end) ?  $lab->end->format('g:i A') : null,
-                'elapsed' => $lab->elapsed->forHumans(),
+                'elapsed' => $lab->elapsed->forHumans(['parts' =>2]),
                 'department' => $lab->department->name ?? 'Not Set',
                 'flagged' => $lab->flagged,
                 'posted' => $lab->posted,
