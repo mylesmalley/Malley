@@ -1,5 +1,5 @@
 <div>
     <div class="card">
-        test
+        {{ $labour ? $labour->id : 'not yet selected' }}
     </div>
 </div>

@@ -48,6 +48,15 @@ class UserDayContainer extends Component
     }
 
 
+    /**
+     * @param int $labour_id
+     */
+    public function manageTime( int $labour_id ): void
+    {
+        $this->emit('manageTime',  [
+            'labour_id' => $labour_id,
+        ]);
+    }
 
 
 

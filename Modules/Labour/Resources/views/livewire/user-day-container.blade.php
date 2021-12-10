@@ -32,6 +32,7 @@
                 @forelse( $ud['labour'] as $lab )
 
                     <tr
+                            wire:click="manageTime({{ $lab['id'] }})"
 {{--                        @if ( $locked )--}}
 {{--                            wire:click=""--}}
 {{--                            @if ( ! $lab['end'] )--}}
@@ -40,11 +41,11 @@
 {{--                                wire:click="$emit('cancel');editRow({{  $lab['id'] }})"--}}
 {{--                            @endif--}}
 {{--                        @else--}}
-                            @if ( ! $lab['end'] )
-                                wire:click="clockOutRow({{ $lab['id'] }})"
-                            @else
-                                wire:click="editRow({{  $lab['id'] }})"
-                            @endif
+{{--                            @if ( ! $lab['end'] )--}}
+{{--                                wire:click="clockOutRow({{ $lab['id'] }})"--}}
+{{--                            @else--}}
+{{--                                wire:click="editRow({{  $lab['id'] }})"--}}
+{{--                            @endif--}}
 
 {{--                        @endif--}}
                         class="

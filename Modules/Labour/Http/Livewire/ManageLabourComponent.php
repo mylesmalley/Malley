@@ -13,7 +13,6 @@ use App\Models\User;
 class ManageLabourComponent extends Component
 {
 
-    public ?int $labour_id;
     public ?Labour $labour;
     public ?User $user;
     public ?Carbon $date;
@@ -28,9 +27,13 @@ class ManageLabourComponent extends Component
     ];
 
 
-    public function manageTime()
+    public function manageTime( array $event_payload )
     {
-        $this->reset();
+     //   $this->resetExcept([]);
+
+        $this->labour = Labour::with('user')
+                            ->where('id', '=', $event_payload['labour_id'])
+                            ->first();
 
         $this->visible = true;
     }
