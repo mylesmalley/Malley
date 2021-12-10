@@ -27,8 +27,7 @@
 
     @else
 
-            ADD BAAABYYYYYY;
-        @endif
-    <!-- end of labour record loaded -->
+        @includeIf('labour::livewire.manage-labour-components.add')
+    @endif
     <!-- end of labour record loaded -->
 </div>

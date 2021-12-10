@@ -79,8 +79,12 @@ class ManageLabourComponent extends Component
     public function addTime( array $event_payload )
     {
         $this->labour = new Labour;
+        $this->user = User::find($event_payload['user_id']);
 
         $this->labour->user_id = $event_payload['user_id'];
+        $this->labour->department_id = $this->user->department_id;
+
+        $this->date = Carbon::parse( $event_payload['date'],"America/Moncton" );
 
         $time = Carbon::now("America/Moncton");
 

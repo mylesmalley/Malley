@@ -147,10 +147,6 @@ class UserDayContainer extends Component
     {
 
 
-    //    $this->lockUserDay();
-//        $this->adding_row_indicator = true;
-//        $this->adding_row_user_indicator = $user_id.$date;
-//
         $this->emit('addTime',  [
             'user_id' => $user_id,
             'date' => $date,
