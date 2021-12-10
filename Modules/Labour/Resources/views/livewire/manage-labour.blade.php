@@ -1,13 +1,6 @@
 <div>
     @if( !$labour )
-        <div class="card border-light">
-            <div class="card-header bg-light">
-                Managing Labour
-            </div>
-            <div class="card-body text-center">
-                <p>Click on a record to make changes.</p>
-            </div>
-        </div>
+        @includeIf('labour::livewire.manage-labour-components.info')
     @endif
 
     <!-- Active labour record -->
@@ -15,15 +8,7 @@
 
         <!-- The record is already posted and can't be changed -->
         @if ( $labour->posted === true )
-
-            <div class="card border-light">
-                <div class="card-header bg-light">
-                    Managing Labour
-                </div>
-                <div class="card-body text-center">
-                    <p>This record has already been posted to Syspro and can't be changed now.</p>
-                </div>
-            </div>
+            @includeIf('labour::livewire.manage-labour-components.posted')
 
         <!-- The record has not yet been posted and can be changed. -->
         @else

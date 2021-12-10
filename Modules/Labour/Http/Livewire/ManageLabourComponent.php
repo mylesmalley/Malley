@@ -41,18 +41,13 @@ class ManageLabourComponent extends Component
      */
     public function manageTime( array $event_payload )
     {
-
         $record = Labour::with('user')
             ->where('id', '=', $event_payload['labour_id'])
             ->first();
 
         $this->labour = $record;
-
         $this->user = $record->user;
-
         $this->clocked_in = $record->getOriginal('end') === null;
-
-
     }
 
 

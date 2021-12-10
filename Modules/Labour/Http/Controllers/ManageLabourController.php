@@ -34,10 +34,7 @@ class ManageLabourController extends Controller
 
         $start = $request->input('start') ?? date('Y-m-d');
         $end = $request->input('end') ?? $start;
-
-
-
-
+        // sort the dates
         $dates = $this->dates( min( $start, $end), max( $start, $end ));
 
 
@@ -49,15 +46,14 @@ class ManageLabourController extends Controller
         //Tab handling
         $tab = $filter;
 
-
+        // route which users should be pulled in
         $users = match ($filter) {
             'all' => $this->all_staff(),
             'department' => $this->by_department($department),
             'person' => [$user],
-            default => [Auth::user()->id],
+            default => [Auth::user()->id], // the user, barring anything else
         };
 
-//dd( $users);
         return response()
             ->view('labour::management.home', [
                 'dates' => $dates,
@@ -74,8 +70,6 @@ class ManageLabourController extends Controller
      */
     public function dates( string $start, string $end ): array
     {
-
-
         $dates = CarbonPeriod::create( $start, $end );
         $selectedDates = [];
         foreach( $dates as $d )
