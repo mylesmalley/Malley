@@ -34,7 +34,11 @@ class ManageLabourController extends Controller
 
         $start = $request->input('start') ?? date('Y-m-d');
         $end = $request->input('end') ?? $start;
-        $dates = $this->dates($start, $end);
+
+
+
+
+        $dates = $this->dates( min( $start, $end), max( $start, $end ));
 
 
         $filter = $request->input('filter') ?? 'all';
@@ -70,6 +74,8 @@ class ManageLabourController extends Controller
      */
     public function dates( string $start, string $end ): array
     {
+
+
         $dates = CarbonPeriod::create( $start, $end );
         $selectedDates = [];
         foreach( $dates as $d )

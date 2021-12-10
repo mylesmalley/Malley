@@ -109,35 +109,43 @@
             @if ( $activeTab === 'person' )
 
                 <form class="row row-cols-lg-auto g-3 align-items-center"
-                      wire:submit.prevent="byPersonByDateRange">
+                      action="{{ route('labour.management.home') }}"
+                      method="GET">
+                    <input type="hidden" name="filter" value="person">
+                    @csrf
+                    <div class="col-4">
 
-                    <div class="col-12">
                         <div class="input-group">
-                            <div class="input-group-text">From </div>
+                            <div class="input-group-text">Start</div>
                             <input type="date"
                                    aria-label=""
+                                   value="{{ $dates[0] }}"
+                                   name="start"
                                    max="{{ date('Y-m-d') }}"
-                                   wire:model="by_person_start_date"
-                                   class="form-control" id="by_person_start_date" placeholder="date">
+                                   class="form-control"
+                                   id=""
+                                   placeholder="date">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-text">End</div>
+                            <input type="date"
+                                   aria-label=""
+                                   value="{{ $dates[0] }}"
+                                   name="end"
+                                   max="{{ date('Y-m-d') }}"
+                                   class="form-control"
+                                   id=""
+                                   placeholder="date">
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="input-group">
-                            <div class="input-group-text">To</div>
-                            <input type="date"
-                                   aria-label=""
-                                   max="{{ date('Y-m-d') }}"
-                                   wire:model="by_person_end_date"
-                                   class="form-control" id="by_person_end_date" placeholder="date">
-                        </div>
-                    </div>
-
-                    <div class="col-12">
+                    <div class="col-4">
                         <select class="form-select"
                                 aria-label=""
-                                wire:model="by_person_user_id"
-                                id="by_person_user_id">
+                                name="user"
+                                id="user">
                             @foreach( \App\Models\User::role('labour')
                                         ->where('is_enabled', true )
                                         ->orderBy('last_name')
