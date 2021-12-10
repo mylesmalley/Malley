@@ -25,10 +25,12 @@
 
             </div>
             <div class="col-6">
-                @livewire('labour::labour-edit-component' )
-                @livewire('labour::labour-clock-out-component' )
-                @livewire('labour::labour-add-component' )
+{{--                @livewire('labour::labour-edit-component' )--}}
+{{--                @livewire('labour::labour-clock-out-component' )--}}
+{{--                @livewire('labour::labour-add-component' )--}}
 
+
+                @livewire('labour::manage-labour-component')
             </div>
         </div>
 

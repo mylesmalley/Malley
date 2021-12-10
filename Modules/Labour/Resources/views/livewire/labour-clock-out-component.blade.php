@@ -3,24 +3,25 @@
         style="display: none;"
     @endif
     class="card border-info sticky-top">
-    <div class="card-header bg-info text-white">
-        <h3>
-            Clock This Person Out
+    @if ( $labour )
+        <div class="card-header bg-info text-white">
+            <h3>
+                Clock {{ $labour->user->first_name }} Out
 
-            <a wire:click="cancel"  wire:keydown.escape="cancel" class="btn btn-warning btn-sm float-end">Cancel</a>
-        </h3>
-    </div>
+                <a wire:click="cancel"  wire:keydown.escape="cancel" class="btn btn-warning btn-sm float-end">Cancel</a>
+            </h3>
+        </div>
 
-    <div class="card-body text-center">
+        <div class="card-body text-center">
 
-        <p>Stop this person from clocking labour onto a job. </p>
+            <p>{{ $labour->user->first_name }} {{ $labour->user->last_name }} is clocked on to {{ $labour->job ?? '' }}. Do you want to clock them out?</p>
 
-        @if ( $labour_id )
-            <button class="btn btn-info"
-                wire:click="clock_out"
-                >Clock out</button>
-            @endif
+            @if ( $labour_id )
+                <button class="btn btn-info"
+                    wire:click="clock_out"
+                    >Clock out</button>
+                @endif
 
-    </div>
-
+        </div>
+    @endif
 </div>

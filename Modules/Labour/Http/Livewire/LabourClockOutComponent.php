@@ -41,7 +41,9 @@ class LabourClockOutComponent extends Component
     public function clockOutLabourRecord( array $payload )
     {
         $this->labour_id = $payload['labour_id'];
-        $this->labour = Labour::find( $payload['labour_id'] );
+        $this->labour =Labour::where( 'id', '=', $payload['labour_id'] )
+            ->with('user')
+            ->first();
     }
 
 
