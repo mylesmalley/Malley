@@ -21,10 +21,13 @@ class UserDayContainer extends Component
 
     public ?array $payload;
 
+    public array $users;
+    public array $dates;
+
     public $listeners = [
-        'loadData',
-        'lockUserDay',
-        'unlockUserDay',
+//        'loadData',
+//        'lockUserDay',
+        'refresh_user_day',
     ];
 
 
@@ -55,6 +58,9 @@ class UserDayContainer extends Component
     public function mount( array $user_ids = [], array $dates = [] ): void
     {
    //     $this->payload = $eventPayload ?? $this->payload;
+
+        $this->users = $user_ids;
+        $this->dates = $dates;
 
         $userDays = [];
         foreach($user_ids as $user )
@@ -91,19 +97,17 @@ class UserDayContainer extends Component
 //       // $this->emit('cancel');
 //    }
 //
-//    public function unlockUserDay(): void
-//    {
-////        $this->emit('cancel');
-//
-//
-//        $this->loadData();
-//        $this->locked = false;
-//        unset(
-//            $this->adding_row_indicator,
-//            $this->adding_row_user_indicator,
-//            $this->selectedRow
-//        );
-//    }
+    public function refresh_user_day(): void
+    {
+
+        $this->mount( $this->users, $this->dates );
+        $this->locked = false;
+        unset(
+            $this->adding_row_indicator,
+            $this->adding_row_user_indicator,
+            $this->selectedRow
+        );
+    }
 
 
 //    /**

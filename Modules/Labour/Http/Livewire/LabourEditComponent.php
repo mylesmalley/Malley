@@ -97,33 +97,33 @@ class LabourEditComponent extends Component
 
     public function submitForm()
     {
-        $this->validate();
-
-        $newStartString = $this->labour->start->format('Y-m-d') . ' ' .
-            $this->start_hours . ":" .
-            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->start_ampm;
-
-        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
-
-        $newendString = $this->labour->start->format('Y-m-d') . ' ' .
-            $this->end_hours . ":" .
-            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->end_ampm;
-
-        $newEnd = Carbon::parse( $newendString, 'America/Moncton');
-
-
-//        dd( $this->date->format('Y-m-d')
-//        , $newStart->toIso8601String(),  $newEnd->toIso8601String() );
-
-        $this->labour->update([
-            'department_id' => $this->department_id,
-            'start' =>  $newStart->toIso8601String(),
-            'end' => $newEnd->toIso8601String(),
-            'flagged' => false, // if you are saving it, it shouldn't be flagged as a problem anymore
-            'job' => $this->job,
-        ]);
+//        $this->validate();
+//
+//        $newStartString = $this->labour->start->format('Y-m-d') . ' ' .
+//            $this->start_hours . ":" .
+//            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
+//            . ' ' . $this->start_ampm;
+//
+//        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
+//
+//        $newendString = $this->labour->start->format('Y-m-d') . ' ' .
+//            $this->end_hours . ":" .
+//            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
+//            . ' ' . $this->end_ampm;
+//
+//        $newEnd = Carbon::parse( $newendString, 'America/Moncton');
+//
+//
+////        dd( $this->date->format('Y-m-d')
+////        , $newStart->toIso8601String(),  $newEnd->toIso8601String() );
+//
+//        $this->labour->update([
+//            'department_id' => $this->department_id,
+//            'start' =>  $newStart->toIso8601String(),
+//            'end' => $newEnd->toIso8601String(),
+//            'flagged' => false, // if you are saving it, it shouldn't be flagged as a problem anymore
+//            'job' => $this->job,
+//        ]);
 
       //  $lab->save();
 

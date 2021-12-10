@@ -18,7 +18,7 @@
             <p class="text-warning">Looks like this record was flagged. It might be on the wrong job or just made in error. When you click save, the flag will be removed even if you haven't changed anything. </p>
         @endif
 
-        <form wire:submit.prevent="submitForm"
+        <form wire:submit.prevent="update_record"
               wire:keydown.escape="cancel">
 
 
@@ -195,7 +195,9 @@
             <br>
             <div class="row">
                 <div class="col-12 text-center">
-                    <input type="submit" value="Save Changes To Labour" class="btn btn-primary">
+                    <input type="submit"
+                           value="Save Changes To Labour"
+                           class="btn btn-primary">
                 </div>
             </div>
         </form>

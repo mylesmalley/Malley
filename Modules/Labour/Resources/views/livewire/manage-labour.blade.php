@@ -37,7 +37,9 @@
                 </div>
             <!-- The user is clocked out, so this record can be fully changed. -->
             @else
-                @includeIf('labour::livewire.manage-labour-components.clocked_out')
+                @includeIf('labour::livewire.manage-labour-components.clocked_out'
+)
+                {{--,[ 'key' => now() ] --}}
 
             @endif
             <!-- End of changing records -->

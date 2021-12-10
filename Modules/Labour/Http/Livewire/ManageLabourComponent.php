@@ -6,6 +6,7 @@ use App\Models\Labour;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Carbon\Carbon;
 use App\Models\User;
@@ -88,6 +89,54 @@ class ManageLabourComponent extends Component
 
 //        dd( $this->labour );
     }
+
+
+    /**
+     *
+     */
+    public function update_record(): void
+    {
+        $this->validate();
+
+        $newStartString = $this->labour->start->format('Y-m-d') . ' ' .
+            $this->start_hours . ":" .
+            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
+            . ' ' . $this->start_ampm;
+
+        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
+
+        $newEndString = $this->labour->start->format('Y-m-d') . ' ' .
+            $this->end_hours . ":" .
+            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
+            . ' ' . $this->end_ampm;
+
+        $newEnd = Carbon::parse( $newEndString, 'America/Moncton');
+
+        $this->labour->update([
+            'department_id' => $this->labour->department_id,
+            'start' =>  $newStart->toIso8601String(),
+            'end' => $newEnd->toIso8601String(),
+            'flagged' => false, // if you are saving it, it shouldn't be flagged as a problem anymore
+            'job' => $this->labour->job,
+        ]);
+
+        Log::info( "Updated labour record ". $this->labour->id );
+        $this->emit('refresh_user_day');
+
+        $this->cancelManageTime();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
