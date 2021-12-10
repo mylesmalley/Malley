@@ -28,17 +28,38 @@ class UserDayContainer extends Component
     ];
 
 
+//    /**
+//     * @param array|null $eventPayload
+//     */
+//    public function loadData( array $eventPayload = null ): void
+//    {
+//        $this->payload = $eventPayload ?? $this->payload;
+//
+//        $userDays = [];
+//        foreach($this->payload['users'] as $user )
+//        {
+//            foreach( $this->payload['dates'] as $date )
+//            {
+//                $userDays[] = UserDay::get( $user, $date );
+//            }
+//        }
+//
+//        $this->userDays = $userDays;
+//    }
+
+
     /**
-     * @param array|null $eventPayload
+     * @param array $user_ids
+     * @param array $dates
      */
-    public function loadData( array $eventPayload = null ): void
+    public function mount( array $user_ids = [], array $dates = [] ): void
     {
-        $this->payload = $eventPayload ?? $this->payload;
+   //     $this->payload = $eventPayload ?? $this->payload;
 
         $userDays = [];
-        foreach($this->payload['users'] as $user )
+        foreach($user_ids as $user )
         {
-            foreach( $this->payload['dates'] as $date )
+            foreach( $dates as $date )
             {
                 $userDays[] = UserDay::get( $user, $date );
             }
@@ -46,6 +67,8 @@ class UserDayContainer extends Component
 
         $this->userDays = $userDays;
     }
+
+
 
 
     /**
@@ -61,55 +84,55 @@ class UserDayContainer extends Component
 
 
     /* START */
-
-    public function lockUserDay(): void
-    {
-        $this->locked = true;
-       // $this->emit('cancel');
-    }
-
-    public function unlockUserDay(): void
-    {
-//        $this->emit('cancel');
-
-
-        $this->loadData();
-        $this->locked = false;
-        unset(
-            $this->adding_row_indicator,
-            $this->adding_row_user_indicator,
-            $this->selectedRow
-        );
-    }
-
-
-    /**
-     * @param int $labour_id
-     */
-    public function clockOutRow( int $labour_id ): void
-    {
+//
+//    public function lockUserDay(): void
+//    {
+//        $this->locked = true;
+//       // $this->emit('cancel');
+//    }
+//
+//    public function unlockUserDay(): void
+//    {
+////        $this->emit('cancel');
+//
+//
+//        $this->loadData();
+//        $this->locked = false;
+//        unset(
+//            $this->adding_row_indicator,
+//            $this->adding_row_user_indicator,
+//            $this->selectedRow
+//        );
+//    }
 
 
-        $this->lockUserDay();
-        $this->selectedRow = $labour_id;
+//    /**
+//     * @param int $labour_id
+//     */
+//    public function clockOutRow( int $labour_id ): void
+//    {
+//
+//
+//      //  $this->lockUserDay();
+//        $this->selectedRow = $labour_id;
+//
+//        $this->emit('clockOutLabourRecord',  [
+//            'labour_id' => $labour_id,
+//        ]);
+//    }
 
-        $this->emit('clockOutLabourRecord',  [
-            'labour_id' => $labour_id,
-        ]);
-    }
-
-    /**
-     * @param int $labour_id
-     */
-    public function editRow( int $labour_id ): void
-    {
-
-        $this->lockUserDay();
-        $this->selectedRow = $labour_id;
-        $this->emit('editLabourRecord',  [
-            'id' => $labour_id
-        ]);
-    }
+//    /**
+//     * @param int $labour_id
+//     */
+//    public function editRow( int $labour_id ): void
+//    {
+//
+//        $this->lockUserDay();
+//        $this->selectedRow = $labour_id;
+//        $this->emit('editLabourRecord',  [
+//            'id' => $labour_id
+//        ]);
+//    }
 
 
     /**
@@ -120,7 +143,7 @@ class UserDayContainer extends Component
     {
 
 
-        $this->lockUserDay();
+    //    $this->lockUserDay();
         $this->adding_row_indicator = true;
         $this->adding_row_user_indicator = $user_id.$date;
 

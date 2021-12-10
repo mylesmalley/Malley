@@ -13,7 +13,7 @@
 
         <div class="row">
             <div class="col-12">
-                @livewire('labour::labour-management-user-filter-component' )
+{{--                @livewire('labour::labour-management-user-filter-component' )--}}
             </div>
         </div>
 
@@ -21,7 +21,7 @@
 
         <div class="row">
             <div class="col-6">
-                @livewire('labour::user-day-container')
+                @livewire('labour::user-day-container', [ $user_ids, $dates])
 
             </div>
             <div class="col-6">
