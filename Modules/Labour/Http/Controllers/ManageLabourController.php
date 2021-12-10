@@ -33,7 +33,7 @@ class ManageLabourController extends Controller
 
 
         $start = $request->input('start') ?? date('Y-m-d');
-        $end = $request->input('end') ?? date('Y-m-d');
+        $end = $request->input('end') ?? $start;
         $dates = $this->dates($start, $end);
 
 
@@ -41,6 +41,9 @@ class ManageLabourController extends Controller
         $user = $request->input('user') ?? null;
         $department = $request->input('department') ?? 1;
 
+
+        //Tab handling
+        $tab = $filter;
 
 
         $users = match ($filter) {
@@ -54,7 +57,8 @@ class ManageLabourController extends Controller
         return response()
             ->view('labour::management.home', [
                 'dates' => $dates,
-                'users' => $users,
+                'user_ids' => $users,
+                'activeTab' => $tab,
             ]);
     }
 

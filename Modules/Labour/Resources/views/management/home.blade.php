@@ -13,7 +13,7 @@
 
         <div class="row">
             <div class="col-12">
-{{--                @livewire('labour::labour-management-user-filter-component' )--}}
+                @includeIf('labour::management.user_filter' )
             </div>
         </div>
 
