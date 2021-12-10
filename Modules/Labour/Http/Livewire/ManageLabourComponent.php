@@ -29,7 +29,6 @@ class ManageLabourComponent extends Component
     public ?string $start_ampm;
 
 
-
     protected $rules = [
         'labour.job' => 'sometimes|string',
         'labour.id' => 'sometimes|int',
@@ -54,9 +53,18 @@ class ManageLabourComponent extends Component
 
     public function cancelManageTime()
     {
-        unset( $this->labour );
-        unset( $this->user );
-        unset( $this->clocked_in );
+        unset(
+            $this->labour,
+            $this->user,
+            $this->clocked_in,
+            $this->date,
+            $this->start_ampm,
+            $this->end_ampm,
+            $this->start_hours,
+            $this->end_hours,
+            $this->start_minutes,
+            $this->end_minutes,
+        );
     }
 
 
