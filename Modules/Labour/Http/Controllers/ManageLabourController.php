@@ -38,7 +38,7 @@ class ManageLabourController extends Controller
 
 
         $filter = $request->input('filter') ?? 'all';
-        $user = $request->input('user') ?? null;
+        $user = $request->input('user') ?? Auth::user()->id;
         $department = $request->input('department') ?? 1;
 
 
@@ -53,7 +53,7 @@ class ManageLabourController extends Controller
             default => [Auth::user()->id],
         };
 
-
+//dd( $users);
         return response()
             ->view('labour::management.home', [
                 'dates' => $dates,

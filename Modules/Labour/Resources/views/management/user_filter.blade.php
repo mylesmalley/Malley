@@ -1,14 +1,19 @@
 <div class="card border-primary">
     <div class="card-header bg-primary text-white">
         <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item"  wire:click="setTab('all')">
-                <a class="nav-link {{ $activeTab === 'all' ? 'active' : 'bg-secondary text-white' }}" aria-current="true" >All Staff By Date</a>
+            <li class="nav-item">
+                <a href="{{ route('labour.management.home', ['filter'=>'all']) }}"
+                        class="nav-link {{ $activeTab === 'all' ? 'active' : 'bg-secondary text-white' }}"
+                   >All Staff By Date</a>
             </li>
-            <li class="nav-item "  wire:click="setTab('department')">
-                <a class="nav-link  {{ $activeTab === 'department' ? 'active' : 'bg-secondary text-white' }}" >By Department</a>
+            <li class="nav-item ">
+                <a class="nav-link {{ $activeTab === 'department' ? 'active' : 'bg-secondary text-white' }}"
+                   href="{{ route('labour.management.home', ['filter'=>'department']) }}"
+                >By Department</a>
             </li>
-            <li class="nav-item" wire:click="setTab('person')">
-                <a class="nav-link {{ $activeTab === 'person' ? 'active' : 'text-white bg-secondary ' }}" >By Person and Dates</a>
+            <li class="nav-item" >
+                <a href="{{ route('labour.management.home', ['filter'=>'person']) }}"
+                   class="nav-link {{ $activeTab === 'person' ? 'active' : 'text-white bg-secondary ' }}" >By Person and Dates</a>
             </li>
 
 {{--            <li class="nav-item" wire:click="setTab('flagged')">--}}
@@ -33,15 +38,20 @@
         @if ( $activeTab === 'all' )
 
             <form class="row row-cols-lg-auto g-3 align-items-center"
-                  wire:submit.prevent="allStaffByDate">
+                  action="{{ route('labour.management.home') }}"
+                  method="GET">
+                <input type="hidden" name="filter" value="all">
+                @csrf
                 <div class="col-12">
                     <div class="input-group">
                         <div class="input-group-text">Date</div>
                         <input type="date"
                                aria-label=""
-                               max="{{ date('Y-m-d') }}"
-                               wire:model="all_staff_date"
-                               class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+                               name="start"
+                               start="{{ date('Y-m-d') }}"
+                               class="form-control"
+                               id=""
+                               placeholder="date">
                     </div>
                 </div>
 

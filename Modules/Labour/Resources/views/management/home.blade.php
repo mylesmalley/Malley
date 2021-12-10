@@ -21,8 +21,9 @@
 
         <div class="row">
             <div class="col-6">
-                @livewire('labour::user-day-container', [ $user_ids, $dates])
-
+                @if ( count($user_ids) && count($dates))
+                    @livewire('labour::user-day-container', [ $user_ids, $dates])
+                @endif
             </div>
             <div class="col-6">
 {{--                @livewire('labour::labour-edit-component' )--}}
