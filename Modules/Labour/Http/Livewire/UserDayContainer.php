@@ -143,16 +143,15 @@ class UserDayContainer extends Component
      * @param string $date
      * @param int $user_id
      */
-    public function addRow( string $date, int $user_id  ): void
+    public function addTime( string $date, int $user_id  ): void
     {
 
 
     //    $this->lockUserDay();
-        $this->adding_row_indicator = true;
-        $this->adding_row_user_indicator = $user_id.$date;
-
-
-        $this->emit('addLabourRecord',  [
+//        $this->adding_row_indicator = true;
+//        $this->adding_row_user_indicator = $user_id.$date;
+//
+        $this->emit('addTime',  [
             'user_id' => $user_id,
             'date' => $date,
         ]);

@@ -48,6 +48,7 @@ class ManageLabourComponent extends Component
     public $listeners = [
         'manageTime',
         'cancelManageTime',
+        'addTime'
     ];
 
 
@@ -69,6 +70,33 @@ class ManageLabourComponent extends Component
             $this->end_minutes,
         );
     }
+
+
+
+    /**
+     * @param array $event_payload
+     */
+    public function addTime( array $event_payload )
+    {
+        $this->labour = new Labour;
+
+        $this->labour->user_id = $event_payload['user_id'];
+
+        $time = Carbon::now("America/Moncton");
+
+
+        $this->start_hours = $time->copy()->subHour()->format('g');
+        $this->end_hours = $time->format('g');
+        $this->start_minutes = '00';
+        $this->end_minutes = '00';
+        $this->start_ampm = $time->format('A');
+        $this->end_ampm = $time->copy()->subHour()->format('A');
+
+
+
+
+    }
+
 
 
     /**

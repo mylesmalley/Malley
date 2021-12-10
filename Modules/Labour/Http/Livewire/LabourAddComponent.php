@@ -71,14 +71,14 @@ class LabourAddComponent extends Component
             $this->date,
         );
 
-        $time = Carbon::now("America/Moncton");
-
-        $this->start_minutes = '00';
-        $this->start_hours = $time->copy()->subHour()->format('g');
-        $this->end_minutes = '00';
-        $this->end_hours = $time->format('g');
-        $this->end_ampm = $time->copy()->subHour()->format('A');
-        $this->start_ampm = $time->format('A');
+//        $time = Carbon::now("America/Moncton");
+//
+//        $this->start_minutes = '00';
+//        $this->start_hours = $time->copy()->subHour()->format('g');
+//        $this->end_minutes = '00';
+//        $this->end_hours = $time->format('g');
+//        $this->end_ampm = $time->copy()->subHour()->format('A');
+//        $this->start_ampm = $time->format('A');
     }
 
 

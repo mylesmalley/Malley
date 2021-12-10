@@ -1,10 +1,7 @@
 <div>
     @if( !$labour )
         @includeIf('labour::livewire.manage-labour-components.info')
-    @endif
-
-    <!-- Active labour record -->
-    @if ( $labour )
+    @elseif ( $labour && $labour->id )
 
         <!-- The record is already posted and can't be changed -->
         @if ( $labour->posted === true )
@@ -15,32 +12,12 @@
 
             <!-- The user is currently clocked in -->
             @if ( $clocked_in )
+                @includeIf('labour::livewire.manage-labour-components.clocked_in')
 
-                <div class="card border-info sticky-top">
-                    <div class="card-header bg-info text-white">
-                        <h3>
-                            Clock {{ $user->first_name }} Out
-                            <a wire:click="cancelManageTime"
-                               wire:keydown.escape="cancelManageTime"
-                               class="btn btn-warning btn-sm float-end">
-                                Cancel
-                            </a>
-                        </h3>
-                    </div>
 
-                    <div class="card-body text-center">
-                        <p>{{ $labour->user->first_name }} {{ $labour->user->last_name }}
-                            is clocked on to {{ $labour->job ?? '' }}.
-                            Do you want to clock them out?</p>
-                        <button wire:click="clock_out"
-                                class="btn btn-primary btn-lg">Clock Out</button>
-                    </div>
-                </div>
             <!-- The user is clocked out, so this record can be fully changed. -->
             @else
-                @includeIf('labour::livewire.manage-labour-components.clocked_out'
-)
-                {{--,[ 'key' => now() ] --}}
+                @includeIf('labour::livewire.manage-labour-components.clocked_out')
 
             @endif
             <!-- End of changing records -->
@@ -48,7 +25,10 @@
         @endif
         <!-- End of currently active record -->
 
-    @endif
+    @else
+
+            ADD BAAABYYYYYY;
+        @endif
     <!-- end of labour record loaded -->
     <!-- end of labour record loaded -->
 </div>

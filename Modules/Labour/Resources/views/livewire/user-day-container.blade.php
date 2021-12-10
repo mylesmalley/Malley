@@ -87,7 +87,7 @@
             @if (! $locked )
                 <div class="card-footer text-end">
                     <button
-                        wire:click="addRow('{{  $ud['date'] }}', {{ $ud['user']['id'] }})"
+                        wire:click="addTime('{{  $ud['date'] }}', {{ $ud['user']['id'] }})"
                         class="btn btn-success btn-sm">Add Labour
                     </button>
                 </div>
