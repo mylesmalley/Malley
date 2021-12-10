@@ -72,11 +72,10 @@ class ManageLabourComponent extends Component
     }
 
 
-
     /**
      * @param array $event_payload
      */
-    public function addTime( array $event_payload )
+    public function addTime(array $event_payload)
     {
         $this->labour = new Labour;
         $this->user = User::find($event_payload['user_id']);
@@ -84,7 +83,7 @@ class ManageLabourComponent extends Component
         $this->labour->user_id = $event_payload['user_id'];
         $this->labour->department_id = $this->user->department_id;
 
-        $this->date = Carbon::parse( $event_payload['date'],"America/Moncton" );
+        $this->date = Carbon::parse($event_payload['date'], "America/Moncton");
 
         $time = Carbon::now("America/Moncton");
 
@@ -95,10 +94,40 @@ class ManageLabourComponent extends Component
         $this->end_minutes = '00';
         $this->start_ampm = $time->format('A');
         $this->end_ampm = $time->copy()->subHour()->format('A');
+    }
 
 
+    public function save_new_labour()
+    {
+        $newStartString = $this->date->format('Y-m-d') . ' ' .
+            $this->start_hours . ":" .
+            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
+            . ' ' . $this->start_ampm;
+
+        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
+
+        $newEndString = $this->date->format('Y-m-d') . ' ' .
+            $this->end_hours . ":" .
+            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
+            . ' ' . $this->end_ampm;
+
+        $newEnd = Carbon::parse( $newEndString, 'America/Moncton');
+
+        $this->labour->fill([
+            'start' => $newStart,
+            'end' => $newEnd,
+        ]);
 
 
+        // for some reason laravel is adding an id column, even though it's empty
+        unset( $this->labour->id );
+        $this->labour->save();
+
+
+        Log::info( "Saved new labour record ". $this->labour->id );
+        $this->emit('refresh_user_day');
+
+        $this->cancelManageTime();
     }
 
 
@@ -129,6 +158,9 @@ class ManageLabourComponent extends Component
         $this->end_ampm = $end->format('A');
 
     }
+
+
+
 
 
     /**

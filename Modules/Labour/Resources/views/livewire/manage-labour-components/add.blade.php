@@ -4,7 +4,9 @@
         <div class="card-header bg-success text-white">
             <h4>
                 Add Labour for <b>{{ $user->first_name }}  {{ $user->last_name }}</b> on <b>{{ $date->format('M d') }}</b>
-                <a wire:click="cancel"  wire:keydown.escape="cancel" class="btn btn-warning btn-sm float-end">Cancel</a>
+                <a wire:click="cancel"
+                   wire:keydown.escape="cancel"
+                   class="btn btn-warning btn-sm float-end">Cancel</a>
 
             </h4>
 
@@ -12,7 +14,7 @@
         <div class="card-body">
 
 
-            <form wire:submit.prevent="addLabour">
+            <form wire:submit.prevent="save_new_labour">
                 <div class="form-group row">
                     <div class="col-3">
                         <label for="start_time">Start</label>
