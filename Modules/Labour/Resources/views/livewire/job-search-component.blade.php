@@ -63,7 +63,7 @@
                                 <button type="button"
                                         id="startJob{{ $r->Job }}"
                                         dusk="startJob{{ $r->Job }}"
-                                        wire:click="$emit('selectedJob', ['{{ $r->Job }}'])"
+                                        wire:click="$emit('selected_job', ['{{ $r->Job }}'])"
                                         class="btn btn-sm btn-info"> Choose</button>
                             </td>
                         </tr>

@@ -48,7 +48,8 @@ class ManageLabourComponent extends Component
     public $listeners = [
         'manageTime',
         'cancelManageTime',
-        'addTime'
+        'addTime',
+        'selected_job',
     ];
 
 
@@ -129,6 +130,18 @@ class ManageLabourComponent extends Component
 
         $this->cancelManageTime();
     }
+
+
+    /**
+     * listens for the selected_job event and updates the model
+     * @param array $payload
+     */
+    public function selected_job(array $payload): void
+    {
+        $this->labour->job = $payload[0];
+    }
+
+
 
 
 

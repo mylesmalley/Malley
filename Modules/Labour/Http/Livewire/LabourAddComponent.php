@@ -101,45 +101,45 @@ class LabourAddComponent extends Component
 
 
 
-
-
-    public function addLabour()
-    {
-        $this->validate();
-
-        $newStartString = $this->date->format('Y-m-d') . ' ' .
-            $this->start_hours . ":" .
-            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->start_ampm;
-
-
-        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
-
-        $newendString = $this->date->format('Y-m-d') . ' ' .
-            $this->end_hours . ":" .
-            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->end_ampm;
-
-        $newEnd = Carbon::parse( $newendString, 'America/Moncton');
-
-//        dd( $this->date->format('Y-m-d')
-//        , $newStart->toIso8601String(),  $newEnd->toIso8601String() );
-
-        $lab = Labour::create([
-           'user_id' => $this->user->id,
-           'department_id' => $this->user->department_id,
-           'start' =>  $newStart->toIso8601String(),
-            'end' => $newEnd->toIso8601String(),
-            'job' => $this->job,
-        ]);
-
-   //  dd($lab );
-        $lab->save();
-
-        $this->emit('unlockUserDay'); // tell all the user day components to update themselves
-        $this->clear();
-
-    }
+//
+//
+//    public function addLabour()
+//    {
+//        $this->validate();
+//
+//        $newStartString = $this->date->format('Y-m-d') . ' ' .
+//            $this->start_hours . ":" .
+//            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
+//            . ' ' . $this->start_ampm;
+//
+//
+//        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
+//
+//        $newendString = $this->date->format('Y-m-d') . ' ' .
+//            $this->end_hours . ":" .
+//            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
+//            . ' ' . $this->end_ampm;
+//
+//        $newEnd = Carbon::parse( $newendString, 'America/Moncton');
+//
+////        dd( $this->date->format('Y-m-d')
+////        , $newStart->toIso8601String(),  $newEnd->toIso8601String() );
+//
+//        $lab = Labour::create([
+//           'user_id' => $this->user->id,
+//           'department_id' => $this->user->department_id,
+//           'start' =>  $newStart->toIso8601String(),
+//            'end' => $newEnd->toIso8601String(),
+//            'job' => $this->job,
+//        ]);
+//
+//   //  dd($lab );
+//        $lab->save();
+//
+//        $this->emit('unlockUserDay'); // tell all the user day components to update themselves
+//        $this->clear();
+//
+//    }
 
     /**
      * @return Application|Factory|View
