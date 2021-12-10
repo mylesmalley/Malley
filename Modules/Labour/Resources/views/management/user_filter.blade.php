@@ -47,8 +47,9 @@
                         <div class="input-group-text">Date</div>
                         <input type="date"
                                aria-label=""
+                               value="{{ $dates[0] }}"
                                name="start"
-                               start="{{ date('Y-m-d') }}"
+                               max="{{ date('Y-m-d') }}"
                                class="form-control"
                                id=""
                                placeholder="date">
@@ -64,25 +65,32 @@
         @endif
         @if ( $activeTab === 'department' )
 
-            <form class="row row-cols-lg-auto g-3 align-items-center"
-                  wire:submit.prevent="byDepartment">
+                <form class="row row-cols-lg-auto g-3 align-items-center"
+                      action="{{ route('labour.management.home') }}"
+                      method="GET">
+                    <input type="hidden" name="filter" value="department">
+                    @csrf
                 <div class="col-12">
                     <div class="input-group">
                         <div class="input-group-text">Date</div>
                         <input type="date"
                                aria-label=""
+                               name="start"
                                max="{{ date('Y-m-d') }}"
-                               wire:model="by_department_date"
-                               class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+                               value="{{ $dates[0] }}"
+                               class="form-control"
+                               id="date"
+                               placeholder="Username">
                     </div>
                 </div>
 
                 <div class="col-12">
                     <select class="form-select"
                             aria-label=""
-                            wire:model="department_id"
-                            id="inlineFormSelectPref">
-                        @foreach( App\Models\Department::whereNotIn('id', [1,2,8,9])->get()  as $dept )
+                            name="department"
+                            id="department">
+                        @foreach( App\Models\Department::all()  as $dept )
+{{--                            @foreach( App\Models\Department::whereNotIn('id', [1,2,8,9])->get()  as $dept )--}}
                             @if ( session('selected_department_id') == $dept->id)
                                 <option value="{{ $dept->id }}" selected>{{ $dept->name }}</option>
                             @else
