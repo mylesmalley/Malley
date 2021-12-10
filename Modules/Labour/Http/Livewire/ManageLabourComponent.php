@@ -16,7 +16,7 @@ class ManageLabourComponent extends Component
     public ?Labour $labour;
     public ?User $user;
     public ?Carbon $date;
-    public bool $visible = false;
+    public ?bool $clocked_in; // clocked in or out
 
 
     /**
@@ -31,11 +31,17 @@ class ManageLabourComponent extends Component
     {
      //   $this->resetExcept([]);
 
-        $this->labour = Labour::with('user')
-                            ->where('id', '=', $event_payload['labour_id'])
-                            ->first();
+        $record = Labour::with('user')
+            ->where('id', '=', $event_payload['labour_id'])
+            ->first();
 
-        $this->visible = true;
+        $this->labour = $record;
+
+        $this->user = $record->user;
+
+        $this->clocked_in = $record->end !== null;
+
+
     }
 
 
