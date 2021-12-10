@@ -37,19 +37,7 @@
                 </div>
             <!-- The user is clocked out, so this record can be fully changed. -->
             @else
-                <div class="card border-primary">
-                    <div class="card-header bg-primary text-white">
-                            Editing Time for {{ $user->first_name }} on {{ $labour->start->format('M d') }}
-                            <a wire:click="cancelManageTime"
-                               wire:keydown.escape="cancelManageTime"
-                               class="btn btn-warning btn-sm float-end">
-                                Cancel
-                            </a>
-                    </div>
-                    <div class="card-body">
-
-                    </div>
-                </div>
+                @includeIf('labour::livewire.manage-labour-components.clocked_out')
 
             @endif
             <!-- End of changing records -->

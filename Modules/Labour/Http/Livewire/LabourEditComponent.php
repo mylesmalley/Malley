@@ -76,20 +76,20 @@ class LabourEditComponent extends Component
             ->with('user')
             ->first();
 
-        $start = Carbon::parse( $this->labour->start );
-
-        $this->start_hours = $start->format('g');
-        $this->start_minutes = $start->format('i');
-        $this->start_ampm = $start->format('A');
-
-        $end = Carbon::parse( $this->labour->end );
-
-        $this->end_hours = $end->format('g');
-        $this->end_minutes = $end->format('i');
-        $this->end_ampm = $end->format('A');
-
-        $this->department_id = $this->labour->department_id;
-        $this->job = $this->labour->job;
+//        $start = Carbon::parse( $this->labour->start );
+//
+//        $this->start_hours = $start->format('g');
+//        $this->start_minutes = $start->format('i');
+//        $this->start_ampm = $start->format('A');
+//
+//        $end = Carbon::parse( $this->labour->end );
+//
+//        $this->end_hours = $end->format('g');
+//        $this->end_minutes = $end->format('i');
+//        $this->end_ampm = $end->format('A');
+//
+//        $this->department_id = $this->labour->department_id;
+//        $this->job = $this->labour->job;
 
 
     }
