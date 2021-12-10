@@ -51,6 +51,9 @@ class ManageLabourComponent extends Component
     ];
 
 
+    /**
+     * clear out the component when an action is done so that it doesn't pollute the next one
+     */
     public function cancelManageTime()
     {
         unset(
