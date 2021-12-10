@@ -23,13 +23,24 @@ class ManageLabourComponent extends Component
      * @var string[]
      */
     public $listeners = [
-        'manageTime'
+        'manageTime',
+        'cancelManageTime',
     ];
 
 
+    public function cancelManageTime()
+    {
+        unset( $this->labour );
+        unset( $this->user );
+        unset( $this->clocked_in );
+    }
+
+
+    /**
+     * @param array $event_payload
+     */
     public function manageTime( array $event_payload )
     {
-     //   $this->resetExcept([]);
 
         $record = Labour::with('user')
             ->where('id', '=', $event_payload['labour_id'])
@@ -39,7 +50,7 @@ class ManageLabourComponent extends Component
 
         $this->user = $record->user;
 
-        $this->clocked_in = $record->end !== null;
+        $this->clocked_in = $record->getOriginal('end') === null;
 
 
     }

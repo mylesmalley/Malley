@@ -30,23 +30,41 @@
 
             <!-- The user is currently clocked in -->
             @if ( $clocked_in )
+
                 <div class="card border-info sticky-top">
                     <div class="card-header bg-info text-white">
                         <h3>
                             Clock {{ $user->first_name }} Out
-
-                            <a wire:click="cancel"  wire:keydown.escape="cancel" class="btn btn-warning btn-sm float-end">Cancel</a>
+                            <a wire:click="cancelManageTime"
+                               wire:keydown.escape="cancelManageTime"
+                               class="btn btn-warning btn-sm float-end">
+                                Cancel
+                            </a>
                         </h3>
                     </div>
 
                     <div class="card-body text-center">
-                        <p>{{ $labour->user->first_name }} {{ $labour->user->last_name }} is clocked on to {{ $labour->job ?? '' }}. Do you want to clock them out?</p>
+                        <p>{{ $labour->user->first_name }} {{ $labour->user->last_name }}
+                            is clocked on to {{ $labour->job ?? '' }}.
+                            Do you want to clock them out?</p>
 
                     </div>
                 </div>
             <!-- The user is clocked out, so this record can be fully changed. -->
             @else
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                            Editing Time for {{ $user->first_name }} on {{ $labour->start->format('M d') }}
+                            <a wire:click="cancelManageTime"
+                               wire:keydown.escape="cancelManageTime"
+                               class="btn btn-warning btn-sm float-end">
+                                Cancel
+                            </a>
+                    </div>
+                    <div class="card-body">
 
+                    </div>
+                </div>
 
             @endif
             <!-- End of changing records -->
