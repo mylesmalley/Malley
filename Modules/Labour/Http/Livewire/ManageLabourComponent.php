@@ -30,15 +30,16 @@ class ManageLabourComponent extends Component
 
 
     protected $rules = [
-        'labour.job' => 'sometimes|string',
+        'labour.job' => 'sometimes|required|string',
         'labour.id' => 'sometimes|int',
+        'labour.user_id' => 'sometimes|required|int',
         'start_ampm' => 'sometimes|string|max:2',
         'end_ampm' => 'sometimes|string|max:2',
         'start_hours' => 'sometimes|int|min:1|max:12',
         'start_minutes' => 'sometimes|int|min:0|max:59',
         'end_hours' => 'sometimes|int|min:1|max:12',
         'end_minutes' => 'sometimes|int|min:0|max:59',
-        'labour.department_id' => 'sometimes|int',
+        'labour.department_id' => 'sometimes|required|int',
     ];
 
 
@@ -81,7 +82,8 @@ class ManageLabourComponent extends Component
         $this->labour = new Labour;
         $this->user = User::find($event_payload['user_id']);
 
-        $this->labour->user_id = $event_payload['user_id'];
+        $this->labour->user_id = $this->user->id;
+
         $this->labour->department_id = $this->user->department_id;
 
         $this->date = Carbon::parse($event_payload['date'], "America/Moncton");
@@ -100,6 +102,8 @@ class ManageLabourComponent extends Component
 
     public function save_new_labour()
     {
+        $this->validate();
+
         $newStartString = $this->date->format('Y-m-d') . ' ' .
             $this->start_hours . ":" .
             str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
@@ -115,6 +119,7 @@ class ManageLabourComponent extends Component
         $newEnd = Carbon::parse( $newEndString, 'America/Moncton');
 
         $this->labour->fill([
+            'user_id' => $this->user->id,
             'start' => $newStart,
             'end' => $newEnd,
         ]);
