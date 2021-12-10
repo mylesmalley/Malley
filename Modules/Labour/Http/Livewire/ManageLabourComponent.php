@@ -29,15 +29,16 @@ class ManageLabourComponent extends Component
 
 
 
-    public $rules = [
-        'job' => 'sometimes|string',
+    protected $rules = [
+        'labour.job' => 'sometimes|string',
+        'labour.id' => 'sometimes|int',
         'start_ampm' => 'sometimes|string|max:2',
         'end_ampm' => 'sometimes|string|max:2',
         'start_hours' => 'sometimes|int|min:1|max:12',
         'start_minutes' => 'sometimes|int|min:0|max:59',
         'end_hours' => 'sometimes|int|min:1|max:12',
         'end_minutes' => 'sometimes|int|min:0|max:59',
-        'department_id' => 'sometimes|int',
+        'labour.department_id' => 'sometimes|int',
     ];
 
 
@@ -72,8 +73,6 @@ class ManageLabourComponent extends Component
         $this->clocked_in = $record->getOriginal('end') === null;
 
 
-
-
         $start = Carbon::parse( $this->labour->start );
 
         $this->start_hours = $start->format('g');
@@ -86,10 +85,8 @@ class ManageLabourComponent extends Component
         $this->end_minutes = $end->format('i');
         $this->end_ampm = $end->format('A');
 
-//        $this->department_id = $this->labour->department_id;
-//        $this->job = $this->labour->job;
 
-
+//        dd( $this->labour );
     }
 
 

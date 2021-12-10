@@ -204,7 +204,7 @@
 
         <hr>
 
-        @livewire('labour::job-search-component', [ \App\Models\User::find( $labour->user->id ) ])
+        @livewire('labour::job-search-component', [ $user ])
 
 
         <hr>
