@@ -32,7 +32,8 @@
                         <p>{{ $labour->user->first_name }} {{ $labour->user->last_name }}
                             is clocked on to {{ $labour->job ?? '' }}.
                             Do you want to clock them out?</p>
-
+                        <button wire:click="clock_out"
+                                class="btn btn-primary btn-lg">Clock Out</button>
                     </div>
                 </div>
             <!-- The user is clocked out, so this record can be fully changed. -->

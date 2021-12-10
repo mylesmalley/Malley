@@ -81,7 +81,6 @@ class ManageLabourComponent extends Component
         $this->user = $record->user;
         $this->clocked_in = $record->getOriginal('end') === null;
 
-
         $start = Carbon::parse( $this->labour->start );
 
         $this->start_hours = $start->format('g');
@@ -94,8 +93,6 @@ class ManageLabourComponent extends Component
         $this->end_minutes = $end->format('i');
         $this->end_ampm = $end->format('A');
 
-
-//        dd( $this->labour );
     }
 
 
@@ -135,11 +132,16 @@ class ManageLabourComponent extends Component
     }
 
 
-
-
-
-
-
+    /**
+     *
+     */
+    public function clock_out(): void
+    {
+        $this->labour?->finish();
+        $this->emit('refresh_user_day');
+        Log::info( "Manually clocked out ". $this->labour->id );
+        $this->cancelManageTime();
+    }
 
 
 
