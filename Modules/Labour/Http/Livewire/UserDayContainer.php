@@ -31,25 +31,6 @@ class UserDayContainer extends Component
     ];
 
 
-//    /**
-//     * @param array|null $eventPayload
-//     */
-//    public function loadData( array $eventPayload = null ): void
-//    {
-//        $this->payload = $eventPayload ?? $this->payload;
-//
-//        $userDays = [];
-//        foreach($this->payload['users'] as $user )
-//        {
-//            foreach( $this->payload['dates'] as $date )
-//            {
-//                $userDays[] = UserDay::get( $user, $date );
-//            }
-//        }
-//
-//        $this->userDays = $userDays;
-//    }
-
 
     /**
      * @param array $user_ids
@@ -83,6 +64,8 @@ class UserDayContainer extends Component
      */
     public function manageTime( int $labour_id ): void
     {
+        $this->selectedRow = $labour_id;
+
         $this->emit('manageTime',  [
             'labour_id' => $labour_id,
         ]);
@@ -90,14 +73,6 @@ class UserDayContainer extends Component
 
 
 
-    /* START */
-//
-//    public function lockUserDay(): void
-//    {
-//        $this->locked = true;
-//       // $this->emit('cancel');
-//    }
-//
     public function refresh_user_day(): void
     {
 
@@ -111,34 +86,6 @@ class UserDayContainer extends Component
     }
 
 
-//    /**
-//     * @param int $labour_id
-//     */
-//    public function clockOutRow( int $labour_id ): void
-//    {
-//
-//
-//      //  $this->lockUserDay();
-//        $this->selectedRow = $labour_id;
-//
-//        $this->emit('clockOutLabourRecord',  [
-//            'labour_id' => $labour_id,
-//        ]);
-//    }
-
-//    /**
-//     * @param int $labour_id
-//     */
-//    public function editRow( int $labour_id ): void
-//    {
-//
-//        $this->lockUserDay();
-//        $this->selectedRow = $labour_id;
-//        $this->emit('editLabourRecord',  [
-//            'id' => $labour_id
-//        ]);
-//    }
-
 
     /**
      * @param string $date
@@ -146,22 +93,13 @@ class UserDayContainer extends Component
      */
     public function addTime( string $date, int $user_id  ): void
     {
-
+        unset( $this->selectedRow );
 
         $this->emit('addTime',  [
             'user_id' => $user_id,
             'date' => $date,
         ]);
     }
-    /* END */
-
-
-
-
-
-
-
-
 
 
 
