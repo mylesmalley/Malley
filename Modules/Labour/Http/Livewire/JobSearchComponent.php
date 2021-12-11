@@ -2,10 +2,12 @@
 
 namespace Modules\Labour\Http\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Labour;
@@ -18,7 +20,44 @@ class JobSearchComponent extends Component
     public Collection $results ;
     public bool $searchMode = false;
     public string $searchTerm = '';
-    public User $user;
+    public ?User $user;
+    public bool $visible;
+
+
+    protected $listeners = [
+        'manageTime',
+        'cancelManageTime',
+        'addTime',
+    ];
+
+    public function manageTime( array $payload )
+    {
+        $this->visible = true;
+        $this->user = Labour::where('id', '=', $payload['labour_id'])
+            ->first()
+            ->user;
+
+        $this->clickTabRecent();
+    }
+
+    public function addTime( array $payload )
+    {
+        $this->visible = true;
+        $this->user = User::find( $payload['user_id']);
+
+        $this->clickTabRecent();
+    }
+
+
+    public function cancelManageTime()
+    {
+        unset( $this->user );
+        $this->visible = false;
+    }
+
+
+
+
 
 
     public function clickTabSearch(): void
@@ -60,20 +99,34 @@ class JobSearchComponent extends Component
         $this->selectedTab = "RECENT";
         $this->searchMode = false;
 
-        // grab the 10 most recent labour rows from the blueprint db
-        $users_jobs = Labour::where('user_id', $this->user->id )
-            ->pluck('job') // only job
-            ->unique()  // unique values
-            ->values()
-            ->take(10); // trim to at most 10
+
 
         // grab the records from syspro that match those job codes
-        $this->results = DB::connection('syspro')
-            ->table('WipMaster')
-            ->select('Job', 'JobDescription')
-            ->where( 'Complete' , '=', 'N' ) // only show active jobs
-            ->whereIn('Job', $users_jobs)
-            ->get();
+        $this->results = Cache::remember('user_'.$this->user->id.'_recent_jobs',
+            Carbon::now()->addDay(), function() {
+
+                // grab the 10 most recent labour rows from the blueprint db
+                $users_jobs = Labour::where('user_id', $this->user->id )
+                    ->pluck('job') // only job
+                    ->unique()  // unique values
+                    ->values()
+                    ->take(10); // trim to at most 10
+
+
+
+            return DB::connection('syspro')
+                ->table('WipMaster')
+                ->select('Job', 'JobDescription')
+                ->where( 'Complete' , '=', 'N' ) // only show active jobs
+                ->whereIn('Job', $users_jobs)
+                ->get();
+        });
+
+
+
+
+
+
     }
 
 

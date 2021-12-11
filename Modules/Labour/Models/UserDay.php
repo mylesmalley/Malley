@@ -13,27 +13,27 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class UserDay
 {
-    public User $user;
-    public Collection $labour;
-    public Carbon $date;
+//    public User $user;
+//    public Collection $labour;
+//    public Carbon $date;
 
 
-    /**
-     * @param User $user
-     * @param Carbon|null $date
-     */
-    public function __construct( User $user, Carbon $date = null )
-    {
-        $this->user = $user;
-
-        $this->date = $date ?? Carbon::today();
-
-        $this->labour = Labour::where('user_id', $this->user->id )
-            ->whereDate('start', $this->date )
-            ->with('user.department')
-            ->orderBy('start')
-            ->get();
-    }
+//    /**
+//     * @param User $user
+//     * @param Carbon|null $date
+//     */
+//    public function __construct( User $user, Carbon $date = null )
+//    {
+//        $this->user = $user;
+//
+//        $this->date = $date ?? Carbon::today();
+//
+//        $this->labour = Labour::where('user_id', $this->user->id )
+//            ->whereDate('start', $this->date )
+//            ->with('user','user.department')
+//            ->orderBy('start')
+//            ->get();
+//    }
 
 
     /**
@@ -42,9 +42,10 @@ class UserDay
      * @return array
      */
     #[ArrayShape(['user' => "array", 'labour' => "array", 'date' => "mixed", 'dayName' => "mixed", 'monthDay' => "mixed", 'total_elapsed_labour' => "mixed"])]
-    public static function get(int $user_id, string $date ): array
+//    public static function get(int $user_id, string $date ): array
+    public static function get(User $user, string $date ): array
     {
-        $user = User::find( $user_id );
+      //  $user = User::find( $user_id );
         $date = Carbon::create($date, 'America/Moncton' );
 
         $rawLabour = Labour::where('user_id', $user->id )
