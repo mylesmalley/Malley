@@ -1,5 +1,6 @@
 <div>
-
+    <div class="card">
+        <div class="card-header">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <button class="nav-link {{ ( 'RECENT' === $selectedTab) ? 'active' : '' }} "
@@ -18,6 +19,9 @@
                     </button>
                 </li>
             </ul>
+        </div>
+        <div class="card-body">
+
             @if ( $searchMode )
                 <div id="searchForm" class="card border-secondary bg-secondary text-white">
                     <div class="card-body">
@@ -78,5 +82,8 @@
                         @endforelse
                 </tbody>
             </table>
+        </div>
+
+    </div>
 
 </div>

@@ -206,7 +206,7 @@
 
         <hr>
 
-        @livewire('labour::job-search-component', [ $user ])
+{{--        @livewire('labour::job-search-component', [ $user ])--}}
 
 
         <hr>

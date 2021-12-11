@@ -192,7 +192,6 @@
 
             <hr>
 
-            @livewire('labour::job-search-component', [ $user ])
 
         </div>
 

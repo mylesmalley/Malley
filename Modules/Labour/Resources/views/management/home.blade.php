@@ -32,6 +32,9 @@
 
 
                 @livewire('labour::manage-labour-component')
+
+                @livewire('labour::job-search-component' )
+
             </div>
         </div>
 
