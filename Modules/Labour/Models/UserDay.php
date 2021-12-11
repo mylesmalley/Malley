@@ -6,6 +6,7 @@ namespace Modules\Labour\Models;
 use App\Models\Labour;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -40,7 +41,7 @@ class UserDay
      * @param string $date
      * @return array
      */
-    #[ArrayShape(['user' => "array", 'labour' => "array", 'date' => "mixed", 'dayName' => "mixed", 'monthDay' => "mixed"])]
+    #[ArrayShape(['user' => "array", 'labour' => "array", 'date' => "mixed", 'dayName' => "mixed", 'monthDay' => "mixed", 'total_elapsed_labour' => "mixed"])]
     public static function get(int $user_id, string $date ): array
     {
         $user = User::find( $user_id );
@@ -48,11 +49,12 @@ class UserDay
 
         $rawLabour = Labour::where('user_id', $user->id )
             ->whereDate('start', $date )
-            ->with('department')
+            ->with('department', 'user', 'user.department')
             ->orderBy('start')
             ->get();
 
         $labour = [];
+        $total_elapsed_labour = 0;
 
         foreach( $rawLabour as $lab )
         {
@@ -68,7 +70,11 @@ class UserDay
                 'flagged' => $lab->flagged,
                 'posted' => $lab->posted,
             ] ;
+          //  dd( $lab->elapsed->format('%s') );
+            $total_elapsed_labour += (int) $lab->elapsed->totalSeconds;
         }
+
+      //  $total = CarbonInterval::make( $total_elapsed_labour ,'seconds' );
 
         return [
             'user' => [
@@ -82,7 +88,7 @@ class UserDay
             'date' => $date->format('Y-m-d'),
             'dayName' => $date->format('l'),
             'monthDay' => $date->format('M d'),
-
+            'total_elapsed_labour' => number_format( $total_elapsed_labour /3600, 1 ),
         ];
     }
 

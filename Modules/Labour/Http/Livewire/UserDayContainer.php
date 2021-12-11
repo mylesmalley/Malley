@@ -71,6 +71,7 @@ class UserDayContainer extends Component
             }
         }
 
+        //dd( $userDays);
         $this->userDays = $userDays;
     }
 
