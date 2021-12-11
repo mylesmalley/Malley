@@ -1,9 +1,16 @@
 <div>
     @forelse( $userDays as $ud )
 
+        @if ( $selectedDate === $ud['date'] && $ud['user']['id'] === $selectedUser )
 
-        <div class="card border-secondary">
-            <div class="card-header bg-secondary text-white">
+        <div class="
+            card border-info">
+            <div class="card-header bg-info text-white">
+                @else
+                    <div class="
+            card border-secondary">
+                        <div class="card-header bg-secondary text-white">
+                    @endif
                 <div class="row">
                     <div class="col-4 text-left">
                         {{ $ud['user']['first_name'] }} {{ $ud['user']['last_name'] }}
@@ -39,30 +46,10 @@
                 <tbody>
                     @forelse( $ud['labour'] as $lab )
 
-                        <tr
-                                wire:click="manageTime({{ $lab['id'] }})"
-    {{--                        @if ( $locked )--}}
-    {{--                            wire:click=""--}}
-    {{--                            @if ( ! $lab['end'] )--}}
-    {{--                                wire:click="$emit('cancel');clockOutRow({{ $lab['id'] }})"--}}
-    {{--                            @else--}}
-    {{--                                wire:click="$emit('cancel');editRow({{  $lab['id'] }})"--}}
-    {{--                            @endif--}}
-    {{--                        @else--}}
-    {{--                            @if ( ! $lab['end'] )--}}
-    {{--                                wire:click="clockOutRow({{ $lab['id'] }})"--}}
-    {{--                            @else--}}
-    {{--                                wire:click="editRow({{  $lab['id'] }})"--}}
-    {{--                            @endif--}}
-
-    {{--                        @endif--}}
+                        <tr wire:click="manageTime({{ $lab['id'] }})"
                             class="
                             {{  $lab['id'] === $selectedRow ? 'table-info' : '' }}
-                            {{  $lab['flagged'] ? 'table-warning' : '' }}
-    {{--                            {{ $locked ? 'table-dark' : '' }}--}}
-
-                                        "
-                        >
+                            {{  $lab['flagged'] ? 'table-warning' : '' }} ">
 
                             <td>{{ $lab['job'] }}</td>
                             <td>{{ $lab['department'] ?? "Department" }}</td>

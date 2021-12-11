@@ -24,6 +24,9 @@ class UserDayContainer extends Component
     public array $users;
     public array $dates;
 
+    public ?string $selectedDate;
+    public ?int $selectedUser;
+
     public $listeners = [
 //        'loadData',
 //        'lockUserDay',
@@ -64,6 +67,9 @@ class UserDayContainer extends Component
      */
     public function manageTime( int $labour_id ): void
     {
+        unset( $this->selectedDate );
+        unset( $this->selectedUser );
+
         $this->selectedRow = $labour_id;
 
         $this->emit('manageTime',  [
@@ -75,6 +81,9 @@ class UserDayContainer extends Component
 
     public function refresh_user_day(): void
     {
+        unset( $this->selectedDate );
+        unset( $this->selectedRow );
+        unset( $this->selectedUser );
 
         $this->mount( $this->users, $this->dates );
         $this->locked = false;
@@ -94,6 +103,9 @@ class UserDayContainer extends Component
     public function addTime( string $date, int $user_id  ): void
     {
         unset( $this->selectedRow );
+
+        $this->selectedDate = $date;
+        $this->selectedUser = $user_id;
 
         $this->emit('addTime',  [
             'user_id' => $user_id,
