@@ -2,6 +2,7 @@
 
 namespace Modules\Labour\Http\Livewire;
 
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -47,8 +48,12 @@ class UserDayContainer extends Component
         $this->users = $user_ids;
         $this->dates = $dates;
 
+        $users = User::whereIn('id', $user_ids)
+            ->select(['id','first_name','last_name','department_id'])
+            ->get();
+
         $userDays = [];
-        foreach($user_ids as $user )
+        foreach($users as $user )
         {
             foreach( $dates as $date )
             {

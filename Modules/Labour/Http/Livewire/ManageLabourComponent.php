@@ -6,6 +6,7 @@ use App\Models\Labour;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Carbon\Carbon;
@@ -121,6 +122,8 @@ class ManageLabourComponent extends Component
 
         // housekeeping
         Log::info( "Saved new labour record ". $this->labour->id );
+        Cache::forget('_user_day_'.$this->user->id.'-'.$this->date->format('Y-m-d') );
+
         $this->emit('refresh_user_day');
         $this->cancelManageTime();
     }
@@ -186,7 +189,7 @@ class ManageLabourComponent extends Component
 
         Log::info( "Updated labour record ". $this->labour->id );
         $this->emit('refresh_user_day');
-
+        Cache::forget('_user_day_'.$this->user->id.'-'.$this->date->format('Y-m-d') );
         $this->cancelManageTime();
     }
 
@@ -199,6 +202,7 @@ class ManageLabourComponent extends Component
         $this->labour?->finish();
         $this->emit('refresh_user_day');
         Log::info( "Manually clocked out ". $this->labour->id );
+        Cache::forget('_user_day_'.$this->user->id.'-'.$this->date->format('Y-m-d') );
         $this->cancelManageTime();
     }
 

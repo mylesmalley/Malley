@@ -88,6 +88,7 @@ class ManageLabourController extends Controller
     {
         return User::role('labour')
             ->where('is_enabled', '=', true )
+            ->select(['id','first_name','last_name','department_id'])
             ->orderBy('last_name')
             ->pluck('id')
             ->toArray();
@@ -101,6 +102,7 @@ class ManageLabourController extends Controller
     public function by_department( int $department_id ): array
     {
         return User::role('labour')
+            ->select(['id','first_name','last_name','department_id'])
             ->where('department_id', '=', $department_id)
             ->where('is_enabled', true )
             ->orderBy('last_name')

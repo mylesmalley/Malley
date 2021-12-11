@@ -40,7 +40,7 @@
                                aria-label=""
                                min="1"
                                max="12"
-                               wire:model="start_hours"
+                               wire:model.defer="start_hours"
                                step="1"
                                class="form-control form-control-sm"
                                name="start_hours">
@@ -60,7 +60,7 @@
                                aria-label=""
                                min="0"
                                max="59"
-                               wire:model="start_minutes"
+                               wire:model.defer="start_minutes"
                                step="1"
                                class="form-control form-control-sm"
                                name="start_minutes">
@@ -74,7 +74,7 @@
                             aria-label=""
                             class="form-control"
                             name="start_ampm"
-                            wire:model="start_ampm"
+                            wire:model.defer="start_ampm"
                             id="start_ampm">
                         <option {{ $start_ampm === 'AM' ? 'selected' : '' }}>AM</option>
                         <option {{ $start_ampm === 'PM' ? 'selected' : '' }}>PM</option>
@@ -103,7 +103,7 @@
                         <input id="end_hours"
                                type="number"
                                aria-label=""
-                               wire:model="end_hours"
+                               wire:model.defer="end_hours"
                                min="1"
                                max="12"
                                step="1"
@@ -123,7 +123,7 @@
                         <input id="end_minutes"
                                type="number"
                                aria-label=""
-                               wire:model="end_minutes"
+                               wire:model.defer="end_minutes"
                                min="0"
                                max="59"
                                step="1"
@@ -139,7 +139,7 @@
                             aria-label=""
                             class="form-control"
                             name="end_ampm"
-                            wire:model="end_ampm"
+                            wire:model.defer="end_ampm"
                             id="end_ampm">
 
                         <option {{ $end_ampm === 'AM' ? 'selected' : '' }}>AM</option>
@@ -159,7 +159,7 @@
                     <select
                             class="form-control"
                             name="department_id"
-                            wire:model="labour.department_id"
+                            wire:model.defer="labour.department_id"
                             id="department_id"
                             aria-label=""
                     >
@@ -184,7 +184,7 @@
                            readonly
                            id="job"
                            name="job"
-                           wire:model="labour.job"
+                           wire:model.defer="labour.job"
                            class="form-control"
                            required
                            placeholder="Search or Pick a Recent Job Below"
