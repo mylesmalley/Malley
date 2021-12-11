@@ -3,8 +3,8 @@
         <div class="card-header bg-success text-white">
             <h4>
                 Add Labour for <b>{{ $user->first_name }}  {{ $user->last_name }}</b> on <b>{{ $date->format('M d') }}</b>
-                <a wire:click="cancel"
-                   wire:keydown.escape="cancel"
+                <a wire:click="cancelManageTime"
+                   wire:keydown.escape="cancelManageTime"
                    class="btn btn-warning btn-sm float-end">Cancel</a>
 
             </h4>

@@ -56,6 +56,7 @@ class ManageLabourComponent extends Component
 
     /**
      * clear out the component when an action is done so that it doesn't pollute the next one
+     * fires off cancel_selected_record event to clear the user-days component of selections
      */
     public function cancelManageTime()
     {
@@ -71,6 +72,7 @@ class ManageLabourComponent extends Component
             $this->start_minutes,
             $this->end_minutes,
         );
+        $this->emit('cancel_selected_record');
     }
 
 

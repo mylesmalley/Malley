@@ -30,6 +30,7 @@ class UserDayContainer extends Component
     public $listeners = [
 //        'loadData',
 //        'lockUserDay',
+        'cancel_selected_record',
         'refresh_user_day',
     ];
 
@@ -60,7 +61,15 @@ class UserDayContainer extends Component
     }
 
 
-
+    /**
+     * listens for the cancel_selected_record and clears values
+     */
+    public function cancel_selected_record(): void
+    {
+        unset( $this->selectedDate );
+        unset( $this->selectedRow );
+        unset( $this->selectedUser );
+    }
 
     /**
      * @param int $labour_id
