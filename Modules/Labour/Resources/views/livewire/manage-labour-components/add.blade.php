@@ -1,6 +1,5 @@
 <div class="card border-success sticky-top">
 
-
         <div class="card-header bg-success text-white">
             <h4>
                 Add Labour for <b>{{ $user->first_name }}  {{ $user->last_name }}</b> on <b>{{ $date->format('M d') }}</b>
@@ -179,7 +178,7 @@
                                required
                                placeholder="Search or Pick a Recent Job Below"
                         >
-                        @error('job') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('labour.job') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
 

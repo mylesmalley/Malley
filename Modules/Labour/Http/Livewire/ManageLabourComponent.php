@@ -21,24 +21,24 @@ class ManageLabourComponent extends Component
 
 
     // chunks of time for editing...
-    public ?int $start_minutes;
-    public ?int $start_hours;
-    public ?int $end_minutes;
-    public ?int $end_hours;
+    public ?string $start_minutes;
+    public ?string $start_hours;
+    public ?string $end_minutes;
+    public ?string $end_hours;
     public ?string $end_ampm;
     public ?string $start_ampm;
 
 
     protected $rules = [
         'labour.job' => 'sometimes|required|string',
-        'labour.id' => 'sometimes|int',
+//        'labour.id' => 'sometimes|int',
         'labour.user_id' => 'sometimes|required|int',
-        'start_ampm' => 'sometimes|string|max:2',
-        'end_ampm' => 'sometimes|string|max:2',
-        'start_hours' => 'sometimes|int|min:1|max:12',
-        'start_minutes' => 'sometimes|int|min:0|max:59',
-        'end_hours' => 'sometimes|int|min:1|max:12',
-        'end_minutes' => 'sometimes|int|min:0|max:59',
+        'start_ampm' => 'sometimes|required|string|max:2',
+        'end_ampm' => 'sometimes|required|string|max:2',
+        'start_hours' => 'sometimes|required|string|max:2',
+        'start_minutes' => 'sometimes|required|string|max:2',
+        'end_hours' => 'sometimes|required|string|max:2',
+        'end_minutes' => 'sometimes|required|string|max:2',
         'labour.department_id' => 'sometimes|required|int',
     ];
 
@@ -49,7 +49,7 @@ class ManageLabourComponent extends Component
     public $listeners = [
         'manageTime',
         'cancelManageTime',
-        'addTime',
+        'addTime' => 'add_time',
         'selected_job',
     ];
 
@@ -75,21 +75,21 @@ class ManageLabourComponent extends Component
 
 
     /**
+     * listens for the add_time event and then builds up a new labour
+     * model. starts filling in what it can
+     *
      * @param array $event_payload
      */
-    public function addTime(array $event_payload)
+    public function add_time(array $event_payload)
     {
         $this->labour = new Labour;
         $this->user = User::find($event_payload['user_id']);
-
         $this->labour->user_id = $this->user->id;
-
         $this->labour->department_id = $this->user->department_id;
-
         $this->date = Carbon::parse($event_payload['date'], "America/Moncton");
 
+        // initialize the handling of chunks of time.
         $time = Carbon::now("America/Moncton");
-
 
         $this->start_hours = $time->copy()->subHour()->format('g');
         $this->end_hours = $time->format('g');
@@ -100,42 +100,28 @@ class ManageLabourComponent extends Component
     }
 
 
-    public function save_new_labour()
+    /**
+     * saves the labour model created, after validating first.
+     */
+    public function save_new_labour(): void
     {
         $this->validate();
 
-        $newStartString = $this->date->format('Y-m-d') . ' ' .
-            $this->start_hours . ":" .
-            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->start_ampm;
-
-        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
-
-        $newEndString = $this->date->format('Y-m-d') . ' ' .
-            $this->end_hours . ":" .
-            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->end_ampm;
-
-        $newEnd = Carbon::parse( $newEndString, 'America/Moncton');
-
         $this->labour->fill([
             'user_id' => $this->user->id,
-            'start' => $newStart,
-            'end' => $newEnd,
+            'start' => $this->parse_time_chunks( $this->date, 'start' ),
+            'end' => $this->parse_time_chunks( $this->date, 'end' ),
         ]);
-
 
         // for some reason laravel is adding an id column, even though it's empty
         unset( $this->labour->id );
         $this->labour->save();
 
-
+        // housekeeping
         Log::info( "Saved new labour record ". $this->labour->id );
         $this->emit('refresh_user_day');
-
         $this->cancelManageTime();
     }
-
 
     /**
      * listens for the selected_job event and updates the model
@@ -148,9 +134,9 @@ class ManageLabourComponent extends Component
 
 
 
-
-
     /**
+     * initializes the component when a labour id is provided.
+     *
      * @param array $event_payload
      */
     public function manageTime( array $event_payload )
@@ -182,30 +168,16 @@ class ManageLabourComponent extends Component
 
 
     /**
-     *
+     * save changes to a finished record.
      */
     public function update_record(): void
     {
         $this->validate();
 
-        $newStartString = $this->labour->start->format('Y-m-d') . ' ' .
-            $this->start_hours . ":" .
-            str_pad( $this->start_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->start_ampm;
-
-        $newStart = Carbon::parse( $newStartString, 'America/Moncton');
-
-        $newEndString = $this->labour->start->format('Y-m-d') . ' ' .
-            $this->end_hours . ":" .
-            str_pad( $this->end_minutes, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->end_ampm;
-
-        $newEnd = Carbon::parse( $newEndString, 'America/Moncton');
-
         $this->labour->update([
             'department_id' => $this->labour->department_id,
-            'start' =>  $newStart->toIso8601String(),
-            'end' => $newEnd->toIso8601String(),
+            'start' => $this->parse_time_chunks( $this->labour->start, 'start' )->toIso8601String(),
+            'end' => $this->parse_time_chunks( $this->labour->start, 'end' )->toIso8601String(),
             'flagged' => false, // if you are saving it, it shouldn't be flagged as a problem anymore
             'job' => $this->labour->job,
         ]);
@@ -218,7 +190,7 @@ class ManageLabourComponent extends Component
 
 
     /**
-     *
+     * an active labour record needs to be clocked out before you can edit or delete it
      */
     public function clock_out(): void
     {
@@ -229,9 +201,22 @@ class ManageLabourComponent extends Component
     }
 
 
+    /**
+     * Takes the chunks of time from the form and parses them into a carbon instance
+     *
+     * @param Carbon $date
+     * @param string $prefix
+     * @return Carbon
+     */
+    private function parse_time_chunks( Carbon $date, string $prefix ): Carbon
+    {
+        $newEndString = $date->format('Y-m-d') . ' ' .
+            $this->{$prefix."_hours"} . ":" .
+            str_pad( $this->{$prefix."_minutes"}, 2, '0', STR_PAD_LEFT )
+            . ' ' . $this->{$prefix."_ampm"};
 
-
-
+        return Carbon::parse( $newEndString, 'America/Moncton');
+    }
 
 
 
