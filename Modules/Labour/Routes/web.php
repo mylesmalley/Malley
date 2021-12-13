@@ -5,7 +5,7 @@ use Modules\Labour\Http\Controllers\ClockOutController;
 use Modules\Labour\Http\Controllers\FlagController;
 use Modules\Labour\Http\Controllers\HomeController;
 use Modules\Labour\Http\Controllers\LoginController;
-use Modules\Labour\Http\Controllers\ReportsController;
+use Modules\Labour\Http\Controllers\Reports\ClockedInUsersController;
 use Modules\Labour\Http\Controllers\ManageLabourController;
 
 
@@ -26,7 +26,7 @@ Route::prefix('labour')->group(function() {
          * ROUTES FOR REPORTS
          */
         Route::prefix('reports')->group(function() {
-            Route::get('test', [ ReportsController::class, 'clocked_in' ])
+            Route::get('test', [ ClockedInUsersController::class, 'clocked_in' ])
                 ->name('labour.reports.clocked_in');
         });
 
