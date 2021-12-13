@@ -203,12 +203,6 @@
         </form>
 
 
-
-        <hr>
-
-{{--        @livewire('labour::job-search-component', [ $user ])--}}
-
-
         <hr>
 
 

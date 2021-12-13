@@ -110,10 +110,18 @@ class ManageLabourComponent extends Component
     {
         $this->validate();
 
+
+        // flip around the values if the end is before the beginning
+        $first_date = $this->parse_time_chunks( $this->date, 'start' );
+        $second_date = $this->parse_time_chunks( $this->date, 'end' );
+
+        $start = $first_date->lessThan( $second_date ) ? $first_date : $second_date ;
+        $end = $second_date->greaterThan( $first_date ) ? $second_date : $first_date ;
+
         $this->labour->fill([
             'user_id' => $this->user->id,
-            'start' => $this->parse_time_chunks( $this->date, 'start' ),
-            'end' => $this->parse_time_chunks( $this->date, 'end' ),
+            'start' => $start,
+            'end' => $end,
         ]);
 
         // for some reason laravel is adding an id column, even though it's empty
@@ -179,17 +187,26 @@ class ManageLabourComponent extends Component
     {
         $this->validate();
 
+        // flip around the values if the end is before the beginning
+        $first_date = $this->parse_time_chunks(  $this->labour->start, 'start' );
+        $second_date = $this->parse_time_chunks(  $this->labour->start, 'end' );
+
+        $start = $first_date->lessThan( $second_date ) ? $first_date : $second_date ;
+        $end = $second_date->greaterThan( $first_date ) ? $second_date : $first_date ;
+
+
+
         $this->labour->update([
             'department_id' => $this->labour->department_id,
-            'start' => $this->parse_time_chunks( $this->labour->start, 'start' )->toIso8601String(),
-            'end' => $this->parse_time_chunks( $this->labour->start, 'end' )->toIso8601String(),
+            'start' => $start,
+            'end' => $end,
             'flagged' => false, // if you are saving it, it shouldn't be flagged as a problem anymore
             'job' => $this->labour->job,
         ]);
 
         Log::info( "Updated labour record ". $this->labour->id );
         $this->emit('refresh_user_day');
-        Cache::forget('_user_day_'.$this->user->id.'-'.$this->date->format('Y-m-d') );
+        Cache::forget('_user_day_'.$this->user->id.'-'.$this->labour->start->format('Y-m-d') );
         $this->cancelManageTime();
     }
 
