@@ -2,11 +2,13 @@
 
 namespace Modules\Labour\Http\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Labour;
@@ -84,13 +86,18 @@ class SysproJobs extends Component
         $this->selectedTab = $tab;
         $this->searchMode = false;
 
-        $this->results = DB::connection('syspro')
-            ->table('WipMaster')
-            ->select('Job', 'JobDescription')
-            ->where( 'Complete' , '=', 'N' )
-            ->where(  'Job', 'like', $tab."%" )
-            ->orderBy('Job', 'ASC')
-            ->get();
+        $this->results =
+            Cache::remember('_syspro_job_tab_search_tab_'.$tab ,
+                Carbon::now()->minutes(15), function() use ($tab) {
+
+                    return DB::connection('syspro')
+                        ->table('WipMaster')
+                        ->select('Job', 'JobDescription')
+                        ->where('Complete', '=', 'N')
+                        ->where('Job', 'like', $tab . "%")
+                        ->orderBy('Job', 'ASC')
+                        ->get();
+                });
     }
 
 
@@ -101,13 +108,19 @@ class SysproJobs extends Component
     {
         $this->results = collect([]);
 
-        $this->prefixes = DB::connection('syspro')
-            ->table('WipMaster')
-            ->selectRaw("  LEFT(Job,3)  AS Prefix ")
-            ->where('Complete', '=', 'N')
-            ->orderBy('Prefix', 'ASC')
-            ->distinct('Prefix')
-            ->pluck('Prefix');
+        $this->prefixes =
+            Cache::remember('_syspro_all_job_prefixes' ,
+                Carbon::now()->hours(24), function() {
+                  return  DB::connection('syspro')
+                        ->table('WipMaster')
+                        ->selectRaw("  LEFT(Job,3)  AS Prefix ")
+                        ->where('Complete', '=', 'N')
+                        ->orderBy('Prefix', 'ASC')
+                        ->distinct('Prefix')
+                        ->pluck('Prefix');
+                });
+
+
 
         $this->selectedTab = $this->prefixes->first();
 

@@ -26,7 +26,7 @@ class JobSearchComponent extends Component
 
     protected $listeners = [
         'manageTime',
-        'cancelManageTime',
+        'cancel_selected_record',
         'addTime',
     ];
 
@@ -49,7 +49,7 @@ class JobSearchComponent extends Component
     }
 
 
-    public function cancelManageTime()
+    public function cancel_selected_record()
     {
         unset( $this->user );
         $this->visible = false;
