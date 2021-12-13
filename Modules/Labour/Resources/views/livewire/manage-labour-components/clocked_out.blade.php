@@ -208,7 +208,7 @@
 
         <small class="text-danger">If this record is wrong and it isn't worth fixing, you can delete it.</small>
 
-        <button class="btn btn-danger" wire:click="deleteLabourRecord">
+        <button class="btn btn-danger" wire:click="delete_labour_record">
             Delete Labour
         </button>
 

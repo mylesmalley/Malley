@@ -112,11 +112,11 @@ class ManageLabourComponent extends Component
 
 
         // flip around the values if the end is before the beginning
-        $first_date = $this->parse_time_chunks( $this->date, 'start' );
-        $second_date = $this->parse_time_chunks( $this->date, 'end' );
+        $first_date = $this->parse_time_chunks($this->date, 'start');
+        $second_date = $this->parse_time_chunks($this->date, 'end');
 
-        $start = $first_date->lessThan( $second_date ) ? $first_date : $second_date ;
-        $end = $second_date->greaterThan( $first_date ) ? $second_date : $first_date ;
+        $start = $first_date->lessThan($second_date) ? $first_date : $second_date;
+        $end = $second_date->greaterThan($first_date) ? $second_date : $first_date;
 
         $this->labour->fill([
             'user_id' => $this->user->id,
@@ -125,12 +125,12 @@ class ManageLabourComponent extends Component
         ]);
 
         // for some reason laravel is adding an id column, even though it's empty
-        unset( $this->labour->id );
+        unset($this->labour->id);
         $this->labour->save();
 
         // housekeeping
-        Log::info( "Saved new labour record ". $this->labour->id );
-        Cache::forget('_user_day_'.$this->user->id.'-'.$this->date->format('Y-m-d') );
+        Log::info("Saved new labour record " . $this->labour->id);
+        Cache::forget('_user_day_' . $this->user->id . '-' . $this->date->format('Y-m-d'));
 
         $this->emit('refresh_user_day');
         $this->cancelManageTime();
@@ -146,13 +146,12 @@ class ManageLabourComponent extends Component
     }
 
 
-
     /**
      * initializes the component when a labour id is provided.
      *
      * @param array $event_payload
      */
-    public function manageTime( array $event_payload )
+    public function manageTime(array $event_payload)
     {
         $record = Labour::with('user')
             ->where('id', '=', $event_payload['labour_id'])
@@ -162,22 +161,19 @@ class ManageLabourComponent extends Component
         $this->user = $record->user;
         $this->clocked_in = $record->getOriginal('end') === null;
 
-        $start = Carbon::parse( $this->labour->start );
+        $start = Carbon::parse($this->labour->start);
 
         $this->start_hours = $start->format('g');
         $this->start_minutes = $start->format('i');
         $this->start_ampm = $start->format('A');
 
-        $end = Carbon::parse( $this->labour->end );
+        $end = Carbon::parse($this->labour->end);
 
         $this->end_hours = $end->format('g');
         $this->end_minutes = $end->format('i');
         $this->end_ampm = $end->format('A');
 
     }
-
-
-
 
 
     /**
@@ -188,12 +184,11 @@ class ManageLabourComponent extends Component
         $this->validate();
 
         // flip around the values if the end is before the beginning
-        $first_date = $this->parse_time_chunks(  $this->labour->start, 'start' );
-        $second_date = $this->parse_time_chunks(  $this->labour->start, 'end' );
+        $first_date = $this->parse_time_chunks($this->labour->start, 'start');
+        $second_date = $this->parse_time_chunks($this->labour->start, 'end');
 
-        $start = $first_date->lessThan( $second_date ) ? $first_date : $second_date ;
-        $end = $second_date->greaterThan( $first_date ) ? $second_date : $first_date ;
-
+        $start = $first_date->lessThan($second_date) ? $first_date : $second_date;
+        $end = $second_date->greaterThan($first_date) ? $second_date : $first_date;
 
 
         $this->labour->update([
@@ -204,9 +199,9 @@ class ManageLabourComponent extends Component
             'job' => $this->labour->job,
         ]);
 
-        Log::info( "Updated labour record ". $this->labour->id );
+        Log::info("Updated labour record " . $this->labour->id);
         $this->emit('refresh_user_day');
-        Cache::forget('_user_day_'.$this->user->id.'-'.$this->labour->start->format('Y-m-d') );
+        Cache::forget('_user_day_' . $this->user->id . '-' . $this->labour->start->format('Y-m-d'));
         $this->cancelManageTime();
     }
 
@@ -218,8 +213,8 @@ class ManageLabourComponent extends Component
     {
         $this->labour?->finish();
         $this->emit('refresh_user_day');
-        Log::info( "Manually clocked out ". $this->labour->id );
-        Cache::forget('_user_day_'.$this->user->id.'-'.$this->date->format('Y-m-d') );
+        Log::info("Manually clocked out " . $this->labour->id);
+        Cache::forget('_user_day_' . $this->user->id . '-' . $this->date->format('Y-m-d'));
         $this->cancelManageTime();
     }
 
@@ -231,14 +226,28 @@ class ManageLabourComponent extends Component
      * @param string $prefix
      * @return Carbon
      */
-    private function parse_time_chunks( Carbon $date, string $prefix ): Carbon
+    private function parse_time_chunks(Carbon $date, string $prefix): Carbon
     {
         $newEndString = $date->format('Y-m-d') . ' ' .
-            $this->{$prefix."_hours"} . ":" .
-            str_pad( $this->{$prefix."_minutes"}, 2, '0', STR_PAD_LEFT )
-            . ' ' . $this->{$prefix."_ampm"};
+            $this->{$prefix . "_hours"} . ":" .
+            str_pad($this->{$prefix . "_minutes"}, 2, '0', STR_PAD_LEFT)
+            . ' ' . $this->{$prefix . "_ampm"};
 
-        return Carbon::parse( $newEndString, 'America/Moncton');
+        return Carbon::parse($newEndString, 'America/Moncton');
+    }
+
+
+    public function delete_labour_record()
+    {
+        Log::info("deleted labour ". $this->labour->id );
+        Cache::forget('_user_day_' . $this->user->id . '-' . $this->labour->start->format('Y-m-d'));
+        Labour::where('id', '=', $this->labour->id)
+            ->delete();
+
+        $this->emit('refresh_user_day');
+        $this->cancelManageTime();
+
+
     }
 
 
