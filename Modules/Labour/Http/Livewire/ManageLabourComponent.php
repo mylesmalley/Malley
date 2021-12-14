@@ -214,7 +214,7 @@ class ManageLabourComponent extends Component
         $this->labour?->finish();
         $this->emit('refresh_user_day');
         Log::info("Manually clocked out " . $this->labour->id);
-        Cache::forget('_user_day_' . $this->user->id . '-' . $this->date->format('Y-m-d'));
+        Cache::forget('_user_day_' . $this->user->id . '-' . $this->labour->start->format('Y-m-d'));
         $this->cancelManageTime();
     }
 

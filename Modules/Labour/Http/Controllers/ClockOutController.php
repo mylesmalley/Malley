@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Models\Labour;
+use Illuminate\Support\Facades\Cache;
 
 class ClockOutController extends Controller
 {
@@ -20,7 +21,11 @@ class ClockOutController extends Controller
             'id' => 'required|integer'
         ]);
 
-        Labour::find( $request->input('id'))->finish();
+        $labour =  Labour::find( $request->input('id'));
+
+        Cache::forget('_user_day_' . $labour->user_id . '-' . $labour->start->format('Y-m-d'));
+
+        $labour->finish();
 
         return redirect()->route('labour.home');
     }

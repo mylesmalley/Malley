@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Models\Labour;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class ClockInController extends Controller
 {
@@ -30,6 +31,7 @@ class ClockInController extends Controller
         ]);
 
         $labour->save();
+        Cache::forget('_user_day_' . Auth::user()->id . '-' . Carbon::now('America/Moncton')->format('Y-m-d'));
 
         return redirect()->route('labour.home');
     }
