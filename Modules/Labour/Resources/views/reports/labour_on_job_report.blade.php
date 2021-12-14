@@ -18,17 +18,29 @@
                         By Date, By Department
                     </div>
 
-                    <table>
-
-                        @foreach( $by_date_by_dept as $date => $departments )
+                    <table class="table table-striped table-hover table-sm">
+                        <thead>
                             <tr>
-                                <td>{{ $date }}</td>
-                                @foreach( $departments as $dept => $time )
-                                    <td>{{ number_format( $by_date_by_dept[$date][$dept], 2) }}</td>
+                                <th>Date</th>
+                                @foreach( $unique_departments as $ud => $v )
+                                    <th>{{ $departments[ $ud ] }}</th>
                                 @endforeach
                             </tr>
+                        </thead>
+                        <tbody>
 
-                        @endforeach
+                            @foreach( $by_date_by_dept as $date => $departments )
+                                @if( $by_date_by_dept[$date][count($unique_departments)] != 0)
+                                    <tr>
+                                        <td>{{ $date }}</td>
+                                        @foreach( $departments as $dept => $time )
+                                            <td>{{ number_format( $by_date_by_dept[$date][$dept] /3600, 2) }}</td>
+                                        @endforeach
+                                        <td>{{ number_format( $by_date_by_dept[$date][count($unique_departments)] /3600, 2) }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
 
 
                     </table>

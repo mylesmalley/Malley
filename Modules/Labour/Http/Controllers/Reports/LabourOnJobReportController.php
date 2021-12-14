@@ -2,6 +2,7 @@
 
 namespace Modules\Labour\Http\Controllers\Reports;
 
+use App\Models\Department;
 use App\Models\Labour;
 use App\Http\Controllers\Controller;
 use Carbon\CarbonPeriod;
@@ -21,8 +22,6 @@ class LabourOnJobReportController extends Controller
 
         $labour = null;
 
-        if ( $job )
-        {
             $labour = Labour::where('job', '=', $job )
              //   ->with('user','department')
                 ->orderBy('start','DESC')
@@ -40,8 +39,15 @@ class LabourOnJobReportController extends Controller
                 ->toArray();
 
             $unique_departments = array_fill_keys( $unique_departments, 0 );
+            $unique_departments[] = 0;
 
-            //dd( $unique_departments );
+            $departments = Department::all()
+                ->pluck('name', 'id')
+                ->toArray();
+
+//
+//
+//                dd( $unique_departments, $departments );
 
             $first = $labour->first()->start;
             $last = $labour->last()->start;
@@ -64,26 +70,27 @@ class LabourOnJobReportController extends Controller
             {
                 $date = $l->start->format('Y-m-d');
                 $by_date_by_dept[$date][$l->department_id] += (int) $l->elapsed->totalSeconds;
+
+                $by_date_by_dept[$date][count($unique_departments)] += (int) $l->elapsed->totalSeconds;
             }
 
 
 
 
 
-           // dd( $x );
+//            dd( $departments );
             //dd( $unique_users,$unique_departments , $range );
 
-
+            return response()
+                ->view('labour::reports.labour_on_job_report', [
+                    'job' => $job,
+                    'by_date_by_dept' => $by_date_by_dept,
+                    'departments' => $departments,
+                    'unique_departments' => $unique_departments,
+                    'labour' => $labour,
+                ] );
         }
 
-        return response()
-            ->view('labour::reports.labour_on_job_report', [
-                'job' => $job,
-                'by_date_by_dept' => $by_date_by_dept,
-                'labour' => $labour,
-            ] );
-
-    }
 
 
 
