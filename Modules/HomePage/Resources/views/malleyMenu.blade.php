@@ -18,10 +18,14 @@
 
 
                 @auth
-                    @includeIf("homepage::menus.blueprint")
-                    @includeIf("homepage::menus.inventory")
-                    @includeIf("homepage::menus.engineering")
-                    @includeIf("homepage::menus.vehicles")
+
+                    @if( !str_contains( url()->current(), '/labour/' ) && !str_contains( url()->current(), '/usermanagement/' ) )
+                        @includeIf("homepage::menus.blueprint")
+                        @includeIf("homepage::menus.inventory")
+                        @includeIf("homepage::menus.engineering")
+                        @includeIf("homepage::menus.vehicles")
+                    @endif
+
                     @includeIf("homepage::menus.labour")
                     @includeIf("homepage::menus.admin")
                 @endauth
