@@ -2,46 +2,32 @@
     <h1 class="text-center">Chassis at Malley Industries Today</h1>
 
 
-
-
-    <div class="card border-primary">
-        <table class="table table-sm table-striped table-hover">
+        <table cellpadding="5" cellspacing="5" class="table table-sm table-striped table-hover">
             <thead>
             <tr>
-                <th>Vehicle</th>
+
+                <th>Ref #</th>
+                <th>VIN</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Customer</th>
 {{--                @foreach( $milestones as $m )--}}
 {{--                    <th>{{ ucwords( str_replace('_',' ', $m)) }}</th>--}}
 {{--                @endforeach--}}
-                <th></th>
+                <th>Date Arrived</th>
             </tr>
             </thead>
             <tbody>
             @forelse( $chassis as $r )
                 <tr>
-                    <td>
-                        <a href="{{ route('vehicle.home', [$r->id]) }}">
-                            {{ $r->year . ' ' . $r->make . ' ' . $r->model }}<br>
-                            {{ $r->vin }}<br>
-                            {{ $r->customer_name ?? 'No customer name' }} {{ $r->identifier ?? '.' }}
-                        </a>
-
-                    </td>
-{{--                    @foreach( $milestones as $m )--}}
-{{--                        @if ( $r->{$m} == true )--}}
-{{--                            <td class="table-success">--}}
-{{--                                Yes--}}
-{{--                            </td>--}}
-{{--                        @else--}}
-{{--                            <td class="table-danger">--}}
-{{--                                No--}}
-{{--                            </td>--}}
-{{--                        @endif--}}
-{{--                    @endforeach--}}
-                    <td>
-                        <a href="{{ route('vehicle.dates', [$r->id]) }}" class="btn btn-sm btn-secondary">
-                            Edit
-                        </a>
-                    </td>
+                    <td>{{ $r->identifier }}</td>
+                    <td><a href="{{ route('vehicle.home', [$r->id]) }}">{{ $r->vin  }}</a></td>
+                    <td>{{ $r->make }}</td>
+                    <td>{{ $r->model }}</td>
+                    <td>{{ $r->year }}</td>
+                    <td>{{ $r->customer_name }}</td>
+                    <td> {{ $r->arrival }}</td>
                 </tr>
             @empty
                 <tr>
@@ -50,4 +36,3 @@
             @endforelse
             </tbody>
         </table>
-    </div>

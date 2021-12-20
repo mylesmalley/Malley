@@ -531,7 +531,7 @@ class Vehicle extends BaseModel implements HasMedia
 
 
 
-    public function activeMilestones()
+    public function activeMilestones(): array
     {
         $results = [];
         foreach ($this->availableDates as $d)

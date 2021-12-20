@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Vehicle;
-use App\Models\VehicleDate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Modules\Vehicles\Mail\ChassisHereEmail;
@@ -43,9 +42,6 @@ class ChassisHereReport extends Command
     public function handle(): void
     {
 
-//        $hide_not_arrived = true;
-//        $hide_departed = true;
-//
         $vehicles = Vehicle::select([
             'id','vin','work_order','malley_number','customer_number',
             'make','model','year','customer_name','work_order',
@@ -61,15 +57,15 @@ class ChassisHereReport extends Command
                     $query->where('name', '=' ,'compound_exit')
                         ->where('current', '=', true);
                 });
+
             })
-//            ->whereRaw("UPPER(make) = 'FORD'")
+
             ->with('dates')
             ->where('created_at','>','2021-05-31')
             ->where('vin','!=','')
             ->orderBy('created_at', 'DESC')
             ->get();
 
-   //     $milestones = VehicleDate::ford_milestone();
 
 
         $results = [];
@@ -84,16 +80,8 @@ class ChassisHereReport extends Command
                 'make' => $vehicle->make,
                 'model' => $vehicle->model,
                 'year' => $vehicle->year,
-      //          'milestones' => $vehicle->milestones()
+                'arrival' => $vehicle->milestone('arrival'),
             ];
-
-//            foreach( $milestones as $milestone )
-//            {
-//                $result[$milestone] = $vehicle
-//                    ->milestones()
-//                    ->has($milestone);
-//            }
-
 
 
             $results[] = $result;
