@@ -30,10 +30,12 @@
 {{--                @livewire('labour::labour-clock-out-component' )--}}
 {{--                @livewire('labour::labour-add-component' )--}}
 
+                <div class="sticky-top">
+                    @livewire('labour::manage-labour-component')
 
-                @livewire('labour::manage-labour-component')
+                    @livewire('labour::job-search-component' )
 
-                @livewire('labour::job-search-component' )
+                </div>
 
             </div>
         </div>
