@@ -22,7 +22,7 @@
             @forelse( $chassis as $r )
                 <tr>
                     <td>{{ $r->identifier }}</td>
-                    <td><a href="{{ route('vehicle.home', [$r->id]) }}">{{ $r->vin  }}</a></td>
+                    <td><a href="https://index.malleyindustries.com/vehicles/{{ $r->id }}">{{ $r->vin  }}</a></td>
                     <td>{{ $r->make }}</td>
                     <td>{{ $r->model }}</td>
                     <td>{{ $r->year }}</td>

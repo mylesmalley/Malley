@@ -96,7 +96,12 @@ class ChassisHereReport extends Command
 
 
         foreach([
-            'mmalley@malleyindustries.com'
+            'mmalley@malleyindustries.com',
+            'tmalley@malleyindustries.com',
+            'dpargiter@malleyindustries.com',
+            'jbourque@malleyindustries.com',
+            'kmalley@malleyindustries.com',
+            'bcroucher@malleyindustries.com',
                  ] as $email )
         {
             Mail::to( $email )
