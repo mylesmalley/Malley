@@ -8,8 +8,8 @@
 
 	<br>
 	<div class="row">
+        @includeIf('homepage::cards.labour')
         @includeIf('homepage::cards.inventory')
-        @includeIf('homepage::cards.purchasing')
         @includeIf('homepage::cards.optionIndex')
         @includeIf('homepage::cards.vehicles')
 
