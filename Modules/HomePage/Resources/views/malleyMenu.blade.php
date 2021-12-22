@@ -35,24 +35,36 @@
             @auth
 {{--                    <li class="nav-item"><a class="nav-link" href="#"> Menu item </a></li>--}}
 
-                    @includeIf("homepage::menus.search")
 
                 @endauth
 
                     @auth
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
 
-                                            </li>
+                        @if( !str_contains( url()->current(), '/labour/' ) && !str_contains( url()->current(), '/usermanagement/' ) )
+                        @includeIf("homepage::menus.search")
+
+                        <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+                            </li>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display:none;" >
+                                {{ csrf_field() }}
+                                {{--                            <input type="submit" class="nav-item" value="Log Me Out">--}}
+                            </form>
+                        @else
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+                            </li>
+                            <form id="logout-form" action="{{ route('labour.logout') }}" method="POST" style="display:none;" >
+                                {{ csrf_field() }}
+                                {{--                            <input type="submit" class="nav-item" value="Log Me Out">--}}
+                            </form>
+                        @endif
 
                         {{--                        <li class="nav-item"><a class="nav-link" href="{{ url('login') }}"> Log In </a></li>--}}
 
 {{--                        {{ Auth::user()->first_name }}! Did you want to <a href="/" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">--}}
 {{--                            log out</a>?--}}
-                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display:none;" >
-                            {{ csrf_field() }}
-{{--                            <input type="submit" class="nav-item" value="Log Me Out">--}}
-                        </form>
+
                     @endauth
                     @guest
                         <li class="nav-item"><a class="nav-link" href="{{ url('login') }}"> Log In </a></li>
