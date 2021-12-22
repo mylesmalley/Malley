@@ -7,20 +7,20 @@ use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class StaffUsersController extends Controller
 {
     /**
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function index(): View
+    public function index(): Response
     {
         $this->authorize('manage_production_staff', User::class);
 
-        return view('usermanagement::staff.index', [
+        return response()->view('usermanagement::staff.index', [
             'users' => User::role('labour')
                 ->with('department')
                 ->orderBy('last_name')
@@ -29,14 +29,15 @@ class StaffUsersController extends Controller
     }
 
     /**
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function create(): View
+    public function create(): Response
     {
         $this->authorize('manage_production_staff', User::class);
 
-        return view('usermanagement::staff.create');
+        return response()
+            ->view('usermanagement::staff.create');
     }
 
     /**
@@ -76,16 +77,16 @@ class StaffUsersController extends Controller
 
     /**
      * @param User $user
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function show(User $user): View
+    public function show(User $user): Response
     {
-        $this->authorize('manage_general_users', User::class);
+        $this->authorize('manage_production_staff', User::class);
 
-        return view('usermanagement::staff.show', [
+        return response()
+            ->view('usermanagement::staff.show', [
             'user' => $user,
-//            'company'=> $user->company,
         ]);
     }
 
@@ -96,7 +97,7 @@ class StaffUsersController extends Controller
      */
     public function toggle(User $user): RedirectResponse
     {
-        $this->authorize('manage_general_users', User::class);
+        $this->authorize('manage_production_staff', User::class);
 
         $user->is_enabled = !$user->is_enabled;
         $user->save();
@@ -106,14 +107,15 @@ class StaffUsersController extends Controller
 
     /**
      * @param User $user
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function resetPassword(User $user): View
+    public function resetPassword(User $user): Response
     {
-        $this->authorize('manage_general_users', User::class);
+        $this->authorize('manage_production_staff', User::class);
 
-        return view('usermanagement::staff.resetPassword', ['user' => $user]);
+        return response()
+            ->view('usermanagement::staff.resetPassword', ['user' => $user]);
     }
 
 
@@ -123,9 +125,9 @@ class StaffUsersController extends Controller
      * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function submitResetPassword(Request $request, User $user)
+    public function submitResetPassword(Request $request, User $user): RedirectResponse
     {
-        $this->authorize('manage_general_users', User::class);
+        $this->authorize('manage_production_staff', User::class);
 
         $request->validate([
             'password' => 'required|string|min:6',
@@ -139,7 +141,7 @@ class StaffUsersController extends Controller
 
         return redirect( )
             ->route('staff.index')
-            ->with('success', "Changed {$user->first_name} {$user->last_name}'s password." );
+            ->with('success', "Changed $user->first_name $user->last_name's password." );
     }
 
 

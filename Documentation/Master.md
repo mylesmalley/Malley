@@ -1,10 +1,28 @@
 # Malley Web Tools Documentation
 
+
+
 ## Blueprint
 
-#### Option Index
+
+
+
+
+
+
+------
+
+## Option Index
+
+
+
+
+
+------
 
 ## Inventory & Purchasing
+
+
 
 ### Part Order Requests
 
@@ -24,6 +42,8 @@ If you know the part number, you can start typing it into the Part Number field.
 
 #### Checking on Open Requests
 
+
+
 #### Seeing Open Requests by Department
 
 
@@ -32,13 +52,21 @@ If you know the part number, you can start typing it into the Part Number field.
 
 
 
-
+------
 
 ## Vehicle Database
 
+
+
+------
+
 ## Labour Tracking
 
+
+
 ### For Staff
+
+
 
 #### Overview
 
@@ -140,7 +168,7 @@ In the top-right corner of the time card in question, click the green **Add** bu
 
 Fill in the green **Add Labour to [NAME] on [DATE]** form fields. They are all required. 
 
-![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-14 14-06-10.png)
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-14 14-06-10.png" style="zoom:50%;" />
 
 The box at the bottom of the form will let you choose the job they are working on. The **RECENT** tab shows the last few jobs that person has been clocked in to that are still open in Syspro. the **SEARCH** tab allows you to find the right one you are looking for.
 
@@ -148,25 +176,127 @@ When you are done, click on the **Add Labour** button. If there are no errors to
 
 If there are errors, you will be prompted to fix them before you can add the time. 
 
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-10-00.png" style="zoom:33%;" />
+
 You can cancel this at any time before saving changes. If you leave the page or go to make changes on another record before saving this new labour though, it will be lost.
 
 
 
 #### Edit an Existing Record
 
+NOTE 1: You can only make changes to labour records if they haven't been posted to Syspro already. 
+
+NOTE 2: You can make changes to a labour record when they are clocked out. If they are not clocked out yet, this must be done first. See **Clock Someone Out**.
+
+Click on a record on a time card. A dark blue window will appear on the right side of your screen. You can change any details about the record you wish, including the job.
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-07-53.png" style="zoom:50%;" />
+
+
+
+When you have finished, click the blue Save Changes to Labour button. You can cancel this at any time as well.
+
+
+
 #### Delete Time
+
+Note: Once a labour record is deleted, it can't be brought back. 
+
+You can delete a record entirely if it was added in error.  Follow the steps to edit the record but instead of making changes, click the red Delete Labour button at the bottom of the blue box. 
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-08-15.png" style="zoom:50%;" />
+
+
 
 #### Clock Someone Out
 
+If someone is currently clocked in, their time card will look something like this:
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-08-57.png" style="zoom: 67%;" />
+
+If you click on the **ongoing** record, a light blue box on the right will appear that will allow you to manually clock that person off the job they are working on.
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-09-18.png" style="zoom:50%;" />
+
+
+
+
+
+### Managing Production Staff Accounts
+
+This section explains the steps to manage staff accounts. Everything herein can be reached from the **Admin** menu at the top of the page. If you don't see the **Admin** menu but you should, let Myles or Kayla know to update your account.
+
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-34-33.png)
+
+
+
+#### See All Staff Accounts
+
+From the **Admin Menu** click on **See All**. You will be presented with a list of all existing staff accounts. 
+
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-34-53.png)
+
+The name, department, account status and other options are listed for each person. Employee accounts are never deleted, even if they no longer work with us to maintain records. However, their account status shows whether or not they can log in or not. An account listed as **LOCKED** does not appear in the login menu.
+
+
+
 #### Add New Production Staff
+
+To add a new staff account, click on the **Add Staff** button from the list of **All Staff**, or click on the **Add New Production Staff** link in the **Admin Menu**.
+
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-35-02.png)
+
+You will be presented with a simple form that requires very little information.
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-37-44.png" style="zoom:50%;" />
+
+All fields are required.
+
+The **Password** field will be pre-filled with a introductory password in the format of **Welcome[random number]**. This pre-filled password will be different every time, so please make note of it. You can also substitute that for a different one if you prefer. 
+
+As soon as you click **Create Account** the person will be able to sign in using the password you provided. 
+
+
 
 #### Lock Out Production Staff
 
+When someone is no longer with the company, their account needs to be locked to prevent them from signing in. To do so, find the person in the **All Staff** list and click on the **Edit** button.
+
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-35-29.png)
+
+At the bottom of the page, you'll see a red **LOCK ACCOUNT** button. Clicking it will disable their ability to log in.
+
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-36-51.png)
+
+If a mistake was made, or that employee rejoins the company, their account can be re-enabled by following the same process as locking their account. However this time, the form will look like this:
+
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-37-03.png)
+
+
+
 #### Reset Someone's Password
 
+If someone has forgotten their password, find them in the **All Staff** list and click the **Reset Password** link next to their name. 
 
+![](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-35-29.png)
+
+You will be presented with a form that looks like this:
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/Screenshot from 2021-12-22 10-36-20.png" style="zoom: 50%;" />
+
+NOTE 1: The passord you use is **case sensitive** and has to be at least six characters long. For exmaple, **pass11** and **Pass11** are not the same thing. There are no other rules or requirements. The user's password can be any combination of letters, numbers and symbols. In this situaiton, they do not need to be strong - just memorable. 
+
+NOTE 2: There is no way to recover a forgotten password. The only way to regain access is to reset it to something new. 
+
+
+
+****
 
 ## Administration
+
+
+
+------
 
 ## Setup & Troubleshooting
 
