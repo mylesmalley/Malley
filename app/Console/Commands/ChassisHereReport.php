@@ -102,6 +102,10 @@ class ChassisHereReport extends Command
             'jbourque@malleyindustries.com',
             'kmalley@malleyindustries.com',
             'bcroucher@malleyindustries.com',
+            'CDeveau@malleyindustries.com',
+            'MarcALeblanc@malleyindustries.com',
+            'kprasad@malleyindustries.com',
+            'vhinojosa@malleyindustries.com'
                  ] as $email )
         {
             Mail::to( $email )
