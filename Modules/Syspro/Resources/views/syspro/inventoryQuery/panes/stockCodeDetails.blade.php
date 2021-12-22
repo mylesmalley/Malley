@@ -5,11 +5,11 @@
         <table>
             <tr>
                 <td>Stock Code</td>
-                <td>{{ $inv->StockCode }}</td>
+                <td>{{ $inv->StockCode ?? "" }}</td>
             </tr>
             <tr>
                 <td>Description</td>
-                <td>{{ $inv->Description }}</td>
+                <td>{{ $inv->Description ?? "" }}</td>
             </tr>
             <tr>
                 <td> </td>
@@ -17,12 +17,12 @@
             </tr>
             <tr>
                 <td style="vertical-align: top;">Supplier</td>
-                <td>{{ $inv->SupplierChName }}<br />
-                    {{ $inv->Supplier }}</td>
+                <td>{{ $inv->SupplierChName?? ""  }}<br />
+                    {{ $inv->Supplier ?? "" }}</td>
             </tr>
             <tr>
                 <td style="vertical-align: top;">Supplier Part #</td>
-                <td>{{ $inv->SupCatalogueNum }}</td>
+                <td>{{ $inv->SupCatalogueNum ?? "" }}</td>
             </tr>
 
             @if ( $inv->StockOnHold === "F")
@@ -34,7 +34,7 @@
                 <td>
                     Look Up <br />on Google
                 </td>
-                <td><a href="https://google.com/search?q={{ urlencode( $inv->SupplierChName . ' ' . $inv->SupCatalogueNum ?? '') }}">{{  $inv->SupplierChName }} <br />Supplier # {{ $inv->SupCatalogueNum ??
+                <td><a href="https://google.com/search?q={{ urlencode( $inv->SupplierChName . ' ' . $inv->SupCatalogueNum ?? '') }}">{{  $inv->SupplierChName?? ""  }} <br />Supplier # {{ $inv->SupCatalogueNum ??
  ''}}</a></td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
                     Put a request<br /> for order
                 </td>
                 <td>
-                    <a href="{{ url('/syspro/purchasing/newRequest?term='.$inv->StockCode) }}"
+                    <a href="{{ url('/syspro/purchasing/newRequest?term='.$inv->StockCode?? "" ) }}"
                     >
                         <img
                             style="height:50px;"
