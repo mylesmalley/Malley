@@ -20,62 +20,65 @@ class LabourOnJobReportController extends Controller
     {
 //        $this->authorize('labour_edit', Labour::class);
 
-        $labour = null;
 
             $labour = Labour::where('job', '=', $job )
              //   ->with('user','department')
                 ->orderBy('start','DESC')
                 ->get();
 
-            $unique_users = $labour
-                ->unique('user_id')
-                ->pluck('user_id')
-                ->toArray();
-
-
-            $unique_departments = $labour
-                ->unique('department_id')
-                ->pluck('department_id')
-                ->toArray();
-
-            $unique_departments = array_fill_keys( $unique_departments, 0 );
-            $unique_departments[] = 0;
-
-            $departments = Department::all()
-                ->pluck('name', 'id')
-                ->toArray();
-
-//
-//
-//                dd( $unique_departments, $departments );
-
-            $first = $labour->first()->start;
-            $last = $labour->last()->start;
-
-            $range_els = CarbonPeriod::create( min( $first, $last), '1 day', max($first, $last ) );
-            $range = [];
-
-
-            foreach( $range_els as $date)
+            if ( $labour->count() )
             {
-                $range[] = $date->format('Y-m-d');
+
+                $unique_users = $labour
+                    ->unique('user_id')
+                    ->pluck('user_id')
+                    ->toArray();
+
+
+                $unique_departments = $labour
+                    ->unique('department_id')
+                    ->pluck('department_id')
+                    ->toArray();
+
+                $unique_departments = array_fill_keys( $unique_departments, 0 );
+                $unique_departments[] = 0;
+
+                $departments = Department::all()
+                    ->pluck('name', 'id')
+                    ->toArray();
+
+    //
+    //
+    //                dd( $unique_departments, $departments );
+
+                $first = $labour->first()->start;
+                $last = $labour->last()->start;
+
+                $range_els = CarbonPeriod::create( min( $first, $last), '1 day', max($first, $last ) );
+                $range = [];
+
+
+                foreach( $range_els as $date)
+                {
+                    $range[] = $date->format('Y-m-d');
+                }
+
+                $by_date_by_dept = array_fill_keys( $range , $unique_departments);
+
+             //   dd( $x );
+
+
+                foreach( $labour as $l )
+                {
+                    $date = $l->start->format('Y-m-d');
+                    $by_date_by_dept[$date][$l->department_id] += (int) $l->elapsed->totalSeconds;
+
+                    $by_date_by_dept[$date][count($unique_departments)] += (int) $l->elapsed->totalSeconds;
+                }
+
+
+
             }
-
-            $by_date_by_dept = array_fill_keys( $range , $unique_departments);
-
-         //   dd( $x );
-
-
-            foreach( $labour as $l )
-            {
-                $date = $l->start->format('Y-m-d');
-                $by_date_by_dept[$date][$l->department_id] += (int) $l->elapsed->totalSeconds;
-
-                $by_date_by_dept[$date][count($unique_departments)] += (int) $l->elapsed->totalSeconds;
-            }
-
-
-
 
 
 //            dd( $departments );
@@ -84,9 +87,9 @@ class LabourOnJobReportController extends Controller
             return response()
                 ->view('labour::reports.labour_on_job_report', [
                     'job' => $job,
-                    'by_date_by_dept' => $by_date_by_dept,
-                    'departments' => $departments,
-                    'unique_departments' => $unique_departments,
+                    'by_date_by_dept' => $by_date_by_dept ?? [],
+                    'departments' => $departments ?? [],
+                    'unique_departments' => $unique_departments ?? [],
                     'labour' => $labour,
                 ] );
         }

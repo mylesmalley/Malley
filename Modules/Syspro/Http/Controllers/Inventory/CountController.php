@@ -4,54 +4,45 @@ namespace Modules\Syspro\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
-use \Illuminate\View\View;
-use \Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class CountController extends Controller
 {
-    public function index(): View
+    /**
+     * @return Response
+     */
+    public function index(): Response
     {
-        return view('syspro::InventoryCounts.home', [
+        return response()->view('syspro::InventoryCounts.home', [
             'counts' => Inventory::orderBy('created_at','DESC')
             ->get(),
         ]);
     }
 
 
-
-    public function create(): View
+    /**
+     * @return Response
+     */
+    public function create(): Response
     {
-        return view('syspro::InventoryCounts.counts.create' );
+        return response()
+            ->view('syspro::InventoryCounts.counts.create' );
     }
-
-    public function store( Request $request )
-    {
-        $request->validate([
-            'description' => 'required|string|max:250',
-            'user_id' => 'required|int',
-        ]);
-
-        Inventory::create($request->only(['description','user_id']))
-            ->save();
-
-        return redirect('syspro/counts');
-    }
-
-    public function edit()
-    {
-
-    }
-
-    public function update()
-    {
-
-    }
+//
+//    public function store( Request $request )
+//    {
+//        $request->validate([
+//            'description' => 'required|string|max:250',
+//            'user_id' => 'required|int',
+//        ]);
+//
+//        Inventory::create($request->only(['description','user_id']))
+//            ->save();
+//
+//        return redirect('syspro/counts');
+//    }
 
 
-    public function delete()
-    {
-
-    }
 
 }
