@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\InventoryItem;
 use App\Models\InventoryItemCount;
 use App\Models\Inventory;
-use \Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,13 +17,13 @@ class ShowController extends Controller
     /**
      * @param Inventory $inventory
      * @param InventoryItem $item
-     * @return View
+     * @return Response
      */
-    public function show(Inventory $inventory, InventoryItem $item): View
+    public function show(Inventory $inventory, InventoryItem $item): Response
     {
-        return view('syspro::InventoryCounts.counts.items.show', [
+        return response()->view('syspro::InventoryCounts.counts.items.show', [
             'inventory' => $inventory,
-            'latest' => $db = DB::table('Inventory_Latest_Counts')
+            'latest' => DB::table('Inventory_Latest_Counts')
                 ->find($item->id),
             'item' => $item,
         ]);
@@ -31,12 +32,12 @@ class ShowController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function acceptCount(Request $request)
+    public function acceptCount(Request $request): RedirectResponse
     {
         $request->validate(['count_id'=>'required|int']);
-        $count = InventoryItemCount::find( $request->count_id );
+        $count = InventoryItemCount::find( $request->input('count_id') );
         $count->accepted = true;
         $count->save();
 
@@ -46,16 +47,17 @@ class ShowController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function markAsRecounted(Request $request)
+    public function markAsRecounted(Request $request): RedirectResponse
     {
         $request->validate(['count_id'=>'required|int']);
-        $count = InventoryItemCount::find( $request->count_id );
+        $count = InventoryItemCount::find( $request->input('count_id') );
         $count->recounted = true;
         $count->save();
 
-        return redirect()->back();
+        return redirect()
+            ->back();
     }
 
 

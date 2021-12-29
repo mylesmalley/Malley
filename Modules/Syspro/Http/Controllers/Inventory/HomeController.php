@@ -207,7 +207,7 @@ class HomeController extends Controller
         }
 
 
-        
+
 
 
         return response()->view('syspro::InventoryCounts.counts.home', [
