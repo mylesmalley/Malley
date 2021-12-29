@@ -5,7 +5,6 @@ namespace Modules\Syspro\Http\Controllers\Inventory;
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class CountController extends Controller
 {
