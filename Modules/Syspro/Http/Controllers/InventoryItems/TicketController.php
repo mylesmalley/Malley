@@ -4,6 +4,7 @@ namespace Modules\Syspro\Http\Controllers\InventoryItems;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Codedge\Fpdf\Fpdf\Fpdf;
@@ -46,11 +47,13 @@ class TicketController extends Controller
         }
 
 
+        return $this->test( $tickets );
+//        dd( $tickets );
 
-        return view('syspro::InventoryCounts.counts.tickets',[
-            'inventory' => $inventory,
-            'items' => $tickets
-        ]) ;
+//        return view('syspro::InventoryCounts.counts.tickets',[
+//            'inventory' => $inventory,
+//            'items' => $tickets
+//        ]) ;
 
 
     }
@@ -200,13 +203,30 @@ class TicketController extends Controller
 
 
 
-    public function test()
+    public function test( Collection $data )
     {
 
+        $data = $data->toArray();
+
         $pdf = new Fpdf('P', 'in', 'letter');
-        $pdf->SetFont('Arial', '', '12');
+      //  $pdf->SetMargins(0,0.25,0);
+        $pdf->SetFont('Courier', '', '12');
+     //   $pdf->SetAutoPageBreak(false);
         $pdf->AddPage();
-        $pdf->Cell(0,1,'Hello World !',1);
+
+        for ( $i = 0; $i < count($data); $i++ )
+        {
+            $pdf->SetXY( 0,1.5 * $i );
+            $pdf->Cell(5,0.125, $data[$i]->stock_code,1);
+
+            if ($i % 6 === 0)
+            {
+                $pdf->AddPage();
+            }
+        }
+
+
+
         $pdf->Output();
         exit;
     }
