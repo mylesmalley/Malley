@@ -211,20 +211,42 @@ class TicketController extends Controller
         $pdf = new Fpdf('P', 'in', 'letter');
       //  $pdf->SetMargins(0,0.25,0);
         $pdf->SetFont('Courier', '', '12');
-     //   $pdf->SetAutoPageBreak(false);
-        $pdf->AddPage();
+        $pdf->SetAutoPageBreak(false);
+       // $pdf->AddPage();
 
-        for ( $i = 0; $i < count($data); $i++ )
+
+        $pages = array_chunk( $data, 7 );
+
+        foreach( $pages as $page )
         {
-            $pdf->SetXY( 0,1.5 * $i );
-            $pdf->Cell(5,0.125, $data[$i]->stock_code,1);
-
-            if ($i % 6 === 0)
+            $pdf->AddPage();
+            for( $i = 0; $i < count($page); $i++)
             {
-                $pdf->AddPage();
+                // starting point of the ticket
+                $pdf->SetXY( 0.25,1.5 * $i + 0.25 );
+                $pdf->Cell(5.416,0.125, $page[$i]->stock_code,1);
+
+                $pdf->SetX( 5.45 );
+                $pdf->Cell(2.583,0.125, $page[$i]->stock_code,1);
+
+
             }
         }
-
+//
+//        for ( $i = 0; $i < count($data); $i++ )
+//        {
+//
+//            $displacement = 6 - ( $i % 7 );
+//
+//            $pdf->SetXY( 0,1.5 * $displacement );
+//            $pdf->Cell(5,0.125, $data[$i]->stock_code,1);
+//
+//            if ($i > 0 && $i % 7 === 0)
+//            {
+//                $pdf->AddPage();
+//            }
+//        }
+//
 
 
         $pdf->Output();
