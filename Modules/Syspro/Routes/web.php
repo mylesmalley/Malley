@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Syspro\Http\Controllers\InventoryItems\TicketController;
 
 
 Route::group( ['prefix' => 'syspro'],  function () {
@@ -96,6 +97,10 @@ Route::group( ['prefix' => 'syspro'],  function () {
             Route::get('/report', "InventoryItems\FilteredReportController@show" );
             Route::post('/tickets', "InventoryItems\TicketController@tickets" );
             Route::post('/ticketsByBin', "InventoryItems\TicketController@ticketsByBin" );
+
+
+            Route::get('/test', [TicketController::class, "test"] )
+                ->name('inventory_counts.test');
 
 
             // search by stock code

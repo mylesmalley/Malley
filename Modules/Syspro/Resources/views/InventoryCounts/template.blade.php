@@ -21,7 +21,7 @@
                             "Bin" => 'bin',
                             'Locale'=>'locale',
                             'Warehouse' => 'warehouse',
-                            'Group'=>'group',"Ticket"=>'ticket_number'] as $name => $section)
+                            'Group'=>'group', as $name => $section)
                 <form class="form-inline"
                       method="POST"
                       action="{{ url('syspro/inventory/'.$inventory->id.'/search') }}">
@@ -40,6 +40,23 @@
                 </form>
                     &nbsp;
                     @endforeach
+
+                    <form class="form-inline"
+                          method="POST"
+                          action="{{ url('syspro/inventory/'.$inventory->id.'/search') }}">
+
+                        {{ csrf_field() }}
+                        <input type="hidden" name="inventory_id" value="{{ $inventory->id }}">
+                        <input type="hidden" name="filter" value="All">
+                        <div class="input-group">
+                            <input type="hidden" name="area" value="ticket_number">
+                            <input class="form-control" type="text"
+
+                                   name="term"
+                                   placeholder="Ticket Number" aria-label="Search">
+                            <input type="submit" class="btn btn-dark" value="Search">
+                        </div>
+                    </form>
 
             </div>
         </div>

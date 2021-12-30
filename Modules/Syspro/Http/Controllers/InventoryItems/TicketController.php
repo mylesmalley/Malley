@@ -5,8 +5,8 @@ namespace Modules\Syspro\Http\Controllers\InventoryItems;
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Http\Request;
-
+use Illuminate\Http\Request;
+use Codedge\Fpdf\Fpdf\Fpdf;
 
 class TicketController extends Controller
 {
@@ -196,6 +196,19 @@ class TicketController extends Controller
         ]) ;
 
 
+    }
+
+
+
+    public function test()
+    {
+
+        $pdf = new Fpdf('P', 'in', 'letter');
+        $pdf->SetFont('Arial', '', '12');
+        $pdf->AddPage();
+        $pdf->Cell(0,1,'Hello World !',1);
+        $pdf->Output();
+        exit;
     }
 
 
