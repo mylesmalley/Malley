@@ -4,8 +4,7 @@ namespace Modules\Syspro\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
-use \Illuminate\View\View;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class ProgressReportController extends Controller
@@ -14,9 +13,9 @@ class ProgressReportController extends Controller
 
     /**
      * @param Inventory $count
-     * @return View
+     * @return Response
      */
-    public function show(Inventory $inventory ): View
+    public function show(Inventory $inventory ): Response
     {
 
         $groups = [];
@@ -253,10 +252,14 @@ class ProgressReportController extends Controller
 
 
 
-        return view('syspro::InventoryCounts.counts.progressReport', [
+        return response()
+            ->view('syspro::InventoryCounts.counts.progressReport', [
             'inventory' => $inventory,
-            'total' => $inventory->items->count(),
-            'neverCounted' => DB::table('Inventory_Latest_Counts')
+                'total' => DB::table('inventory_items')
+                    ->where('inventory_id', '=', $inventory->id)
+                    ->count(),
+
+                'neverCounted' => DB::table('Inventory_Latest_Counts')
                                 ->where('inventory_id', $inventory->id)
                 ->where('line_status','Not Counted')
                                 ->count(),
