@@ -21,7 +21,7 @@
                             "Bin" => 'bin',
                             'Locale'=>'locale',
                             'Warehouse' => 'warehouse',
-                            'Group'=>'group', as $name => $section)
+                            'Group'=>'group'] as $name => $section)
                 <form class="form-inline"
                       method="POST"
                       action="{{ url('syspro/inventory/'.$inventory->id.'/search') }}">
