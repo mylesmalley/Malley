@@ -210,9 +210,13 @@ class HomeController extends Controller
 
 
 
+
+
         return response()->view('syspro::InventoryCounts.counts.home', [
             'inventory' => $inventory,
-            'total' => $inventory->items->count(),
+            'total' => DB::table('inventory_items')
+                ->where('inventory_id', '=', $inventory->id)
+                ->count(),
             'neverCounted' => $neverCounted,
             'needsRecount' => $needsRecount,
             'bins' => $bins,
