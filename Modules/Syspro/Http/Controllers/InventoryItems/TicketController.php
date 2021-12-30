@@ -13,6 +13,39 @@ class TicketController extends Controller
 {
 
 
+    public array $units = [
+        "BAG" => "PER BAG",
+        "BOT" => "BOTTLE",
+        "BOX" => "PER BOX",
+        "BX" => "PER BOX",
+        "CS" => "CASE",
+        "EA" => "EACH",
+        "FBM" => "PER BOARD FOOT",
+        "FT" => "PER FOOT",
+        "GAL" => "PER GALLON",
+        "KIT" => "PER KIT",
+        "LF" => "PER LINEAR FOOT",
+        "LT" => "PER LITER",
+        "LYD" => "PER LINEAR YARD",
+        "MR" => "PER METER",
+        "PK" => "PER PACK",
+        "PR" => "AS A PAIR",
+        "ROL" => "PER ROLL",
+        "QRT" => "PER QUART",
+        "RL" => "PER ROLL",
+        "SET" => "AS A SET",
+        "SQF" => "PER SQUARE FOOT",
+        "YD" => "PER YARD",
+    ];
+
+
+
+
+
+
+
+
+
     public function tickets( Inventory $inventory, Request $request )
     {
 
@@ -217,6 +250,13 @@ class TicketController extends Controller
 
         $pages = array_chunk( $data, 7 );
 
+        $body = (2.833 * 2);
+        $stub = 2.833;
+
+
+
+
+
         foreach( $pages as $page )
         {
             $pdf->AddPage();
@@ -224,11 +264,67 @@ class TicketController extends Controller
             {
                 // starting point of the ticket
                 $pdf->SetXY( 0.25,1.5 * $i + 0.25 );
-                $pdf->Cell(5.416,0.125, $page[$i]->stock_code,1);
 
-                $pdf->SetX( 5.45 );
-                $pdf->Cell(2.583,0.125, $page[$i]->stock_code,1);
+                $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
+                    ? "# ". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
+                    : "# ". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
+                $part_text = "PART ". $page[$i]->stock_code ?? 'STOCK CODE';
+                $bin_text = "BIN ". $page[$i]->bin ?? 'BIN';
 
+                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text );
+            //    $part_text_length = $pdf->GetStringWidth( $part_text );
+                $bin_text_length = $pdf->GetStringWidth( $bin_text );
+
+                $pdf->SetTextColor(255, 255, 255 );
+
+
+
+
+                $pdf->SetFillColor(175,175,175);
+                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,1, 0, '', true);
+
+                $pdf->SetFillColor(0,0,0);
+
+
+                $pdf->Cell($body - $bin_text_length - $ticket_number_length - 0.5,0.25, $part_text ,1, 0, 'C', true);
+
+                $pdf->SetFillColor(175,175,175);
+                 $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2, '', true);
+
+
+//                $pdf->Cell(3,0.25, "PART ". $page[$i]->stock_code ?? 'STOCK CODE',1, 2, '', true);
+//                $pdf->SetFillColor(175,175,175);
+//                $pdf->Cell(3,0.25, "BIN ". $page[$i]->bin ?? 'BIN',1, 2, '', true);
+//
+//                $pdf->SetTextColor(0, 0, 0 );
+//
+                $pdf->SetFillColor(255,255,255);
+                $pdf->SetTextColor(0, 0, 0 );
+                $pdf->SetX(0.25);
+                $pdf->Cell(3,0.2, $page[$i]->description_1,0, 2, '');
+                $pdf->Cell(3,0.2, $page[$i]->description_2,0, 2, '');
+
+
+                $pdf->SetXY( 3,1.5 * $i + 1 );
+                $unitExploded = $this->units[ $page[$i]->unit_of_measure ] ?? "Each";
+
+                $pdf->Cell(2,.4, "QTY________".$unitExploded);
+
+
+
+//
+//            $pdf->SetTextColor(255, 255, 255 );
+//
+//                $pdf->SetXY( 5.45 ,1.5 * $i + 0.25 );
+//                $pdf->SetFillColor(0,0,0);
+//                $pdf->Cell(2.583,0.25, $page[$i]->stock_code,1, 2, '', true);
+//                $pdf->SetFillColor(175,175,175);
+//                $pdf->Cell(2.583,0.25, "BIN ". $page[$i]->bin ?? 'BIN',1, 2, '', true);
+//
+//                $pdf->SetTextColor(0, 0, 0 );
+//
+//                $pdf->Cell(3,0.2, $page[$i]->description_1,0, 2, '');
+//                $pdf->Cell(3,0.2, $page[$i]->description_2,0, 2, '');
 
             }
         }
