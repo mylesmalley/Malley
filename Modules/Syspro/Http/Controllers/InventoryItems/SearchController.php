@@ -3,29 +3,30 @@
 namespace Modules\Syspro\Http\Controllers\InventoryItems;
 
 use App\Http\Controllers\Controller;
-use App\Models\InventoryItem;
 use App\Models\Inventory;
-use \Illuminate\View\View;
+use App\Models\InventoryItem;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use \Illuminate\Support\Collection;
-use \Illuminate\Http\Request;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
 
     /**
      * @param int $inventory_id
-     * @param string $filter
+     * @param string $area
      * @param string $term
-     * @return
+     * @param string $filter
+     * @return LengthAwarePaginator
      */
     private function results( int $inventory_id, string $area, string $term, string $filter ): LengthAwarePaginator
     {
         $db = DB::table('Inventory_Latest_Counts')
             ->where('inventory_id', $inventory_id )
             ->where($area,'like', '%'.strtoupper( $term ).'%');
-   //     ->whereRaw("? collate SQL_Latin1_General_CP1_CI_AS LIKE  '%?%'", [$area, $term]);
 
         if ( $filter != 'All' )
         {
@@ -37,16 +38,15 @@ class SearchController extends Controller
                 ->orderBy('bin')
                 ->orderBy('stock_code');
 
-      //  dd( $db->toSql());
-
         return $db->paginate(25);
     }
 
 
     /**
      * @param int $inventory_id
-     * @param string $filter
+     * @param string $area
      * @param string $term
+     * @param string $filter
      * @return Collection
      */
     private function ids( int $inventory_id, string $area, string $term, string $filter ): Collection
@@ -55,8 +55,6 @@ class SearchController extends Controller
             ->select('id')
             ->where('inventory_id', $inventory_id )
            ->where( $area,'like', '%'.strtoupper ($term ).'%');
-//            ->whereRaw('? collate SQL_Latin1_General_CP1_CI_AS LIKE  ?', [$area, "%".$term."%"]);
-
         if ( $filter  != 'All' )
         {
             $db->where( "line_status", $filter);
@@ -71,21 +69,21 @@ class SearchController extends Controller
 
     /**
      * @param Inventory $inventory
-     * @param string $filter
+     * @param string $area
      * @param string $term
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @param string $filter
+     * @return Response
      */
-    public function search( Inventory $inventory, string $area, string $term, string $filter = 'All' )
+    public function search( Inventory $inventory, string $area, string $term, string $filter = 'All' ): Response
     {
-//        dd( $area, $term, $filter);
-
         $db = $this->results($inventory->id, $area, $term, $filter);
         $idsForTickets = $this->ids($inventory->id, $area, $term, $filter);
 
-        return view('syspro::InventoryCounts.counts.search.stock_code', [
+        return response()
+            ->view('syspro::InventoryCounts.counts.search.stock_code', [
             'inventory' => $inventory,
             'term' => $term,
-            'title' => "{$filter} from {$area} {$term}",
+            'title' => "$filter from $area $term",
             'items' =>$db,
             'area' => $area,
             'idsForTickets' => $idsForTickets,
@@ -95,9 +93,9 @@ class SearchController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse
      */
-    public function searchWithPost( Request $request )
+    public function searchWithPost( Request $request ): RedirectResponse
     {
         $request->validate([
             'inventory_id' => 'required|int',
@@ -106,9 +104,18 @@ class SearchController extends Controller
             'filter' => 'nullable|string',
         ]);
 
-        $request->term = trim($request->term);
+        if ( $request->input('area') === 'ticket_number')
+        {
+            $ticket = InventoryItem::where( 'ticket_number', '=', $request->input('term') )
+                ->where('inventory_id', '=', $request->input('inventory_id'))
+                ->firstOrFail();
+            return redirect("syspro/inventory/".$request->input('inventory_id')."/items/". $ticket->id );
 
-        return redirect("syspro/inventory/{$request->inventory_id}/search/{$request->area}/for/{$request->term}/{$request->filter}");
+        }
+
+        $term = trim($request->input('term'));
+
+        return redirect("syspro/inventory/".$request->input('inventory_id')."/search/".$request->input('area')."/for/$term/".$request->input('filter') );
 
     }
 
