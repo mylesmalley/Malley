@@ -25,6 +25,7 @@ class ShowController extends Controller
             'inventory' => $inventory,
             'latest' => DB::table('Inventory_Latest_Counts')
                 ->find($item->id),
+            'place_in_series' => $item->place_in_series(),
             'item' => $item,
         ]);
     }

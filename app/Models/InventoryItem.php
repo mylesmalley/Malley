@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -136,88 +137,231 @@ class InventoryItem extends BaseModel
 
 
 
+//
+//    /**
+//     * @return null
+//     */
+//    public function getNextIDAttribute()
+//    {
+//        if (Cache::has('inventory_item_position_'.$this->attributes['id'])) {
+//            return Cache::get('inventory_item_position_'.$this->attributes['id'])->next;
+//        }
+//        return $this->place_in_series()->next;
+////        $a = DB::table('Inventory_Latest_Counts')
+////
+////    //    $a = InventoryItem::query()
+////            ->where([
+////                [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
+////        [ 'group', '=', strtoupper( $this->attributes['group'] )]
+////             //   [ 'obsolete', '=', false]
+////            ])
+////            //  ->andWhere('obsolete','=',false)
+////
+////            ->orderBy('bin')
+////            ->orderBy('id')
+////            ->pluck('id')
+////            ->toArray();
+////
+////        $pos = array_search($this->id, $a);
+////
+////        return (array_key_exists($pos + 1,  $a)) ? $a[$pos + 1]: null;
+////
+//
+//    }
+//
+//
+//    /**
+//     * @return null
+//     */
+//    public function getNextUncountedIDAttribute()
+//    {
+//        if (Cache::has('inventory_item_position_'.$this->attributes['id'])) {
+//            return Cache::get('inventory_item_position_'.$this->attributes['id'])->next_uncounted;
+//        }
+//        return $this->place_in_series()->next_uncounted;
+//
+////        $a = DB::table('Inventory_Latest_Counts')
+////
+////            //    $a = InventoryItem::query()
+////            ->where([
+////                [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
+////                [ 'group', '=', strtoupper( $this->attributes['group'] )]
+////                //   [ 'obsolete', '=', false]
+////            ])
+////            //  ->andWhere('obsolete','=',false)
+////            ->whereNotIn('line_status', ["Accepted", "Matched"])
+////            ->orderBy('bin')
+////            ->orderBy('id')
+////            ->pluck('id')
+////            ->toArray();
+////
+////        $pos = array_search($this->id, $a);
+////
+////        return (array_key_exists($pos + 1,  $a)) ? $a[$pos + 1]: null;
+////
+//
+//    }
+//
+//
+//
+//
+//    /**
+//     * @return null or int
+//     */
+//    public function getPreviousIDAttribute()
+//    {
+//        if (Cache::has('inventory_item_position_'.$this->attributes['id'])) {
+//            return Cache::get('inventory_item_position_'.$this->attributes['id'])->previous;
+//        }
+//        return $this->place_in_series()->previous;
+//
+//
+////        $a = DB::table('Inventory_Latest_Counts')
+//////        $a = InventoryItem::query()
+////            ->where([
+////                [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
+////                [ 'group', '=', strtoupper( $this->attributes['group'] )]
+////                //   [ 'obsolete', '=', false]
+////            ])
+////            //  ->andWhere('obsolete','=',false)
+////
+////            ->orderBy('bin')
+////            ->orderBy('id')
+////            ->pluck('id')
+////            ->toArray();
+////
+////        $pos = array_search($this->id, $a);
+////
+////        return (array_key_exists($pos-1,  $a)) ? $a[$pos - 1] : null ;
+//
+//    }
+//
+//
+//
+//
+//
+//    /**
+//     * @return null or int
+//     */
+//    public function getPreviousUncountedIDAttribute()
+//    {
+//        if (Cache::has('inventory_item_position_'.$this->attributes['id'])) {
+//            return Cache::get('inventory_item_position_'.$this->attributes['id'])->previous_uncounted;
+//        }
+//        return $this->place_in_series()->previous_uncounted;
+////
+//
+////        $a = DB::table('Inventory_Latest_Counts')
+//////        $a = InventoryItem::query()
+////            ->where([
+////                [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
+////                [ 'group', '=', strtoupper( $this->attributes['group'] )]
+////                //   [ 'obsolete', '=', false]
+////            ])
+////            //  ->andWhere('obsolete','=',false)
+////            ->whereNotIn('line_status', ["Accepted", "Matched"])
+////
+////            ->orderBy('bin')
+////            ->orderBy('id')
+////            ->pluck('id')
+////            ->toArray();
+////
+////        $pos = array_search($this->id, $a);
+////
+////        return (array_key_exists($pos-1,  $a)) ? $a[$pos - 1] : null ;
+//
+//    }
 
-    /**
-     * @return null
-     */
-    public function getNextIDAttribute()
+
+
+    protected static function boot()
     {
-        $a = DB::table('Inventory_Latest_Counts')
+        parent::boot();
 
-    //    $a = InventoryItem::query()
-            ->where([
-                [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
-        [ 'group', '=', strtoupper( $this->attributes['group'] )]
-             //   [ 'obsolete', '=', false]
-            ])
-            //  ->andWhere('obsolete','=',false)
+        // When being retrieved, decrypt the attributes.
+        static::retrieved(function ($instance) {
 
-            ->orderBy('bin')
-            ->orderBy('id')
-            ->pluck('id')
-            ->toArray();
+            if (Cache::has('inventory_item_position_'.$instance->attributes['id'])) {
+                $dates = Cache::get('inventory_item_position_'.$instance->attributes['id']);
+            }
+            else
+            {
+                $dates = $instance->place_in_series();
+            }
 
-        $pos = array_search($this->id, $a);
+            $instance->attributes['nextID'] = $dates->next;
+            $instance->attributes['nextUncountedID'] = $dates->next_uncounted;
+            $instance->attributes['previousID'] = $dates->previous;
+            $instance->attributes['previousUncountedID'] = $dates->previous_uncounted;
 
-        return (array_key_exists($pos + 1,  $a)) ? $a[$pos + 1]: null;
-
+        });
 
     }
 
 
-    /**
-     * @return null
-     */
-    public function getNextUncountedIDAttribute()
-    {
-        $a = DB::table('Inventory_Latest_Counts')
 
-            //    $a = InventoryItem::query()
+
+
+    /**
+     * @return object
+     */
+    public function place_in_series(): object
+    {
+
+        if (Cache::has('inventory_item_position_'.$this->attributes['id']))
+        {
+            return Cache::get('inventory_item_position_'.$this->attributes['id']);
+        }
+        else
+        {
+
+
+        // next or previous
+        $all = DB::table('Inventory_Latest_Counts')
+            ->select(['id','inventory_id','bin','group'])
             ->where([
                 [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
                 [ 'group', '=', strtoupper( $this->attributes['group'] )]
-                //   [ 'obsolete', '=', false]
             ])
-            //  ->andWhere('obsolete','=',false)
-            ->whereNotIn('line_status', ["Accepted", "Matched"])
             ->orderBy('bin')
             ->orderBy('id')
             ->pluck('id')
             ->toArray();
 
-        $pos = array_search($this->id, $a);
-
-        return (array_key_exists($pos + 1,  $a)) ? $a[$pos + 1]: null;
+        $pos = array_search($this->id, $all);
 
 
-    }
-
-
-
-
-    /**
-     * @return null or int
-     */
-    public function getPreviousIDAttribute()
-    {
-
-        $a = DB::table('Inventory_Latest_Counts')
-//        $a = InventoryItem::query()
+        $uncounted = DB::table('Inventory_Latest_Counts')
+            ->select(['id','inventory_id','bin','group'])
             ->where([
                 [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
                 [ 'group', '=', strtoupper( $this->attributes['group'] )]
-                //   [ 'obsolete', '=', false]
             ])
-            //  ->andWhere('obsolete','=',false)
-
             ->orderBy('bin')
             ->orderBy('id')
             ->pluck('id')
             ->toArray();
 
-        $pos = array_search($this->id, $a);
+        $pos_2 = array_search($this->id, $uncounted);
 
-        return (array_key_exists($pos-1,  $a)) ? $a[$pos - 1] : null ;
+
+
+            $output = json_decode(json_encode([
+                "next" => (array_key_exists($pos + 1,  $all))
+                    ? $all[$pos + 1]: null,
+                "previous" =>  (array_key_exists($pos-1,  $all))
+                    ? $all[$pos - 1] : null,
+                "next_uncounted" => (array_key_exists($pos_2 + 1,  $uncounted))
+                    ? $uncounted[$pos_2 + 1]: null,
+                "previous_uncounted" =>  (array_key_exists($pos_2-1,  $uncounted))
+                    ? $uncounted[$pos_2 - 1] : null,
+            ]));
+
+            Cache::put('inventory_item_position_'.$this->attributes['id'], $output );
+
+            return $output;
+        }
+
 
     }
 
@@ -225,32 +369,8 @@ class InventoryItem extends BaseModel
 
 
 
-    /**
-     * @return null or int
-     */
-    public function getPreviousUncountedIDAttribute()
-    {
 
-        $a = DB::table('Inventory_Latest_Counts')
-//        $a = InventoryItem::query()
-            ->where([
-                [ 'inventory_id', '=', $this->attributes['inventory_id'] ],
-                [ 'group', '=', strtoupper( $this->attributes['group'] )]
-                //   [ 'obsolete', '=', false]
-            ])
-            //  ->andWhere('obsolete','=',false)
-            ->whereNotIn('line_status', ["Accepted", "Matched"])
 
-            ->orderBy('bin')
-            ->orderBy('id')
-            ->pluck('id')
-            ->toArray();
-
-        $pos = array_search($this->id, $a);
-
-        return (array_key_exists($pos-1,  $a)) ? $a[$pos - 1] : null ;
-
-    }
 
 
 }
