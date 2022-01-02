@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Codedge\Fpdf\Fpdf\Fpdf;
+use Illuminate\Validation\Rules\In;
 
 class TicketController extends Controller
 {
@@ -80,7 +81,7 @@ class TicketController extends Controller
         }
 
 
-        return $this->test( $tickets );
+        return $this->test( $inventory, $tickets );
 //        dd( $tickets );
 
 //        return view('syspro::InventoryCounts.counts.tickets',[
@@ -236,7 +237,7 @@ class TicketController extends Controller
 
 
 
-    public function test( Collection $data )
+    public function test(Inventory $inventory,  Collection $data )
     {
 
         $data = $data->toArray();
@@ -266,32 +267,52 @@ class TicketController extends Controller
         $body_width = ( $sticker_width * 2 ) - $sticker_padding - .25;
 
 
+        $count_description = $inventory->description;
+        $count_description_length = $pdf->GetStringWidth( $count_description .' ' );
+
+
+
+
+
         foreach( $pages as $page )
         {
             $pdf->AddPage();
             for( $i = 0; $i < count($page); $i++)
             {
+                $body_start_x = 0.25;
+                $body_start_y = $sticker_height * $i + 0.25 + $sticker_padding ;
+
+
+
+
+
+
+
                 // starting point of the ticket
-                $pdf->SetXY( 0.25,1.5 * $i + 0.25 );
+                $pdf->SetXY( $body_start_x, $body_start_y );
 
                 $pdf->SetDrawColor(255,0,0);
+                // ticket sticker
                 $pdf->Rect( 0,
                     $sticker_height * $i + 0.25,
                     $sticker_width * 2,
                     $sticker_height);
 
                 $pdf->SetDrawColor(0,255,0);
+                // stub sticker
                 $pdf->Rect( $sticker_width * 2,
                     $sticker_height * $i + 0.25 ,
                     $sticker_width,
                     $sticker_height);
 
                 $pdf->SetDrawColor(0,0,255);
+                // ticket print area
                 $pdf->Rect( 0.25,
                     $sticker_height * $i + 0.25 + $sticker_padding,
                     $body_width,
                     $sticker_height - ( 2 * $sticker_padding));
 
+                // stub print area
                 $pdf->Rect( $sticker_width * 2,
                     $sticker_height * $i + 0.25 + $sticker_padding,
                     $sticker_width - .25,
@@ -336,12 +357,57 @@ class TicketController extends Controller
 
                 $pdf->SetFillColor(255,255,255);
                 $pdf->SetTextColor(0, 0, 0 );
+                $pdf->SetFont('Courier', '', 10 );
                 $pdf->SetX(0.25);
-                $pdf->Cell(3,0.2, $page[$i]->description_1,0, 2, '');
-                $pdf->Cell(3,0.2, $page[$i]->description_2,0, 2, '');
 
 
-                $pdf->SetXY( 3,1.5 * $i + 1 );
+
+
+                /*
+                 * DESCRIPTION AND SUPPLIER DETAILS
+                 */
+                $description_text = "Desc: ";
+                $description_text_length = $pdf->GetStringWidth( $description_text . '  ' );
+
+
+                $pdf->Cell(3,0.18, "Desc: ",0, '');
+                $pdf->SetX(0.25 + $description_text_length);
+
+                $pdf->Cell(3,0.18, $page[$i]->description_1,0, 2, '');
+                $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2, '');
+                $pdf->Ln();
+                $pdf->SetX(0.25);
+                $pdf->Cell(3,0.18, "Suplier: ",0, '');
+                $pdf->SetX(0.25 + $description_text_length);
+
+                $pdf->Cell(3,0.18, $page[$i]->supplier ?? '',0, 2, '');
+
+                $pdf->Cell(3,0.18, $page[$i]->catalogue ?? '',0, 2, '');
+
+                $pdf->SetX(0.25);
+
+
+                $pdf->SetTextColor(125, 125, 125 );
+
+
+                $pdf->SetXY(( $sticker_width * 2) - $sticker_padding - $count_description_length,
+                    $body_start_y + $sticker_height - (2 * $sticker_padding ) - .18 );
+
+                $pdf->Cell(3,0.18, $count_description,0, 2, '');
+
+
+
+
+
+
+
+
+
+
+                $pdf->SetX(0.25);
+
+
+                $pdf->SetXY( 3,1.5 * $i + 1.2 );
                 $unitExploded = $this->units[ $page[$i]->unit_of_measure ] ?? "Each";
 
                 $pdf->Cell(2,.4, "QTY________".$unitExploded);
