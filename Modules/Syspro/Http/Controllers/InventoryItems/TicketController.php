@@ -282,6 +282,7 @@ class TicketController extends Controller
                 $body_start_x = 0.25;
                 $body_start_y = $sticker_height * $i + 0.25 + $sticker_padding ;
 
+                $stub_start_x = $sticker_width * 2;
 
 
 
@@ -411,6 +412,80 @@ class TicketController extends Controller
                 $unitExploded = $this->units[ $page[$i]->unit_of_measure ] ?? "Each";
 
                 $pdf->Cell(2,.4, "QTY________".$unitExploded);
+
+
+
+
+
+
+
+
+                /*
+                 *  STUB STUB STUB STUB STUB
+                 */
+
+
+
+                $pdf->SetXY( $stub_start_x, $body_start_y );
+
+
+
+
+
+
+                $pdf->SetFillColor(175,175,175);
+
+                $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
+                    ? "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
+                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
+
+                $part_text = trim( $page[$i]->stock_code ) ?? 'STOCK CODE';
+                $bin_text = trim( "BIN: ". $page[$i]->bin ?? 'BIN');
+
+                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
+                $part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
+                $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
+
+
+
+
+
+//                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,1 );//, 0, '', true);
+                //   $pdf->Ln();
+                $pdf->SetFillColor(0,0,0);
+
+
+                // $pdf->Cell($body - $bin_text_length - $ticket_number_length - 0.5,0.25, $part_text ,1, 0, 'C', true);
+                $pdf->Cell($part_text_length,0.25, $part_text ,1 );
+                //   $pdf->Ln();
+
+                $pdf->SetFillColor(175,175,175);
+                $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2);
+                // $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2, '', true);
+
+
+                $pdf->SetX( $stub_start_x );
+
+                $pdf->Cell(3,0.18, $page[$i]->description_1,0, 2, '');
+                $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2, '');
+
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX( $stub_start_x );
+
+                $pdf->Cell(2,.18, $ticket_number_text."       QTY________".$page[$i]->unit_of_measure, 0, 2);
+                $pdf->SetX( $stub_start_x );
+
+                $pdf->Cell(2,.18, $count_description, 0, 0);
+
+
+
+                $pdf->SetFillColor(255,255,255);
+                $pdf->SetTextColor(0, 0, 0 );
+                $pdf->SetFont('Courier', '', 10 );
+
+
+
 
 
 
