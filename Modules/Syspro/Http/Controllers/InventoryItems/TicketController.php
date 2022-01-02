@@ -292,32 +292,33 @@ class TicketController extends Controller
                 // starting point of the ticket
                 $pdf->SetXY( $body_start_x, $body_start_y );
 
-                $pdf->SetDrawColor(255,0,0);
-                // ticket sticker
-                $pdf->Rect( 0,
-                    $sticker_height * $i + 0.25,
-                    $sticker_width * 2,
-                    $sticker_height);
-
-                $pdf->SetDrawColor(0,255,0);
-                // stub sticker
-                $pdf->Rect( $sticker_width * 2,
-                    $sticker_height * $i + 0.25 ,
-                    $sticker_width,
-                    $sticker_height);
-
-                $pdf->SetDrawColor(0,0,255);
-                // ticket print area
-                $pdf->Rect( 0.25,
-                    $sticker_height * $i + 0.25 + $sticker_padding,
-                    $body_width,
-                    $sticker_height - ( 2 * $sticker_padding));
-
-                // stub print area
-                $pdf->Rect( $sticker_width * 2,
-                    $sticker_height * $i + 0.25 + $sticker_padding,
-                    $sticker_width - .25,
-                    $sticker_height - ( 2 * $sticker_padding));
+//
+//                $pdf->SetDrawColor(255,0,0);
+//                // ticket sticker
+//                $pdf->Rect( 0,
+//                    $sticker_height * $i + 0.25,
+//                    $sticker_width * 2,
+//                    $sticker_height);
+//
+//                $pdf->SetDrawColor(0,255,0);
+//                // stub sticker
+//                $pdf->Rect( $sticker_width * 2,
+//                    $sticker_height * $i + 0.25 ,
+//                    $sticker_width,
+//                    $sticker_height);
+//
+//                $pdf->SetDrawColor(0,0,255);
+//                // ticket print area
+//                $pdf->Rect( 0.25,
+//                    $sticker_height * $i + 0.25 + $sticker_padding,
+//                    $body_width,
+//                    $sticker_height - ( 2 * $sticker_padding));
+//
+//                // stub print area
+//                $pdf->Rect( $sticker_width * 2,
+//                    $sticker_height * $i + 0.25 + $sticker_padding,
+//                    $sticker_width - .25,
+//                    $sticker_height - ( 2 * $sticker_padding));
 
 
 
@@ -340,22 +341,23 @@ class TicketController extends Controller
 
 
 
-                $pdf->SetFillColor(175,175,175);
-                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,1 );//, 0, '', true);
-             //   $pdf->Ln();
+                $pdf->SetFillColor(200,200,200);
+                $pdf->SetTextColor(0, 0, 0);
+                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,0, 0, '', true);
+
+
                 $pdf->SetFillColor(0,0,0);
+                $pdf->SetTextColor(255, 255, 255);
+                $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.25, $part_text ,0, 0, 'C', true  );
 
 
-               // $pdf->Cell($body - $bin_text_length - $ticket_number_length - 0.5,0.25, $part_text ,1, 0, 'C', true);
-                $pdf->Cell($part_text_length,0.25, $part_text ,1 );
-             //   $pdf->Ln();
-
-                $pdf->SetFillColor(175,175,175);
-                $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2);
-               // $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2, '', true);
+                $pdf->SetFillColor(200,200,200);
+                $pdf->SetTextColor(0, 0, 0);
+                $pdf->Cell( $bin_text_length,0.25, $bin_text ,0, 2, '', true);
 
 
 
+                // RESET COLOURS
                 $pdf->SetFillColor(255,255,255);
                 $pdf->SetTextColor(0, 0, 0 );
                 $pdf->SetFont('Courier', '', 10 );
@@ -453,15 +455,18 @@ class TicketController extends Controller
 //                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,1 );//, 0, '', true);
                 //   $pdf->Ln();
                 $pdf->SetFillColor(0,0,0);
-
+                $pdf->SetTextColor(255, 255, 255);
 
                 // $pdf->Cell($body - $bin_text_length - $ticket_number_length - 0.5,0.25, $part_text ,1, 0, 'C', true);
-                $pdf->Cell($part_text_length,0.25, $part_text ,1 );
+                $pdf->Cell($sticker_width - 0.25 - $bin_text_length ,0.25, $part_text ,0, 0, '', true );
                 //   $pdf->Ln();
 
                 $pdf->SetFillColor(175,175,175);
-                $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2);
-                // $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2, '', true);
+                $pdf->SetTextColor(0,0,0);
+                $pdf->Cell( $bin_text_length,0.25, $bin_text ,0, 2, '', true);
+
+                $pdf->SetFillColor(255,255,255);
+                $pdf->SetTextColor(0,0,0);
 
 
                 $pdf->SetX( $stub_start_x );
