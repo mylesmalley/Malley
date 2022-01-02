@@ -243,9 +243,10 @@ class TicketController extends Controller
 
         $pdf = new Fpdf('P', 'in', 'letter');
       //  $pdf->SetMargins(0,0.25,0);
-        $pdf->SetFont('Courier', '', '12');
+        $pdf->SetFont('Courier', '', 12);
         $pdf->SetAutoPageBreak(false);
        // $pdf->AddPage();
+
 
 
         $pages = array_chunk( $data, 7 );
@@ -254,7 +255,15 @@ class TicketController extends Controller
         $stub = 2.833;
 
 
+        $sticker_width = 2.83333;
+        $sticker_height = 1.5;
 
+        $sticker_padding = 0.05;
+
+
+
+
+        $body_width = ( $sticker_width * 2 ) - $sticker_padding - .25;
 
 
         foreach( $pages as $page )
@@ -265,39 +274,66 @@ class TicketController extends Controller
                 // starting point of the ticket
                 $pdf->SetXY( 0.25,1.5 * $i + 0.25 );
 
+                $pdf->SetDrawColor(255,0,0);
+                $pdf->Rect( 0,
+                    $sticker_height * $i + 0.25,
+                    $sticker_width * 2,
+                    $sticker_height);
+
+                $pdf->SetDrawColor(0,255,0);
+                $pdf->Rect( $sticker_width * 2,
+                    $sticker_height * $i + 0.25 ,
+                    $sticker_width,
+                    $sticker_height);
+
+                $pdf->SetDrawColor(0,0,255);
+                $pdf->Rect( 0.25,
+                    $sticker_height * $i + 0.25 + $sticker_padding,
+                    $body_width,
+                    $sticker_height - ( 2 * $sticker_padding));
+
+                $pdf->Rect( $sticker_width * 2,
+                    $sticker_height * $i + 0.25 + $sticker_padding,
+                    $sticker_width - .25,
+                    $sticker_height - ( 2 * $sticker_padding));
+
+
+
+
+
+
                 $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
-                    ? "# ". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
-                    : "# ". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
-                $part_text = "PART ". $page[$i]->stock_code ?? 'STOCK CODE';
-                $bin_text = "BIN ". $page[$i]->bin ?? 'BIN';
+                    ? "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
+                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
 
-                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text );
-            //    $part_text_length = $pdf->GetStringWidth( $part_text );
-                $bin_text_length = $pdf->GetStringWidth( $bin_text );
+                $part_text = "PART: ". trim( $page[$i]->stock_code ) ?? 'STOCK CODE';
+                $bin_text = trim( "BIN: ". $page[$i]->bin ?? 'BIN');
 
-                $pdf->SetTextColor(255, 255, 255 );
+                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
+                $part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
+                $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
+
+             //   $pdf->SetTextColor(255, 255, 255 );
 
 
 
 
                 $pdf->SetFillColor(175,175,175);
-                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,1, 0, '', true);
-
+                $pdf->Cell( $ticket_number_length ,0.25, $ticket_number_text ,1 );//, 0, '', true);
+             //   $pdf->Ln();
                 $pdf->SetFillColor(0,0,0);
 
 
-                $pdf->Cell($body - $bin_text_length - $ticket_number_length - 0.5,0.25, $part_text ,1, 0, 'C', true);
+               // $pdf->Cell($body - $bin_text_length - $ticket_number_length - 0.5,0.25, $part_text ,1, 0, 'C', true);
+                $pdf->Cell($part_text_length,0.25, $part_text ,1 );
+             //   $pdf->Ln();
 
                 $pdf->SetFillColor(175,175,175);
-                 $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2, '', true);
+                $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2);
+               // $pdf->Cell( $bin_text_length,0.25, $bin_text ,1, 2, '', true);
 
 
-//                $pdf->Cell(3,0.25, "PART ". $page[$i]->stock_code ?? 'STOCK CODE',1, 2, '', true);
-//                $pdf->SetFillColor(175,175,175);
-//                $pdf->Cell(3,0.25, "BIN ". $page[$i]->bin ?? 'BIN',1, 2, '', true);
-//
-//                $pdf->SetTextColor(0, 0, 0 );
-//
+
                 $pdf->SetFillColor(255,255,255);
                 $pdf->SetTextColor(0, 0, 0 );
                 $pdf->SetX(0.25);
