@@ -325,6 +325,7 @@ class TicketController extends Controller
 
 
 
+
                 $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
                     ? "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
                     : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
