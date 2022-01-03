@@ -252,20 +252,20 @@
 
 
 
-    @if ($item->previousID)
-        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previousUncountedId }}" class="btn btn-dark btn-lg">&lt; (J) Previous To Count In Group</a> &nbsp;
+    @if ($item->previous_uncounted_id)
+        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previous_uncounted_id }}" class="btn btn-dark btn-lg">&lt; (J) Previous To Count In Group</a> &nbsp;
     @endif
-    @if ($item->nextID)
-        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->nextUncountedID }}" class="btn btn-dark btn-lg">Next To Count In Group (K) &gt;</a>
+    @if ($item->next_uncounted_id)
+        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_uncounted_id }}" class="btn btn-dark btn-lg">Next To Count In Group (K) &gt;</a>
     @endif
 
     <br><br>
 
-    @if ($item->previousID)
-        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previousId }}" class="btn btn-secondary btn">&lt; Previous In Group</a> &nbsp;
+    @if ($item->previous_id)
+        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previous_id }}" class="btn btn-secondary btn">&lt; Previous In Group</a> &nbsp;
     @endif
-    @if ($item->nextID)
-        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->nextID }}" class="btn btn-secondary btn">Next In Group&gt;</a>
+    @if ($item->next_id)
+        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_id }}" class="btn btn-secondary btn">Next In Group&gt;</a>
     @endif
 
 
@@ -280,14 +280,14 @@
             .addEventListener('keydown', function (event) {
 
 
-            @if ($item->previousUncountedId)
+            @if ($item->previous_uncounted_id)
                 if (event.key === 'j' || event.key === 'J' ) {
-                    window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previousUncountedId }}';
+                    window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previous_uncounted_id }}';
                 }
             @endif
-                @if ($item->nextUncountedID)
+                @if ($item->next_uncounted_id)
             if (event.key === 'k' || event.key === 'K') {
-                window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->nextUncountedID }}';
+                window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_uncounted_id }}';
             }
             @endif
 
