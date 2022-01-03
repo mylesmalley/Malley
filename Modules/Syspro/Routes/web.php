@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Syspro\Http\Controllers\Inventory\CountController;
 use Modules\Syspro\Http\Controllers\InventoryItems\TicketController;
 
 
@@ -99,8 +100,8 @@ Route::group( ['prefix' => 'syspro'],  function () {
             Route::post('/ticketsByBin', "InventoryItems\TicketController@ticketsByBin" );
 
 
-            Route::get('/test', [TicketController::class, "test"] )
-                ->name('inventory_counts.test');
+            Route::get('/update_cache', [CountController::class, "update_caches"] )
+                ->name('inventory_counts.update_cache');
 
 
             // search by stock code

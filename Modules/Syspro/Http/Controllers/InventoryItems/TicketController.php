@@ -4,11 +4,12 @@ namespace Modules\Syspro\Http\Controllers\InventoryItems;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Codedge\Fpdf\Fpdf\Fpdf;
-use Illuminate\Validation\Rules\In;
+use JetBrains\PhpStorm\NoReturn;
 
 class TicketController extends Controller
 {
@@ -40,14 +41,13 @@ class TicketController extends Controller
     ];
 
 
-
-
-
-
-
-
-
-    public function tickets( Inventory $inventory, Request $request )
+    /**
+     * @param Inventory $inventory
+     * @param Request $request
+     * @return void
+     */
+    #[NoReturn]
+    public function tickets(Inventory $inventory, Request $request )
     {
 
         $tickets = DB::table('Inventory_Latest_Counts')
@@ -82,12 +82,6 @@ class TicketController extends Controller
 
 
         return $this->test( $inventory, $tickets );
-//        dd( $tickets );
-
-//        return view('syspro::InventoryCounts.counts.tickets',[
-//            'inventory' => $inventory,
-//            'items' => $tickets
-//        ]) ;
 
 
     }
@@ -123,7 +117,7 @@ class TicketController extends Controller
 
         $tickets = DB::table('Inventory_Latest_Counts')
             ->where('inventory_id', $inventory->id)
-            ->whereIn('id', $request->id)
+            ->whereIn('id', $request->input('id') )
             ->whereNotIn('line_status',['Matched','Accepted'])
             ->orderBy('group')
             ->orderBy('bin')
@@ -169,16 +163,23 @@ class TicketController extends Controller
     }
 
 
-
-
-    public function customTicketsForm(Inventory $inventory)
+    /**
+     * @param Inventory $inventory
+     * @return Response
+     */
+    public function customTicketsForm(Inventory $inventory): Response
     {
-        return view('syspro::InventoryCounts.counts.customTicketForm',[
+        return response()->view('syspro::InventoryCounts.counts.customTicketForm',[
             'inventory' => $inventory,
         ]);
     }
 
-    public function customTickets( Inventory $inventory, Request $request )
+    /**
+     * @param Inventory $inventory
+     * @param Request $request
+     */
+    #[NoReturn]
+    public function customTickets(Inventory $inventory, Request $request )
     {
 
         $rawIds =  preg_split('/\r\n|[\r\n]|,| /', $request->ids) ;
@@ -225,24 +226,23 @@ class TicketController extends Controller
             }
         }
 
-
-
-        return view('syspro::InventoryCounts.counts.tickets',[
-            'inventory' => $inventory,
-            'items' => $tickets
-        ]) ;
+        return $this->test( $inventory, $tickets );
 
 
     }
 
 
-
-    public function test(Inventory $inventory,  Collection $data )
+    /**
+     * @param Inventory $inventory
+     * @param Collection $data
+     */
+    #[NoReturn]
+    public function test(Inventory $inventory, Collection $data )
     {
 
         $data = $data->toArray();
 
-        $pdf = new Fpdf('P', 'in', 'letter');
+        $pdf = new Fpdf('P', 'in', 'Letter');
       //  $pdf->SetMargins(0,0.25,0);
         $pdf->SetFont('Courier', '', 12);
         $pdf->SetAutoPageBreak(false);
@@ -252,9 +252,9 @@ class TicketController extends Controller
 
         $pages = array_chunk( $data, 7 );
 
-        $body = (2.833 * 2);
-        $stub = 2.833;
-
+//        $body = (2.833 * 2);
+//        $stub = 2.833;
+//
 
         $sticker_width = 2.83333;
         $sticker_height = 1.5;
@@ -334,7 +334,7 @@ class TicketController extends Controller
                 $bin_text = trim( "BIN: ". $page[$i]->bin ?? 'BIN');
 
                 $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
-                $part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
+                //$part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
                 $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
 
              //   $pdf->SetTextColor(255, 255, 255 );
@@ -374,19 +374,19 @@ class TicketController extends Controller
                 $description_text_length = $pdf->GetStringWidth( $description_text . '  ' );
 
 
-                $pdf->Cell(3,0.18, "Desc: ",0, '');
+                $pdf->Cell(3,0.18, "Desc: ");
                 $pdf->SetX(0.25 + $description_text_length);
 
-                $pdf->Cell(3,0.18, $page[$i]->description_1,0, 2, '');
-                $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2, '');
+                $pdf->Cell(3,0.18, $page[$i]->description_1,0, 2);
+                $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2);
                 $pdf->Ln();
                 $pdf->SetX(0.25);
                 $pdf->Cell(3,0.18, "Suplier: ",0, '');
                 $pdf->SetX(0.25 + $description_text_length);
 
-                $pdf->Cell(3,0.18, $page[$i]->supplier ?? '',0, 2, '');
+                $pdf->Cell(3,0.18, $page[$i]->supplier ?? '',0, 2);
 
-                $pdf->Cell(3,0.18, $page[$i]->catalogue ?? '',0, 2, '');
+                $pdf->Cell(3,0.18, $page[$i]->catalogue ?? '',0, 2);
 
                 $pdf->SetX(0.25);
 
@@ -397,7 +397,7 @@ class TicketController extends Controller
                 $pdf->SetXY(( $sticker_width * 2) - $sticker_padding - $count_description_length,
                     $body_start_y + $sticker_height - (2 * $sticker_padding ) - .18 );
 
-                $pdf->Cell(3,0.18, $count_description,0, 2, '');
+                $pdf->Cell(3,0.18, $count_description,0, 2);
 
 
 
@@ -445,8 +445,8 @@ class TicketController extends Controller
                 $part_text = trim( $page[$i]->stock_code ) ?? 'STOCK CODE';
                 $bin_text = trim( "BIN: ". $page[$i]->bin ?? 'BIN');
 
-                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
-                $part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
+           //     $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
+          //      $part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
                 $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
 
 
@@ -472,8 +472,8 @@ class TicketController extends Controller
 
                 $pdf->SetX( $stub_start_x );
 
-                $pdf->Cell(3,0.18, $page[$i]->description_1,0, 2, '');
-                $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2, '');
+                $pdf->Cell(3,0.18, $page[$i]->description_1,0, 2);
+                $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2);
 
                 $pdf->Ln();
                 $pdf->Ln();
@@ -482,7 +482,7 @@ class TicketController extends Controller
                 $pdf->Cell(2,.18, $ticket_number_text."       QTY________".$page[$i]->unit_of_measure, 0, 2);
                 $pdf->SetX( $stub_start_x );
 
-                $pdf->Cell(2,.18, $count_description, 0, 0);
+                $pdf->Cell(2,.18, $count_description);
 
 
 
