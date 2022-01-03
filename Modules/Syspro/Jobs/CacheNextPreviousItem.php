@@ -65,6 +65,7 @@ class CacheNextPreviousItem implements ShouldQueue
                 [ 'inventory_id', '=', $item->inventory_id ],
                 [ 'group', '=', strtoupper( $item->group )]
             ])
+            ->whereNotIn('line_status', ['Accepted', 'Matched'])
             ->orderBy('bin')
             ->orderBy('id')
             ->pluck('id')
