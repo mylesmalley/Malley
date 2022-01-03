@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
 
         if ( Cache::has('inventory_'.$inventory->id.'_groups'))
         {
+            Log::info("Pulling inventory GROUPS from cache. ");
+
             $groups = Cache::get('inventory_'.$inventory->id.'_groups');
         }
         else
@@ -34,6 +37,8 @@ class HomeController extends Controller
 
         if ( Cache::has('inventory_'.$inventory->id.'_groupNames'))
         {
+            Log::info("Pulling inventory GROUP NAMES from cache. ");
+
             $groupNames = Cache::get('inventory_'.$inventory->id.'_groupNames');
         }
         else
@@ -45,6 +50,8 @@ class HomeController extends Controller
                 ->orderBy('group')
                 ->pluck('group');
 
+            Log::info("Storing inventory GROUP NAMES in cache. ");
+
             Cache::put('inventory_'.$inventory->id.'_groupNames' , $groupNames, 600 );
         }
 
@@ -53,6 +60,8 @@ class HomeController extends Controller
 
         if ( Cache::has('inventory_'.$inventory->id.'_groupTotals'))
         {
+            Log::info("Pulling inventory GROUP TOTALS from cache. ");
+
             $groupsTotals = Cache::get('inventory_'.$inventory->id.'_groupTotals');
         }
         else
@@ -117,7 +126,11 @@ class HomeController extends Controller
                 ];
             }
 
+            Log::info("Storing inventory GROUPS in cache. ");
+
             Cache::put('inventory_'.$inventory->id.'_groups' , $groups, 600 );
+            Log::info("Storing inventory GROUP TOTALSS in cache. ");
+
             Cache::put('inventory_'.$inventory->id.'_groupTotals' , $groupsTotals, 600 );
         }
 
@@ -128,6 +141,8 @@ class HomeController extends Controller
          */
         if ( Cache::has('inventory_'.$inventory->id.'_neverCounted'))
         {
+            Log::info("Pulling inventory items never counted from cache. ");
+
             $neverCounted = Cache::get('inventory_'.$inventory->id.'_neverCounted');
         }
         else
@@ -136,6 +151,7 @@ class HomeController extends Controller
                 ->where('inventory_id', $inventory->id)
                 ->where('line_status','Not Counted')
                 ->count();
+            Log::info("Updating inventory items never counted in cache. ");
 
             Cache::put('inventory_'.$inventory->id.'_neverCounted' , $neverCounted, 600 );
         }
@@ -146,6 +162,8 @@ class HomeController extends Controller
          */
         if ( Cache::has('inventory_'.$inventory->id.'_needsRecount'))
         {
+            Log::info("Pulling inventory items needing recount from cache. ");
+
             $needsRecount = Cache::get('inventory_'.$inventory->id.'_needsRecount');
         }
         else
@@ -154,6 +172,8 @@ class HomeController extends Controller
                 ->where('inventory_id', $inventory->id)
                 ->where('line_status','Needs Recount')
                 ->count();
+
+            Log::info("Updating inventory items needing recount in cache. ");
 
             Cache::put('inventory_'.$inventory->id.'_needsRecount' , $needsRecount, 600 );
         }
@@ -164,6 +184,8 @@ class HomeController extends Controller
          */
         if ( Cache::has('inventory_'.$inventory->id.'_bins'))
         {
+            Log::info("Pulling inventory BINS from cache. ");
+
             $bins = Cache::get('inventory_'.$inventory->id.'_bins');
         }
         else
@@ -174,6 +196,8 @@ class HomeController extends Controller
                 ->groupBy('bin')
                 ->get();
 
+            Log::info("Updating inventory BINS in cache. ");
+
             Cache::put('inventory_'.$inventory->id.'_bins' , $bins, 600 );
         }
 
@@ -182,6 +206,8 @@ class HomeController extends Controller
 
         if ( Cache::has('inventory_'.$inventory->id.'_totalValueExpected'))
         {
+            Log::info("Pulling inventory TOTAL VALUE EXPECTED from cache. ");
+
             $totalValueExpected = Cache::get('inventory_'.$inventory->id.'_totalValueExpected');
         }
         else
@@ -190,11 +216,15 @@ class HomeController extends Controller
                 ->where('inventory_id', $inventory->id)
                 ->sum('expected_value');
 
+            Log::info("Updating inventory TOTAL VALUE EXPECTED in cache. ");
+
             Cache::put('inventory_'.$inventory->id.'_totalValueExpected' , $totalValueExpected, 600 );
         }
 
         if ( Cache::has('inventory_'.$inventory->id.'_totalValueCounted'))
         {
+            Log::info("Pulling inventory TOTAL VALUE COUNTED from cache. ");
+
             $totalValueCounted = Cache::get('inventory_'.$inventory->id.'_totalValueCounted');
         }
         else
@@ -202,6 +232,8 @@ class HomeController extends Controller
             $totalValueCounted = DB::table('Inventory_Latest_Counts')
                 ->where('inventory_id', $inventory->id)
                 ->sum('counted_value');
+
+            Log::info("Updating inventory TOTAL VALUE COUNTED in cache. ");
 
             Cache::put('inventory_'.$inventory->id.'_totalValueCounted' , $totalValueCounted, 600 );
         }

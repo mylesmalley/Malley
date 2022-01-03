@@ -74,20 +74,35 @@ class CacheNextPreviousItem implements ShouldQueue
 
 
 
-        $output = json_decode(json_encode([
-            "next" => (array_key_exists($pos + 1,  $all))
-                ? $all[$pos + 1]: null,
-            "previous" =>  (array_key_exists($pos-1,  $all))
-                ? $all[$pos - 1] : null,
-            "next_uncounted" => (array_key_exists($pos_2 + 1,  $uncounted))
-                ? $uncounted[$pos_2 + 1]: null,
-            "previous_uncounted" =>  (array_key_exists($pos_2-1,  $uncounted))
-                ? $uncounted[$pos_2 - 1] : null,
-        ]));
+//        $output = json_decode(json_encode([
+//            "next" => (array_key_exists($pos + 1,  $all))
+//                ? $all[$pos + 1]: null,
+//            "previous" =>  (array_key_exists($pos-1,  $all))
+//                ? $all[$pos - 1] : null,
+//            "next_uncounted" => (array_key_exists($pos_2 + 1,  $uncounted))
+//                ? $uncounted[$pos_2 + 1]: null,
+//            "previous_uncounted" =>  (array_key_exists($pos_2-1,  $uncounted))
+//                ? $uncounted[$pos_2 - 1] : null,
+//        ]));
 
-        Cache::put('inventory_item_position_'.$this->inventory_item_id, $output );
 
-        Log::info("Generating cache for next-previous items for $this->inventory_item_id");
+        DB::table('inventory_items')
+            ->where('id', '=', $this->inventory_item_id )
+            ->update([
+                "next_id" => (array_key_exists($pos + 1,  $all))
+                    ? $all[$pos + 1]: null,
+                "previous_id" =>  (array_key_exists($pos-1,  $all))
+                    ? $all[$pos - 1] : null,
+                "next_uncounted_id" => (array_key_exists($pos_2 + 1,  $uncounted))
+                    ? $uncounted[$pos_2 + 1]: null,
+                "previous_uncounted_id" =>  (array_key_exists($pos_2-1,  $uncounted))
+                    ? $uncounted[$pos_2 - 1] : null,
+            ]);
+
+
+   //     Cache::put('inventory_item_position_'.$this->inventory_item_id, $output );
+
+        Log::info("Updating Database for next-previous items for $this->inventory_item_id");
     }
 
 
