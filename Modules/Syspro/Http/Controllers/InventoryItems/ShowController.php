@@ -21,13 +21,10 @@ class ShowController extends Controller
      */
     public function show(Inventory $inventory, InventoryItem $item): Response
     {
-        //dd( $item );
-
         return response()->view('syspro::InventoryCounts.counts.items.show', [
             'inventory' => $inventory,
             'latest' => DB::table('Inventory_Latest_Counts')
                 ->find($item->id),
-           // 'place_in_series' => $item->place_in_series(),
             'item' => $item,
         ]);
     }

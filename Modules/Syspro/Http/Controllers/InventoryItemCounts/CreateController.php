@@ -6,21 +6,35 @@ use App\Http\Controllers\Controller;
 use App\Models\InventoryItem;
 use App\Models\Inventory;
 use App\Models\InventoryItemCount;
-use \Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Modules\Syspro\Jobs\CacheNextPreviousItem;
 
 
 class CreateController extends Controller
 {
-    public function create( Inventory $inventory, InventoryItem $inventoryItem )
-    {
-        return view('syspro::InventoryCounts.counts.takeCountForm', [
-            'inventory' => $inventory,
-            'inventoryItem' =>$inventoryItem,
-        ]);
-    }
+//    /**
+//     * @param Inventory $inventory
+//     * @param InventoryItem $inventoryItem
+//     * @return Response
+//     */
+//    public function create( Inventory $inventory, InventoryItem $inventoryItem ): Response
+//    {
+//        return response()->view('syspro::InventoryCounts.counts.takeCountForm', [
+//            'inventory' => $inventory,
+//            'inventoryItem' =>$inventoryItem,
+//        ]);
+//    }
 
-    public function store( Request $request, Inventory $inventory, InventoryItem $inventoryItem )
+    /**
+     * @param Request $request
+     * @param Inventory $inventory
+     * @param InventoryItem $inventoryItem
+     * @return RedirectResponse
+     */
+    public function store( Request $request, Inventory $inventory, InventoryItem $inventoryItem ): RedirectResponse
     {
         $request->validate([
             'counted' => 'required|numeric',
@@ -39,6 +53,27 @@ class CreateController extends Controller
 
         $count->save();
 
-        return redirect()->back();
+        // grab related ids and update each.
+        $update_ids = [
+            $inventoryItem->next_id ?? null,
+            $inventoryItem->previous_id ?? null,
+            $inventoryItem->next_uncounted_id ?? null,
+            $inventoryItem->previous_uncounted_id ?? null,
+        ];
+        $unique_ids = array_unique( $update_ids );
+        $update_ids = array_filter($unique_ids,'strlen');
+
+
+        foreach( $update_ids as $id )
+        {
+            CacheNextPreviousItem::dispatch( $id );
+        }
+
+
+
+
+
+        return redirect()
+            ->back();
     }
 }
