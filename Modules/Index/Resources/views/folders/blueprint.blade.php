@@ -1,4 +1,4 @@
-@extends('index::folders.template')
+@extends('index::app.main')
 @section('stylesheet')
     <style>
         .folder-card {

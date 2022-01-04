@@ -165,14 +165,21 @@ class AlbumController extends Controller
 	}
 
 
-	public function moveForm( Album $album )
+    /**
+     * @param Album $album
+     * @return Response
+     */
+	public function moveForm( Album $album ): Response
 	{
 		$tree = Album::withDepth()
 			->get()
 			->toTree();
 
-		return view( 'index::albums.move', [ 'al' => $album, 'tree' => $tree ] );
+		return response()
+            ->view( 'index::albums.move', [ 'al' => $album, 'tree' => $tree ] );
 	}
+
+
 
     /**
      * @param Request $request
