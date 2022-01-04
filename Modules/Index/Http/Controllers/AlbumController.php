@@ -38,7 +38,10 @@ class AlbumController extends Controller
 	public function create( Album $parent ): Response
 	{
 		return response()
-            ->view( 'index::albums.create', [ 'album' => Album::class, 'parent_id' => $parent->id ] );
+            ->view( 'index::albums.create', [
+                'album' => Album::class,
+                'parent_id' => $parent->id
+            ]);
 	}
 
 
@@ -53,10 +56,14 @@ class AlbumController extends Controller
 			'parent_id' => "required|int",
 		] );
 
+        Log::info("Created new photo album, ". $request->input('name'));
+
 		$album = new Album( $request->only( 'name' ) );
-		$parent = Album::find( $request->parent_id );
+		$parent = Album::find( $request->input('parent_id') );
 		$album->parent()->associate( $parent )->save();
-            $album->search_string = $album->ancestors->pluck('name')->implode(' > '). ' > '. $album->name;
+            $album->search_string = $album->ancestors()
+                    ->pluck('name')
+                    ->implode(' > '). ' > '. $album->name;
             $album->save();
 
 		return redirect( '/albums/' . $album->id );
@@ -73,7 +80,9 @@ class AlbumController extends Controller
 	public function edit( Album $album ): Response
 	{
 		return response()
-            ->view( 'index::albums.edit', [ 'album' => $album ] );
+            ->view( 'index::albums.edit', [
+                'album' => $album
+            ]);
 	}
 
     /**
@@ -91,7 +100,9 @@ class AlbumController extends Controller
 		] );
 		//  dd( $request->all() );
 		$album->update( $request->only( [ 'name', 'public' ] ) );
-        $album->search_string = $album->ancestors->pluck('name')->implode(' > '). ' > '. $album->name;
+        $album->search_string = $album->ancestors()
+                ->pluck('name')
+                ->implode(' > '). ' > '. $album->name;
         $album->save();
 
 		return redirect( 'albums/' . $album->id );
@@ -99,6 +110,7 @@ class AlbumController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @param Album $album
      * @return RedirectResponse
      */
@@ -114,7 +126,7 @@ class AlbumController extends Controller
 
 
     /**
-     * redirect to blueprint page to upload images to an album
+     * add photos to the album
      *
      * @param Request $request
      * @param Album $album
@@ -226,10 +238,10 @@ class AlbumController extends Controller
 
 		Media::whereIn('id', $ids)
 			->update([
-				'model_id' => $request->new_album,
+				'model_id' => $request->input('new_album'),
 			]);
 
-		return redirect('/albums/' . $request->new_album );
+		return redirect('/albums/' . $request->input('new_album') );
 	}
 
 

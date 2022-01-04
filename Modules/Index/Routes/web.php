@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use Modules\Index\Http\Controllers\AlbumController;
 use Modules\Index\Http\Controllers\Component\ComponentController;
 use Modules\Index\Http\Controllers\Component\HomeController;
 use Modules\Index\Http\Controllers\Component\ImportPhantomController;
@@ -590,21 +591,45 @@ Route::group(["prefix" => "index"], function(){
 //
 
 	/**
-	 * ALbums
+	 * Albums
 	 */
 	Route::group(['prefix' => 'albums'], function () {
-        Route::post('/moveAlbum', "AlbumController@moveAlbum");
+        Route::get('/{album}/move', [AlbumController::class, 'moveForm'])
+            ->name('album.move.form');
 
-        Route::get('{album}/create', "AlbumController@create");
-		Route::get('{album}', "AlbumController@show");
-        Route::patch('{album}', "AlbumController@update");
-        Route::delete('{album}', 'AlbumController@destroy');
-        Route::post('{album}/add', "AlbumController@add");
-        Route::delete('{album}/{media}/delete', "AlbumController@deletePhoto");
-		Route::get('{album}/edit',	"AlbumController@edit");
-		Route::get('/{album}/move', "AlbumController@moveForm");
-		Route::post('/move', "AlbumController@move");
-        Route::post('/', "AlbumController@store");
+        Route::post('/moveAlbum', [AlbumController::class, 'moveAlbum'])
+            ->name('album.move');
+
+        Route::post('/move', [AlbumController::class, 'move'])
+            ->name('album.photos.move');
+
+        Route::get('{album}/create', [AlbumController::class, 'create'])
+            ->name('album.create');
+
+		Route::get('{album}', [AlbumController::class, 'show'])
+            ->name('album.show');
+
+        Route::patch('{album}', [AlbumController::class, 'update'])
+            ->name('album.update');
+
+        Route::delete('{album}', [AlbumController::class, 'destroy'])
+            ->name('album.destroy');
+
+        Route::post('{album}/add', [AlbumController::class, 'add'])
+            ->name('album.photo.add');
+
+        Route::delete('{album}/{media}/delete', [AlbumController::class, 'deletePhoto'])
+            ->name('album.photo.delete');
+
+        Route::get('{album}/edit', [AlbumController::class, 'edit'])
+            ->name('album.edit');
+
+
+
+
+
+        Route::post('/', [AlbumController::class, 'store'])
+            ->name('album.store');
 	});
 
 
