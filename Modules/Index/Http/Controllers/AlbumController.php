@@ -4,21 +4,25 @@ namespace Modules\Index\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Media;
-use Aws\RAM\Exception\RAMException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use \Illuminate\View\View;
+use Illuminate\Http\Response;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class AlbumController extends Controller
 {
 
     /**
      * @param Album $album
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Response
      */
-    public function show( Album $album )
+    public function show( Album $album ): Response
     {
-        return view( 'index::albums.show', [ 'album' => $album ] );
+        return response()
+            ->view( 'index::albums.show', [ 'album' => $album ] );
     }
 
 
@@ -28,20 +32,21 @@ class AlbumController extends Controller
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @param int $parent
-	 * @return \Illuminate\Contracts\View\Factory|
+	 * @param Album $parent
+	 * @return Response
 	 */
-	public function create( Album $parent )
+	public function create( Album $parent ): Response
 	{
-		return view( 'index::albums.create', [ 'album' => Album::class, 'parent_id' => $parent->id ] );
+		return response()
+            ->view( 'index::albums.create', [ 'album' => Album::class, 'parent_id' => $parent->id ] );
 	}
 
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse
      */
-	public function store( Request $request )
+	public function store( Request $request ): RedirectResponse
 	{
 		$request->validate( [
 			'name' => "required|string",
@@ -58,26 +63,27 @@ class AlbumController extends Controller
 	}
 
 
-	/**
-	 *
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param Album $document
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 */
-	public function edit( Album $album )
+    /**
+     *
+     * Show the form for editing the specified resource.
+     *
+     * @param Album $album
+     * @return Response
+     */
+	public function edit( Album $album ): Response
 	{
-		return view( 'index::albums.edit', [ 'album' => $album ] );
+		return response()
+            ->view( 'index::albums.edit', [ 'album' => $album ] );
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param Request $request
-	 * @param Album $document
-	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-	 */
-	public function update( Request $request, Album $album )
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Album $album
+     * @return RedirectResponse
+     */
+	public function update( Request $request, Album $album ): RedirectResponse
 	{
 		$request->validate( [
 			'name' => "required|string|max:50",
@@ -91,10 +97,12 @@ class AlbumController extends Controller
 		return redirect( 'albums/' . $album->id );
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
-	public function destroy( Album $album )
+    /**
+     * Remove the specified resource from storage.
+     * @param Album $album
+     * @return RedirectResponse
+     */
+	public function destroy( Album $album ): RedirectResponse
 	{
 
 	    $parent = $album->parent->id;
@@ -105,12 +113,16 @@ class AlbumController extends Controller
 	}
 
 
-	/**
-	 * redirect to blueprint page to upload images to an album
-	 *
-	 * @param Album $album
-	 */
-	public function add( Request $request, Album $album )
+    /**
+     * redirect to blueprint page to upload images to an album
+     *
+     * @param Request $request
+     * @param Album $album
+     * @return RedirectResponse
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
+	public function add( Request $request, Album $album ): RedirectResponse
 	{
         $request->validate([
             'upload.*' => 'required|mimes:png,jpg,jpeg|max:10000',
@@ -119,9 +131,14 @@ class AlbumController extends Controller
         if($request->hasfile('upload'))
         {
             foreach($request->file('upload') as $upload) {
+                try {
+                    $album->addMedia( $upload )
+                        ->toMediaCollection('default',  's3');
 
-                $album->addMedia( $upload )
-                    ->toMediaCollection('default',  's3');
+                } catch ( FileDoesNotExist|FileIsTooBig )
+                {
+                    Log::error( "Uploaded file too big" );
+                }
 
             }
         }
@@ -139,9 +156,9 @@ class AlbumController extends Controller
 	 *
 	 * @param Album $album
 	 * @param Media $media
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @return RedirectResponse
 	 */
-	public function deletePhoto( Album $album, Media $media )
+	public function deletePhoto( Album $album, Media $media ): RedirectResponse
 	{
         $media->delete();
         return redirect("/albums/{$album->id}");
@@ -157,15 +174,17 @@ class AlbumController extends Controller
 		return view( 'index::albums.move', [ 'al' => $album, 'tree' => $tree ] );
 	}
 
-	public function move( Request $request )
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+	public function move( Request $request ): RedirectResponse
 	{
 		$request->validate( [
 			"old_album" => "required|int",
 			"new_album" => "required|int",
 			"ids.*" => "required|int",
 		] );
-
-	//	dd( $request->ids );
 
 		$moves = [];
 
@@ -207,16 +226,20 @@ class AlbumController extends Controller
 	}
 
 
-	public function moveAlbum( Request $request )
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+	public function moveAlbum( Request $request ): RedirectResponse
     {
         $target = Album::find( $request->input('target_id') );
 
         $destination = Album::find( $request->input('destination_id') );
 
-
-        if (!$target) return "Target album doesn't exist";
-
-        if (!$destination) return "Destination album doesn't exist";
+//
+//        if (!$target) return "Target album doesn't exist";
+//
+//        if (!$destination) return "Destination album doesn't exist";
 
 
         $destination->appendNode($target);
