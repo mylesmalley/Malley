@@ -40,7 +40,7 @@ class VehicleDate extends BaseModel
         "warranty_expiry",
         'arrival',
         'chassis_manufactured',
-        'delivery',
+     //   'delivery',
         'lease_expirey',
         'leaving_malley_facility',
         //'malley_finished_conversion', // replaced with work_completed. updated database

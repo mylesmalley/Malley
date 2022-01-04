@@ -240,6 +240,12 @@ class TicketController extends Controller
     public function test(Inventory $inventory, Collection $data )
     {
 
+        $suppliers = DB::connection('syspro')
+            ->table('ApSupplier')
+            ->pluck('SupplierName','Supplier');;
+
+
+
         $data = $data->toArray();
 
         $pdf = new Fpdf('P', 'in', 'Letter');
@@ -328,11 +334,11 @@ class TicketController extends Controller
                 $pdf->SetFont('Courier','B',12 );
 
                 $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
-                    ? "TICKET: ". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
-                    : "TICKET: ". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
+                    ? "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
+                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
 
                 $part_text = "PART: ". trim( $page[$i]->stock_code ) ?? 'STOCK CODE';
-                $bin_text = trim( "BIN: ". $page[$i]->bin ?? 'BIN');
+                $bin_text = trim( "AREA: ". $page[$i]->group. " BIN: ". $page[$i]->bin ?? 'BIN');
 
                 $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
                 //$part_text_length = $pdf->GetStringWidth( $part_text . ' ' );
@@ -370,7 +376,7 @@ class TicketController extends Controller
                 /*
                  * DESCRIPTION AND SUPPLIER DETAILS
                  */
-                $description_text = "Desc: ";
+                $description_text = "Desc:   ";
                 $description_text_length = $pdf->GetStringWidth( $description_text . '  ' );
 
 
@@ -381,12 +387,14 @@ class TicketController extends Controller
                 $pdf->Cell(3,0.18, $page[$i]->description_2,0, 2);
                 $pdf->Ln();
                 $pdf->SetX(0.25);
-                $pdf->Cell(3,0.18, "Suplier: ",0, '');
+                $pdf->Cell(3,0.18, "Supplier: ",0, '');
                 $pdf->SetX(0.25 + $description_text_length);
 
-                $pdf->Cell(3,0.18, $page[$i]->supplier ?? '',0, 2);
+                $pdf->Cell(3,0.18, $suppliers[$page[$i]->supplier] ?? '',0, 2);
 
-                $pdf->Cell(3,0.18, $page[$i]->catalogue ?? '',0, 2);
+                $cat = isset( $page[$i]->catalogue) ? "Supplier# ".  $page[$i]->catalogue : '';
+
+                $pdf->Cell(3,0.18, $cat ,0, 2);
 
                 $pdf->SetX(0.25);
 
