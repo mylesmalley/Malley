@@ -7,9 +7,8 @@ use App\Models\Vehicle;
 use App\Models\VehicleDate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 
 
@@ -22,13 +21,13 @@ class DatesController extends Controller
 
     /**
      * @param Vehicle $vehicle
-     * @return View
+     * @return Response
      */
-    public function show(Vehicle $vehicle): View
+    public function show(Vehicle $vehicle): Response
     {
         $vehicle->load('dates');
 
-        return view('vehicles::dates.show', [
+        return response()->view('vehicles::dates.show', [
             'vehicle' => $vehicle
         ]);
     }
@@ -37,11 +36,11 @@ class DatesController extends Controller
     /**
      * @param Vehicle $vehicle
      * @param VehicleDate $date
-     * @return View
+     * @return Response
      */
-    public function edit(Vehicle $vehicle, VehicleDate $date): View
+    public function edit(Vehicle $vehicle, VehicleDate $date): Response
     {
-        return view('vehicles::dates.edit', [
+        return response()->view('vehicles::dates.edit', [
             'vehicle' => $vehicle,
             'date' => $date
         ]);
@@ -73,20 +72,10 @@ class DatesController extends Controller
         ]);
         $date->save();
 
-        VehicleDate::create([
-            'vehicle_id' => $vehicle->id,
-            'user_id' => Auth::user()->id,
-            'timestamp' => $ts,
-            'name' => $request->input('name'), // name of date field
-            'notes' => $request->input('notes') ?? "", // use preset notes if provided
-            'update_ford' => strtoupper($vehicle->make) === 'FORD'
-                && in_array($request->input('name'),
-                    VehicleDate::ford_milestone()),
-            'submitted_to_ford' => 0,
-            'current' => 1,
-        ])->save();
+        $this->create_vehicle_date_record($vehicle, $ts, $request);
 
         return redirect()->route('vehicle.dates', [$vehicle]);
+
     }
 
 
@@ -119,23 +108,10 @@ class DatesController extends Controller
         ]);
 
 
-        VehicleDate::create([
-            'vehicle_id' => $vehicle->id,
-            'user_id' => Auth::user()->id,
-            'timestamp' => $ts,
-            'name' => $request->input('name'), // name of date field
-            'notes' => $request->input('notes') ?? "", // use preset notes if provided
-            'update_ford' => strtoupper($vehicle->make) === 'FORD'
-                && in_array($request->input('name'),
-                    VehicleDate::ford_milestone()),
-            'submitted_to_ford' => 0,
-            'current' => 1,
-        ])->save();
-
-    //    dd( $request->input('date'), $request->input('time'), $ts );
-
+        $this->create_vehicle_date_record($vehicle, $ts, $request);
 
         return redirect()->route('vehicle.dates', [$vehicle]);
+
     }
 
 
@@ -175,5 +151,29 @@ class DatesController extends Controller
 //
 //        return "done";
 //    }
+
+
+
+    /**
+     * @param Vehicle $vehicle
+     * @param string $ts
+     * @param Request $request
+     */
+    private function create_vehicle_date_record(Vehicle $vehicle, string $ts, Request $request): void
+    {
+        VehicleDate::create([
+            'vehicle_id' => $vehicle->id,
+            'user_id' => Auth::user()->id,
+            'timestamp' => $ts,
+            'name' => $request->input('name'), // name of date field
+            'notes' => $request->input('notes') ?? "", // use preset notes if provided
+            'update_ford' => strtoupper($vehicle->make) === 'FORD'
+                && in_array($request->input('name'),
+                    VehicleDate::ford_milestone()),
+            'submitted_to_ford' => 0,
+            'current' => 1,
+        ])->save();
+
+    }
 
 }
