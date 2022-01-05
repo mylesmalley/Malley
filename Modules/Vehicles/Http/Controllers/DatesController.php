@@ -155,6 +155,9 @@ class DatesController extends Controller
 
 
     /**
+     * extracted duplicate code chunk from other functions on this class
+     *
+     *
      * @param Vehicle $vehicle
      * @param string $ts
      * @param Request $request

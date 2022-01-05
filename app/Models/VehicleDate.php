@@ -55,6 +55,8 @@ class VehicleDate extends BaseModel
         'work_started', // Work Started
         'work_completed', // Work Completed
         'released_to_carrier', // Released to Carrier
+        'delivered_by_malley', // same as released to carrier but for when we ship it ourselves
+
         'compound_exit',  // Compound Exit
 
         // optional fields for Ford
@@ -76,6 +78,8 @@ class VehicleDate extends BaseModel
         'work_started' => 'X6', // Work Started
         'work_completed' => 'X5', // Work Completed
         'released_to_carrier' => 'J1', // Released to Carrier
+        'delivered_by_malley' => 'J1', // Released to Carrier substitute for Malley delivered ourselves
+
         'compound_exit' => 'OA',  // Compound Exit
 
         // optional fields for Ford
@@ -118,6 +122,8 @@ class VehicleDate extends BaseModel
 
 
     /**
+     * pulls everything together and then formats to send vehicle milestone to Ford.
+     *
      * @return array
      */
     #[ArrayShape(["vin" => "string", "code" => "string", "statusUpdateTs" => "string", "references" => "\string[][]"])]
