@@ -66,7 +66,8 @@ class AlbumController extends Controller
                     ->implode(' > '). ' > '. $album->name;
             $album->save();
 
-		return redirect( '/albums/' . $album->id );
+        return redirect()
+            ->route('album.show', [$album]);
 	}
 
 
@@ -98,14 +99,14 @@ class AlbumController extends Controller
 			'name' => "required|string|max:50",
 			'public' => "required|boolean",
 		] );
-		//  dd( $request->all() );
+
 		$album->update( $request->only( [ 'name', 'public' ] ) );
         $album->search_string = $album->ancestors()
                 ->pluck('name')
                 ->implode(' > '). ' > '. $album->name;
         $album->save();
 
-		return redirect( 'albums/' . $album->id );
+        return redirect()->route('album.show', [$album]);
 	}
 
     /**
@@ -121,7 +122,7 @@ class AlbumController extends Controller
 
 		$album->delete();
 
-		return redirect( '/albums/'.$parent );
+		return redirect()->route( 'album.show', [ $parent ] );
 	}
 
 
@@ -131,8 +132,6 @@ class AlbumController extends Controller
      * @param Request $request
      * @param Album $album
      * @return RedirectResponse
-     * @throws FileDoesNotExist
-     * @throws FileIsTooBig
      */
 	public function add( Request $request, Album $album ): RedirectResponse
 	{
@@ -155,6 +154,7 @@ class AlbumController extends Controller
             }
         }
 
+        Log::info("Added images to album , ". $album->id );
 
         return redirect()->back();
 	}
@@ -173,7 +173,10 @@ class AlbumController extends Controller
 	public function deletePhoto( Album $album, Media $media ): RedirectResponse
 	{
         $media->delete();
-        return redirect("/albums/{$album->id}");
+
+        Log::info("Deleted media ". $media->id . " from album ". $album->id );
+
+        return redirect()->route('album.show', [$album]);
 	}
 
 
@@ -187,7 +190,7 @@ class AlbumController extends Controller
 			->get()
 			->toTree();
 
-		return response()
+        return response()
             ->view( 'index::albums.move', [ 'al' => $album, 'tree' => $tree ] );
 	}
 
@@ -207,12 +210,10 @@ class AlbumController extends Controller
 
 		$moves = [];
 
-		$oldPath = "Album/" . $request->old_album;
-		$newPath = "Album/" . $request->new_album;
-
+		$oldPath = "Album/" . $request->input('old_album');
+		$newPath = "Album/" . $request->input('new_album');
 
 		$ids = $request->ids ?? [];
-
 
 		// Grab the files that need to be moved
 		for ( $i = 0; $i < count( $ids  ) ; $i++ ) {
@@ -226,7 +227,6 @@ class AlbumController extends Controller
 			}
 		}
 
-	//	dd( $moves );
 
 		// actually move the files
 		foreach( $moves as $old => $new )
@@ -241,6 +241,8 @@ class AlbumController extends Controller
 				'model_id' => $request->input('new_album'),
 			]);
 
+        Log::info("Moved media from album $oldPath to $newPath" );
+
 		return redirect('/albums/' . $request->input('new_album') );
 	}
 
@@ -251,19 +253,14 @@ class AlbumController extends Controller
      */
 	public function moveAlbum( Request $request ): RedirectResponse
     {
-        $target = Album::find( $request->input('target_id') );
+        $target = Album::firstOrFail( $request->input('target_id') );
 
-        $destination = Album::find( $request->input('destination_id') );
-
-//
-//        if (!$target) return "Target album doesn't exist";
-//
-//        if (!$destination) return "Destination album doesn't exist";
-
+        $destination = Album::firstOrFail( $request->input('destination_id') );
 
         $destination->appendNode($target);
 
-
-        return redirect()->back()->with('success', 'Moved Album');
+        return redirect()
+            ->back()
+            ->with('success', 'Moved Album');
     }
 }
