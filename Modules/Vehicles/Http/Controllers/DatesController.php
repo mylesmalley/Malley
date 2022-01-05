@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleDate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -152,5 +153,27 @@ class DatesController extends Controller
             ->route('vehicle.dates', [$vehicle]);
     }
 
+
+
+
+
+//    public function fix()
+//    {
+//        $x = DB::table('vehicles_old')
+//            ->where('date_exit_from_canada','!=',null)
+//            ->select('id','vin','date_exit_from_canada')
+//            ->get();;
+//
+//        foreach($x as $o)
+//        {
+//            VehicleDate::where('vehicle_id','=',$o->id)
+//                ->where('name', '=', 'exit_from_canada')
+//                ->update([
+//                    'timestamp' => $o->date_exit_from_canada . ' 00:00:00.0000000'
+//                ]);
+//        }
+//
+//        return "done";
+//    }
 
 }

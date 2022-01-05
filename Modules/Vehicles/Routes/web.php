@@ -18,6 +18,7 @@ Route::group(['prefix'=>'vehicles'], function () {
         Route::get('', "IndexController@show");
     });
 
+//    Route::get('/fixdates',    "DatesController@fix");
 
 //    Route::get('/mgt', [DatesController::class, 'migrate'])
 //        ->name('vehicles.migrate_date');
