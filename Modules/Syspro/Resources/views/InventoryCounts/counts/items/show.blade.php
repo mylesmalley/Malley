@@ -1,8 +1,18 @@
 @extends('syspro::InventoryCounts.template')
 
 @section('content')
+    <br>
+    <a href="{{ url('syspro/inventory/'. $item->inventory_id ) }}"
+       class="btn btn-secondary">Back to Inventory Count</a>
+    <a href="{{ url('syspro/inventory/'.$inventory->id.'/search/bin/for/'. $item->bin ) }}"
+       class="btn btn-primary">Back to Bin {{ $inventory->bin }}</a>
 
-    <h1 class="">{{ $item->stock_code }} at Bin {{ $item->bin }}
+    <hr>
+
+    <h1 class="">
+        <span class="text-secondary">AREA:</span> {{ $item->group }} &nbsp;&nbsp;
+        <span class="text-secondary">BIN:</span> {{ $item->bin }} &nbsp; &nbsp;
+        <span class="text-secondary">PART:</span>  {{ $item->stock_code }}
         @switch( $latest->line_status)
             @case('Accepted')
                  <span class="badge bg-success">Accepted</span>
@@ -28,10 +38,6 @@
         @endswitch
 
     </h1>
-    <a href="{{ url('syspro/inventory/'. $item->inventory_id ) }}"
-       class="btn btn-secondary">Back to Inventory Count</a>
-    <a href="{{ url('syspro/inventory/'.$inventory->id.'/search/bin/for/'. $item->bin ) }}"
-       class="btn btn-primary">Back to Bin {{ $inventory->bin }}</a>
 
     <div class="row">
         <div class="col-md-6">
