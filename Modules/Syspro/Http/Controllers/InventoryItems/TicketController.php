@@ -335,7 +335,7 @@ class TicketController extends Controller
 
                 $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
                     ? "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
-                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
+                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). 'R' ;
 
                 $part_text = "PART: ". trim( $page[$i]->stock_code ) ?? 'STOCK CODE';
                 $bin_text = trim( "AREA: ". $page[$i]->group. " BIN: ". $page[$i]->bin ?? 'BIN');
@@ -449,7 +449,7 @@ class TicketController extends Controller
 
                 $ticket_number_text =  $page[$i]->line_status !== "Needs Recount"
                     ? "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT)
-                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). ' RECOUNT' ;
+                    : "#". str_pad($page[$i]->ticket_number, 4, "0", STR_PAD_LEFT). 'R' ;
 
                 $part_text = trim( $page[$i]->stock_code ) ?? 'STOCK CODE';
                 $bin_text = trim( "BIN: ". $page[$i]->bin ?? 'BIN');
