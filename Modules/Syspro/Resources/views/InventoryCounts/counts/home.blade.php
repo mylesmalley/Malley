@@ -9,23 +9,33 @@
 
     @includeIf('syspro::InventoryCounts.errors')
 
-    <ul>
-        <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/all') }}">Show All ({{ $total }} Items)</a></li>
-        <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allPaginated') }}">Show All  {{ $total }} Items, 50 at a time</a></li>
-{{--        <li><a href="#">Never Counted ({{ $neverCounted }})</a></li>--}}
-{{--        <li><a href="#">Needs Recount ({{ $needsRecount }})</a></li>--}}
+    <div class="row">
+        <div class="col-6">
+            <ul>
+                <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/all') }}">Show All ({{ $total }} Items)</a></li>
+                <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allPaginated') }}">Show All  {{ $total }} Items, 50 at a time</a></li>
+                {{--        <li><a href="#">Never Counted ({{ $neverCounted }})</a></li>--}}
+                {{--        <li><a href="#">Needs Recount ({{ $needsRecount }})</a></li>--}}
 
-        <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allNeedingRecount') }}">Items Needing Recount ({{ $needsRecount }} Items)</a></li>
-        <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allNeedingRecountPaginated') }}">Items Needing Recount,  {{ $needsRecount }} Items, 50 at a time</a></li>
+                <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allNeedingRecount') }}">Items Needing Recount ({{ $needsRecount }} Items)</a></li>
+                <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allNeedingRecountPaginated') }}">Items Needing Recount,  {{ $needsRecount }} Items, 50 at a time</a></li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <ul>
+                @if (Auth::user()->inventory_admin)
+                    <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/customTickets') }}">Create Custom Tickets</a></li>
+
+                    <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/progress') }}">Count Progress Report</a></li>
 
 
-        @if (Auth::user()->inventory_admin)
-            <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/customTickets') }}">Create Custom Tickets</a></li>
+                    <li><a href="{{ route('inventory_counts.update_cache', [$inventory]) }}">Update Caches</a></li>
+                @endif
+            </ul>
+        </div>
 
-            <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/progress') }}">Count Progress Report</a></li>
+    </div>
 
-            @endif
-    </ul>
 
 
 
