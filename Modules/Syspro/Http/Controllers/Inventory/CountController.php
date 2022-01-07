@@ -28,9 +28,12 @@ class CountController extends Controller
      */
     public function update_caches( Inventory $inventory ): void
     {
+
         $ids = DB::table('inventory_items')
             ->where('inventory_id', '=', $inventory->id )
             ->pluck('id');
+
+        echo "updating cache for ".count($ids)." records";
 
         foreach( $ids as $id )
         {
@@ -39,7 +42,6 @@ class CountController extends Controller
 
         Log::info("Finished Updating Caches");
 
-        echo "updating cache for ".count($ids)." records";
     }
 
 
