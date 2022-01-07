@@ -10,6 +10,30 @@
 
 
 
+
+
+------
+
+## Inventory Count Receipt Tool
+
+### Creating a Count
+
+
+
+### Opening a Count
+
+### Finding What You Need
+
+
+
+
+
+
+
+
+
+
+
 ------
 
 ## Option Index
@@ -20,7 +44,7 @@
 
 ------
 
-## Inventory & Purchasing
+## Inventory & Purchasing Tools
 
 
 

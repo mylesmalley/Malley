@@ -259,10 +259,10 @@
 
 
     @if ($item->previous_uncounted_id)
-        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previous_uncounted_id }}" class="btn btn-dark btn-lg">&lt; (J) Previous To Count In Group</a> &nbsp;
+        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previous_uncounted_id }}" class="btn btn-dark btn-lg">&lt; (-) Previous To Count In Group</a> &nbsp;
     @endif
     @if ($item->next_uncounted_id)
-        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_uncounted_id }}" class="btn btn-dark btn-lg">Next To Count In Group (K) &gt;</a>
+        <a href="/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_uncounted_id }}" class="btn btn-dark btn-lg">Next To Count In Group (+) &gt;</a>
     @endif
 
     <br><br>
@@ -287,12 +287,12 @@
 
 
             @if ($item->previous_uncounted_id)
-                if (event.key === 'j' || event.key === 'J' ) {
+                if (event.key === '-' || event.key === '-' ) {
                     window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->previous_uncounted_id }}';
                 }
             @endif
                 @if ($item->next_uncounted_id)
-            if (event.key === 'k' || event.key === 'K') {
+            if (event.key === '+' || event.key === '+') {
                 window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_uncounted_id }}';
             }
             @endif
