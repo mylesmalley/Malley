@@ -16,19 +16,113 @@
 
 ## Inventory Count Receipt Tool
 
-### Creating a Count
+### Creating a Count  (Admin)
+
+1. Open the file script_to_populate_new_inventory_count.sql
+2. Process beings by creating an 'Inventory Count' to hold everything. Change the text on line 20 to give it a reflective name. Line 21 can be used to identify the creator.
+   <img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107112549588.png" alt="image-20220107112549588" style="zoom:50%;" />
+3. The second step involves creating references for each stock code @ bin location reference. Use the WHERE block at line 73 to 77 to filter.
+   ![image-20220107112832983](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107112832983.png)
+4. Run the script. A cursor is created to handle each row. Depending on the number of items to be counted, this can take a few seconds. 
+5. The count will now be visible at the top of the table on
+   https://index.malleyindustries.com/syspro/inventory
+   <img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107113153933.png" alt="image-20220107113153933" style="zoom: 33%;" />
+6. Open the count.
+7. Confirm the process ran as expected. Did the right bins and sections get created?
+8. When you are satisfied that the count is what you want, click on the **Update Cache** link at the bottom of the right-hand list on the home page. This will go through each item in the count and calculate where each ticket appears in sequence. This makes Next and Previous buttons work and **vastly** speeds up the count take process
+
+The count is now ready to begin.
+
+**NOTE ON CACHING:** When a ticket count is entered, the system will automatically recalculate the next and previous tickets in sequence. Also, the home page results are cached and only regenerated every 10 minutes to speed up loading. 
 
 
 
-### Opening a Count
+### Printing Tickets
+
+Navigate to the report, bin, stock code, locale etc. that you wish to produce tickets for and click **Generate Tickets** at the top of the page. 
+
+Clicking **Generate Tickets Grouped By Bins** produces the same results, except pads the groups with blank tickets to be more easily separated.
+
+Either way, a PDF of the requested tickets will be generated which is ready to be printed. 
+
+**It is VERY important** to make sure that when printing, that the printer is set to not scale the file. This is worded differently depending on manufacturer, but will look like **Scale: none / Actual Size / Zoom 0%** or some other variation. Make sure to test a single sheet printed on sticker paper to ensure that the tickets line up with the perforations.
+
+Ticket sheet dimensions for ordering: Letter-size (8.5" x 11") paper, top and bottom margin 0.25". Body divided into three equal columns of 2.8333" and 7 equal rows of 1.5". Sticker paper stock - reusable sticker adhesive preferable so that the stubs are easier to remove. 
+
+Tickets are divded into a two-column-wide body and a 1-column stub which is stuck on the bin.
+
+
 
 ### Finding What You Need
 
+The top of every page includes search boxes to help you navigate around a count. Simply type in all or part of the thing you are looking for into the appropriate box and you will be brought to the matching results. 
+
+![image-20220107115736569](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107115736569.png)
+
+Each ticket contains information to help you quickly look up what youneed.
+
+![image-20220107115652282](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107115652282.png)
+
+**#0001R** is the ticket number. The **R** at the end indicates that this is a recount ticket.
+
+**AREA: MEZZ** indicates that the item to be counted is located in the Mezzanine area upstairs. In the count tool, AREA and LOCALE mean the same thing. 
+
+**BIN: MZ02A** is the specific bin location.
+
+**PART: 55-11375** is the Malley stock code number
+
+The fastest way to find this item is by the Ticket Number. In the top right corner of the screen, you'll find the Ticket Number search box: <img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107120448707.png" alt="image-20220107120448707" style="zoom:50%;" /> Simply enter 1 or 0001 into the box<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107120419940.png" alt="image-20220107120419940" style="zoom:50%;" /> and click Search. You will be taken directly to the ticket count page. 
+
+Searching by the other fields involves more filtering. For example, Part 55-11375 might be located in multiple bins. If you search by Stock Code, you will be presented with a list of all bin locations where that part is located. **Make sure you pick the right bin or ticket number!**
+
+Searching for a Bin Locaiton works the same way. Entering **MZ18C** into the **Bin Search** box and clicking **Search** will show you a list of all items located at that bin.
+
+![image-20220107120933968](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107120933968.png)
 
 
 
+### Receiving a Count
 
+As the count proceeds, tickets will come back for entry. The easiest way to receive the tickets is to enter the ticket number in the **Ticket Number** field at the top right of the page. Refer to the **Finding What You Need** section on how to get around.
 
+##### The Stock Take screen
+
+![image-20220107131515690](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107131515690.png)
+
+The top of the page matches what you see on a ticket. **Ticket Number**, Location, Bin, and **Part Number**.
+
+You will also see an indicator at the top of the page what the status of a particular ticket is. This could be:
+
+- **Not Counted** - the ticket has not been counted yet
+- **Matched** - the ticket has been counted and the correct amount was found
+- **Needs Recount** - the ticket was counted but needs to be recounted because it doesn't correspond to what was expected
+- **Accepted** - the count does not match the expected value but has been accepted as correct.
+
+The table on the left shows more identifying information which may be helpful.
+
+The Count History table shows the count or counts that have been taken for this ticket so far. Only the most recent count is valid. 
+
+##### Entering a Count
+
+To enter a count, simply fill in the quantity on the ticket and if known, the name of the counter. If the counter's name isn't known, this can be left blank. The page will remember the last used name so you only need to change it if it's different. 
+
+<img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107132142441.png" alt="image-20220107132142441" style="zoom:50%;" />
+
+You can submit this by either hitting **Enter** on your keyboard or by clicking **Save Count**.
+
+If you make a mistake, such as mistyping or entering the wrong number, just enter the correct number and submit it. Only the most recent values entered matter.
+
+When you submit the count, the page will reload. The status at the top of the page will change depending on whether the value you entered matched what was expected. You are now done with this ticket and ready to move on. 
+
+##### Navigating using the keyboard
+
+The tool has been designed to make it as fast as possible to enter counts. When you open a Stock Take page, the quantity field will already be selected and ready for you to type into. 
+
+Hitting **ENTER** at any time will submit the count you have entered
+
+Clicing the **+** **(plus) key** will take you to the next ticket expecting input. Clicking **the - (minus) key** will take you to the previous ticket expecting input. 
+
+**The + and - keys will skip over tickets that have already been counted and matched.** 
 
 
 

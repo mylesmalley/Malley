@@ -10,6 +10,8 @@
     <hr>
 
     <h1 class="">
+        #{{ str_pad(  $item->ticket_number ?? "NEW TICKET, MANUALLY CREATED"  ?? "NEW", 4, "0", STR_PAD_LEFT) }}
+
         <span class="text-secondary">AREA:</span> {{ $item->group }} &nbsp;&nbsp;
         <span class="text-secondary">BIN:</span> {{ $item->bin }} &nbsp; &nbsp;
         <span class="text-secondary">PART:</span>  {{ $item->stock_code }}
