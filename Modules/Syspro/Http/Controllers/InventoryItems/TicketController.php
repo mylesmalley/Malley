@@ -303,7 +303,7 @@ class TicketController extends Controller
                 $part_text = "PART: ". trim( $d->stock_code ) ?? 'STOCK CODE';
                 $bin_text = trim( "AREA: ". $d->group. " BIN: ". $d->bin ?? 'BIN');
 
-                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
+                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . '   ' );
                 $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
             $pdf->SetFont('Courier', '', 12);
 
@@ -329,21 +329,23 @@ class TicketController extends Controller
             $pdf->SetX( 0.25);
             $cat = isset( $d->catalogue) ? "Supplier# ".  $d->catalogue : '';
 
+            $supplierName = $suppliers[$d->supplier] ?? 'not-set';
+
             $lines = [
                 "Description: $d->description_1 ",
                 "             $d->description_2 ",
                 "              ",
-                "Supplier: {$suppliers[$d->supplier]} ",
+                "Supplier: $supplierName ",
                 "          $cat ", "",
             ];
             $unitExploded = $this->units[ $d->unit_of_measure ] ?? "Each";
 
             $count = [
+                "$inventory->description",
                 ($is_recount) ? "Counted: ". $d->counted_quantity : "",
                 "",
                 "QTY:________",
                 $unitExploded,
-                "$inventory->description",
                 "",
             ];
 
