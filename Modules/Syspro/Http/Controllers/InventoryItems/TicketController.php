@@ -296,14 +296,11 @@ class TicketController extends Controller
 
             $header = "";
 
-            if ($is_recount)
-            {
-                $header .= str_pad( "#".str_pad($d->ticket_number,4,'0')."R", 8, ' ');
-            }
-            else
-            {
-                $header .= str_pad( "#".str_pad($d->ticket_number,4,'0'), 8, ' ');
-            }
+            $ticket_number_text =  ($is_recount)
+                ?  "#".str_pad($d->ticket_number,4,'0', STR_PAD_LEFT)."R"
+                :  "#".str_pad($d->ticket_number,4,'0', STR_PAD_LEFT) ;
+
+            $header .= str_pad($ticket_number_text, 8, ' ');
 
             $header .= str_pad( "AREA: ". $d->group. " BIN: ". $d->bin, 30,' ' );
 
@@ -385,7 +382,7 @@ class TicketController extends Controller
                 $d->description_2,
                     "",
                 "QTY:________$d->unit_of_measure",
-                "$d->ticket_number   $inventory->description",
+                "$ticket_number_text   $inventory->description",
                 "",
             ];
 
