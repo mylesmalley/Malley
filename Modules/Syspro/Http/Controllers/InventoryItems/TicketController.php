@@ -146,7 +146,7 @@ class TicketController extends Controller
                 $u->catalogue = $sto->SupCatalogueNum;
             }
         }
-        return $this->test( $inventory, $tickets , true );
+        return $this->tickets_by_bin( $inventory, $tickets , true );
 
 
         //dd( $tickets );
@@ -231,6 +231,175 @@ class TicketController extends Controller
 
 
     }
+
+
+
+
+
+
+
+
+    /**
+     * @param Inventory $inventory
+     * @param Collection $data
+     * @param bool $bins
+     */
+    #[NoReturn]
+    public function tickets_by_bin(Inventory $inventory, Collection $data, bool $bins = false )
+    {
+        $SHOW_BORDERS = 1;
+
+
+        $suppliers = DB::connection('syspro')
+            ->table('ApSupplier')
+            ->pluck('SupplierName','Supplier');;
+
+        $grouped = $data->groupBy(function ($item, $key) {
+            return substr($item->bin,0, 3);
+        });
+
+
+
+        $pdf = new Fpdf('P', 'in', 'Letter');
+        $pdf->SetFont('Courier', '', 12);
+        $pdf->SetTopMargin(0.25);
+
+        $pdf->SetAutoPageBreak(true, 0.25);
+
+//        $pdf->AddPage();
+
+
+
+
+        $sticker_width = 2.83333;
+        $sticker_height = 1.5;
+        $sticker_padding = 0.05;
+        $body_width = ( $sticker_width * 2 ) - $sticker_padding - .25;
+
+        $count_description = $inventory->description;
+        $count_description_length = $pdf->GetStringWidth( $count_description .' ' );
+
+
+        $pdf->AddPage();
+
+        $i = 0;
+
+        foreach( $data  as $d )
+        {
+            $pdf->SetX( 0.25);
+
+
+
+       //     $pdf->Cell(2.83333, 0.25, $d->stock_code );
+
+                $ticket_number_text =  $d->line_status !== "Needs Recount"
+                    ? "#". str_pad($d->ticket_number, 4, "0", STR_PAD_LEFT)
+                    : "#". str_pad($d->ticket_number, 4, "0", STR_PAD_LEFT). 'R' ;
+
+                $part_text = "PART: ". trim( $d->stock_code ) ?? 'STOCK CODE';
+                $bin_text = trim( "AREA: ". $d->group. " BIN: ". $d->bin ?? 'BIN');
+
+                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . ' ' );
+                $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
+            $pdf->SetFont('Courier', '', 12);
+
+                $pdf->SetFillColor(225,225,225);
+                $pdf->Cell( $ticket_number_length ,0.3, $ticket_number_text ,0, 0, '', true);
+                $pdf->Cell( $bin_text_length,0.3, $bin_text ,0, 0, '', true);
+                $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.3, $part_text ,0, 2, 'C', true  );
+
+
+            $pdf->SetX( 0.25);
+            $cat = isset( $d->catalogue) ? "Supplier# ".  $d->catalogue : '';
+
+            $lines = [
+                "Description: $d->description_1 ",
+                "             $d->description_2 ",
+                "              ",
+                "Supplier: {$suppliers[$d->supplier]} ",
+                "          $cat ", "",
+            ];
+            $unitExploded = $this->units[ $d->unit_of_measure ] ?? "Each";
+
+            $count = [
+                "",
+                "",
+                "QTY:________",
+                $unitExploded,
+                "$inventory->description",
+                "",
+            ];
+
+
+            $stub_lines = [
+                $d->description_1,
+                $d->description_2,
+                    "",
+                "QTY:________$d->unit_of_measure",
+                "$inventory->description",
+                "",
+            ];
+
+            $pdf->SetFont('Courier', '', 10);
+
+            $x = $pdf->GetX();
+            $y = $pdf->GetY();
+//            $pdf->MultiCell( 3.75, 0.2, $ticket_body_text,1, '', false);
+
+            for($i = 0;  $i < 6; $i++)
+            {
+                $pdf->SetX(0.25);
+                $pdf->Cell(3.75, .2, $lines[$i], $SHOW_BORDERS, 0 );
+                $pdf->Cell(1.67, .2, $count[$i], $SHOW_BORDERS, 0, 'C' );
+                $pdf->SetX(2.8333*2);
+                $pdf->Cell(2.8333, .2, $stub_lines[$i], $SHOW_BORDERS, 2, 'C' );
+
+            }
+
+
+
+//
+//$count_part = <<<COUNT
+//
+//
+//
+//
+//
+//COUNT;
+//            $pdf->setXY( $x+ 5, $y );
+//            $pdf->MultiCell( (2.8333*2) - 3.75 - .25, 0.2, $count_part,1, '', false);
+//
+//            $pdf->SetY( $y + 1.2 );
+        }
+
+        $pdf->Output();
+        exit;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
