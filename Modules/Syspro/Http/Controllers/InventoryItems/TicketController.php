@@ -254,9 +254,9 @@ class TicketController extends Controller
             ->table('ApSupplier')
             ->pluck('SupplierName','Supplier');;
 
-//        $grouped = $data->groupBy(function ($item, $key) {
-//            return substr($item->bin,0, 3);
-//        });
+        $grouped = $data->groupBy(function ($item, $key) {
+            return substr($item->bin,0, 3);
+        });
 
         //dd( $grouped );
 
@@ -278,7 +278,7 @@ class TicketController extends Controller
         $pdf->AddPage();
 
 
-       // $current_bin = $grouped->keys()->first();
+        $current_bin = $grouped->keys()->first();
         //dd( $current_bin);
 
         foreach( $data  as $d )
@@ -289,7 +289,11 @@ class TicketController extends Controller
 
             $pdf->SetX( 0.25);
 
-          //  if ( substr($d->bin,0, 3) !== $current_bin ) $pdf->AddPage();
+            if ( substr($d->bin,0, 3) !== $current_bin )
+            {
+                $current_bin = substr($d->bin,0, 3);
+                $pdf->AddPage();
+            }
 
             $is_recount = $d->line_status === "Needs Recount";
 
