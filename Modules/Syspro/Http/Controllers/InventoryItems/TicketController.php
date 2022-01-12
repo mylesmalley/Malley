@@ -247,7 +247,7 @@ class TicketController extends Controller
     #[NoReturn]
     public function tickets_by_bin(Inventory $inventory, Collection $data, bool $bins = false )
     {
-        $SHOW_BORDERS = 1;
+        $SHOW_BORDERS = 0;
 
 
         $suppliers = DB::connection('syspro')
@@ -289,6 +289,10 @@ class TicketController extends Controller
             $pdf->SetX( 0.25);
 
 
+            $is_recount = $d->line_status === "Needs Recount";
+
+
+
 
        //     $pdf->Cell(2.83333, 0.25, $d->stock_code );
 
@@ -306,7 +310,20 @@ class TicketController extends Controller
                 $pdf->SetFillColor(225,225,225);
                 $pdf->Cell( $ticket_number_length ,0.3, $ticket_number_text ,0, 0, '', true);
                 $pdf->Cell( $bin_text_length,0.3, $bin_text ,0, 0, '', true);
-                $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.3, $part_text ,0, 2, 'C', true  );
+                $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.3, $part_text ,0, 0, 'C', true  );
+
+
+
+                // STUB HEADER
+            $pdf->SetX( 2*2.8333);
+
+            $bin_stub_length = $pdf->GetStringWidth( $d->bin );
+          //  $part_stub_length = $pdf->GetStringWidth( $d->stock_code );
+
+            $pdf->Cell( 2.8333 - 0.25 - $bin_stub_length ,0.3, $d->stock_code ,0, 0, '', true);
+            $pdf->Cell( $bin_stub_length,0.3, $d->bin ,0, 2, 'R', true);
+        //    $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.3, $part_text ,0, 2, 'C', true  );
+
 
 
             $pdf->SetX( 0.25);
@@ -322,7 +339,7 @@ class TicketController extends Controller
             $unitExploded = $this->units[ $d->unit_of_measure ] ?? "Each";
 
             $count = [
-                "",
+                ($is_recount) ? "Counted: ". $d->counted_quantity : "",
                 "",
                 "QTY:________",
                 $unitExploded,
@@ -336,15 +353,11 @@ class TicketController extends Controller
                 $d->description_2,
                     "",
                 "QTY:________$d->unit_of_measure",
-                "$inventory->description",
+                "$ticket_number_text   $inventory->description",
                 "",
             ];
 
             $pdf->SetFont('Courier', '', 10);
-
-            $x = $pdf->GetX();
-            $y = $pdf->GetY();
-//            $pdf->MultiCell( 3.75, 0.2, $ticket_body_text,1, '', false);
 
             for($i = 0;  $i < 6; $i++)
             {
