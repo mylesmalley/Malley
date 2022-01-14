@@ -296,13 +296,49 @@ class TicketController extends Controller
                     $pdf->SetX(0.25);
 
                     $pdf->SetFillColor(225,225,225);
-                    $pdf->Cell( (2.8333 * 2)-.3 ,0.3, "NEW TICKET" ,0, 0, '', true);
+                    $pdf->Cell( (2.8333 * 2)-.3 ,0.3, "NEW TICKET " ,0, 0, '', true);
 
                     $pdf->SetX( 2*2.8333);
                     $pdf->Cell( 2.5333 ,0.3, "NEW" ,0, 2, '', true);
 
 
+                    $blank_body = [
+                        "Bin location: ",
+                        " ",
+                        "Description:  ",
+                        "              ",
+                        "Supplier:  ",
+                        "",
+                    ];
+                    $blank_count_section = [
+                        "$inventory->description",
+                        "",
+                        "PART___________",
+                        "",
+                        "QTY:________",
+                        "",
+                    ];
 
+                    $blank_stub_lines = [
+                        "Bin: __________: ",
+                        "",
+                        "PART: ___________",
+                        "",
+                        "QTY: __________",
+                        "",
+                    ];
+
+                    $pdf->SetFont('Courier', '', 10);
+
+                    for($j = 0;  $j < 6; $j++)
+                    {
+                        $pdf->SetX(0.25);
+                        $pdf->Cell(3.75, .2, $blank_body[$j], $SHOW_BORDERS, 0 );
+                        $pdf->Cell(1.67, .2, $blank_count_section[$j], $SHOW_BORDERS, 0, 'C' );
+                        $pdf->SetX(2.8333*2);
+                        $pdf->Cell(2.8333, .2, $blank_stub_lines[$j], $SHOW_BORDERS, 2, 'C' );
+
+                    }
                 }
 
                 // update the current bin to the next one
