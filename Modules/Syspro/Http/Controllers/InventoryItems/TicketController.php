@@ -242,23 +242,30 @@ class TicketController extends Controller
     /**
      * @param Inventory $inventory
      * @param Collection $data
-     * @param bool $bins
+     * @param bool $group_by_bins
      */
     #[NoReturn]
-    public function tickets_by_bin(Inventory $inventory, Collection $data, bool $bins = false )
+    public function tickets_by_bin(Inventory $inventory, Collection $data, bool $group_by_bins = false )
     {
         $SHOW_BORDERS = 0;
 
-
+        // pull in the name of the supplier to replace the vague supplier code.
         $suppliers = DB::connection('syspro')
             ->table('ApSupplier')
             ->pluck('SupplierName','Supplier');;
 
-        $grouped = $data->groupBy(function ($item, $key) {
-            return substr($item->bin,0, 3);
-        });
 
-        //dd( $grouped );
+        if ($group_by_bins)
+        {
+            // returns the first three characters of the bin location to group them
+            $grouped = $data->groupBy(function ($item, $key) {
+                return substr($item->bin,0, 3);
+            });
+
+            $current_bin = $grouped->keys()->first();
+        }
+
+
 
         $pdf = new Fpdf('P', 'in', 'Letter');
         $pdf->SetFont('Courier', '', 12);
@@ -266,38 +273,51 @@ class TicketController extends Controller
 
         $pdf->SetAutoPageBreak(true, 0.25);
 
-//        $pdf->AddPage();
-
-
-
-
-        $sticker_width = 2.83333;
-        $sticker_padding = 0.05;
-        $body_width = ( $sticker_width * 2 ) - $sticker_padding - .25;
 
         $pdf->AddPage();
 
 
-        $current_bin = $grouped->keys()->first();
-        //dd( $current_bin);
 
+
+        // iterate through each ticket
         foreach( $data  as $d )
         {
 
 
 
-
-            $pdf->SetX( 0.25);
-
-            if ( substr($d->bin,0, 3) !== $current_bin )
+            // if the $group_by_bins is true, fill the empty parts of pages with blank ticekts
+            if ( $group_by_bins && substr($d->bin,0, 3) !== $current_bin )
             {
+                $blank_count = 7 - $grouped->get( $current_bin )->count() % 7;
+
+                for( $i = 0; $i < $blank_count; $i++ )
+                {
+                    $pdf->SetFont('Courier', '', 12);
+                    $pdf->SetX(0.25);
+
+                    $pdf->SetFillColor(225,225,225);
+                    $pdf->Cell( (2.8333 * 2)-.3 ,0.3, "NEW TICKET" ,0, 0, '', true);
+
+                    $pdf->SetX( 2*2.8333);
+                    $pdf->Cell( 2.5333 ,0.3, "NEW" ,0, 2, '', true);
+
+
+
+                }
+
+                // update the current bin to the next one
                 $current_bin = substr($d->bin,0, 3);
                 $pdf->AddPage();
             }
 
+
+
+
+
+
             $is_recount = $d->line_status === "Needs Recount";
 
-
+            // build up ticket header
             $header = "";
 
             $ticket_number_text =  ($is_recount)
@@ -305,55 +325,22 @@ class TicketController extends Controller
                 :  "#".str_pad($d->ticket_number,4,'0', STR_PAD_LEFT) ;
 
             $header .= str_pad($ticket_number_text, 8, ' ');
-
             $header .= str_pad( "AREA: ". $d->group. " BIN: ". $d->bin, 30,' ' );
-
             $header .= $d->stock_code;
 
-//            dd($header );
-
-
-
-       //     $pdf->Cell(2.83333, 0.25, $d->stock_code );
-
-//                $ticket_number_text =  $d->line_status !== "Needs Recount"
-//                    ? "#". str_pad($d->ticket_number, 4, "0", STR_PAD_LEFT)
-//                    : "#". str_pad($d->ticket_number, 4, "0", STR_PAD_LEFT). 'R' ;
-//
-//                $part_text = "PART: ". trim( $d->stock_code ) ?? 'STOCK CODE';
-//                $bin_text = trim( "AREA: ". $d->group. " BIN: ". $d->bin ?? 'BIN');
-//
-//                $ticket_number_length = $pdf->GetStringWidth( $ticket_number_text . '   ' );
-//                $bin_text_length = $pdf->GetStringWidth( $bin_text . ' ' );
+            // Ticket header
+            $pdf->SetX( 0.25);
             $pdf->SetFont('Courier', '', 12);
+            $pdf->SetFillColor(225,225,225);
+            $pdf->Cell( (2.8333 *2)-.3 ,0.3, $header ,0, 0, '', true);
 
 
-
-
-
-
-
-
-
-                $pdf->SetFillColor(225,225,225);
-//                $pdf->Cell( $ticket_number_length ,0.3, $ticket_number_text ,0, 0, '', true);
-//                $pdf->Cell( $bin_text_length,0.3, $bin_text ,0, 0, '', true);
-//                $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.3, $part_text ,1, 0, 'C', true  );
-
-                $pdf->Cell( (2.8333 *2)-.3 ,0.3, $header ,0, 0, '', true);
-
-
-
-
-                // STUB HEADER
+            // STUB HEADER
             $pdf->SetX( 2*2.8333);
-
             $bin_stub_length = $pdf->GetStringWidth( $d->bin );
-          //  $part_stub_length = $pdf->GetStringWidth( $d->stock_code );
-
             $pdf->Cell( 2.8333 - 0.25 - $bin_stub_length ,0.3, $d->stock_code ,0, 0, '', true);
             $pdf->Cell( $bin_stub_length,0.3, $d->bin ,0, 2, 'R', true);
-        //    $pdf->Cell($body_width -$bin_text_length - $ticket_number_length ,0.3, $part_text ,0, 2, 'C', true  );
+
 
 
 
