@@ -27,6 +27,15 @@
                                 href="{{ route('labour.management.home') }}">See and Make Changes to Labour </a>
                         </div>
                     </div>
+
+                    <div class="col-3">
+                        <h4>Reports</h4>
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action"
+                               href="{{ route('labour.reports.labour_on_job') }}">Labour on Job</a>
+
+                        </div>
+                    </div>
                 @endcan
 
             </div>
