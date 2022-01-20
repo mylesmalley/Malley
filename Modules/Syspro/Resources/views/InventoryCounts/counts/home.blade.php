@@ -19,6 +19,9 @@
 
                 <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allNeedingRecount') }}">Items Needing Recount ({{ $needsRecount }} Items)</a></li>
                 <li><a href="{{ url('syspro/inventory/'.$inventory->id.'/allNeedingRecountPaginated') }}">Items Needing Recount,  {{ $needsRecount }} Items, 50 at a time</a></li>
+
+
+                <li><a href="{{ route("inventory_counts.create_custom_item", [$inventory]) }}">Enter Blank Ticket</a></li>
             </ul>
         </div>
         <div class="col-6">

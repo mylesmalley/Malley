@@ -5,29 +5,28 @@ namespace Modules\Syspro\Http\Controllers\InventoryItems;
 use App\Http\Controllers\Controller;
 use App\Models\InventoryItem;
 use App\Models\Inventory;
-use \Illuminate\View\View;
-use \Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CreateController extends Controller
 {
-
-
     /**
-     * @param Inventory $count
-     * @return View
+     * @param Inventory $inventory
+     * @return Response
      */
-    public function create(Inventory $inventory ): View
+    public function create(Inventory $inventory ): Response
     {
-        return view('syspro::InventoryCounts.counts.items.create', [
+        return response()->view('syspro::InventoryCounts.counts.items.create', [
             'inventory' => $inventory,
         ]);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'stock_code' => 'required|string|max:30',
@@ -40,7 +39,6 @@ class CreateController extends Controller
             'warehouse' => 'nullable|string|max:20',
             'locale' => 'nullable|max:20',
             'group' => 'required|string|max:20',
-
         ]);
 
         $item = InventoryItem::create(
