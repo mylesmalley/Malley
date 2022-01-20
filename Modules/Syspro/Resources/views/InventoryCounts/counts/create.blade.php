@@ -2,11 +2,19 @@
 
 @section('content')
 
-    <h1 class="uk-heading-medium">Create</h1>
+    <h1 class="uk-heading-medium">Enter Blank Ticket</h1>
 
     @includeIf('syspro::InventoryCounts.errors')
 
-    <form class="uk-form-horizontal"
+
+    <div class="row">
+        <div class="col-6 offset-3">
+
+        </div>
+    </div>
+
+
+    <form class=""
           action="{{ url('syspro/inventory/create') }}"
           method="POST">
         {{ csrf_field() }}

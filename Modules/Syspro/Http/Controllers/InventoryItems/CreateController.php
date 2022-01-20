@@ -17,7 +17,8 @@ class CreateController extends Controller
      */
     public function create(Inventory $inventory ): Response
     {
-        return response()->view('syspro::InventoryCounts.counts.items.create', [
+        return response()
+            ->view('syspro::InventoryCounts.counts.items.create', [
             'inventory' => $inventory,
         ]);
     }
