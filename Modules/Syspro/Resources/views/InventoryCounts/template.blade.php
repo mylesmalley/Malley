@@ -15,7 +15,9 @@
     @if( isset( $inventory ) )
     <nav class="navbar navbar-dark bg-secondary">
         <div class="container-fluid">
-            <a class="navbar-brand">{{ $inventory->description }}</a>
+            <a class="navbar-brand"
+                href="{{ route('inventory_count.home', [$inventory]) }}"
+                >{{ $inventory->description }}</a>
             <div class="d-flex">
                 @foreach(["Stock Code" =>'stock_code',
                             "Bin" => 'bin',

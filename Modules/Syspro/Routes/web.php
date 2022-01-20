@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Syspro\Http\Controllers\Inventory\CountController;
+use Modules\Syspro\Http\Controllers\Inventory\HomeController;
 use Modules\Syspro\Http\Controllers\InventoryItems\CreateController;
 use Modules\Syspro\Http\Controllers\InventoryItems\TicketController;
 
@@ -140,7 +141,9 @@ Route::group( ['prefix' => 'syspro'],  function () {
             Route::get('/progress', "Inventory\ProgressReportController@show" );
 
             // the home page for an inventory count
-            Route::get('/', "Inventory\HomeController@home" );
+            Route::get('/', [HomeController::class,"home"])
+                ->name('inventory_count.home');
+
         });
 
 

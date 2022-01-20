@@ -5,7 +5,9 @@
 
 @section('content')
 
-    <h1 class="">{{ $inventory->description }}</h1>
+    <h1 class=""><a href="{{ route('inventory_count.home', [$inventory]) }}">
+            {{ $inventory->description }}
+        </a></h1>
 
     @includeIf('syspro::InventoryCounts.errors')
 
