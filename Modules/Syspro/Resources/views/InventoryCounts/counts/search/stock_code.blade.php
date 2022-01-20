@@ -19,7 +19,11 @@
     </div>
 
     @includeIf('syspro::InventoryCounts.counts.search.itemsList', ['items'=> $items])
-    <a href="{{ url('syspro/inventory/'. $inventory->id.'/items/create?'.$area.'='.$term) }}"
-       class="btn btn-success">New Location for {{ $area }} {{ $term }}</a>
+{{--    <a href="{{ url('syspro/inventory/'. $inventory->id.'/items/create?'.$area.'='.$term) }}"--}}
+{{--       class="btn btn-success">New Location for {{ $area }} {{ $term }}</a>--}}
+
+    <a href="{{ route('inventory_counts.create_custom_item', [$inventory]) }}"
+       class="btn btn-success">Add New Item</a>
+
 
 @endsection

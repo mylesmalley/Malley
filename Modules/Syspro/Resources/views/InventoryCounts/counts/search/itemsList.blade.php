@@ -61,7 +61,7 @@
     <tbody>
     @forelse( $items as $item )
         <tr>
-            <td>{{ str_pad($item->ticket_number ?? "NEW", 4, "0", STR_PAD_LEFT)  }}</td>
+            <td>{{ $item->manually_added ? "NEW" :    str_pad($item->ticket_number, 4, "0", STR_PAD_LEFT)  }}</td>
             <td>
                 <a href="{{ url('syspro/inventory/'.$inventory->id.'/search/stock_code/for/'.$item->stock_code) }}"
                 >{{ $item->stock_code }}</a>
