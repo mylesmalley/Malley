@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Syspro\Http\Controllers\Inventory\CountController;
 use Modules\Syspro\Http\Controllers\Inventory\HomeController;
 use Modules\Syspro\Http\Controllers\InventoryItems\CreateController;
+use Modules\Syspro\Http\Controllers\InventoryItems\ShowController;
 use Modules\Syspro\Http\Controllers\InventoryItems\TicketController;
 
 
@@ -133,7 +134,8 @@ Route::group( ['prefix' => 'syspro'],  function () {
                 ->name("inventory_counts.store_custom_item" );
 
             // query an individual stock code
-            Route::get('/items/{inventoryItem}', "InventoryItems\ShowController@show" );
+            Route::get('/items/{inventoryItem}', [ShowController::class, "show"] )
+                ->name('inventory_count.show_item');
 
             Route::get('/items/{inventoryItem}/counts/create', "InventoryItemCounts\CreateController@create" );
             Route::post('/items/{inventoryItem}/counts/create', "InventoryItemCounts\CreateController@store" );

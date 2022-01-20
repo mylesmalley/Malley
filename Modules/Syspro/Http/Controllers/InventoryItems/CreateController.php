@@ -27,16 +27,16 @@ class CreateController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Inventory $inventory, Request $request): RedirectResponse
     {
         $request->validate([
             'stock_code' => 'required|string|max:30',
             'description_1' => 'required|string|max:100',
             'description_2' => 'nullable|string|max:100',
             'expected_quantity' => "int|min:0",
-            'inventory_id' => 'required|int',
+//            'inventory_id' => 'required|int',
             'unit_of_measure' => 'required|string|max:20',
-            'bin' => 'nullable|string|max:20',
+            'bin' => 'required|string|max:20',
             'warehouse' => 'nullable|string|max:20',
             'locale' => 'nullable|max:20',
             'group' => 'required|string|max:20',
@@ -49,17 +49,19 @@ class CreateController extends Controller
                 'description_2',
                 'expected_quantity',
                 'unit_of_measure',
-                'inventory_id',
+//                'inventory_id',
                 'bin',
                 'group',
                 'locale',
                 'warehouse',
             ]));
 
+        $item->inventory_id = $inventory->id;
         $item->manually_added = 1;
-        $item ->save();
+        $item->save();
+         return redirect()->route('inventory_count.show_item', [$inventory, $item ]);
 
-        return redirect('syspro/inventory/'.$request->inventory_id.'/search/group/for/'.$request->group);
+       // return redirect('syspro/inventory/'.$request->inventory_id.'/search/group/for/'.$request->group);
     }
 
 }

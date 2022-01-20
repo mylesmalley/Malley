@@ -19,10 +19,11 @@
         <div class="col-3">
             <input type="text"
                    class="form-control "
+                   name="stock_code"
                    id="stock_code"
                    required
                    placeholder="Stock Code"
-                   value="{{ app('request')->input('stock_code') ?? old('stock_code') }}"
+                   value="{{ old('stock_code') }}"
             >
         </div>
     </div>
@@ -32,8 +33,9 @@
                class="col-sm-2 col-form-label">Description</label>
         <div class="col-5">
             <input type="text"
-                   class="form-control "
+                   class="form-control"
                    id="description_1"
+                   name="description_1"
                    required
                    placeholder="Description"
                    value="{{ old('description_1') }}">
@@ -46,6 +48,7 @@
         <div class="col-5">
             <input type="text"
                    class="form-control "
+                   name="description_2"
                    id="description_2"
                    placeholder="Description line 2"
                    value="{{ old('description_2') }}">
@@ -61,6 +64,7 @@
             <div class="col-3">
                 <select name="unit_of_measure"
                         class="form-control"
+                        name="unit_of_measure"
                         id="unit_of_measure">
                     @foreach([
                             "EA" => "EACH",
@@ -96,17 +100,6 @@
             </div>
 
 
-            <div class="row">
-                <label for="description_2"
-                       class="col-sm-2 col-form-label"></label>
-                <div class="col-5">
-                    <input type="text"
-                           class="form-control "
-                           id="description_2"
-                           placeholder="Description line 2"
-                           value="{{ old('description_2') }}">
-                </div>
-            </div>
 
             <div class="row">
                 <label for="bin"
@@ -115,6 +108,7 @@
                     <input type="text"
                            class="form-control "
                            id="bin"
+                           name="bin"
                            placeholder="Bin Location"
                            value="{{ old('bin') }}">
                 </div>
@@ -127,6 +121,7 @@
                     <input type="text"
                            class="form-control "
                            id="group"
+                           name="group"
                            placeholder="Area"
                            value="{{ old('group') }}">
                 </div>
