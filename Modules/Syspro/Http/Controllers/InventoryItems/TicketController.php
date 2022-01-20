@@ -370,7 +370,7 @@ class TicketController extends Controller
 
             $count = [
                 "$inventory->description",
-                ($is_recount) ? "Counted: ". $d->counted_quantity : "",
+                ($is_recount) ? "Counted: ". number_format($d->counted_quantity, 1) : "",
                 "",
                 "QTY:________",
                 $unitExploded,

@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Labour;
 
-class SysproJobs extends Component
+class AllSysproJobs extends Component
 {
     public Collection $prefixes;
     public string $selectedTab;
@@ -82,16 +81,13 @@ class SysproJobs extends Component
      * Receives a string and returns the jobs in syspro that match
      * @param string $tab
      */
-    public function clickTab(  string $tab, Request $request ): void
+    public function clickTab( string $tab ): void
     {
         $this->selectedTab = $tab;
         $this->searchMode = false;
 
-        $page = $request->input('page', null);
-        $limit = $request->input('limit', null );
-
         $this->results =
-            Cache::remember('_syspro_job_tab_search_tab_'. $tab .$page. $limit ,
+            Cache::remember('_syspro_job_tab_search_tab_'.$tab ,
                 Carbon::now()->minutes(15), function() use ($tab) {
 
                     return DB::connection('syspro')
@@ -100,8 +96,7 @@ class SysproJobs extends Component
                         ->where('Complete', '=', 'N')
                         ->where('Job', 'like', $tab . "%")
                         ->orderBy('Job', 'ASC')
-                        ->paginate(15);
-                      //  ->get();
+                        ->get();
                 });
     }
 
