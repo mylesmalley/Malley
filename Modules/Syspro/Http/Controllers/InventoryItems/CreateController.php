@@ -8,6 +8,7 @@ use App\Models\Inventory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class CreateController extends Controller
 {
@@ -24,6 +25,7 @@ class CreateController extends Controller
     }
 
     /**
+     * @param Inventory $inventory
      * @param Request $request
      * @return RedirectResponse
      */
@@ -42,6 +44,14 @@ class CreateController extends Controller
             'group' => 'required|string|max:20',
         ]);
 
+
+        $syspro = DB::connection('syspro')
+            ->table('Inventory_Create_Count_List')
+            ->select('StockCode','UnitCost', 'desc1', 'desc2', 'StockUom')
+             ->where('StockCode', '=', $request->input('stock_code'))
+             ->first();
+
+
         $item = InventoryItem::create(
             $request->only([
                 'stock_code',
@@ -49,12 +59,21 @@ class CreateController extends Controller
                 'description_2',
                 'expected_quantity',
                 'unit_of_measure',
-//                'inventory_id',
                 'bin',
                 'group',
                 'locale',
                 'warehouse',
             ]));
+
+
+        if ( $syspro )
+        {
+            $item->cost = $syspro->UnitCost;
+            $item->description_1 = trim( $syspro->desc1);
+            $item->unit_of_measure = trim( strtoupper( $syspro->StockUom ) ) ?? "EA";
+            $item->description_2 = trim( $syspro->desc2);
+
+        }
 
         $item->inventory_id = $inventory->id;
         $item->manually_added = 1;

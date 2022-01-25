@@ -167,6 +167,7 @@ class TicketController extends Controller
     }
 
 
+
     /**
      * @param Inventory $inventory
      * @param Request $request
@@ -333,6 +334,12 @@ class TicketController extends Controller
             $ticket_number_text =  ($is_recount)
                 ?  "#".str_pad($d->ticket_number,4,'0', STR_PAD_LEFT)."R"
                 :  "#".str_pad($d->ticket_number,4,'0', STR_PAD_LEFT) ;
+
+            if ($d->manually_added)
+            {
+                $ticket_number_text=  "#".str_pad("NEW",4,' ', STR_PAD_LEFT);
+            }
+
 
             $header .= str_pad($ticket_number_text, 8, ' ');
             $header .= str_pad( "AREA: ". $d->group. " BIN: ". $d->bin, 30);

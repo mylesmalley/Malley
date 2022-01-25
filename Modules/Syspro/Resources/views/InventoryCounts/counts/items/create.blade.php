@@ -36,7 +36,6 @@
                    class="form-control"
                    id="description_1"
                    name="description_1"
-                   required
                    placeholder="Description"
                    value="{{ old('description_1') }}">
         </div>
@@ -116,7 +115,7 @@
 
             <div class="row">
                 <label for="group"
-                       class="col-sm-2 col-form-label">Area</label>
+                       class="col-sm-2 col-form-label">Area / Group</label>
                 <div class="col-2">
                     <input type="text"
                            class="form-control "
