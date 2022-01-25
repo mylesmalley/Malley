@@ -26,6 +26,8 @@
                    value="{{ old('stock_code') }}"
             >
         </div>
+        <div class="col-4">If found in Syspro, the description from there will be used</div>
+
     </div>
 
     <div class="row">
@@ -111,6 +113,8 @@
                            placeholder="Bin Location"
                            value="{{ old('bin') }}">
                 </div>
+                <div class="col-4">Like PL04A, B02G etc.</div>
+
             </div>
 
             <div class="row">
@@ -124,6 +128,8 @@
                            placeholder="Area"
                            value="{{ old('group') }}">
                 </div>
+                <div class="col-4">Like Bin-R, Bin-A, METALFAB</div>
+
             </div>
 
 
@@ -137,8 +143,11 @@
                             class="form-control"
                             id="warehouse">
                         @foreach([
-                                "01" => "Wharehouse 01",
+                                "01" => "Warehouse 01",
+                            'FS' => "Floor Stock",
+                            "GT" => "GT",
                             "50" => "Floor stock 50",
+                            'NC' => 'Non-Conforming Stock'
                         ] as $key => $value)
                             <option
                                     @if( old('warehouse') && old('warehouse') === $key )
