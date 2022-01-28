@@ -55,10 +55,12 @@
                     <th class="table-secondary">Total Items</th>
                     <th class="table-warning">Not Yet Counted</th>
                     <th class="table-danger">Needing Recount</th>
-                    @if (Auth::user()->inventory_admin)
+                    <th class="table-secondary">Recounted</th>
+                    <th class="table-success">Accepted</th>
+
+                @if (Auth::user()->inventory_admin)
                         <th class="table-info">Variance</th>
                     @endif
-                    <th class="table-success">Accepted</th>
 
                 </tr>
                 </thead>
@@ -88,8 +90,18 @@
                                 href="{{ url("syspro/inventory/{$inventory->id}/search/group/for/{$group['name']}/Needs Recount") }}">
                                 Needs Recount {{ $group['needingRecount'] }} ({{ $group['needingRecountPercentage'] }}%)
                             </a>
+                        </td>
+                        <td class="table-secondary">
 
-                        @if (Auth::user()->inventory_admin)
+                            <a
+                                    class="btn btn-secondary"
+                                    href="{{ url("syspro/inventory/{$inventory->id}/search/group/for/{$group['name']}/Recounted") }}">
+                                Recounted ( {{ $group['totalRecounted'] ?? "NA" }} )
+                            </a>
+                        </td>
+                        <td class="table-success">{{ $group['accepted'] }} ({{ $group['acceptedPercentage'] }}%)</td>
+
+                    @if (Auth::user()->inventory_admin)
                             <td class="table-info">
                                 <a
                                     class="btn btn-info"
@@ -100,8 +112,6 @@
                             </td>
                             @endif
 
-                            </td>
-                        <td class="table-success">{{ $group['accepted'] }} ({{ $group['acceptedPercentage'] }}%)</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -123,7 +133,7 @@
                    @endif
                     </td>
                     @if (Auth::user()->inventory_admin)
-                        <td class="table-info">
+                        <td class="table-secondary">
 
 
                         </td>
@@ -135,7 +145,10 @@
                         @endif
 
                     </td>
+                    <td class="table-info">
 
+
+                    </td>
 
                 </tr>
                 </tfoot>

@@ -74,6 +74,7 @@ class HomeController extends Controller
                 'totalAccepted' => 0,
                 'totalValueCounted' => 0,
                 'totalVariance' => 0,
+                'totalRecounted' => 0,
             ];
 
             foreach( $groupNames as $name )
@@ -92,6 +93,11 @@ class HomeController extends Controller
 
                 $notCounted =  $row->where('line_status','Not Counted')->count();
                 $groupsTotals['totalNotCounted'] += $notCounted;
+
+                $totalRecounted =  $row->where('line_status','Recounted')->count();
+                $groupsTotals['totalRecounted'] += $totalRecounted;
+
+
                 $notCountedPercentage = number_format( ( $notCounted / $totalItems ) * 100);
 
                 $needingRecount =  $row->where('line_status','Needs Recount')->count();
@@ -157,7 +163,7 @@ class HomeController extends Controller
         }
 
 
-        /*
+         /*
          * Needs Recount
          */
         if ( Cache::has('inventory_'.$inventory->id.'_needsRecount'))
@@ -221,6 +227,29 @@ class HomeController extends Controller
             Cache::put('inventory_'.$inventory->id.'_totalValueExpected' , $totalValueExpected, 600 );
         }
 
+
+
+//        if ( Cache::has('inventory_'.$inventory->id.'_totalMatched'))
+//        {
+//            Log::info("Pulling inventory number matched. ");
+//
+//            $totalMatched = Cache::get('inventory_'.$inventory->id.'_totalMatched');
+//        }
+//        else
+//        {
+//            $totalMatched = DB::table('Inventory_Latest_Counts')
+//                ->where('inventory_id', $inventory->id)
+//                ->where('line_status','Matched')
+//                ->count();
+//
+//            Log::info("Updating inventory TOTAL MATCHED in cache. ");
+//
+//            Cache::put('inventory_'.$inventory->id.'_totalMatched' , $totalMatched, 600 );
+//        }
+
+
+
+
         if ( Cache::has('inventory_'.$inventory->id.'_totalValueCounted'))
         {
             Log::info("Pulling inventory TOTAL VALUE COUNTED from cache. ");
@@ -256,6 +285,9 @@ class HomeController extends Controller
             'groupsTotals' => $groupsTotals,
             'totalValueExpected' => $totalValueExpected,
             'totalValueCounted' => $totalValueCounted,
+//            'totalMatched' => $totalMatched,
+
+
         ]);
     }
 
