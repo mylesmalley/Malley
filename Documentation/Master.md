@@ -85,7 +85,7 @@ Searching for a Bin Locaiton works the same way. Entering **MZ18C** into the **B
 
 As the count proceeds, tickets will come back for entry. The easiest way to receive the tickets is to enter the ticket number in the **Ticket Number** field at the top right of the page. Refer to the **Finding What You Need** section on how to get around.
 
-##### The Stock Take screen
+#### The Stock Take screen
 
 ![image-20220107131515690](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220107131515690.png)
 
@@ -102,7 +102,7 @@ The table on the left shows more identifying information which may be helpful.
 
 The Count History table shows the count or counts that have been taken for this ticket so far. Only the most recent count is valid. 
 
-##### Entering a Count
+#### Entering a Count
 
 To enter a count, simply fill in the quantity on the ticket and if known, the name of the counter. If the counter's name isn't known, this can be left blank. The page will remember the last used name so you only need to change it if it's different. 
 
@@ -114,7 +114,7 @@ If you make a mistake, such as mistyping or entering the wrong number, just ente
 
 When you submit the count, the page will reload. The status at the top of the page will change depending on whether the value you entered matched what was expected. You are now done with this ticket and ready to move on. 
 
-##### Navigating using the keyboard
+#### Navigating using the keyboard
 
 The tool has been designed to make it as fast as possible to enter counts. When you open a Stock Take page, the quantity field will already be selected and ready for you to type into. 
 
@@ -124,7 +124,13 @@ Clicing the **+** **(plus) key** will take you to the next ticket expecting inpu
 
 **The + and - keys will skip over tickets that have already been counted and matched.** 
 
+#### Custom Ticket Entry
 
+The count sheets include blank tickets for when a counter finds an item in their area that they were not expecting to find. On most pages you'll find a button: <img src="/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220126150755215.png" alt="image-20220126150755215" style="zoom:50%;" /> which when pressed will open a form to enter this data. There is also a link to enter in a new blank ticket from the count home page.
+
+![image-20220126150929202](/home/myles/Dropbox/PhpstormProjects/Malley/Documentation/Master.assets/image-20220126150929202.png)
+
+Fill in as much information as you can from the ticket provided. When you click the Save and Continue button, you'll be taken to the Stock Take Screen when the quantity found will be entered. 
 
 
 

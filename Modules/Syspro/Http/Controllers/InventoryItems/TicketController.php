@@ -271,7 +271,7 @@ class TicketController extends Controller
 
                 for( $i = 0; $i < $blank_count; $i++ )
                 {
-                    $pdf->SetFont('Courier', '', 12);
+                    $pdf->SetFont('Courier', 'B', 12);
                     $pdf->SetX(0.25);
 
                     $pdf->SetFillColor(225,225,225);
@@ -347,7 +347,7 @@ class TicketController extends Controller
 
             // Ticket header
             $pdf->SetX( 0.25);
-            $pdf->SetFont('Courier', '', 12);
+            $pdf->SetFont('Courier', 'B', 12);
             $pdf->SetFillColor(225,225,225);
             $pdf->Cell( (2.8333 *2)-.3 ,0.3, $header ,0, 0, '', true);
 
@@ -360,6 +360,7 @@ class TicketController extends Controller
 
 
 
+            $pdf->SetFont('Courier', '', 12);
 
             $pdf->SetX( 0.25);
             $cat = isset( $d->catalogue) ? "Supplier# ".  $d->catalogue : '';

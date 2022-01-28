@@ -15,7 +15,7 @@ class VarianceAcceptanceReportController extends Controller
         $results = DB::table('Inventory_Acceptance_Report')
             ->where('inventory_id', $inventory->id)
             ->where("group", $group )
-            ->orderBy('bin')
+            ->orderBy('Delta','DESC')
             ->get();
 
         return view('syspro::InventoryCounts.counts.varianceAcceptanceReport',
