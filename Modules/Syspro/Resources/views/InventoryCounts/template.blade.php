@@ -52,9 +52,10 @@
                         <input type="hidden" name="filter" value="All">
                         <div class="input-group">
                             <input type="hidden" name="area" value="ticket_number">
-                            <input class="form-control" type="text"
-
+                            <input class="form-control" type="number"
+                                    id="ticket_number_search"
                                    name="term"
+
                                    placeholder="Ticket Number" aria-label="Search">
                             <input type="submit" class="btn btn-dark" value="Search">
                         </div>

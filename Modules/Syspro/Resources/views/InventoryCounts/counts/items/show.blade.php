@@ -194,7 +194,7 @@
             @if (  $item->counts && $item->counts->first() && $item->counts->first()->recounted )
                 <span class="badge badge-danger">Marked as Recounted</span>
             @elseif( $item->counts && $item->counts->first() &&  !$item->counts->first()->recounted && $latest->line_status != "Matched" )
-                <form method="post" action="{{ url('/syspro/inventory/'.$inventory->id.'/markAsRecounted') }}">
+                <form method="post" name="markRecounted" action="{{ url('/syspro/inventory/'.$inventory->id.'/markAsRecounted') }}">
                     {{ csrf_field() }}
                     <input type="hidden" value="{{ $item->counts->first()->id }}" name="count_id" id="count_id">
                     <input type="submit" class="btn btn-warning" value="Mark as Recounted">
@@ -301,8 +301,27 @@
             if (event.key === '+' || event.key === '+') {
                 window.location.href = '/syspro/inventory/{{ $inventory->id }}/items/{{ $item->next_uncounted_id }}';
             }
+
+
             @endif
 
+
+
+            if (event.key === 't') {
+                //alert("ticket");
+                document.getElementById('ticket_number_search').focus();
+                setTimeout(function() {
+                    document.getElementById('ticket_number_search').value = '';
+                }, 200)
+
+            }
+
+                if (event.key === 'r') {
+                    //alert("ticket");
+                    document.markRecounted.submit();
+
+                }
+                markRecounted
         });
     </script>
     @endsection

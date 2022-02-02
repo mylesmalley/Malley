@@ -5,9 +5,13 @@ namespace Modules\Vehicles\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Models\Vehicle;
-use Illuminate\View\View;
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 
 /**
@@ -19,16 +23,20 @@ class FilesController extends Controller
 
     /**
      * @param Vehicle $vehicle
-     * @return View
+     * @return Response
      */
-    public function show( Vehicle $vehicle ): View
+    public function show( Vehicle $vehicle ): Response
     {
-        return view('vehicles::files', [ 'vehicle'=>$vehicle]);
+        return response()->view('vehicles::files', [ 'vehicle'=>$vehicle]);
     }
 
 
-
-    public function store( Request $request, Vehicle $vehicle )
+    /**
+     * @param Request $request
+     * @param Vehicle $vehicle
+     * @return RedirectResponse
+     */
+    public function store( Request $request, Vehicle $vehicle ): RedirectResponse
     {
         $request->validate([
             'upload.*' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,png,jpg,jpeg|max:30000',
@@ -38,8 +46,24 @@ class FilesController extends Controller
         {
             foreach($request->file('upload') as $upload) {
 
-                $vehicle->addMedia( $upload )
+                try {
+                    $vehicle->addMedia( $upload )
                         ->toMediaCollection('uploads',  's3');
+                }
+                catch (FileDoesNotExist )
+                {
+                    Log::warning("File being uploaded doesn't exist {$upload->getFilename()}.");
+                }
+                catch (FileIsTooBig )
+                {
+                    Log::warning("Uploaded file is too big {$upload->getFilename()} {$upload->getSize()}.");
+                }
+                catch (Exception  )
+                {
+                    Log::warning("Some other problem uploading a file." );
+                }
+
+                Log::info("Uploaded {$upload->getFilename()} to vehicle $vehicle->id");
 
             }
         }
@@ -52,9 +76,8 @@ class FilesController extends Controller
      * @param Vehicle $vehicle
      * @param Media $media
      * @return RedirectResponse
-     * @throws \Exception
      */
-    public function delete( Vehicle $vehicle, Media $media )
+    public function delete( Vehicle $vehicle, Media $media ): RedirectResponse
     {
         $media->delete();
         return redirect()->back();

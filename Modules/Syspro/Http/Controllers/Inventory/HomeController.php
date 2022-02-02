@@ -129,6 +129,8 @@ class HomeController extends Controller
                     'acceptedPercentage' => $acceptedPercentage,
                     'valueCounted' => $valueCounted,
                     'variance' => $variance,
+                    'totalRecounted' => $totalRecounted,
+
                 ];
             }
 
