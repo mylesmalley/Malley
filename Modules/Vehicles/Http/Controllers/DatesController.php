@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
+use Modules\Vehicles\Jobs\FordMilestoneUpdate;
 
 
 /**
@@ -20,6 +22,8 @@ class DatesController extends Controller
 {
 
     /**
+     * shows a nice list of existing date records that are active.
+     *
      * @param Vehicle $vehicle
      * @return Response
      */
@@ -34,6 +38,8 @@ class DatesController extends Controller
 
 
     /**
+     * returns a form to 'edit' a record, but actually creates a new one with the existing data as a starting point.
+     *
      * @param Vehicle $vehicle
      * @param VehicleDate $date
      * @return Response
@@ -49,6 +55,8 @@ class DatesController extends Controller
 
 
     /**
+     * when an existing record is being updated, we actually create a new one and then mark the original as out of date
+     *
      * @param Request $request
      * @param Vehicle $vehicle
      * @param VehicleDate $date
@@ -66,6 +74,7 @@ class DatesController extends Controller
         $ts = Carbon::create($request->input('date') . ' ' . $request->input('time'), 'America/Moncton')
             ->toIso8601String();
 
+        Log::info("Retired date $date->id for Vehicle $vehicle->id");
 
         $date->update([
             'current' => false,
@@ -132,31 +141,8 @@ class DatesController extends Controller
 
 
 
-
-//    public function fix()
-//    {
-//        $x = DB::table('vehicles_old')
-//            ->where('date_exit_from_canada','!=',null)
-//            ->select('id','vin','date_exit_from_canada')
-//            ->get();;
-//
-//        foreach($x as $o)
-//        {
-//            VehicleDate::where('vehicle_id','=',$o->id)
-//                ->where('name', '=', 'exit_from_canada')
-//                ->update([
-//                    'timestamp' => $o->date_exit_from_canada . ' 00:00:00.0000000'
-//                ]);
-//        }
-//
-//        return "done";
-//    }
-
-
-
     /**
      * extracted duplicate code chunk from other functions on this class
-     *
      *
      * @param Vehicle $vehicle
      * @param string $ts
@@ -164,7 +150,7 @@ class DatesController extends Controller
      */
     private function create_vehicle_date_record(Vehicle $vehicle, string $ts, Request $request): void
     {
-        VehicleDate::create([
+        $vehicleDate = VehicleDate::create([
             'vehicle_id' => $vehicle->id,
             'user_id' => Auth::user()->id,
             'timestamp' => $ts,
@@ -175,7 +161,14 @@ class DatesController extends Controller
                     VehicleDate::ford_milestone()),
             'submitted_to_ford' => 0,
             'current' => 1,
-        ])->save();
+        ]);
+
+        Log::info("Created date $vehicleDate->id for Vehicle $vehicle->id");
+
+        if ( $vehicleDate->update_ford )
+        {
+            FordMilestoneUpdate::dispatch( $vehicleDate );
+        }
 
     }
 
