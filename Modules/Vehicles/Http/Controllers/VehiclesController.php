@@ -5,15 +5,16 @@ namespace Modules\Vehicles\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\WarrantyClaim;
-//use App\Models\Inspection;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 use Spatie\ValidationRules\Rules\Delimited;
 use Illuminate\Validation\Rule;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Rules\MalleyIDRule;
 use App\Rules\ValidVinRule;
-use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -21,11 +22,12 @@ class VehiclesController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        return view('vehicles::create');
+        return response()
+            ->view('vehicles::create');
     }
 
     /**
@@ -41,10 +43,8 @@ class VehiclesController extends Controller
             'vin' => [
                 'bail',
                 'sometimes',
-                Rule::requiredIf(!$request->customer_name
-                    && !$request->malley_number && !$request->work_order),
-
-             //   'required_without:customer_name,malley_number',
+                Rule::requiredIf(!$request->input('customer_name')
+                    && !$request->input('malley_number') && !$request->input('work_order')),
                 'alpha_num',
                 'min:17',
                 'max:17',
@@ -57,8 +57,8 @@ class VehiclesController extends Controller
 
                 'sometimes',
               //  'required_without:vin,customer_name',
-                Rule::requiredIf(!$request->customer_name
-                    && !$request->vin && !$request->work_order),
+                Rule::requiredIf(!$request->input('customer_name')
+                    && !$request->input('vin') && !$request->input('work_order')),
 
                 'alpha_num',
                 new MalleyIDRule,
@@ -71,10 +71,8 @@ class VehiclesController extends Controller
                 'sometimes',
 
                 "nullable",
-                Rule::requiredIf(!$request->malley_number
-                    && !$request->vin && !$request->work_order),
-
-         //       "required_without:vin,malley_number",
+                Rule::requiredIf(!$request->input('malley_number')
+                    && !$request->input('vin') && !$request->input('work_order')),
                 "string",
                 "max:100",
             ],
@@ -84,8 +82,8 @@ class VehiclesController extends Controller
 
         'sometimes',
         "nullable",
-        Rule::requiredIf(!$request->malley_number
-            && !$request->vin && !$request->customer_name),
+        Rule::requiredIf(!$request->input('malley_number')
+            && !$request->input('vin') && !$request->input('customer_name')),
                 "string",
         "max:20",
     ]
@@ -95,65 +93,72 @@ class VehiclesController extends Controller
 
         $vehicle = new Vehicle;
 
-        $vehicle->vin = $request->vin ?? "";
-        $vehicle->customer_name = $request->customer_name ?? "";
+        $vehicle->vin = $request->input('vin') ?? "";
+        $vehicle->customer_name = $request->input('customer_name') ?? "";
 
         $vehicle->user_id = Auth::user()->id ?? 129;
-     //   $vehicle->location = $request->location;
 
-        if ($request->vin )
+        if ($request->input('vin') )
         {
-            // NhTSA API call
-            $curl = Curl::to("https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/".$vehicle->vin)
-                ->withData(['format'=>'json'])
-                ->get();
-            /** @noinspection PhpComposerExtensionStubsInspection */
-            $nhtsa = json_decode($curl);
 
-          //  dd( $nhtsa );
-            //  dd($nhtsa->Results[0]->Make);
-          $results = $nhtsa->Results[0];
+            $client = new Client([
+                'base_uri' => "https://vpic.nhtsa.dot.gov/api/"
+            ]);
 
-            // $edmunds = Edmunds::decodeVin( $request->vin );
+            $response = null;
+
+            try {
+                $response = $client->request('GET', "vehicles/DecodeVinValuesExtended/".$vehicle->vin,
+                [ 'query' => ['format' => 'json']]);
+            } catch (GuzzleException)
+            {
+                Log::error("Guzzle error pinging NHTSA");
+            }
+
+
+            $nhtsa =  json_decode( $response->getBody()->getContents() );
+
+            $results = $nhtsa->Results[0];
+
             $vehicle->make = substr($results->Make,0,20) ?? null;
             $vehicle->model =  substr($results->Model,0,20) ?? null;
             $vehicle->fuel = substr( $results->FuelTypePrimary,0,20) ?? null;
             $vehicle->drive =  substr($results->DriveType ,0,20)?? null;
             $vehicle->year = substr($results->ModelYear,0,4) ?? date('Y');
-            // $vehicle->manufacturer_code = $edmunds['manufacturerCode'] ?? null;
             $vehicle->interior_colour = "Grey";
             $vehicle->exterior_colour = "White";
-         //   $vehicle->raw_nhtsa_data = json_encode($nhtsa);
+
         }
 
 
-        $vehicle->malley_number = $request->malley_number ?? "";
-        $vehicle->work_order = $request->work_order ?? "";
+        $vehicle->malley_number = $request->input('malley_number') ?? "";
+        $vehicle->work_order = $request->input('work_order') ?? "";
 
         $vehicle->save();
-        //    $vehicle->upgrade();
+
+        Log::info("Created vehicle $vehicle->id");
 
         return redirect('/vehicles/'.$vehicle->id.'/edit');
+//        return redirect()
+//            ->route('vehicle.ed', [$vehicle]);
     }
 
 
     /**
      * @param Vehicle $vehicle
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Response
      */
-    public function show( Vehicle $vehicle )
+    public function show( Vehicle $vehicle ): Response
     {
-
         // if the warranty claim table has matches to this vin, include them
         $claims = ( $vehicle->vin )
             ? WarrantyClaim::where('vin', $vehicle->vin )->get()
             : collect([]);
 
-        
         $vehicle->load('dates');
 
-
-        return view('vehicles::show',[
+        return response()
+            ->view('vehicles::show',[
             'vehicle' => $vehicle,
             'claims' => $claims,
 //            'inspections' => $inspections,
@@ -163,17 +168,18 @@ class VehiclesController extends Controller
 
     /**
      * @param Vehicle $vehicle
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Response
      */
-    public function edit( Vehicle $vehicle )
+    public function edit( Vehicle $vehicle ): Response
     {
-        return view('vehicles::edit',[
+        return response()
+            ->view('vehicles::edit',[
             'vehicle' => $vehicle,
         ]);
     }
 
     /**
-     * validates and stores changes to a vehicle. redirects back to it's query page
+     * validates and stores changes to a vehicle. redirects back to its query page
      *
      * @param Request $request
      * @param Vehicle $vehicle
@@ -185,7 +191,7 @@ class VehiclesController extends Controller
             'vin' => [
 
                 'sometimes',
-                Rule::requiredIf(!$request->customer_name && !$request->malley_number),
+                Rule::requiredIf(!$request->input('customer_name') && !$request->input('malley_number') ),
                 //   'required_without:customer_name,malley_number',
                 'alpha_num',
                 'min:17',
@@ -197,7 +203,7 @@ class VehiclesController extends Controller
             'malley_number' => [
                 'sometimes',
                 //  'required_without:vin,customer_name',
-                Rule::requiredIf(!$request->customer_name && !$request->vin),
+                Rule::requiredIf(!$request->input('customer_name') && !$request->input('vin') ),
 
                 'alpha_num',
                 new MalleyIDRule,
@@ -209,7 +215,7 @@ class VehiclesController extends Controller
                 'sometimes',
 
                 "nullable",
-                Rule::requiredIf(!$request->malley_number && !$request->vin),
+                Rule::requiredIf(!$request->input('malley_number') && !$request->input('vin') ),
 
                 //       "required_without:vin,malley_number",
                 "string",
@@ -242,15 +248,20 @@ class VehiclesController extends Controller
         $request->validate( $validated_columns );
 
         $vehicle->update( $request->only( array_keys( $validated_columns ) ));
+        Log::info("Updated vehicle $vehicle->id");
 
-        return redirect('/vehicles/'.$vehicle->id);
+        return redirect()
+            ->route('vehicle.home', [$vehicle]);
     }
 
 
-
-    public function all()
+    /**
+     * @return Response
+     */
+    public function all(): Response
     {
-        return view('vehicles::all', [
+        return response()
+            ->view('vehicles::all', [
             'vehicles' => Vehicle::orderBy('work_order','ASC')->paginate(2000),
         ]);
     }
@@ -258,22 +269,26 @@ class VehiclesController extends Controller
 
     /**
      * @param Vehicle $vehicle
-     * @return View
+     * @return Response
      */
-    public function editRegulatory( Vehicle $vehicle ): View
+    public function editRegulatory( Vehicle $vehicle ): Response
     {
-        return view('vehicles::info.regulatory',[
+        return response()
+            ->view('vehicles::info.regulatory',[
             'vehicle'=>$vehicle
         ]);
     }
 
-    public function updateRegulatory( Request $request, Vehicle $vehicle )
+
+    /**
+     * @param Request $request
+     * @param Vehicle $vehicle
+     * @return RedirectResponse
+     */
+    public function updateRegulatory( Request $request, Vehicle $vehicle ): RedirectResponse
     {
         $vehicle->update( $request->all() );
-        //        dd($request->all() );
-
         return redirect()->back();
-     //   dd('submitted');
     }
 
 
