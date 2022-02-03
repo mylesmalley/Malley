@@ -85,6 +85,8 @@ class FilesController extends Controller
     public function delete( Vehicle $vehicle, Media $media ): RedirectResponse
     {
         $media->delete();
+        Log::info("Deleted file $media->id from Vehicle $vehicle->id");
+
         return redirect()
             ->back();
     }
