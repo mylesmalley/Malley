@@ -1,6 +1,11 @@
 @extends('vehicles::layout')
 
 @section('content')
+
+{{--    @if($errors)--}}
+{{--        {{ dd( $errors ) }}--}}
+{{--        @endif--}}
+
     <h1 class="text-center">Edit Uploaded Files</h1>
     <h2 class="text-center text-secondary">For <a href="{{ url('vehicles/'.$vehicle->id) }}">
         {{ $vehicle->identifier }}

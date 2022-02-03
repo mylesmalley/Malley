@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -15,8 +16,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
-        AuthenticationException::class
+        AuthenticationException::class,
+        TokenMismatchException::class,
     ];
 
     /**
@@ -35,11 +36,13 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $e): void
     {
-//        Log::error($e );
-        Log::error('['.$e->getCode().
-            '] "'.$e->getMessage().
-            '" on line '.$e->getTrace()[0]['line'].
-            ' of file '.$e->getTrace()[0]['file']);
+        if ($this->shouldReport( $e ))
+        {
+            Log::error('['.$e->getCode().
+                '] "'.$e->getMessage().
+                '" on line '.$e->getTrace()[0]['line'].
+                ' of file '.$e->getTrace()[0]['file']);
+        }
     }
 
 

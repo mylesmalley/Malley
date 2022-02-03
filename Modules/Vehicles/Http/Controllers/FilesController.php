@@ -27,7 +27,8 @@ class FilesController extends Controller
      */
     public function show( Vehicle $vehicle ): Response
     {
-        return response()->view('vehicles::files', [ 'vehicle'=>$vehicle]);
+        return response()
+            ->view('vehicles::files', [ 'vehicle'=>$vehicle]);
     }
 
 
@@ -39,7 +40,10 @@ class FilesController extends Controller
     public function store( Request $request, Vehicle $vehicle ): RedirectResponse
     {
         $request->validate([
-            'upload.*' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,png,jpg,jpeg|max:30000',
+            'upload.*' => ['required',
+                'file',
+                'mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,png,jpg,jpeg',
+                'max:30000'],
         ]);
 
         if($request->hasfile('upload'))
@@ -58,9 +62,9 @@ class FilesController extends Controller
                 {
                     Log::warning("Uploaded file is too big {$upload->getFilename()} {$upload->getSize()}.");
                 }
-                catch (Exception  )
+                catch (Exception  $e)
                 {
-                    Log::warning("Some other problem uploading a file." );
+                    Log::warning( $e );
                 }
 
                 Log::info("Uploaded {$upload->getFilename()} to vehicle $vehicle->id");
@@ -68,7 +72,8 @@ class FilesController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect()
+            ->back();
     }
 
 
@@ -80,7 +85,8 @@ class FilesController extends Controller
     public function delete( Vehicle $vehicle, Media $media ): RedirectResponse
     {
         $media->delete();
-        return redirect()->back();
+        return redirect()
+            ->back();
     }
 
 
