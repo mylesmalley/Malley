@@ -3,11 +3,9 @@
 namespace Modules\Vehicles\Http\Controllers\Warranty;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vehicle;
 use App\Models\WarrantyClaim;
 use App\Models\WorkOrder;
 use App\Models\WorkOrderLine;
-use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -28,7 +26,7 @@ class WorkOrderFromWarrantyClaimController extends Controller
             'type' => "WORK ORDER",
             'odometer' => $claim->mileage,
             'vehicle_id' => $vehicle->id,
-            'customer_name' => $claim->customer_name,
+            'customer_name' => $claim->first_name . " " . $claim->last_name . ', ' . $claim->organization,
             'customer_address_1' => $vehicle->customer_address_1,
             'customer_address_2' => $vehicle->customer_address_2,
             'customer_city' => $vehicle->customer_city,
@@ -41,38 +39,38 @@ class WorkOrderFromWarrantyClaimController extends Controller
 
       //  dd($workOrder);
 
-        $workOrder->save();
+     //   $workOrder->save();
 
-        $line = WorkOrderLine::create([
+        WorkOrderLine::create([
             'description' => "Customer complaint: ",
             'work_order_id' => $workOrder->id,
             'order' => 1,
         ]);
-        $line->save();
+        //$line->save();
 
-        $line = WorkOrderLine::create([
+        WorkOrderLine::create([
             'description' => $claim->issue,
             'work_order_id' => $workOrder->id,
             'order' => 2,
         ]);
-        $line->save();
+        //$line->save();
 
 
 
 
-        $line = WorkOrderLine::create([
+        WorkOrderLine::create([
             'description' => "Notes from Warranty admin: ",
             'work_order_id' => $workOrder->id,
             'order' => 3,
         ]);
-        $line->save();
+     //   $line->save();
 
-        $line = WorkOrderLine::create([
+         WorkOrderLine::create([
             'description' => $claim->notes,
             'work_order_id' => $workOrder->id,
             'order' => 4,
         ]);
-        $line->save();
+     //   $line->save();
 
 
      //   dd($claim,  $workOrder );
