@@ -21,6 +21,13 @@
             @endif
         @endforeach
 
+        @foreach( $vehicle->serials as $s)
+            <tr>
+               <td class="text-end">{{ ucwords( str_replace('_', ' ', $s->key ) ) }}</td>
+                <td>{{ $s->value }}</td>
+            </tr>
+            @endforeach
+
     </table>
 </div>
 

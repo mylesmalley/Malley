@@ -383,6 +383,28 @@ class Vehicle extends BaseModel implements HasMedia
         return $this->hasMany( VehicleSerial::class );
     }
 
+    public function migrateSerials()
+    {
+        $serials = $this->serialFields();
+        $count = 0;
+        foreach( $serials as $s )
+        {
+
+            if ( $this->attributes[ $s ] )
+            {
+                $this->serials()->updateOrCreate([
+                        'key' => $s,
+                        'value' => $this->attributes[$s],
+                    ]);
+                $count++;
+            }
+
+        }
+        echo $this->attributes['id']. ' -> '. $count . '\n\r';
+    }
+
+
+
 
     /**
      * @return Collection

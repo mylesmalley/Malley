@@ -155,7 +155,7 @@ class VehiclesController extends Controller
             ? WarrantyClaim::where('vin', $vehicle->vin )->get()
             : collect([]);
 
-        $vehicle->load('dates');
+        $vehicle->load('dates', 'serials');
 
         return response()
             ->view('vehicles::show',[
