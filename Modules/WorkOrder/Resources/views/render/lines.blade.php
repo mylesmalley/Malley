@@ -15,8 +15,12 @@
             <tr>
                 <td>{{ $line->part_number }}</td>
                 <td>{{ $line->description }}</td>
-                <td>{{ $line->quantity }}</td>
+                <td>
+                    @if( $line->quantity)
+                        {{ (float) number_format( $line->quantity, 1) }}
+                    @endif
 
+                </td>
                 {{--                <td>&#9744;</td>--}}
 {{--                <td>&#9744;</td>--}}
                 <td style="text-align: center">&#x2610;</td>

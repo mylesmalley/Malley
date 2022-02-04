@@ -23,7 +23,7 @@ class LineController extends Controller
     public function store( Request $request ): RedirectResponse
     {
         $request->validate([
-           "quantity" => "nullable|required_without_all:part_number,description|int",
+           "quantity" => "nullable|required_without_all:part_number,description|numeric",
            "part_number" => "nullable|required_without_all:quantity,description|string|max:30",
            "description" => "nullable|required_without_all:quantity,part_number|string",
             "work_order_id" => "required|int",
@@ -35,14 +35,13 @@ class LineController extends Controller
                 ->where('order','>=', $request->order)
                 ->increment('order');
 
-        $line = WorkOrderLine::create($request->only([
+        WorkOrderLine::create($request->only([
             'quantity',
             'part_number',
             'description',
             'work_order_id',
             'order',
         ]));
-        $line->save();
 
         return redirect( "/workOrders/{$request->work_order_id}/lines" );
     }
