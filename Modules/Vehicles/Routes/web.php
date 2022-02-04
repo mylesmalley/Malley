@@ -124,13 +124,11 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::patch('/{vehicle}/serials',    "SerialsController@update");
 
 
-    Route::get('/warrantyclaim/index',
-        [ClaimController::class, "index" ])
+    Route::get('/warrantyclaim/index', [ClaimController::class, "index" ])
         ->name('warranty_claim_index');
 
     // create a work order from a warranty claim
-    Route::get('/warrantyclaim/{warrantyClaim}',
-        [WorkOrderFromWarrantyClaimController::class, "create" ])
+    Route::get('/warrantyclaim/{warrantyClaim}', [WorkOrderFromWarrantyClaimController::class, "create" ])
         ->name('workOrderFromWarrantyClaim');
 
     // vehicle warranty and customer

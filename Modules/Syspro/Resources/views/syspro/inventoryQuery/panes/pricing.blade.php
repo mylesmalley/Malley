@@ -11,11 +11,12 @@
                 <td>Cost</td>
                 <td>$ {{ number_format(  $inv->MaxCost , 3 ) }} CAD</td>
             </tr>
-            <tr>
-                <td>Price Category</td>
-                <td>{{ $inv->PriceCategory }} ( {{ $inv->MarginUsed }}% Margin )</td>
-            </tr>
-
+            @if (isset( $inv->PriceCategory ))
+                <tr>
+                    <td>Price Category</td>
+                    <td>{{ $inv->PriceCategory }} ( {{ $inv->MarginUsed }}% Margin )</td>
+                </tr>
+            @endif
 
             <tr>
                 <td>Canadian Retail Price</td>

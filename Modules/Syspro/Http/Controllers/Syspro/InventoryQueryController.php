@@ -4,7 +4,7 @@ namespace Modules\Syspro\Http\Controllers\Syspro;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
@@ -13,9 +13,9 @@ class InventoryQueryController extends Controller
 {
 	/**
 	 * @param Request $request
-	 * @return View
+	 * @return Response
 	 */
-	public function search( Request $request ): View
+	public function search( Request $request ): Response
 	{
 		$request->validate([
 			'term' => "sometimes|min:3|string"
@@ -58,7 +58,11 @@ class InventoryQueryController extends Controller
 		}
 
 
-		return view('syspro::syspro.inventoryQuery.search', ['results' => $highlight, 'term' => $request->term ]);
+		return response()
+            ->view('syspro::syspro.inventoryQuery.search', [
+                'results' => $highlight,
+                'term' => $request->term
+            ]);
 	}
 
 
@@ -86,9 +90,9 @@ class InventoryQueryController extends Controller
 	 * Actually query the db and process from here.
 	 *
 	 * @param string $query
-	 * @return View
+	 * @return Response
 	 */
-	public function get( string $query ): View
+	public function get( string $query ): Response
 	{
 		// grab the stock code from the inv master table for a quick sanity check
 		$stockCode = DB::connection('syspro')
@@ -104,7 +108,8 @@ class InventoryQueryController extends Controller
 		// if the stock code isn't found, redirect to error page.
 		if (! $stockCode  )
 		{
-			return view('syspro::syspro.inventoryQuery.notFound', ["message" => "message"]);
+			return response()
+                ->view('syspro::syspro.inventoryQuery.notFound', ["message" => "message"]);
 		}
 
 		// determine if the stock code is bought in or not, which influences the next query
@@ -278,7 +283,8 @@ class InventoryQueryController extends Controller
 
       //  dd( $structure );
 
-        return view( 'syspro::syspro.inventoryQuery.inventoryQuery', [
+        return response()
+            ->view( 'syspro::syspro.inventoryQuery.inventoryQuery', [
 			'inv' => $trimmed,
 			'raw'=> $raw,
 			'costs'=>$Costs,
