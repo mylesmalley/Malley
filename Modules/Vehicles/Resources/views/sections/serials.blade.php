@@ -9,17 +9,17 @@
     </div>
 
     <table class="table table-striped table-sm detail-table">
-        @foreach ( App\Models\Vehicle::serialFields() as $serial )
-            @if ( $vehicle->$serial && $vehicle->$serial !== '' )
-                <tr>
-                    <th role="row">
-                        {{ ucwords( str_replace('_', ' ', $serial ) ) }}
+{{--        @foreach ( App\Models\Vehicle::serialFields() as $serial )--}}
+{{--            @if ( $vehicle->$serial && $vehicle->$serial !== '' )--}}
+{{--                <tr>--}}
+{{--                    <th role="row">--}}
+{{--                        {{ ucwords( str_replace('_', ' ', $serial ) ) }}--}}
 
-                    </th>
-                    <td>{{ $vehicle->$serial }}</td>
-                </tr>
-            @endif
-        @endforeach
+{{--                    </th>--}}
+{{--                    <td>{{ $vehicle->$serial }}</td>--}}
+{{--                </tr>--}}
+{{--            @endif--}}
+{{--        @endforeach--}}
 
         @foreach( $vehicle->serials as $s)
             <tr>
