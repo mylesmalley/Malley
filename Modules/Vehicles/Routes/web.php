@@ -7,6 +7,7 @@ use Modules\Vehicles\Http\Controllers\Documents\StickerController;
 use Modules\Vehicles\Http\Controllers\InspectionReports\InspectionReportController;
 use Modules\Vehicles\Http\Controllers\Reporting\FordMilestoneComplianceReport;
 use Modules\Vehicles\Http\Controllers\Reporting\PendingFordMilestoneNotificationsReport;
+use Modules\Vehicles\Http\Controllers\SerialsController;
 use Modules\Vehicles\Http\Controllers\Warranty\ClaimController;
 use Modules\Vehicles\Http\Controllers\Warranty\WorkOrderFromWarrantyClaimController;
 
@@ -119,9 +120,6 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/{vehicle}',    "VehiclesController@show")->name('vehicle.home');
 
 
-    // vehicle serials
-    Route::get('/{vehicle}/serials',    "SerialsController@edit");
-    Route::patch('/{vehicle}/serials',    "SerialsController@update");
 
 
     Route::get('/warrantyclaim/index', [ClaimController::class, "index" ])
@@ -190,13 +188,13 @@ Route::group(['prefix'=>'vehicles'], function () {
 
 
 
-
-    // get a vehicle's dates
-    Route::post('/{vehicle}/dates',    "VehicleCalendarController@get");
-
-    // adding new dates
-    Route::get('/{vehicle}/date',    "VehicleCalendarController@create");
-    Route::post('/{vehicle}/date',    "VehicleCalendarController@store");
+//
+//    // get a vehicle's dates
+//    Route::post('/{vehicle}/dates',    "VehicleCalendarController@get");
+//
+//    // adding new dates
+//    Route::get('/{vehicle}/date',    "VehicleCalendarController@create");
+//    Route::post('/{vehicle}/date',    "VehicleCalendarController@store");
 
     // FILES
     Route::get('/{vehicle}/files',    "FilesController@show");
@@ -248,8 +246,16 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/tags/{tag}',    "TagController@show");
 
 
+    // vehicle serials
+   // Route::get('/{vehicle}/serials',    "SerialsController@edit");
+//    Route::patch('/{vehicle}/serials',    "SerialsController@update");
 
 
+    Route::get('/{vehicle}/serials', [SerialsController::class, 'show' ])
+        ->name('vehicle.serials.show');
+
+    Route::post('/{vehicle}/serials', [SerialsController::class, 'store' ])
+        ->name('vehicle.serials.store');
 
 
 });

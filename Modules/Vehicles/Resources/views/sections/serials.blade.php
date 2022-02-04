@@ -2,7 +2,7 @@
     <div class="card-header bg-primary text-white" >
         Serial Numbers
         @if( Auth::user()->vdb_modify_info )
-            <a href="{{ url('vehicles/'.$vehicle->id.'/serials' ) }}"
+            <a href="{{ route('vehicle.serials.show', [$vehicle])  }}"
                class='btn btn-sm btn-secondary float-end'>Edit Serials</a>
 
         @endif

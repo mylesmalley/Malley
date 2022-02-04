@@ -60,7 +60,8 @@ class VehicleSerial extends BaseModel
         'FCA_VB2',
         'FCA_W00',
         'CAAS_GVS_label_serial',
-        'FORD_20B53' // added 2021-04-12
+        'FORD_20B53', // added 2021-04-12
+        'FORD_21S29', // added 2022-02-04
     ];
 
 
