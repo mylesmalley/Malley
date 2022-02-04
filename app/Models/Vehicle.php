@@ -373,6 +373,17 @@ class Vehicle extends BaseModel implements HasMedia
     }
 
 
+
+    /**
+     * Related serial numbers moved to their own table
+     * @return HasMany
+     */
+    public function serials(): HasMany
+    {
+        return $this->hasMany( VehicleSerial::class );
+    }
+
+
     /**
      * @return Collection
      */
@@ -492,16 +503,26 @@ class Vehicle extends BaseModel implements HasMedia
     }
 
 
+    /**
+     * @return mixed
+     */
     public function blueprint()
     {
         return $this->belongsTo( 'App\Models\Blueprint' );
     }
 
+
+    /**
+     * @return mixed
+     */
     public function contacts()
     {
         return $this->belongsToMany('App\Models\Contact','vehicle_contact');
     }
 
+    /**
+     * @return mixed
+     */
     public function getCustomerAttribute()
     {
         return $this->contacts()->where('contact_type','customer')
@@ -599,7 +620,7 @@ class Vehicle extends BaseModel implements HasMedia
      *
      * @return HasMany
      */
-    public function work_orders()
+    public function work_orders(): HasMany
     {
         return $this->hasMany('\App\Models\WorkOrder');
     }
