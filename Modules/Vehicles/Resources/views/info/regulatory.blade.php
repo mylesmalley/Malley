@@ -212,7 +212,7 @@
                         <label class="control-label" for="CAAS_GVS_label_serial">CAAS GVS Label Serial# </label>
                         <input type="text"
                                name="CAAS_GVS_label_serial"
-                               value=" {{ old('CAAS_GVS_label_serial') ?? $vehicle->CAAS_GVS_label_serial ?? "" }}"
+                               value=" {{ old('CAAS_GVS_label_serial', $caas->value ?? "") ??  "" }}"
                                id="CAAS_GVS_label_serial"
                                class="form-control">
                     </div>
