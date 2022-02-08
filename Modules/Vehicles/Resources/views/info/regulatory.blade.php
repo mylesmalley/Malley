@@ -12,7 +12,7 @@
     @includeIf('vehicles::errors')
 
 
-    <form name="regulatory" method="POST" action="{{ url('vehicles/'.$vehicle->id.'/regulatory') }}">
+    <form name="regulatory" method="POST" action="{{ route('vehicle.regulatory.update', [$vehicle]) }}">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
         <div id="vue">

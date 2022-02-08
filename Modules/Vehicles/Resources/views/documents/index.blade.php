@@ -45,7 +45,7 @@
                             <p>A form that lets you fill out details and test results and then generate stickers for FMVSS, CMVSS, National Safety Mark etc.</p>
                         </td>
                         <td>
-                            <a href="{{ url('vehicles/'.$vehicle->id.'/regulatory' ) }}" class='btn btn-secondary float-right'>Go</a>
+                            <a href="{{ route('vehicle.regulatory.edit', [$vehicle]) }}" class='btn btn-secondary float-right'>Go</a>
                         </td>
                     </tr>
 

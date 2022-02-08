@@ -191,7 +191,7 @@ Route::group(['prefix'=>'vehicles'], function () {
      */
     Route::get('/{vehicle}/regulatory', [RegulatoryController::class, "edit"])
         ->name('vehicle.regulatory.edit');
-    Route::get('/{vehicle}/regulatory', [RegulatoryController::class, "update"])
+    Route::patch('/{vehicle}/regulatory', [RegulatoryController::class, "update"])
         ->name('vehicle.regulatory.update');
 
 
