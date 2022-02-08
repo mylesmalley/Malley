@@ -267,29 +267,7 @@ class VehiclesController extends Controller
     }
 
 
-    /**
-     * @param Vehicle $vehicle
-     * @return Response
-     */
-    public function editRegulatory( Vehicle $vehicle ): Response
-    {
-        return response()
-            ->view('vehicles::info.regulatory',[
-            'vehicle'=>$vehicle
-        ]);
-    }
 
-
-    /**
-     * @param Request $request
-     * @param Vehicle $vehicle
-     * @return RedirectResponse
-     */
-    public function updateRegulatory( Request $request, Vehicle $vehicle ): RedirectResponse
-    {
-        $vehicle->update( $request->all() );
-        return redirect()->back();
-    }
 
 
 

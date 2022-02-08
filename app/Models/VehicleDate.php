@@ -55,6 +55,7 @@ class VehicleDate extends BaseModel
         'work_started', // Work Started
         'work_completed', // Work Completed
         'released_to_carrier', // Released to Carrier
+        'expected_delivery',
         'delivered_by_malley', // same as released to carrier but for when we ship it ourselves
 
         'compound_exit',  // Compound Exit

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Vehicles\Http\Controllers\DatesController;
 use Modules\Vehicles\Http\Controllers\Documents\StickerController;
 use Modules\Vehicles\Http\Controllers\InspectionReports\InspectionReportController;
+use Modules\Vehicles\Http\Controllers\RegulatoryController;
 use Modules\Vehicles\Http\Controllers\Reporting\FordMilestoneComplianceReport;
 use Modules\Vehicles\Http\Controllers\Reporting\PendingFordMilestoneNotificationsReport;
 use Modules\Vehicles\Http\Controllers\SerialsController;
@@ -181,9 +182,17 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::patch('/{vehicle}',    "VehiclesController@update");
 
 
-    Route::get('/{vehicle}/regulatory',    "VehiclesController@editRegulatory");
-    Route::patch('/{vehicle}/regulatory',    "VehiclesController@updateRegulatory");
+//    Route::get('/{vehicle}/regulatory',    "VehiclesController@editRegulatory");
+//    Route::patch('/{vehicle}/regulatory',    "VehiclesController@updateRegulatory");
 
+
+    /**
+     *  REGULATORY STICKER DETAILS
+     */
+    Route::get('/{vehicle}/regulatory', [RegulatoryController::class, "edit"])
+        ->name('vehicle.regulatory.edit');
+    Route::get('/{vehicle}/regulatory', [RegulatoryController::class, "update"])
+        ->name('vehicle.regulatory.update');
 
 
 

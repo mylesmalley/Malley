@@ -60,6 +60,9 @@ class BugReportController extends Controller
 			'upload.*' => 'nullable|min:1|mimes:png,jpg,jpeg,pdf|max:4096',
 
 		]);
+
+     //   dd( $request->input('upload'));
+
 		$report = BugReport::create( $request->all() );
 
 		$report->save();
