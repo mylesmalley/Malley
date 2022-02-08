@@ -50,18 +50,22 @@ class RegulatoryController extends Controller
             $vehicle->update( $request->except(['CAAS_GVS_label_serial']) );
         } catch( \Exception $e )
         {
-            Log::error("failed to update CAAS serial for vehicle $vehicle->id". $e);
+            Log::error("failed to update regulatory for vehicle $vehicle->id". $e);
         }
 
-        try {
-            $vehicle->serials()
-                ->updateOrCreate(['key'=> strtoupper('CAAS_GVS_label_serial')],
-                    ['value' => $request->input('CAAS_GVS_label_serial')
-                ]);
-        } catch(\Exception $e )
+        if( $request->input('CAAS_GVS_label_serial') && $request->input('CAAS_GVS_label_serial') != null )
         {
-            Log::error("failed to update regulatory details for vehicle $vehicle->id". $e);
+            try {
+                $vehicle->serials()
+                    ->updateOrCreate(['key'=> strtoupper('CAAS_GVS_label_serial')],
+                        ['value' => $request->input('CAAS_GVS_label_serial')
+                    ]);
+            } catch(\Exception $e )
+            {
+                Log::error("failed to update CAAS details for vehicle $vehicle->id". $e);
+            }
         }
+
 
 
         Log::info("updatedxw regulatory details for vehicle $vehicle->id");
