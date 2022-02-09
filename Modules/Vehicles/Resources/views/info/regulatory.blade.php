@@ -439,7 +439,9 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+{{--    <script src="https://cdn.jsdelivr.net/npm/vue"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+{{--<script src="https://unpkg.com/vue@3"></script>--}}
     <script>
         let vue = new Vue({
                 el: "#vue",
