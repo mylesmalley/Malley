@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\BlueprintWizardAnswer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use App\Models\Blueprint;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration;
@@ -20,10 +20,10 @@ class ConfigurationController extends Controller
      *
      * @param Blueprint $blueprint
      * @param Request $request
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function show( Blueprint $blueprint, Request $request ): View
+    public function show( Blueprint $blueprint, Request $request ): Response
     {
         $this->authorize('edit_configuration', $blueprint);
 
@@ -67,7 +67,7 @@ class ConfigurationController extends Controller
             ->get();
 
         // lets role!
-        return view('blueprint::configuration.show', [
+        return response()->view('blueprint::configuration.show', [
             'blueprint' => $blueprint,
             'configurations' => $configs,
         ]);

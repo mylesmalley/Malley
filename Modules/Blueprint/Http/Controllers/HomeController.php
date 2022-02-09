@@ -4,7 +4,7 @@ namespace Modules\Blueprint\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 
@@ -15,10 +15,10 @@ class HomeController extends Controller
      * Index page of a user's blueprints
      *
      * @param User|null $user
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function my_blueprints( User $user = null): View
+    public function my_blueprints( User $user = null): Response
     {
         $user = $user ?? Auth::user();
 
@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->orderBy('id','DESC')
             ->paginate( 20 );
 
-        return view('blueprint::my_blueprints', [
+        return response()->view('blueprint::my_blueprints', [
             'title' => $title,
             'blueprints' => $blueprints,
         ]);

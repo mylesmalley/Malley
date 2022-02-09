@@ -3,20 +3,13 @@
 namespace Modules\Blueprint\Http\Controllers\Blueprint;
 
 use Illuminate\Http\Request;
-//use App\Mail\BlueprintCreatedNotification;
-use App\Models\Form;
-use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
-use App\Models\BlueprintWizardAnswer;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Blueprint;
 use App\Models\BaseVan;
 use App\Http\Controllers\Controller;
-use App\Models\Configuration;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 use Modules\Blueprint\Jobs\ResetRenderTemplates;
 use Modules\Blueprint\Jobs\EmaiStaffAboutBlueprintCreation;
 use Modules\Blueprint\Jobs\UpgradeBlueprint;
@@ -26,14 +19,14 @@ class CreateController extends Controller
 
     /**
      * @param BaseVan $baseVan
-     * @return View
+     * @return Response
      * @throws AuthorizationException
      */
-    public function create( BaseVan $baseVan ): View
+    public function create( BaseVan $baseVan ): Response
     {
         $this->authorize( 'create', Blueprint::class );
 
-        return view('blueprint::blueprint.create', [
+        return response()->view('blueprint::blueprint.create', [
             'baseVan' => $baseVan,
         ]);
     }
@@ -71,7 +64,7 @@ class CreateController extends Controller
         ]);
 
         // create the new blueprint
-        $blueprint = new Blueprint( $request->only( [
+        $blueprint =  Blueprint::create( $request->only( [
             'name', 'description', 'base_van_id', 'layout_id', 'config',
              "customer_name",
             "customer_address_1",
