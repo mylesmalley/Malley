@@ -78,6 +78,15 @@
                 @if( $blueprint->base_van_id == 31 )
                     @includeIf('blueprint::blueprint.forms.bls_transit')
                 @endif
+
+
+
+
+
+                {{-- RAM PROMASTER AMBULANCE --}}
+                @if( $blueprint->base_van_id == 16 )
+                    @includeIf('blueprint::blueprint.forms.ambulance_promaster')
+                @endif
                 <div class="card-footer text-center">
                     <small>
                         As you configure this van, forms will be added to this list.
