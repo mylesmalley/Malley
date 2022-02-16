@@ -22,20 +22,21 @@ class FormController extends Controller
             ->view('blueprint::form.show', [
             'blueprint'=>$blueprint,
 
-            'form' => $form->load([
-
-                'elements' => function ($query) {
-                    $query->orderBy('position', 'asc');
-                },
-                'elements.items' => function ($query) {
-                    $query->orderBy('position', 'asc');
-                },
-                'elements.items.option',
-                'elements.items.option.media',
-                'elements.items.media',
-                'elements.rule',
-
-            ]),
+            'form' => $form, //->load([
+//
+//                'elements' => function ($query) {
+//                    $query->orderBy('position', 'asc');
+//                },
+//                'elements.items' => function ($query) {
+//                    $query->orderBy('position', 'asc');
+//                },
+//                'elements.rule',
+//                'elements.items.option',
+//                'elements.items.option.media',
+//                'elements.items.media',
+//                'elements.rule',
+//
+//            ]),
         ]);
     }
 
