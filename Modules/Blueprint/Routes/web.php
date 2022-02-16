@@ -12,14 +12,13 @@ use Modules\Blueprint\Http\Controllers\Blueprint\HomeController as BlueprintHome
 use Modules\Blueprint\Http\Controllers\Form\FormController;
 use Modules\Blueprint\Http\Controllers\Wizard\WizardController;
 use Modules\Blueprint\Http\Controllers\Blueprint\ConfigurationController;
-use Modules\Blueprint\Http\Controllers\Blueprint\FloorLayoutController;
+//use Modules\Blueprint\Http\Controllers\Blueprint\FloorLayoutController;
 use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
 
 //Route::domain( config('malley.external_domain') )->group(function() {
     Route::middleware(['auth'])->group( function(){
 
     Route::prefix('blueprint')->group(function() {
-
         Route::get('/', function(){
             return redirect()->route('my_blueprints');
         });
@@ -100,12 +99,12 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                  * FLOOR LAYOUT
                  */
                 // show the form, varied by the floor layout and other options
-                Route::get('/floor_layout', [FloorLayoutController::class, 'show'])
-                    ->name('blueprint.floor_layout');
-                // for adding and removing parts, moving them etc. staged changes stored on blueprint model
-                Route::patch('/floor_layout', [FloorLayoutController::class, 'change'])
-                    ->name('blueprint.floor_layout.change');
-
+//                Route::get('/floor_layout', [FloorLayoutController::class, 'show'])
+//                    ->name('blueprint.floor_layout');
+//                // for adding and removing parts, moving them etc. staged changes stored on blueprint model
+//                Route::patch('/floor_layout', [FloorLayoutController::class, 'change'])
+//                    ->name('blueprint.floor_layout.change');
+//
 
 
                 // show the form, varied by the floor layout and other options

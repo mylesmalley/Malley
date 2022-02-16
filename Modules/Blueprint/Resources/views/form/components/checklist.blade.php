@@ -3,6 +3,7 @@
         <div class="card border-primary">
             <div class="card-header text-white bg-secondary">
                 <h4 class="">{{ $element->label }}</h4>
+                {{ $show ? "show" : "hide" }}
             </div>
             <div class="card-body">
 
