@@ -2,7 +2,7 @@
     <div class="col-8 offset-2">
         <div class="card border-primary">
             <div class="card-header text-white bg-secondary">
-                <h4 class="">{{ $element->label }}</h4>
+                <h4 class="">{{ $element->label }} {{ $show ? "Show" : "Hide" }}</h4>
             </div>
             <div class="card-body">
 

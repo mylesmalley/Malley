@@ -32,7 +32,7 @@ namespace Modules\Blueprint\Http\Livewire\Form\Traits;
         public function check_visibility()
         {
             if ( count( $this->formElementRules ) === 0) $this->show = true;
-            if ( array_intersect( $this->referencedOptions, $this->formElementRules ) ) $this->show = true;
-            $this->show = false;
+            else if ( array_intersect( $this->referencedOptions, $this->formElementRules ) ) $this->show = true;
+            else $this->show = false;
         }
     }

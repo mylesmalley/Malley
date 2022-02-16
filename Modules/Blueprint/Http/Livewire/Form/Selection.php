@@ -8,10 +8,12 @@ use Illuminate\Support\Collection;
 use Livewire\Component;
 use App\Models\Blueprint;
 use Illuminate\View\View;
+use Modules\Blueprint\Http\Livewire\Form\Traits\HasOptionRules;
 
 
 class Selection extends Component
 {
+    use HasOptionRules;
 
     public FormElement $element;
     public Collection $configurations;
@@ -55,6 +57,8 @@ class Selection extends Component
     {
         $this->element = $element;
 
+        $this->load_rules( $element );
+
         // grab the form element's options
         $options = $element->items->pluck('option_id');
 
@@ -63,6 +67,10 @@ class Selection extends Component
             ->whereIn('option_id', $options )
             ->with('option')
             ->get();
+
+        $this->set_referenced_options( $blueprint->activeOptionNames() );
+
+        $this->check_visibility();
     }
 
 
