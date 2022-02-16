@@ -51,10 +51,13 @@
 
 @push('scripts')
     <script>
+        // array of stage ids to handle forms with multiple
         let stage_ids = [];
 
         function update_drawings()
         {
+
+            // gets the ids of images that should be turned on...
             fetch('{{ route('blueprint.drawings.activeDrawings', [$blueprint]) }}', {
                 method: 'GET',
                 headers: {
@@ -62,32 +65,25 @@
                 },
             }) .then(response => response.json())
                 .then( function(data) {
-                    console.log( data );
+              //      console.log( data );
 
-
+                    // loop through the window's stages and turn off all their children elements.
                     for (let i = 0; i < stage_ids.length; i++)
                     {
                         let shapes = eval( stage_ids[i] ).find('Image');
                         shapes.forEach( function(el){
                             el.hide();
                         });
-                        // var shapes = stage174.find('Image');
-                        // shapes.forEach( function(el){
-                        //     el.hide();
-                        // });
                     }
 
 
 
-
+                    // turn on the images required
                     data.forEach( function( el ){
-                        //    console.log( `option${el}` in window  );
-                        //    console.log( `turn on option${el} ` )
+
                         if ( `option${el}` in window )
                         {
                             eval(`option${el}.show();`);
-
-                            // console.log( `turned on "option" + ${el} ` )
                         }
                     });
                 });
