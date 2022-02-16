@@ -63,7 +63,7 @@
                     console.log( data );
 
 
-                    var shapes = stage.find('Image');
+                    var shapes = stage174.find('Image');
                     shapes.forEach( function(el){
                         el.hide();
                     });

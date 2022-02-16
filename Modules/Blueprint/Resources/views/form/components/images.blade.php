@@ -14,14 +14,14 @@
                     <script>
 
 
-                            var stage = new Konva.Stage({
+                            var stage{{  $element->id  }} = new Konva.Stage({
                                 container: 'stage{{  $element->id  }}',
                                 width: {{ getimagesize( $media->first()->cdnUrl() )[0] ?? 900 }},
                                 height: {{ getimagesize( $media->first()->cdnUrl() )[1] ?? 500 }},
                             });
 
-                            var layer = new Konva.Layer();
-                            stage.add(layer);
+                            var layer{{  $element->id  }} = new Konva.Layer();
+                            stage{{  $element->id  }}.add(layer{{  $element->id  }});
 
 
                             @foreach( $media as $med )
@@ -39,7 +39,7 @@
                                 option{{ $med->id }}.hide();
 
                                 // add the shape to the layer
-                                layer.add(option{{ $med->id }});
+                                layer{{  $element->id  }}.add(option{{ $med->id }});
 
                             };
                             img{{ substr(md5( $med->id), 0, 5 ) }}.src = '{!!  $med->cdnUrl() !!}';
@@ -51,7 +51,7 @@
 
 
                             @endforeach
-                            layer.draw();
+                            layer{{  $element->id  }}.draw();
 
                     </script>
                     @endpush
