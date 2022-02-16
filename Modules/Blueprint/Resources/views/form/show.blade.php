@@ -51,6 +51,8 @@
 
 @push('scripts')
     <script>
+        let stage_ids = [];
+
         function update_drawings()
         {
             fetch('{{ route('blueprint.drawings.activeDrawings', [$blueprint]) }}', {
@@ -63,10 +65,19 @@
                     console.log( data );
 
 
-                    var shapes = stage174.find('Image');
-                    shapes.forEach( function(el){
-                        el.hide();
-                    });
+                    for (let i = 0; i < stage_ids.length; i++)
+                    {
+                        let shapes = eval( stage_ids[i] ).find('Image');
+                        shapes.forEach( function(el){
+                            el.hide();
+                        });
+                        // var shapes = stage174.find('Image');
+                        // shapes.forEach( function(el){
+                        //     el.hide();
+                        // });
+                    }
+
+
 
 
                     data.forEach( function( el ){

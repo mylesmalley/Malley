@@ -20,6 +20,8 @@
                                 height: {{ getimagesize( $media->first()->cdnUrl() )[1] ?? 500 }},
                             });
 
+                            stage_ids.push("stage{{  $element->id  }}");
+
                             var layer{{  $element->id  }} = new Konva.Layer();
                             stage{{  $element->id  }}.add(layer{{  $element->id  }});
 
