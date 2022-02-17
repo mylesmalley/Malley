@@ -20,7 +20,7 @@ class FormWrapper extends Component
     public Collection $options;
     public Collection $elements;
     public Collection $media;
-    public Collection $configuration;
+    public array $configuration;
 
     public function mount( Blueprint $blueprint, Form $form )
     {
@@ -30,8 +30,11 @@ class FormWrapper extends Component
         $this->configuration = Configuration::
             where('blueprint_id', '=', $this->blueprint->id )
             ->where('obsolete', '=', false)
-            ->select(['id', 'value', 'option_id'])
-            ->get();
+            ->select(['id', 'value', 'option_id','description'])
+            ->get()
+            ->keyBy('option_id')
+
+          ->toArray();
 
 
         $form_options = [];

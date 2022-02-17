@@ -2,6 +2,6 @@
     checklist
 {{--    {{ dd($element, $element->items, $items) }}--}}
     @foreach( $items as $item )
-        {{ $item->id }} <br>
+        {{ $configuration[ $item->option_id ]['description'] }} <br>
         @endforeach
 </div>

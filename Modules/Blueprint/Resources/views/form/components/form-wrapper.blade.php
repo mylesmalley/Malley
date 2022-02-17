@@ -1,6 +1,6 @@
 <div>
     form wrapper
-
+{{--        {{ dd( $configuration ) }}--}}
        @foreach( $elements as $el)
 {{--           @if ($element->type === 'images')--}}
 {{--               @include("blueprint::form.components.images", [ 'blueprint' => $blueprint,--}}
@@ -11,12 +11,12 @@
 {{--           @endif--}}
 
     @if ($el->type === 'checklist')
-            @livewire("blueprint::form.checklist", [  $el  ], 'element-'.$el->id  )
+            @livewire("blueprint::form.checklist", [  $el, $configuration  ], 'element-'.$el->id  )
 
         @endif
-{{--           @if ($el->type === 'selection')--}}
-{{--               @livewire("blueprint::form.selection", [ $el  ]  )--}}
-{{--           @endif--}}
+           @if ($el->type === 'selection')
+               @livewire("blueprint::form.selection", [ $el, $configuration  ]  )
+           @endif
            <br>
        @endforeach
 </div>

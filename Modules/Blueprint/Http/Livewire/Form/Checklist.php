@@ -14,13 +14,14 @@ class Checklist extends Component
 {
 
     public FormElement $element;
-    public Blueprint $blueprint;
     public Collection $items;
+    public array $configuration;
 
-    public function mount( FormElement $element )
+    public function mount( FormElement $element, array $configuration )
     {
         $this->element = $element;
         $this->items = $this->element->items;
+        $this->configuration = $configuration;
     }
 
     /**

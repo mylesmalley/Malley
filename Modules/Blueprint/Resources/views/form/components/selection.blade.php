@@ -1,7 +1,7 @@
 <div class="row">
     selection
-    {{ dd( $element ) }}
-{{--    @foreach( $element->items as $item )--}}
-{{--        {{ $item->id }} <br>--}}
-{{--    @endforeach--}}
+{{--    {{ dd( $element ) }}--}}
+    @foreach( $items as $item )
+        {{ $configuration[ $item->option_id ]['description'] }} <br>
+    @endforeach
 </div>
