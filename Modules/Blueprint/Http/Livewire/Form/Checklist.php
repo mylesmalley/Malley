@@ -10,14 +10,16 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Livewire\Component;
-
+use Modules\Blueprint\Http\Livewire\Form\Traits\HasOptionRules;
 
 class Checklist extends Component
 {
+    use HasOptionRules;
 
     public FormElement $element;
     public Collection $items;
     public array $configuration;
+
 
     public function mount( FormElement $element, array $configuration )
     {
@@ -26,6 +28,10 @@ class Checklist extends Component
         $this->element = $element;
         $this->items = $this->element->items;
         $this->configuration = $configuration;
+
+        $this->load_rules( $this->element );
+        $this->set_referenced_options( $this->configuration  );
+        $this->check_visibility();
     }
 
 

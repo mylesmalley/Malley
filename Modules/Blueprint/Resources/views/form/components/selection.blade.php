@@ -3,7 +3,8 @@
         <div class="card border-primary">
             <div class="card-header text-white bg-secondary">
                 <h4 class="">{{ $element->label }} - Pick One</h4>
-{{--                {{ $show ? "show" : "hide" }}--}}
+                {{ $show ? "show" : "hide" }}<br>
+
             </div>
             <div class="card-body">
 

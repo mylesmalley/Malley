@@ -10,9 +10,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Modules\Blueprint\Http\Livewire\Form\Traits\HasOptionRules;
+
 
 class Selection extends Component
 {
+    use HasOptionRules;
+
     public FormElement $element;
     public Collection $items;
     public array $configuration;
@@ -24,6 +28,10 @@ class Selection extends Component
         $this->element = $element;
         $this->items = $this->element->items;
         $this->configuration = $configuration;
+        $this->load_rules( $this->element );
+        $this->set_referenced_options( $this->configuration  );
+        $this->check_visibility();
+
     }
 
 

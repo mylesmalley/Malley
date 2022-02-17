@@ -37,7 +37,7 @@ class FormWrapper extends Component
     {
         $this->configuration = Configuration::where('blueprint_id', '=', $this->blueprint->id )
             ->where('obsolete', '=', false)
-            ->select(['id', 'value', 'option_id','description'])
+            ->select(['id', 'value', 'name', 'option_id','description'])
             ->get()
             ->keyBy('option_id')
             ->toArray();

@@ -3,7 +3,6 @@ namespace Modules\Blueprint\Http\Livewire\Form\Traits;
 
 
     use App\Models\FormElement;
-    use Illuminate\Support\Collection;
 
     /**
      *  shared code between types of elements in forms to handle whether to show something or not based on rules
@@ -35,12 +34,20 @@ namespace Modules\Blueprint\Http\Livewire\Form\Traits;
 
         /**
          * receives the configuration for the vehicle and pulls out the option names turned on
-         * @param Collection $configuration
+         * @param array $referenced_options
          */
-        public function set_referenced_options( Collection $configuration ): void
+        public function set_referenced_options( array $referenced_options ): void
         {
-            $this->referencedOptions = $configuration
-                                            ->toArray();
+            // filter out to get only active options
+            $unfiltered_active_options = array_map( function ($val) {
+                    return $val['value'] ? $val['name'] : null;
+                }, $referenced_options );
+
+            // remove null values from the array
+            $active_options = array_filter( $unfiltered_active_options );
+
+            // store the overlap between the active options and options required by the rules.
+            $this->referencedOptions = array_intersect( $active_options, $this->formElementRules );
         }
 
 
@@ -52,7 +59,7 @@ namespace Modules\Blueprint\Http\Livewire\Form\Traits;
             // if no rules present, show it
             if ( count( $this->formElementRules ) === 0) $this->show = true;
             // if rules present and one of the options overlaps, show it
-            else if ( array_intersect( $this->referencedOptions, $this->formElementRules ) ) $this->show = true;
+            else if ( count( $this->referencedOptions ) > 0 ) $this->show = true;
             // otherwise, don't show it
             else $this->show = false;
         }
