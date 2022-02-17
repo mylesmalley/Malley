@@ -4,13 +4,14 @@ namespace Modules\Blueprint\Http\Livewire\Form;
 
 use App\Models\Configuration;
 use App\Models\Form;
-use App\Models\FormElement;
 use App\Models\Media;
 use App\Models\Option;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use App\Models\Blueprint;
-use Illuminate\View\View;
 
 class FormWrapper extends Component
 {
@@ -23,10 +24,9 @@ class FormWrapper extends Component
 
     public function mount( Blueprint $blueprint, Form $form )
     {
-        $form = $form->load('elements', 'elements.items', 'elements.rule');
+        $this->form = $form->load(['elements', 'elements.items', 'elements.rule']);
         $this->blueprint = $blueprint;
-        $this->form = $form;
-        $this->elements = $form->elements;
+        $this->elements = $this->form->elements;
         $this->configuration = Configuration::
             where('blueprint_id', '=', $this->blueprint->id )
             ->where('obsolete', '=', false)
@@ -52,15 +52,15 @@ class FormWrapper extends Component
                             ->get();
 
         $this->media = Media::whereIn( 'id', $form_media )
-            ->get();
+                            ->get();
 
        // $this->options = $form->elements->items->option;
     }
 
     /**
-     * @return View
+     * @return Application|Factory|View
      */
-    public function render(): View
+    public function render(): Application|Factory|View
     {
         return view('blueprint::form.components.form-wrapper');
     }
