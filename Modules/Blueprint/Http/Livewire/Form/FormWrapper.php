@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use App\Models\Blueprint;
 
@@ -22,20 +23,38 @@ class FormWrapper extends Component
     public Collection $media;
     public array $configuration;
 
+
+    protected $listeners = [
+        'update-form' =>  'refreshConfiguration',
+    ];
+
+
+    /**
+     * listens for changes to the configuration and reloads it when needed and on first load
+     */
+    public function refreshConfiguration()
+    {
+        $this->configuration = Configuration::where('blueprint_id', '=', $this->blueprint->id )
+            ->where('obsolete', '=', false)
+            ->select(['id', 'value', 'option_id','description'])
+            ->get()
+            ->keyBy('option_id')
+            ->toArray();
+
+        Log::info("Refreshed configuration");
+//        $this->emit('$refresh');
+    }
+
+    /**
+     * @param Blueprint $blueprint
+     * @param Form $form
+     */
     public function mount( Blueprint $blueprint, Form $form )
     {
         $this->form = $form->load(['elements', 'elements.items', 'elements.rule']);
         $this->blueprint = $blueprint;
         $this->elements = $this->form->elements;
-        $this->configuration = Configuration::
-            where('blueprint_id', '=', $this->blueprint->id )
-            ->where('obsolete', '=', false)
-            ->select(['id', 'value', 'option_id','description'])
-            ->get()
-            ->keyBy('option_id')
-
-          ->toArray();
-
+        $this->refreshConfiguration();
 
         $form_options = [];
         $form_media = [];
@@ -56,8 +75,8 @@ class FormWrapper extends Component
 
         $this->media = Media::whereIn( 'id', $form_media )
                             ->get();
+        Log::info("Mounted parent");
 
-       // $this->options = $form->elements->items->option;
     }
 
     /**

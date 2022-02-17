@@ -6,6 +6,7 @@ use App\Models\FormElement;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -17,6 +18,8 @@ class Selection extends Component
 
     public function mount( FormElement $element, array $configuration )
     {
+        Log::info("Mounted element $element->id");
+
         $this->element = $element;
         $this->items = $this->element->items;
         $this->configuration = $configuration;
@@ -28,6 +31,8 @@ class Selection extends Component
      */
     public function render(): Application|Factory|View
     {
+        Log::info("Rendered element $this->element->id");
+
         return view('blueprint::form.components.selection');
     }
 }

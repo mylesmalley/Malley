@@ -14,9 +14,9 @@
             @livewire("blueprint::form.checklist", [  $el, $configuration  ], 'element-'.$el->id  )
 
         @endif
-           @if ($el->type === 'selection')
-               @livewire("blueprint::form.selection", [ $el, $configuration  ]  )
-           @endif
+{{--           @if ($el->type === 'selection')--}}
+{{--               @livewire("blueprint::form.selection", [ $el, $configuration  ]  )--}}
+{{--           @endif--}}
            <br>
        @endforeach
 </div>
