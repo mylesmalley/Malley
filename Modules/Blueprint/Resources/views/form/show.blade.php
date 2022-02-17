@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    @livewire("blueprint::form.form-wrapper", [$blueprint, $form]  )
+    @livewire("blueprint::form.form-wrapper", [$blueprint, $form], key('form-wrapper'.$form->id) )
 
 
 

@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\FormElement
@@ -27,24 +30,27 @@ class FormElement extends BaseModel
 
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @return BelongsTo
 	 */
-	public function form()
+	public function form(): BelongsTo
 	{
 		return $this->belongsTo( 'App\Models\Form' );
 	}
 
 
 	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @return HasMany
 	 */
-	public function items()
+	public function items(): HasMany
 	{
 		return $this->hasMany( 'App\Models\FormElementItem' );
 	}
 
 
-	public function itemMedia()
+    /**
+     * @return Collection
+     */
+	public function itemMedia(): Collection
     {
         $media = [];
         $items = FormElementItem::where('form_element_id', $this->attributes['id'])
@@ -61,11 +67,10 @@ class FormElement extends BaseModel
     }
 
 
-
-
-
-
-	public function rule()
+    /**
+     * @return HasOne
+     */
+	public function rule(): HasOne
 	{
 		return $this->hasOne('App\Models\FormElementRule', 'form_element_id');
 	}
@@ -96,11 +101,5 @@ class FormElement extends BaseModel
 
 
 
-	/**
-	 * @return string
-	 */
-	public function route(): string
-	{
-		//return '/basevan/' . $this->base_van_id . '/forms/' . $this->id;
-	}
+
 }

@@ -47,9 +47,10 @@ class Checklist extends Component
         ]);
 
         $this->configuration[ $configuration->option_id ]['value'] = ! $this->configuration[ $configuration->option_id ]['value'] ;
+        Log::info("Clicked on ".$configuration->id);
 
-        $this->emitUp('update-form');
-        $this->emitUp('update-images');
+        $this->emit('update-form');
+        $this->emit('update-images');
     }
 
 

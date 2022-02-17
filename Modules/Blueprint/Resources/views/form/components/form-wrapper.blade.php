@@ -11,7 +11,7 @@
 {{--           @endif--}}
 
     @if ($el->type === 'checklist')
-            @livewire("blueprint::form.checklist", [  $el, $configuration  ], 'element-'.$el->id  )
+            @livewire("blueprint::form.checklist", [  $el, $configuration  ], key('element-'.$el->id)  )
 
         @endif
 {{--           @if ($el->type === 'selection')--}}

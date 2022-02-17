@@ -26,8 +26,14 @@ class FormWrapper extends Component
 
     protected $listeners = [
         'update-form' =>  'refreshConfiguration',
+        'update-images' =>  'up',
     ];
 
+    public function up()
+    {
+        Log::info("UP FIRED");
+
+    }
 
     /**
      * listens for changes to the configuration and reloads it when needed and on first load
