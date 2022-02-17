@@ -26,14 +26,9 @@ class FormWrapper extends Component
 
     protected $listeners = [
         'update-form' =>  'refreshConfiguration',
-        'update-images' =>  'up',
     ];
 
-    public function up()
-    {
-        Log::info("UP FIRED");
 
-    }
 
     /**
      * listens for changes to the configuration and reloads it when needed and on first load
@@ -47,8 +42,7 @@ class FormWrapper extends Component
             ->keyBy('option_id')
             ->toArray();
 
-        Log::info("Refreshed configuration");
-//        $this->emit('$refresh');
+     //   Log::info("Refreshed configuration");
     }
 
     /**
@@ -81,7 +75,7 @@ class FormWrapper extends Component
 
         $this->media = Media::whereIn( 'id', $form_media )
                             ->get();
-        Log::info("Mounted parent");
+//        Log::info("Mounted parent");
 
     }
 

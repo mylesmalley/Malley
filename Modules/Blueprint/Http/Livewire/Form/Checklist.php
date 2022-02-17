@@ -19,22 +19,15 @@ class Checklist extends Component
     public Collection $items;
     public array $configuration;
 
-//    public $listeners = ['update-form' => '$refresh'];
-
     public function mount( FormElement $element, array $configuration )
     {
-        Log::info("Mounted element $element->id");
+//        Log::info("Mounted element $element->id");
 
         $this->element = $element;
         $this->items = $this->element->items;
         $this->configuration = $configuration;
     }
 
-//    public function hydrate()
-//    {
-//        Log::info("Hydrated element $this->element->id");
-//
-//    }
 
 
     /**
@@ -47,7 +40,7 @@ class Checklist extends Component
         ]);
 
         $this->configuration[ $configuration->option_id ]['value'] = ! $this->configuration[ $configuration->option_id ]['value'] ;
-        Log::info("Clicked on ".$configuration->id);
+//        Log::info("Clicked on ".$configuration->id);
 
         $this->emit('update-form');
         $this->emit('update-images');

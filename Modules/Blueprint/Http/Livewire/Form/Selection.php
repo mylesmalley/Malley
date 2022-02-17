@@ -2,13 +2,14 @@
 
 namespace Modules\Blueprint\Http\Livewire\Form;
 
+use App\Models\Configuration;
 use App\Models\FormElement;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
 
 class Selection extends Component
 {
@@ -18,7 +19,7 @@ class Selection extends Component
 
     public function mount( FormElement $element, array $configuration )
     {
-        Log::info("Mounted element $element->id");
+//        Log::info("Mounted element $element->id");
 
         $this->element = $element;
         $this->items = $this->element->items;
@@ -27,12 +28,50 @@ class Selection extends Component
 
 
     /**
-     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @param Configuration $configuration
+     */
+    public function toggle( Configuration $configuration ): void
+    {
+
+        $option_ids = $this->items->pluck('option_id')
+            ->toArray();
+        $config_ids = [];
+
+        foreach($option_ids as $opt)
+        {
+            // grab the target config id item
+            $config_ids[] = $this->configuration[$opt]['id'];
+            // for the form, change the local configuration to be turned off so that it looks right but isn't actually changed in the DB
+            $this->configuration[$opt]['value'] = 0;
+        }
+
+        // actually turn off the options in the set
+        Configuration::whereIn('id', $config_ids)
+            ->update([
+                'value' => 0,
+            ]);
+
+        // turn on the selected option in the database
+        $configuration->update([
+            'value' => 1
+        ]);
+
+        // update the form view to show the one we want selected to bring it in line with the database.
+        $this->configuration[$configuration->option_id]['value'] = 1;
+
+
+        $this->emit('update-form');
+        $this->emit('update-images');
+    }
+
+
+
+
+    /**
+     * @return Application|Factory|View
      */
     public function render(): Application|Factory|View
     {
-        Log::info("Rendered element $this->element->id");
-
         return view('blueprint::form.components.selection');
     }
 }
