@@ -21,6 +21,14 @@ class Checklist extends Component
     public array $configuration;
 
 
+    public $listeners = [
+        'update-configuration' => 'updatedConfiguration'
+    ];
+
+
+
+
+
     public function mount( FormElement $element, array $configuration )
     {
 //        Log::info("Mounted element $element->id");

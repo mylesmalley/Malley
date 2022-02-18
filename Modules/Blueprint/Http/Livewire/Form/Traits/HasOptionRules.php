@@ -3,6 +3,7 @@ namespace Modules\Blueprint\Http\Livewire\Form\Traits;
 
 
     use App\Models\FormElement;
+    use Illuminate\Support\Facades\Log;
 
     /**
      *  shared code between types of elements in forms to handle whether to show something or not based on rules
@@ -17,6 +18,13 @@ namespace Modules\Blueprint\Http\Livewire\Form\Traits;
 
         // options on the blueprint that are checked against
         public array $referencedOptions = [];
+
+
+        public function updatedConfiguration( string $option_name )
+        {
+            $this->check_visibility();
+            Log::info("The component should be updated $option_name");
+        }
 
         /**
          * pulls in the related rule if it exists and parses it into an array.

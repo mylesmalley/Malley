@@ -1,4 +1,5 @@
 <div class="row">
+    @if( $show )
     <div class="col-8 offset-2">
         <div class="card border-primary">
             <div class="card-header text-white bg-secondary">
@@ -26,4 +27,5 @@
             </div>
         </div>
     </div>
+        @endif
 </div>
