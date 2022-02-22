@@ -6,7 +6,6 @@ use Modules\Syspro\Http\Controllers\Inventory\CountController;
 use Modules\Syspro\Http\Controllers\Inventory\HomeController;
 use Modules\Syspro\Http\Controllers\InventoryItems\CreateController;
 use Modules\Syspro\Http\Controllers\InventoryItems\ShowController;
-use Modules\Syspro\Http\Controllers\InventoryItems\TicketController;
 
 
 Route::group( ['prefix' => 'syspro'],  function () {
@@ -24,7 +23,8 @@ Route::group( ['prefix' => 'syspro'],  function () {
     Route::get('BOMCoster/{stockCode?}', [BOMCosterController::class, 'show'])
         ->name('inventory.reports.bom_coster');
 
-
+    Route::get('BOMCosterCSV/{stockCode?}', [BOMCosterController::class, 'csv'])
+        ->name('inventory.reports.bom_coster_csv');
 
 
     /**

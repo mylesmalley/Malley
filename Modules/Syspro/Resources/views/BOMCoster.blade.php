@@ -1,5 +1,5 @@
 @php
-//    dd($parts);
+ //dd($parts);
     // totals
     $labour = 0;
     $materials = 0;
@@ -101,13 +101,14 @@
                     @foreach( $parts as $part)
                         @php
                             $tree = explode('\\', $part->SRC);
-                            $val = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $part->Level ) . end( $tree );
+                            $padding = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $part->Level );
                         @endphp
                         <tr>
         {{--                    <td>{{ $part->Level }}</td>--}}
                             <td class="text-nowrap">
                                 {{--                                <a href="{{ url('/syspro/BOMCoster').'/'. end( $tree ) }}">{!!  $val !!}</a>--}}
-                                <a href="{{ route("inventory.reports.bom_coster", end( $tree ) )  }}">{!!  $val !!}</a>
+                                {!! $padding !!}
+                                <a href="{{ route("inventory.reports.bom_coster", end( $tree ) )  }}">{{  end( $tree ) }}</a>
 
                             </td>
                             <td>{{ $part->Description }}</td>
