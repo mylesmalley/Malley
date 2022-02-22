@@ -81,6 +81,9 @@
         <div class="card border-primary ">
             <div class="card-header bg-primary text-white">
                 Components of {{ $stockCode }}
+
+                <a class="btn btn-info btn-sm float-end" href="{{ route("inventory.reports.bom_coster_csv", $stockCode )  }}">Download as TSV</a>
+
             </div>
 
             <table class="table table-striped table-sm">
