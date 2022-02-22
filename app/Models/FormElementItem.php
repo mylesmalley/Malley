@@ -29,6 +29,19 @@ class FormElementItem extends BaseModel
 	{
 		return $this->belongsTo(FormElement::class);
 	}
+
+
+    /**
+     * @param Blueprint $blueprint
+     * @return Configuration
+     */
+	public function blueprintConfiguration( Blueprint $blueprint ):  Configuration
+    {
+        return Configuration::where('blueprint_id', '=', $blueprint->id )
+            ->where('option_id', '=', $this->attributes['option_id'])
+            ->first();
+    }
+
 	
 	
 	/**

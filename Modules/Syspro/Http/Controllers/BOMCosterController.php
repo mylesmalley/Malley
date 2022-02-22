@@ -3,9 +3,9 @@
 namespace Modules\Syspro\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use \Illuminate\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 class BOMCosterController extends Controller
 {
@@ -13,9 +13,9 @@ class BOMCosterController extends Controller
     /**
      * @param Request $request
      * @param string|null $stockCode
-     * @return View
+     * @return Response
      */
-    public function show( Request $request, string $stockCode = null ): View
+    public function show( Request $request, string $stockCode = null ): Response
     {
         $code = $stockCode ?? $request->stockCode ?? null;
 
@@ -26,7 +26,7 @@ class BOMCosterController extends Controller
             ->orderBy('SRC', 'ASC')
             ->get();
 
-        return view('syspro::BOMCoster', [
+        return response()->view('syspro::BOMCoster', [
             'stockCode' => $code,
             'parts' => $parts
         ]);
