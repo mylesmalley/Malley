@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Syspro\Http\Controllers\BOMCosterController;
 use Modules\Syspro\Http\Controllers\Inventory\CountController;
 use Modules\Syspro\Http\Controllers\Inventory\HomeController;
 use Modules\Syspro\Http\Controllers\InventoryItems\CreateController;
@@ -20,7 +21,8 @@ Route::group( ['prefix' => 'syspro'],  function () {
     Route::get('JobCostChecker', "JobCostCheckerController@show");
     Route::get('JobTrialKit', "JobTrialKitController@show")->name('JobTrialKit');
 
-    Route::get('BOMCoster/{stockCode?}', "BOMCosterController@show");
+    Route::get('BOMCoster/{stockCode?}', [BOMCosterController::class, 'show'])
+        ->name('inventory.reports.bom_coster');
 
 
 

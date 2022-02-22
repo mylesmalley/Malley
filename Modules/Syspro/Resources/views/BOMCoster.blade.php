@@ -105,7 +105,11 @@
                         @endphp
                         <tr>
         {{--                    <td>{{ $part->Level }}</td>--}}
-                            <td class="text-nowrap"> <a href="{{ url('/syspro/BOMCoster').'/'. end( $tree ) }}">{!!  $val !!}</a></td>
+                            <td class="text-nowrap">
+                                {{--                                <a href="{{ url('/syspro/BOMCoster').'/'. end( $tree ) }}">{!!  $val !!}</a>--}}
+                                <a href="{{ route("inventory.reports.bom_coster", end( $tree ) )  }}">{!!  $val !!}</a>
+
+                            </td>
                             <td>{{ $part->Description }}</td>
                             <td>{{ $part->Whs }}</td>
                             <td>{{ $part->{"Cost Type"} }}</td>
