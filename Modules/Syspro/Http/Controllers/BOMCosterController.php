@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BOMCosterController extends Controller
@@ -20,12 +21,16 @@ class BOMCosterController extends Controller
     {
         $code = $stockCode ?? $request->stockCode ?? null;
 
+        if ($code) Log::info("Ran BOM Cost report for $stockCode");
+
+
         $parts = DB::connection('syspro')
             ->table(DB::raw( "dbo.BLUEPRINT_BOM_CHILDREN( ? )" ) )
             ->select('*')
             ->setBindings([ $code ])
             ->orderBy('SRC', 'ASC')
             ->get();
+
 
         return response()->view('syspro::BOMCoster', [
             'stockCode' => $code,

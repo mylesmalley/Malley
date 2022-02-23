@@ -1,10 +1,32 @@
 <div class="row">
-    @if( $show )
+{{--    @if( $show )--}}
     <div class="col-8 offset-2">
         <div class="card border-primary">
             <div class="card-header text-white bg-secondary">
                 <h4 class="">{{ $element->label }} </h4>
                                 {{ $show ? "show" : "hide" }}
+
+                <table>
+                    <tr>
+
+                        <td>
+                            Active option on blueprint <br>
+                            @foreach( $active_configuration_options as $c)
+                                {{ $c }} <br>
+                            @endforeach
+
+
+
+                        </td>
+                        <td>
+                            Rules <br>
+                            @foreach( $options_from_rules as $c)
+                                {{ $c }} <br>
+                            @endforeach
+
+                        </td>
+                    </tr>
+                </table>
 
             </div>
             <div class="card-body">
@@ -27,5 +49,5 @@
             </div>
         </div>
     </div>
-        @endif
+{{--        @endif--}}
 </div>

@@ -27,14 +27,19 @@ class Selection extends Component
 
     public function mount( FormElement $element, array $configuration )
     {
-//        Log::info("Mounted element $element->id");
-
         $this->element = $element;
         $this->items = $this->element->items;
         $this->configuration = $configuration;
-        $this->load_rules( $this->element );
-        $this->set_referenced_options( $this->configuration  );
-        $this->check_visibility();
+
+        $this->get_referenced_options();
+
+//        Log::info("Mounted element $element->id");
+
+
+//        $this->load_rules( $this->element );
+//        $this->set_referenced_options( $this->configuration  );
+//        $this->check_visibility();
+//        $this->referenced_option_names = array_merge( $this->referenced_option_names, $this->referencedOptions );
 
     }
 
@@ -72,9 +77,9 @@ class Selection extends Component
         $this->configuration[$configuration->option_id]['value'] = 1;
 
         $this->emit("update-configuration", $configuration->name );
-
-        $this->emit('update-form');
-        $this->emit('update-images');
+//
+//        $this->emit('update-form');
+//        $this->emit('update-images');
     }
 
 

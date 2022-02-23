@@ -16,6 +16,7 @@ class Checklist extends Component
 {
     use HasOptionRules;
 
+
     public FormElement $element;
     public Collection $items;
     public array $configuration;
@@ -31,15 +32,13 @@ class Checklist extends Component
 
     public function mount( FormElement $element, array $configuration )
     {
-//        Log::info("Mounted element $element->id");
-
+      //  dd( $configuration);
         $this->element = $element;
         $this->items = $this->element->items;
         $this->configuration = $configuration;
 
-        $this->load_rules( $this->element );
-        $this->set_referenced_options( $this->configuration  );
-        $this->check_visibility();
+        $this->get_referenced_options();
+
     }
 
 
@@ -55,9 +54,9 @@ class Checklist extends Component
 
         $this->configuration[ $configuration->option_id ]['value'] = ! $this->configuration[ $configuration->option_id ]['value'] ;
 //        Log::info("Clicked on ".$configuration->id);
-
-        $this->emit('update-form');
-        $this->emit('update-images');
+//
+//        $this->emit('update-form');
+//        $this->emit('update-images');
     }
 
 
