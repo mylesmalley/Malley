@@ -13,7 +13,7 @@
             <div class="input-group">
                 <input type="date"
                        name="o2_test_date"
-                       value="{{ old('o2_test_date') ?? $vehicle->o2_test_date ?? "" }}"
+                       value="{{ old('o2_test_date') ??  $vehicle->milestone('o2_test') ?? "" }}"
                        id="o2_test_date"
                        class="form-control">
             </div>

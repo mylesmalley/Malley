@@ -30,10 +30,11 @@ class FormWrapper extends Component
 
 
 
+
     /**
      * listens for changes to the configuration and reloads it when needed and on first load
      */
-    public function refreshConfiguration()
+    public function refreshConfiguration( array $event_payload = [] )
     {
         $this->configuration = Configuration::where('blueprint_id', '=', $this->blueprint->id )
             ->where('obsolete', '=', false)
@@ -42,7 +43,18 @@ class FormWrapper extends Component
             ->keyBy('option_id')
             ->toArray();
 
-     //   Log::info("Refreshed configuration");
+        if ( array_key_exists('element-id', $event_payload))
+        {
+            Log::info("has options to be emitted --- ". serialize($event_payload['element-id']));
+
+            foreach( $event_payload['element-id'] as $el_id )
+            {
+                $this->emit("update-element-$el_id");
+                Log::info("emitted  --- update-element-$el_id");
+            }
+        }
+
+        Log::info("Refreshed configuration"  .serialize($event_payload) );
     }
 
     /**

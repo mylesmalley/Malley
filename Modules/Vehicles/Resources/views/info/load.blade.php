@@ -14,7 +14,7 @@
             <div class="input-group">
                 <input type="date"
                        name="load_test_date"
-                       value="{{ old('load_test_date') ?? $vehicle->load_test_date ?? "" }}"
+                       value="{{ old('load_test_date') ??  $vehicle->milestone('load_test') ?? "" }}"
                        id="load_test_date"
                        class="form-control">
             </div>

@@ -21,9 +21,21 @@ class Selection extends Component
     public Collection $items;
     public array $configuration;
 
-    public $listeners = [
-        'update-configuration' => 'updatedConfiguration'
-    ];
+
+    protected function getListeners(): array
+    {
+        return [
+            "update-element-{$this->element->id}" => "test",
+        ];
+    }
+
+
+    public function test()
+    {
+        Log::info("{$this->element->id} was updated");
+    }
+
+
 
     public function mount( FormElement $element, array $configuration )
     {
@@ -75,8 +87,9 @@ class Selection extends Component
 
         // update the form view to show the one we want selected to bring it in line with the database.
         $this->configuration[$configuration->option_id]['value'] = 1;
+     //   Log::info("Clicked on ".$configuration->id);
 
-        $this->emit("update-configuration", $configuration->name );
+        $this->emitUp('update-form', ['element-id'=>[$this->element->id]]);
 //
 //        $this->emit('update-form');
 //        $this->emit('update-images');

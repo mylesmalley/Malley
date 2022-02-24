@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use JetBrains\PhpStorm\ArrayShape;
 use Livewire\Component;
 use Modules\Blueprint\Http\Livewire\Form\Traits\HasOptionRules;
 
@@ -22,11 +23,23 @@ class Checklist extends Component
     public array $configuration;
 
 
-    public $listeners = [
-        'update-configuration' => 'updatedConfiguration'
-    ];
+//    public $listeners = [
+//        'update-configuration' => 'updatedConfiguration'
+//    ];
 
 
+    protected function getListeners(): array
+    {
+        return [
+            "update-element-{$this->element->id}" => "test",
+        ];
+    }
+
+
+    public function test()
+    {
+        Log::info("{$this->element->id} was updated");
+    }
 
 
 
@@ -53,10 +66,11 @@ class Checklist extends Component
         ]);
 
         $this->configuration[ $configuration->option_id ]['value'] = ! $this->configuration[ $configuration->option_id ]['value'] ;
-//        Log::info("Clicked on ".$configuration->id);
 //
 //        $this->emit('update-form');
-//        $this->emit('update-images');
+        //Log::info("Clicked on ".$configuration->id);
+
+        $this->emitUp('update-form', ['element-id'=>[$this->element->id]]);
     }
 
 

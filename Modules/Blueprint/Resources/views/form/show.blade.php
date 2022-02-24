@@ -9,15 +9,50 @@
 @section('content')
     <div class="row">
         <div class="col-12 text-center">
-            <h1> {{ $form->name }} </h1>
+            <h1> {{ $form->name }}  test</h1>
             <h3 class="text-secondary">{{ $blueprint->name ?? 'Van' }}</h3>
         </div>
     </div>
 
-    @livewire("blueprint::form.form-wrapper", [$blueprint, $form], key('form-wrapper'.$form->id) )
+{{--    @livewire("blueprint::form.form-wrapper", [$blueprint, $form], key('form-wrapper'.$form->id) )--}}
+{{--{{ dd($form->elements) }}--}}
+
+    @foreach( $form->elements as $el)
+        el <br>
+        @php
+            $element_options = $el->items->pluck('option_id')->toArray();
+            $configurations =  array_intersect_key( $configuration, array_flip( $element_options ));
+        @endphp
+        {{--           @if ($element->type === 'images')--}}
+        {{--               @include("blueprint::form.components.images", [ 'blueprint' => $blueprint,--}}
+        {{--                                                    'element' => $element,--}}
+        {{--                                                    'media' => $element->itemMedia()  ]  )--}}
+        {{--            {{ dd( $el) }}--}}
+        {{--            {{ dd( $el->items ) }}--}}
+        {{--           @endif--}}
+
+        @if ($el->type === 'checklist')
+            {{--            @livewire("blueprint::form.checklist", [  $el,array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)  )--}}
+            <livewire:blueprint::form.checklist
+                    :element="$el"
+                    :configuration="$configurations"
+                    wire:key="{{ $el->id }}" />
+
+            {{--            @livewire("blueprint::form.checklist", [  $el,  $configuration  ], key('element-'.$el->id)  )--}}
 
 
-
+        @endif
+        @if ($el->type === 'selection')
+            {{--               {{ dd($configuration, $element_options) }}--}}
+            {{--            @livewire("blueprint::form.selection", [ $el,  array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)   )--}}
+            <livewire:blueprint::form.checklist
+                    :element="$el"
+                    :configuration="$configurations"
+                    wire:key="element-{$el->id}" />
+            {{--            @livewire("blueprint::form.selection", [  $el,  $configuration   ], key('element-'.$el->id)  )--}}
+        @endif
+        <br>
+    @endforeach
 
 
 {{--               @livewire("blueprint::form.active-drawings", [ $blueprint  ]  )--}}

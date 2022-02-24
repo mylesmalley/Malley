@@ -5,26 +5,8 @@
             <div class="card-header text-white bg-secondary">
                 <h4 class="">{{ $element->label }} - Pick One</h4>
                 {{ $show ? "show" : "hide" }}<br>
-                <table>
-                    <tr>
-                        <td>
-                            Active optiosn on blueprint <br>
-                            @foreach( $active_configuration_options as $c)
-                                {{ $c }} <br>
-                            @endforeach
+                {{ $this->element->id }}
 
-
-
-                        </td>
-                        <td>
-                            Rules <br>
-                            @foreach( $options_from_rules as $c)
-                                {{ $c }} <br>
-                            @endforeach
-
-                        </td>
-                    </tr>
-                </table>
             </div>
             <div class="card-body">
 
