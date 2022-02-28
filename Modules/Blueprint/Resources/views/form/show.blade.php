@@ -18,7 +18,6 @@
 {{--{{ dd($form->elements) }}--}}
 
     @foreach( $form->elements as $el)
-        el <br>
         @php
             $element_options = $el->items->pluck('option_id')->toArray();
             $configurations =  array_intersect_key( $configuration, array_flip( $element_options ));
@@ -31,17 +30,17 @@
         {{--            {{ dd( $el->items ) }}--}}
         {{--           @endif--}}
 
-        @if ($el->type === 'checklist')
-            {{--            @livewire("blueprint::form.checklist", [  $el,array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)  )--}}
-            <livewire:blueprint::form.checklist
-                    :element="$el"
-                    :configuration="$configurations"
-                    wire:key="{{ $el->id }}" />
+{{--        @if ($el->type === 'checklist')--}}
+{{--            --}}{{--            @livewire("blueprint::form.checklist", [  $el,array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)  )--}}
+{{--            <livewire:blueprint::form.checklist--}}
+{{--                    :element="$el"--}}
+{{--                    :configuration="$configurations"--}}
+{{--                    wire:key="{{ $el->id }}" />--}}
 
-            {{--            @livewire("blueprint::form.checklist", [  $el,  $configuration  ], key('element-'.$el->id)  )--}}
+{{--            --}}{{--            @livewire("blueprint::form.checklist", [  $el,  $configuration  ], key('element-'.$el->id)  )--}}
 
 
-        @endif
+{{--        @endif--}}
         @if ($el->type === 'selection')
             {{--               {{ dd($configuration, $element_options) }}--}}
             {{--            @livewire("blueprint::form.selection", [ $el,  array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)   )--}}
