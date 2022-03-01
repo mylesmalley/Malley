@@ -27,58 +27,66 @@
         let form_container = document.getElementById('form_container');
 
 
-        let build_form = new Promise(( resolve ) =>
+        function build_form()
         {
-            elements.forEach(function( element ){
+            return new Promise(( resolve ) =>
+            {
+                elements.forEach(function( element ){
 
-                switch (element.type ){
+                    switch (element.type ){
 
-                    case "selection":
-                        form_container.appendChild( create_checkbox_element( element ) );
-                        break;
-                    case "checklist":
+                        case "selection":
+                            form_container.appendChild( create_checkbox_element( element ) );
+                            break;
+                        case "checklist":
 
-                        break;
-                    case "images":
+                            break;
+                        case "images":
 
-                        break;
-                    default:
+                            break;
+                        default:
 
-                        break;
-                }
+                            break;
+                    }
+                });
+                resolve("Success!");  // Yay! Everything went well!
             });
-            resolve("Success!");  // Yay! Everything went well!
-        });
+        }
 
 
-        let refresh_selected_options = new Promise((resolve) => {
+        function refresh_selected_options()
+        {
+            return new Promise((resolve) => {
 
-           for (let cfg in configuration)
-           {
-               let matching_element = document.getElementById( `option_${cfg}` );
+                for (let cfg in configuration)
+                {
+                    let matching_element = document.getElementById( `option_${cfg}` );
 
-               // highlight selected options
-               if ( configuration[cfg]['value'] === "1" && matching_element )
-               {
-                   matching_element.classList.add('list-group-item-success');
-               }
+                    // highlight selected options
+                    if ( configuration[cfg]['value'] === "1" && matching_element )
+                    {
+                        matching_element.classList.add('list-group-item-success');
+                    }
 
-               // remove any options that should not be selected
-               if ( configuration[cfg]['value'] === "0" && matching_element )
-               {
-                   matching_element.classList.remove('list-group-item-success');
-               }
-           }
+                    // remove any options that should not be selected
+                    if ( configuration[cfg]['value'] === "0" && matching_element )
+                    {
+                        matching_element.classList.remove('list-group-item-success');
+                    }
+                }
 
-            resolve("Success!");  // Yay! Everything went well!
-        });
+                resolve("Success!");  // Yay! Everything went well!
+            });
+        }
 
 
-        build_form
-            .then( () => refresh_selected_options )
+
+
+        build_form()
+            .then( () => refresh_selected_options() )
             .then( () => {
                 console.log("finished building teh form and updating it");
-            })
+            });
 
 
 
@@ -110,7 +118,10 @@
                     opt.innerHTML = `${item.option.option_description}`;
 
                     // handle click events and pass data to the handling functions.
-                    opt.addEventListener('click', () => toggle( blueprint_id,  element_option_ids, [ item.option.id ] ) );
+                    opt.addEventListener('click', function(){
+                        toggle( blueprint_id,  element_option_ids, [ item.option.id ] )
+                           .then( refresh_selected_options );
+                    });
 
                 option_list.appendChild( opt );
             });
@@ -128,28 +139,45 @@
         }
 
 
-
-
+        /**
+         * accepts a blueprint and affected options and returns a promise that the changes have actually been posted.
+         *
+         * @param blueprint_id
+         * @param options_to_turn_off
+         * @param options_to_turn_on
+         * @returns {Promise<unknown>}
+         */
         function toggle(blueprint_id, options_to_turn_off, options_to_turn_on )
         {
-            console.log('toggled',);
+            return new Promise( (resolve, reject) => {
+                // update the database
+                let xhr = new XMLHttpRequest();
 
-            // update the database
-            console.log(blueprint_id, options_to_turn_off, options_to_turn_on );
+                xhr.open("POST", "{{ route('blueprint.form.toggle', [$blueprint]) }}" );
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    "_token": "{{ csrf_token() }}",
+                    blueprint_id,
+                    options_to_turn_off,
+                    options_to_turn_on,
+                }));
 
-            let xhr = new XMLHttpRequest();
+                xhr.error = function(){
+                    reject("failed to update blueprint database");
+                }
 
-            xhr.open("POST", "{{ route('blueprint.form.toggle', [$blueprint]) }}" );
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                "_token": "{{ csrf_token() }}",
-                blueprint_id,
-                options_to_turn_off,
-                options_to_turn_on,
-            }));
+                // update the local store
+                options_to_turn_off.forEach(function(el){
+                    configuration[el]['value'] = "0";
+                });
 
+                options_to_turn_on.forEach(function(el){
+                    configuration[el]['value'] = "1";
+                });
 
-            // update the local store
+                resolve('success');
+            });
+
         }
 
     </script>
