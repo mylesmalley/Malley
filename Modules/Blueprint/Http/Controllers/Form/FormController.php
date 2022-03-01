@@ -19,31 +19,53 @@ class FormController extends Controller
      */
     public function show( Blueprint $blueprint,  Form $form ): Response
     {
-        return response()
-            ->view('blueprint::form.show', [
-            'blueprint'=>$blueprint,
-            'elements' => $form->load(['elements', 'elements.rule', 'elements.items']),
-            'configuration' => Configuration::where('blueprint_id', '=', $blueprint->id )
-                ->where('obsolete', '=', false)
-                ->select(['id', 'value', 'name', 'option_id','description'])
-                ->get()
-                ->keyBy('option_id')
-                ->toArray(),
-            'form' => $form, //->load([
-//
+
+         $form_data = $form
+            ->load([
+                'elements',
 //                'elements' => function ($query) {
 //                    $query->orderBy('position', 'asc');
 //                },
 //                'elements.items' => function ($query) {
 //                    $query->orderBy('position', 'asc');
 //                },
+                'elements.rule',
+                'elements.items.option' => function( $query) {
+                    $query->select('id','option_name', 'option_description');
+                },
+           //     'elements.items.option.media',
+                'elements.items.media' => function( $query ) {
+                    $query->select('model_id', 'id','disk');
+                },//
+            ])->toJson();
+
+
+        return response()
+            ->view('blueprint::form.show', [
+            'blueprint'=>$blueprint,
+//            'elements' => $form->load(['elements', 'elements.rule', 'elements.items']),
+//            'configuration' => Configuration::where('blueprint_id', '=', $blueprint->id )
+//                ->where('obsolete', '=', false)
+//                ->select(['id', 'value', 'name', 'option_id','description'])
+//                ->get()
+//                ->keyBy('option_id')
+//                ->toArray(),
+            'form' => $form,
+            'form_data' => $form_data,
+//
+//            ->load([
+//                'elements',
+////                'elements' => function ($query) {
+////                    $query->orderBy('position', 'asc');
+////                },
+////                'elements.items' => function ($query) {
+////                    $query->orderBy('position', 'asc');
+////                },
 //                'elements.rule',
 //                'elements.items.option',
 //                'elements.items.option.media',
-//                'elements.items.media',
-//                'elements.rule',
-//
-//            ]),
+//                'elements.items.media',//
+//           ]),
         ]);
     }
 
