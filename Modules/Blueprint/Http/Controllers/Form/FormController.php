@@ -7,6 +7,7 @@ use App\Models\Configuration;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use App\Models\Form;
 
 class FormController extends Controller
@@ -84,6 +85,11 @@ class FormController extends Controller
         return redirect()->route('blueprint.home', [ $blueprint ])
             ->with('message','Saved changes to form');
 
+    }
+
+    public function toggle( Request $request )
+    {
+        dd( $request );
     }
 
 

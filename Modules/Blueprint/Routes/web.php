@@ -52,12 +52,15 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 /**
                  * Forms
                  */
+
                 Route::get('form/{form}', [FormController::class, 'show'])
                     ->name('blueprint.form');
 
                 Route::post('form', [FormController::class, 'submit'])
                     ->name('blueprint.form.submit');
 
+                Route::post('form/toggle', [FormController::class, 'toggle'])
+                    ->name('blueprint.form.toggle');
 
 
 

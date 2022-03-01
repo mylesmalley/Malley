@@ -137,6 +137,18 @@
             // update the database
             console.log(blueprint_id, options_to_turn_off, options_to_turn_on );
 
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "{{ route('blueprint.form.toggle', [$blueprint]) }}" );
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                "_token": "{{ csrf_token() }}",
+                blueprint_id,
+                options_to_turn_off,
+                options_to_turn_on,
+            }));
+
+
             // update the local store
         }
 
