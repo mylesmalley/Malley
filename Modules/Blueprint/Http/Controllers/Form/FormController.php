@@ -56,7 +56,7 @@ class FormController extends Controller
             'form' => $form,
             'form_data' => $form_data,
             'configuration' => Configuration::where('blueprint_id','=',$blueprint->id)
-                ->select('id', 'value', 'option_id')
+                ->select('id', 'value', 'option_id','name')
                 ->get()
                 ->keyBy('option_id')
                 ->toJson(),

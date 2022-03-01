@@ -83,11 +83,24 @@
 
 
         build_form()
-            .then( () => refresh_selected_options() )
-            .then( () => {
-                console.log("finished building teh form and updating it");
-            });
+            .then( refresh_selected_options )
+            .then( update_form_element_visibility );
 
+
+
+        function update_form_element_visibility()
+        {
+            return new Promise((resolve) => {
+                let elements = document.getElementsByClassName('form-element-question');
+
+                for (let i = 0; i < elements.length; i++)
+                {
+                   console.log( elements[i].dataset.rules );
+                }
+
+                resolve( "updated visibility" );
+            })
+        }
 
 
 
@@ -95,13 +108,20 @@
         {
             let element_option_ids = [];
 
+            let element_rule_option_names = ( form_element.rule )
+                ? form_element.rule.options
+                : [];
+
             // build the wrapper
             let container = document.createElement('div');
-                container.classList.add('card','border-secondary', 'col-8','offset-2');
+                container.classList.add('card','border-secondary', 'col-8','offset-2', 'form-element-question' );
+
+                // add the array of rules to keep an eye out on
+                container.dataset.rules = element_rule_option_names;
 
             // build the header row
             let header_div = document.createElement('div');
-                header_div.classList.add('card-header','bg-secondary','text-white');
+                header_div.classList.add('card-header','bg-secondary','text-white' );
                 header_div.innerHTML = `<h4>Select One: ${form_element.label}</h4>`
 
             // build the body list container
@@ -140,7 +160,8 @@
 
 
         /**
-         * accepts a blueprint and affected options and returns a promise that the changes have actually been posted.
+         * accepts a blueprint and affected options and returns
+         * a promise that the changes have actually been posted.
          *
          * @param blueprint_id
          * @param options_to_turn_off
