@@ -4,6 +4,8 @@ namespace Modules\Blueprint\Http\Controllers\Form;
 
 use App\Models\Blueprint;
 use App\Models\Configuration;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Response;
@@ -87,9 +89,32 @@ class FormController extends Controller
 
     }
 
-    public function toggle( Request $request )
+    /**
+     * @param Request $request
+     * @param Blueprint $blueprint
+     * @return Response|
+     */
+    public function toggle( Request $request, Blueprint $blueprint ): Response
     {
-        dd( $request );
+        $request->validate([
+            'blueprint_id' => 'required|integer',
+            'options_to_turn_on' => 'required|array',
+            'options_to_turn_off' => 'required|array',
+        ]);
+
+        Configuration::where('blueprint_id', '=', $blueprint->id)
+            ->whereIn('option_id', $request->input('options_to_turn_off'))
+            ->update([
+                "value" => false,
+            ]);
+
+        Configuration::where('blueprint_id', '=', $blueprint->id)
+            ->whereIn('option_id', $request->input('options_to_turn_on'))
+            ->update([
+                "value" => true,
+            ]);
+
+        return response("Ok", 200);
     }
 
 
