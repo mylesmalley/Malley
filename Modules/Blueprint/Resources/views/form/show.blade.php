@@ -19,13 +19,29 @@
 
     <script>
         let form_data = {!! $form_data !!};
+
         let configuration = {!! $configuration !!};
+        let active_option_names_for_rules = [];
+
+
         let elements = form_data["elements"];
-
         let blueprint_id = {{ $blueprint->id }};
-
         let form_container = document.getElementById('form_container');
 
+
+        function get_option_names_for_rule_comparison()
+        {
+            return new Promise((resolve) => {
+                for (let cfg in configuration)
+                {
+                    if ( configuration[cfg]['value'] === "1")
+                    {
+                        active_option_names_for_rules.push(configuration[cfg]["name"]);
+                    }
+                }
+                resolve('filtered the rules out');
+            });
+        }
 
         function build_form()
         {
@@ -81,8 +97,8 @@
 
 
 
-
-        build_form()
+        get_option_names_for_rule_comparison()
+            .then( build_form )
             .then( refresh_selected_options )
             .then( update_form_element_visibility );
 
@@ -93,9 +109,25 @@
             return new Promise((resolve) => {
                 let elements = document.getElementsByClassName('form-element-question');
 
+                // loop through each form element
                 for (let i = 0; i < elements.length; i++)
                 {
-                   console.log( elements[i].dataset.rules );
+                    // convert the rules into an array
+                    let element_rules = JSON.parse( elements[i].dataset.rules );
+
+                    // if the element has rules
+                    if ( element_rules.length )
+                    {
+                        // compare the intersection of the element's rules to the active option names on the blueprint
+                        let intersection = element_rules.filter(x => active_option_names_for_rules.includes(x));
+
+                        // if there is no overlap, flag
+                        if ( !intersection.length )
+                        {
+                            elements[i].classList.add('border-danger');
+                        }
+                    }
+
                 }
 
                 resolve( "updated visibility" );
