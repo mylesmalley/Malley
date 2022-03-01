@@ -59,9 +59,11 @@ use Modules\Blueprint\Http\Controllers\Blueprint\QuoteController;
                 Route::post('form', [FormController::class, 'submit'])
                     ->name('blueprint.form.submit');
 
-                Route::post('form/toggle', [FormController::class, 'toggle'])
-                    ->name('blueprint.form.toggle');
+                Route::post('form/toggle_selection', [FormController::class, 'toggle_selection'])
+                    ->name('blueprint.form.toggle_selection');
 
+                Route::post('form/toggle_checkbox', [FormController::class, 'toggle_checkbox'])
+                    ->name('blueprint.form.toggle_checkbox');
 
 
 

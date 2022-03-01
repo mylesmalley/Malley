@@ -4,13 +4,13 @@ namespace Modules\Blueprint\Http\Controllers\Form;
 
 use App\Models\Blueprint;
 use App\Models\Configuration;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
+use Error;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\Form;
+use Illuminate\Support\Facades\Log;
 
 class FormController extends Controller
 {
@@ -94,12 +94,12 @@ class FormController extends Controller
      * @param Blueprint $blueprint
      * @return Response|
      */
-    public function toggle( Request $request, Blueprint $blueprint ): Response
+    public function toggle_selection( Request $request, Blueprint $blueprint ): Response
     {
         $request->validate([
             'blueprint_id' => 'required|integer',
-            'options_to_turn_on' => 'required|array',
-            'options_to_turn_off' => 'required|array',
+            'options_to_turn_on' => 'sometimes|array',
+            'options_to_turn_off' => 'sometimes|array',
         ]);
 
         Configuration::where('blueprint_id', '=', $blueprint->id)
@@ -113,6 +113,36 @@ class FormController extends Controller
             ->update([
                 "value" => true,
             ]);
+
+
+
+        return response("Ok", 200);
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Blueprint $blueprint
+     * @return Response|
+     */
+    public function toggle_checkbox( Request $request, Blueprint $blueprint ): Response
+    {
+        $request->validate([
+            'blueprint_id' => 'required|integer',
+            'option_id' => 'required|integer',
+        ]);
+
+        try {
+            $config = Configuration::where('blueprint_id', '=', $blueprint->id)
+                ->where('option_id', $request->input('option_id'))
+                ->firstOrFail();
+            $config->value = !$config->value;
+            $config->save();
+        }
+        catch ( Error $e )
+        {
+            Log::error("Couldn't find a matching configuration element when toggling", $e->getMessage());
+        }
 
         return response("Ok", 200);
     }

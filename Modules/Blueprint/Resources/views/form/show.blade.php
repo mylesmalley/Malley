@@ -29,6 +29,7 @@
         let form_container = document.getElementById('form_container');
 
 
+        // loops through the configuration and pulls out the names of active options
         function get_option_names_for_rule_comparison()
         {
             return new Promise((resolve) => {
@@ -52,10 +53,10 @@
                     switch (element.type ){
 
                         case "selection":
-                            form_container.appendChild( create_checkbox_element( element ) );
+                            form_container.appendChild( create_form_element( element ) );
                             break;
                         case "checklist":
-
+                            form_container.appendChild( create_form_element( element ) );
                             break;
                         case "images":
 
@@ -97,13 +98,10 @@
 
 
 
-        get_option_names_for_rule_comparison()
-            .then( build_form )
-            .then( refresh_selected_options )
-            .then( update_form_element_visibility );
-
-
-
+        /**
+         * loops through the form elements and hides or shows
+         * them based on the array of affected options and rules
+         */
         function update_form_element_visibility()
         {
             return new Promise((resolve) => {
@@ -135,16 +133,18 @@
                             elements[i].classList.remove('d-none');
                         }
                     }
-
                 }
 
                 resolve( "updated visibility" );
-            })
+            });
         }
 
 
 
-        function create_checkbox_element( form_element )
+        /**
+         * Builds the DOM for a form element
+         */
+        function create_form_element( form_element )
         {
             let element_option_ids = [];
 
@@ -154,7 +154,12 @@
 
             // build the wrapper
             let container = document.createElement('div');
-                container.classList.add('card','border-secondary', 'col-8','offset-2', 'form-element-question' );
+                container.classList.add(
+                    'card','border-secondary',
+                    'col-8','offset-2',
+                    'form-element-question', // used by the rules checker
+                    'mb-2' // bootstrap helper class that adds margin below the element
+                );
 
                 // add the array of rules to keep an eye out on
                 container.dataset.rules =  element_rule_option_names ;
@@ -162,7 +167,15 @@
             // build the header row
             let header_div = document.createElement('div');
                 header_div.classList.add('card-header','bg-secondary','text-white' );
-                header_div.innerHTML = `<h4>Select One: ${form_element.label}</h4>`
+
+                if (form_element.type === "selection")
+                {
+                    header_div.innerHTML = `<h4>Select One: ${form_element.label}</h4>`
+                }
+                else
+                {
+                    header_div.innerHTML = `<h4>${form_element.label}</h4>`
+                }
 
             // build the body list container
             let option_list = document.createElement('ul');
@@ -179,13 +192,22 @@
 
                     // handle click events and pass data to the handling functions.
                     opt.addEventListener('click', function(){
-                        toggle( blueprint_id,  element_option_ids, [ item.option.id ] )
-                            .then( refresh_selected_options )
-                            .then(update_form_element_visibility).then(
-                                function() {
-                                    console.log( active_option_names_for_rules );
-                                }
-                        );
+
+                        // fire off chain of events to update the database and local form state
+                        if (form_element.type === "selection")
+                        {
+                            // selections require other options to be disabled
+                            toggle_selection( blueprint_id,  element_option_ids, [ item.option.id ] )
+                                .then( refresh_selected_options )
+                                .then( update_form_element_visibility );
+                        }
+                        else
+                        {
+                            // checkboxes can have multiples or none
+                            toggle_checkbox( blueprint_id,  item.option.id )
+                                .then( refresh_selected_options )
+                                .then( update_form_element_visibility );
+                        }
                     });
 
                 option_list.appendChild( opt );
@@ -200,7 +222,6 @@
 
 
 
-
         /**
          * accepts a blueprint and affected options and returns
          * a promise that the changes have actually been posted.
@@ -210,13 +231,13 @@
          * @param options_to_turn_on
          * @returns {Promise<unknown>}
          */
-        function toggle(blueprint_id, options_to_turn_off, options_to_turn_on )
+        function toggle_selection(blueprint_id, options_to_turn_off, options_to_turn_on )
         {
             return new Promise( (resolve, reject) => {
                 // update the database
                 let xhr = new XMLHttpRequest();
 
-                xhr.open("POST", "{{ route('blueprint.form.toggle', [$blueprint]) }}" );
+                xhr.open("POST", "{{ route('blueprint.form.toggle_selection', [$blueprint]) }}" );
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
                     "_token": "{{ csrf_token() }}",
@@ -253,6 +274,66 @@
             });
 
         }
+
+
+        /**
+         * toggles the value of a checkbox on the client and server side.
+         * @param blueprint_id
+         * @param option_id
+         * @returns {Promise<unknown>}
+         */
+        function toggle_checkbox( blueprint_id, option_id )
+        {
+            return new Promise( (resolve, reject) => {
+                // update the database
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "{{ route('blueprint.form.toggle_checkbox', [$blueprint]) }}" );
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    "_token": "{{ csrf_token() }}",
+                    blueprint_id,
+                    option_id,
+                }));
+
+                xhr.error = function(){
+                    reject("failed to update blueprint database");
+                }
+
+                let option_name = configuration[option_id]['name'];
+
+                // because why the hell not.
+                configuration[option_id]['value'] = (
+                    configuration[option_id]['value'] === "0") ? "1" : "0";
+
+                // remove active option name from array for rules handling
+                if ( configuration[option_id]['value'] === "1" ) {
+                    let index = active_option_names_for_rules.indexOf(option_name);
+                    if (index !== -1) {
+                        active_option_names_for_rules.splice(index, 1);
+                    }
+                }
+
+                // add reference to the array of active options for rule handling
+                if ( configuration[option_id]['value'] === "0" ) {
+                    active_option_names_for_rules.push( option_name );
+                }
+
+                resolve('success');
+            });
+        }
+
+
+
+        // first run through on page load
+        get_option_names_for_rule_comparison()
+            // create the elements required
+            .then( build_form )
+            // updates the local state of the form to reflect the database
+            .then( refresh_selected_options )
+            // hides elements that don't pass rules.
+            .then( update_form_element_visibility );
+
 
     </script>
 
