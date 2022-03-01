@@ -115,6 +115,9 @@
                     // convert the rules into an array
                     let element_rules = JSON.parse( elements[i].dataset.rules );
 
+                    // force the element to be visible first...
+                    elements[i].classList.remove('d-none');
+
                     // if the element has rules
                     if ( element_rules.length )
                     {
@@ -124,7 +127,12 @@
                         // if there is no overlap, flag
                         if ( !intersection.length )
                         {
-                            elements[i].classList.add('border-danger');
+                            elements[i].classList.add('d-none');
+                        }
+                        else
+                        {
+                            // if there is overlap, show it.
+                            elements[i].classList.remove('d-none');
                         }
                     }
 
@@ -142,14 +150,14 @@
 
             let element_rule_option_names = ( form_element.rule )
                 ? form_element.rule.options
-                : [];
+                : "[]";
 
             // build the wrapper
             let container = document.createElement('div');
                 container.classList.add('card','border-secondary', 'col-8','offset-2', 'form-element-question' );
 
                 // add the array of rules to keep an eye out on
-                container.dataset.rules = element_rule_option_names;
+                container.dataset.rules =  element_rule_option_names ;
 
             // build the header row
             let header_div = document.createElement('div');
@@ -172,7 +180,12 @@
                     // handle click events and pass data to the handling functions.
                     opt.addEventListener('click', function(){
                         toggle( blueprint_id,  element_option_ids, [ item.option.id ] )
-                           .then( refresh_selected_options );
+                            .then( refresh_selected_options )
+                            .then(update_form_element_visibility).then(
+                                function() {
+                                    console.log( active_option_names_for_rules );
+                                }
+                        );
                     });
 
                 option_list.appendChild( opt );
@@ -185,10 +198,7 @@
             return container;
         }
 
-        function create_selection_element( form_element )
-        {
 
-        }
 
 
         /**
@@ -222,10 +232,21 @@
                 // update the local store
                 options_to_turn_off.forEach(function(el){
                     configuration[el]['value'] = "0";
+
+                    // remove the rule names from the active options array
+                    let option_name = configuration[el]['name'];
+                    let index = active_option_names_for_rules.indexOf(option_name);
+                    if (index !== -1) {
+                        active_option_names_for_rules.splice(index, 1);
+                    }
                 });
 
                 options_to_turn_on.forEach(function(el){
                     configuration[el]['value'] = "1";
+
+                    // add the names to the rule array
+                    let option_name = configuration[el]['name'];
+                    active_option_names_for_rules.push( option_name );
                 });
 
                 resolve('success');
