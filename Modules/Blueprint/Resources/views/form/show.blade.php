@@ -19,30 +19,67 @@
 
     <script>
         let form_data = {!! $form_data !!};
+        let configuration = {!! $configuration !!};
         let elements = form_data["elements"];
+
+        let blueprint_id = {{ $blueprint->id }};
 
         let form_container = document.getElementById('form_container');
 
 
+        let build_form = new Promise(( resolve ) =>
+        {
+            elements.forEach(function( element ){
 
-        elements.forEach(function( element ){
+                switch (element.type ){
 
-            switch (element.type ){
+                    case "selection":
+                        form_container.appendChild( create_checkbox_element( element ) );
+                        break;
+                    case "checklist":
 
-                case "selection":
-                    form_container.appendChild( create_checkbox_element( element ) );
-                    break;
-                case "checklist":
+                        break;
+                    case "images":
 
-                    break;
-                case "images":
+                        break;
+                    default:
 
-                    break;
-                default:
-
-                    break;
-            }
+                        break;
+                }
+            });
+            resolve("Success!");  // Yay! Everything went well!
         });
+
+
+        let refresh_selected_options = new Promise((resolve) => {
+
+           for (let cfg in configuration)
+           {
+               let matching_element = document.getElementById( `option_${cfg}` );
+
+               // highlight selected options
+               if ( configuration[cfg]['value'] === "1" && matching_element )
+               {
+                   matching_element.classList.add('list-group-item-success');
+               }
+
+               // remove any options that should not be selected
+               if ( configuration[cfg]['value'] === "0" && matching_element )
+               {
+                   matching_element.classList.remove('list-group-item-success');
+               }
+           }
+
+            resolve("Success!");  // Yay! Everything went well!
+        });
+
+
+        build_form
+            .then( () => refresh_selected_options )
+            .then( () => {
+                console.log("finished building teh form and updating it");
+            })
+
 
 
 
@@ -68,11 +105,12 @@
                 element_option_ids.push( item.option.id );
 
                 let opt = document.createElement('li');
+                    opt.setAttribute('id', `option_${item.option.id}`);
                     opt.classList.add('list-group-item', 'list-group-item-action');
                     opt.innerHTML = `${item.option.option_description}`;
 
                     // handle click events and pass data to the handling functions.
-                    opt.addEventListener('click', el => toggle( el, element_option_ids ) );
+                    opt.addEventListener('click', () => toggle( blueprint_id,  element_option_ids, [ item.option.id ] ) );
 
                 option_list.appendChild( opt );
             });
@@ -90,11 +128,16 @@
         }
 
 
-        function toggle( el, element_option_ids )
+
+
+        function toggle(blueprint_id, options_to_turn_off, options_to_turn_on )
         {
             console.log('toggled',);
-            console.log(el);
-            console.log(element_option_ids);
+
+            // update the database
+            console.log(blueprint_id, options_to_turn_off, options_to_turn_on );
+
+            // update the local store
         }
 
     </script>
@@ -183,7 +226,6 @@
                 },
             }) .then(response => response.json())
                 .then( function(data) {
-              //      console.log( data );
 
                     // loop through the window's stages and turn off all their children elements.
                     for (let i = 0; i < stage_ids.length; i++)
@@ -193,8 +235,6 @@
                             el.hide();
                         });
                     }
-
-
 
                     // turn on the images required
                     data.forEach( function( el ){
@@ -210,13 +250,13 @@
 
 
 
-        Livewire.on('update-images', function(){
-            update_drawings();
-
-        });
-
-        window.addEventListener('load', function() {
-            update_drawings();
-        })
+        // Livewire.on('update-images', function(){
+        //     update_drawings();
+        //
+        // });
+        //
+        // window.addEventListener('load', function() {
+        //     update_drawings();
+        // })
     </script>
     @endpush

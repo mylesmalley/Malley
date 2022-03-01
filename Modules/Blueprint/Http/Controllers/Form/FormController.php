@@ -52,6 +52,11 @@ class FormController extends Controller
 //                ->toArray(),
             'form' => $form,
             'form_data' => $form_data,
+            'configuration' => Configuration::where('blueprint_id','=',$blueprint->id)
+                ->select('id', 'value', 'option_id')
+                ->get()
+                ->keyBy('option_id')
+                ->toJson(),
 //
 //            ->load([
 //                'elements',
