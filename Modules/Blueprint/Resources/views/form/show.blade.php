@@ -2,7 +2,7 @@
 
 @push('scripts')
     <script src="{{ mix('js/blueprint/floor_layout.js')  }}"></script>
-
+    <script src="https://unpkg.com/konva@8/konva.min.js"></script>
 {{--    <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>--}}
 @endpush
 
@@ -59,7 +59,7 @@
                             form_container.appendChild( create_form_element( element ) );
                             break;
                         case "images":
-
+                            form_container.appendChild( create_image_block( element ) );
                             break;
                         default:
 
@@ -139,6 +139,29 @@
             });
         }
 
+
+
+        function create_image_block( form_element )
+        {
+            let container = document.createElement('div');
+                container.classList.add(
+                    'card','border-light','bg-light',
+                    'col-8','offset-2',
+                    'form-image-block', // used by the rules checker
+                    'mb-2' // bootstrap helper class that adds margin below the element
+                );
+
+            let body = document.createElement('div');
+                body.classList.add(
+                    'card-body',
+                    'bg-light'
+                );
+                body.innerHTML = 'hello world';
+
+            container.appendChild( body );
+
+            return container;
+        }
 
 
         /**
