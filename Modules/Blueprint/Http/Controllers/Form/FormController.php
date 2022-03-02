@@ -37,9 +37,10 @@ class FormController extends Controller
                     $query->select('id','option_name', 'option_description');
                 },
            //     'elements.items.option.media',
-                'elements.items.media' => function( $query ) {
-                    $query->select('model_id', 'id','disk');
-                },//
+                'elements.items.media'
+//                => function( $query ) {
+//                    $query->select('model_id', 'id','disk');
+//                },//
             ])->toJson();
 
 

@@ -1,7 +1,6 @@
 @extends('blueprint::layouts.master')
 
-@push('scripts')
-    <script src="{{ mix('js/blueprint/floor_layout.js')  }}"></script>
+@push('header_scripts')
     <script src="https://unpkg.com/konva@8/konva.min.js"></script>
 {{--    <script src="{{ mix('js/blueprint/floor_layout.js') }}"></script>--}}
 @endpush
@@ -59,7 +58,8 @@
                             form_container.appendChild( create_form_element( element ) );
                             break;
                         case "images":
-                            form_container.appendChild( create_image_block( element ) );
+                            create_image_block( element )
+                                .then( instantiate_konva_canvas );
                             break;
                         default:
 
@@ -143,24 +143,58 @@
 
         function create_image_block( form_element )
         {
-            let container = document.createElement('div');
-                container.classList.add(
-                    'card','border-light','bg-light',
-                    'col-8','offset-2',
-                    'form-image-block', // used by the rules checker
-                    'mb-2' // bootstrap helper class that adds margin below the element
-                );
 
-            let body = document.createElement('div');
-                body.classList.add(
-                    'card-body',
-                    'bg-light'
-                );
-                body.innerHTML = 'hello world';
+            return new Promise( (resolve) => {
 
-            container.appendChild( body );
+                let container = document.createElement('div');
+                    container.classList.add(
+                        'card','border-light','bg-light',
+                        'col-8','offset-2',
+                        'form-image-block', // used by the rules checker
+                        'mb-2' // bootstrap helper class that adds margin below the element
+                    );
 
-            return container;
+                let image_block_id = `image_${form_element.id}`;
+
+                let body = document.createElement('div');
+                    body.classList.add(
+                        'card-body',
+                        'bg-light'
+                    );
+                    body.innerHTML = 'hello world';
+                    body.setAttribute('id', image_block_id )
+
+
+                form_container.appendChild( body );
+
+                resolve( [ image_block_id, form_element  ]);
+
+            });
+
+        }
+
+
+        /**
+         */
+        function instantiate_konva_canvas( data )
+        {
+            return new Promise( (resolve) => {
+                let image_block_id = data[0];
+                let form_element = data[1];
+
+
+                let images = [];
+
+                form_element.items.forEach( function(i){
+                    images.push( i.media );
+                });
+
+                let konva = new Konva.Stage({
+                    container: image_block_id,
+                });
+
+                resolve("created canvas");
+            })
         }
 
 
