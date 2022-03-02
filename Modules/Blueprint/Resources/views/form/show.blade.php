@@ -46,6 +46,10 @@
             });
         }
 
+        /**
+         * loops through the form elements and handles them depending on their type.
+         * @returns {Promise<unknown>}
+         */
         function build_form()
         {
             return new Promise(( resolve ) =>
@@ -74,6 +78,10 @@
         }
 
 
+        /**
+         * updates the local state of the form
+         * @returns {Promise<unknown>}
+         */
         function refresh_selected_options()
         {
             return new Promise((resolve) => {
@@ -129,6 +137,9 @@
                         if ( !intersection.length )
                         {
                             elements[i].classList.add('d-none');
+
+                            // turn off options that are hidden on the form, even accidentally.
+                            toggle_selection( blueprint_id, JSON.parse( elements[i].dataset.element_option_ids ), []);
                         }
                         else
                         {
@@ -143,7 +154,11 @@
         }
 
 
-
+        /**
+         * builds the DOM for the image blocks for the form
+         * @param form_element
+         * @returns {Promise<unknown>}
+         */
         function create_image_block( form_element )
         {
 
@@ -172,19 +187,20 @@
                 form_container.appendChild( container );
 
                 resolve( image_block_id );
-
             });
 
         }
 
 
         /**
+         * once the dom has been updated with divs to hold them, this creates the konva objects to render the canvases.
          */
         function instantiate_konva_canvas( image_block_id )
         {
 
             let images = media[image_block_id];
 
+            // set the dimensions from the first element of the images from the media list
             let konva = new Konva.Stage({
                 container: image_block_id,
                 width: images[0][2],
@@ -202,6 +218,7 @@
 
                     image_objects.push( image );
 
+                    // when first loading, determines if the image should be shown or not.
                     if ( configuration[item[0]] && configuration[item[0]]["value"] === "1")
                     {
                         image.visible( true );
@@ -209,7 +226,6 @@
                     else
                     {
                         image.visible( false );
-
                     }
                     layer.add(image);
                 });
@@ -218,12 +234,13 @@
         }
 
 
-
+        // runs through the image blocks and checks if they should be visible or not
         function update_image_blocks()
         {
             image_objects.forEach( function( image ) {
 
-                if ( configuration[ image.getAttr('option_id') ] &&  configuration[ image.getAttr('option_id') ]["value"] === "1")
+                if ( configuration[ image.getAttr('option_id') ] &&
+                    configuration[ image.getAttr('option_id') ]["value"] === "1")
                 {
                     image.visible( true );
                 }
@@ -239,8 +256,10 @@
          */
         function create_form_element( form_element )
         {
+            // this gets populated as the form loads and added to the element's dataset
             let element_option_ids = [];
 
+            // array ends up being stringy json
             let element_rule_option_names = ( form_element.rule )
                 ? form_element.rule.options
                 : "[]";
@@ -311,6 +330,12 @@
             // add it all to the container and return
             container.appendChild( header_div );
             container.appendChild( option_list );
+
+
+            // set the options on the element aside in case the element is hidden. then they should all be turned off.
+            container.dataset.element_option_ids = (element_option_ids.length)
+                ? JSON.stringify( element_option_ids )
+                : "[]" ;
 
             return container;
         }
@@ -432,60 +457,6 @@
     </script>
 
 
-
-{{--    {{ dd( $form ) }}--}}
-{{--        <livewire:blueprint::form.form-state--}}
-{{--                :blueprint="$blueprint"--}}
-{{--                :form="$form"--}}
-{{--         />--}}
-
-
-{{--    <livewire:blueprint::form.form-wrapper--}}
-{{--            :blueprint="$blueprint"--}}
-{{--            :form="$form"--}}
-{{--     />--}}
-{{--    @livewire("blueprint::form.form-wrapper", [$blueprint, $form], key('form-wrapper'.$form->id) )--}}
-{{--{{ dd($form->elements) }}--}}
-
-{{--    @foreach( $form->elements as $el)--}}
-{{--        @php--}}
-{{--            $element_options = $el->items->pluck('option_id')->toArray();--}}
-{{--            $configurations =  array_intersect_key( $configuration, array_flip( $element_options ));--}}
-{{--        @endphp--}}
-{{--        --}}{{--           @if ($element->type === 'images')--}}
-{{--        --}}{{--               @include("blueprint::form.components.images", [ 'blueprint' => $blueprint,--}}
-{{--        --}}{{--                                                    'element' => $element,--}}
-{{--        --}}{{--                                                    'media' => $element->itemMedia()  ]  )--}}
-{{--        --}}{{--            {{ dd( $el) }}--}}
-{{--        --}}{{--            {{ dd( $el->items ) }}--}}
-{{--        --}}{{--           @endif--}}
-
-{{--        @if ($el->type === 'checklist')--}}
-{{--            --}}{{----}}{{--            @livewire("blueprint::form.checklist", [  $el,array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)  )--}}
-{{--            <livewire:blueprint::form.checklist--}}
-{{--                    :element="$el"--}}
-{{--                    :configuration="$configurations"--}}
-{{--                    wire:key="{{ $el->id }}" />--}}
-
-{{--            --}}{{----}}{{--            @livewire("blueprint::form.checklist", [  $el,  $configuration  ], key('element-'.$el->id)  )--}}
-
-
-{{--        @endif--}}
-{{--        @if ($el->type === 'selection')--}}
-{{--            --}}{{--               {{ dd($configuration, $element_options) }}--}}
-{{--            --}}{{--            @livewire("blueprint::form.selection", [ $el,  array_intersect_key( $configuration, array_flip( $element_options ))  ], key('element-'.$el->id)   )--}}
-{{--            <livewire:blueprint::form.checklist--}}
-{{--                    :element="$el"--}}
-{{--                    :configuration="$configurations"--}}
-{{--                    wire:key="element-{$el->id}" />--}}
-{{--            --}}{{--            @livewire("blueprint::form.selection", [  $el,  $configuration   ], key('element-'.$el->id)  )--}}
-{{--        @endif--}}
-{{--        <br>--}}
-{{--    @endforeach--}}
-
-
-{{--               @livewire("blueprint::form.active-drawings", [ $blueprint  ]  )--}}
-
     <div class="text-center">
         <br>
         <a href="{{ route('blueprint.home', [$blueprint])  }}" class="btn btn-success">Back to Blueprint</a>
@@ -499,53 +470,3 @@
     <br><br>
 @endsection
 
-@push('scripts')
-    <script>
-        // array of stage ids to handle forms with multiple
-        let stage_ids = [];
-
-        function update_drawings()
-        {
-
-            // gets the ids of images that should be turned on...
-            fetch('{{ route('blueprint.drawings.activeDrawings', [$blueprint]) }}', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }) .then(response => response.json())
-                .then( function(data) {
-
-                    // loop through the window's stages and turn off all their children elements.
-                    for (let i = 0; i < stage_ids.length; i++)
-                    {
-                        let shapes = eval( stage_ids[i] ).find('Image');
-                        shapes.forEach( function(el){
-                            el.hide();
-                        });
-                    }
-
-                    // turn on the images required
-                    data.forEach( function( el ){
-
-                        if ( `option${el}` in window )
-                        {
-                            eval(`option${el}.show();`);
-                        }
-                    });
-                });
-
-        }
-
-
-
-        // Livewire.on('update-images', function(){
-        //     update_drawings();
-        //
-        // });
-        //
-        // window.addEventListener('load', function() {
-        //     update_drawings();
-        // })
-    </script>
-    @endpush
