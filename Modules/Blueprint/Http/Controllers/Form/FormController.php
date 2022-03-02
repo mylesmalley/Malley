@@ -47,7 +47,9 @@ class FormController extends Controller
 
          $image_blocks = FormElement::where('type','=','images')
              ->where('form_id', '=', $form->id)
-             ->with('items','items.media')
+             ->with(['items' => function( $query ){
+                    $query->orderBy('position');
+                },'items.media'])
              ->get();
 
 
@@ -100,6 +102,7 @@ class FormController extends Controller
             'form' => $form,
             'form_data' => $form_data,
             'configuration' => Configuration::where('blueprint_id','=',$blueprint->id)
+                ->where('obsolete', '=', false)
                 ->select('id', 'value', 'option_id','name')
                 ->get()
                 ->keyBy('option_id')

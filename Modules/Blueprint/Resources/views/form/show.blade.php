@@ -29,6 +29,7 @@
         let media = @json( $media );
         let form_container = document.getElementById('form_container');
 
+        let image_objects = [];
 
         // loops through the configuration and pulls out the names of active options
         function get_option_names_for_rule_comparison()
@@ -150,7 +151,7 @@
 
                 let container = document.createElement('div');
                     container.classList.add(
-                        'card','border-light','bg-light',
+                        'card','border-dark','bg-light',
                         'col-8','offset-2',
                         'form-image-block', // used by the rules checker
                         'mb-2' // bootstrap helper class that adds margin below the element
@@ -166,8 +167,9 @@
                     body.innerHTML = 'hello world';
                     body.setAttribute('id', image_block_id )
 
+                container.appendChild( body );
 
-                form_container.appendChild( body );
+                form_container.appendChild( container );
 
                 resolve( image_block_id );
 
@@ -180,47 +182,57 @@
          */
         function instantiate_konva_canvas( image_block_id )
         {
+
             let images = media[image_block_id];
 
-           // console.log(images);
             let konva = new Konva.Stage({
                 container: image_block_id,
-                width: images[0]['width'],
-                height: images[0]['height'],
+                width: images[0][2],
+                height: images[0][3],
             });
 
 
             let layer = new Konva.Layer();
-
             konva.add( layer );
 
             images.forEach(function(item) {
                 Konva.Image.fromURL( item[1], function (image ) {
+                    image.id( `image_${item[0]}` );
+                    image.setAttr('option_id', item[0] );
 
+                    image_objects.push( image );
+
+                    if ( configuration[item[0]] && configuration[item[0]]["value"] === "1")
+                    {
+                        image.visible( true );
+                    }
+                    else
+                    {
+                        image.visible( false );
+
+                    }
+                    layer.add(image);
                 });
             });
 
-                // if( stored_x !== null && stored_y !== null)
-                // {
-                //     image.position({
-                //         x: stored_x,
-                //         y: stored_y,
-                //     });
-                // }
-                // else
-                // {
-                //     image.position({
-                //         x: canvas_x,
-                //         y: canvas_y,
-                //     });
-                // }
-
-
-
-            // konva.setSize([200, 400]);
-
         }
 
+
+
+        function update_image_blocks()
+        {
+            image_objects.forEach( function( image ) {
+
+                if ( configuration[ image.getAttr('option_id') ] &&  configuration[ image.getAttr('option_id') ]["value"] === "1")
+                {
+                    image.visible( true );
+                }
+                else
+                {
+                    image.visible( false );
+                }
+            });
+        }
 
         /**
          * Builds the DOM for a form element
@@ -280,14 +292,16 @@
                             // selections require other options to be disabled
                             toggle_selection( blueprint_id,  element_option_ids, [ item.option.id ] )
                                 .then( refresh_selected_options )
-                                .then( update_form_element_visibility );
+                                .then( update_form_element_visibility )
+                                .then( update_image_blocks );
                         }
                         else
                         {
                             // checkboxes can have multiples or none
                             toggle_checkbox( blueprint_id,  item.option.id )
                                 .then( refresh_selected_options )
-                                .then( update_form_element_visibility );
+                                .then( update_form_element_visibility )
+                                .then( update_image_blocks );
                         }
                     });
 
@@ -414,7 +428,6 @@
             .then( refresh_selected_options )
             // hides elements that don't pass rules.
             .then( update_form_element_visibility );
-
 
     </script>
 
