@@ -25,6 +25,8 @@
 
         let elements = form_data["elements"];
         let blueprint_id = {{ $blueprint->id }};
+
+        let media = @json( $media );
         let form_container = document.getElementById('form_container');
 
 
@@ -167,7 +169,7 @@
 
                 form_container.appendChild( body );
 
-                resolve( [ image_block_id, form_element  ]);
+                resolve( image_block_id );
 
             });
 
@@ -176,20 +178,15 @@
 
         /**
          */
-        function instantiate_konva_canvas( data )
+        function instantiate_konva_canvas( image_block_id )
         {
-            let image_block_id = data[0];
-            let form_element = data[1];
+            let images = media[image_block_id];
 
-
-            let images = [];
-
-            form_element.items.forEach( function(i){
-                images.push( i.media );
-            });
-
+           // console.log(images);
             let konva = new Konva.Stage({
                 container: image_block_id,
+                width: images[0]['width'],
+                height: images[0]['height'],
             });
 
 
@@ -197,8 +194,8 @@
 
             konva.add( layer );
 
-            form_element.items.forEach(function(item) {
-                Konva.Image.fromURL( item.media, function (image ) {
+            images.forEach(function(item) {
+                Konva.Image.fromURL( item[1], function (image ) {
 
                 });
             });
@@ -220,7 +217,7 @@
 
 
 
-            konva.setSize([200, 400]);
+            // konva.setSize([200, 400]);
 
         }
 

@@ -80,7 +80,7 @@ class FormController extends Controller
              }
 
 
-             $media[ $block->id ] = $images;
+             $media[ "image_$block->id" ] = $images;
          }
 
 
