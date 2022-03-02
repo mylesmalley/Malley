@@ -4,6 +4,7 @@ namespace Modules\Blueprint\Http\Controllers\Form;
 
 use App\Models\Blueprint;
 use App\Models\Configuration;
+use App\Models\FormElement;
 use Error;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
@@ -37,11 +38,53 @@ class FormController extends Controller
                     $query->select('id','option_name', 'option_description');
                 },
            //     'elements.items.option.media',
-                'elements.items.media'
+         //       'elements.items.media'
 //                => function( $query ) {
 //                    $query->select('model_id', 'id','disk');
 //                },//
             ])->toJson();
+
+
+         $image_blocks = FormElement::where('type','=','images')
+             ->where('form_id', '=', $form->id)
+             ->with('items','items.media')
+             ->get();
+
+
+         $media = [];
+
+         foreach( $image_blocks as $block )
+         {
+             $images = [];
+
+             $width = 0;
+             $height = 0;
+
+             for($i = 0; $i < count( $block->items ); $i++)
+             {
+                 $img = $block->items[$i]->media;
+                 $url = $img->cdnURL();
+
+                 // pull the first image's dimensions and update from there.
+                 if ( $i === 0)
+                 {
+                     list($width, $height) = getimagesize( $url );
+                 }
+
+                 $images[] = [
+                     $img->model_id,
+                     $url,
+                     $width,
+                     $height,
+                 ];
+             }
+
+
+             $media[ $block->id ] = $images;
+         }
+
+
+
 
 
         return response()
@@ -61,6 +104,8 @@ class FormController extends Controller
                 ->get()
                 ->keyBy('option_id')
                 ->toJson(),
+
+            'media' => $media,
 //
 //            ->load([
 //                'elements',

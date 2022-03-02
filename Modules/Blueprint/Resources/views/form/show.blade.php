@@ -178,23 +178,50 @@
          */
         function instantiate_konva_canvas( data )
         {
-            return new Promise( (resolve) => {
-                let image_block_id = data[0];
-                let form_element = data[1];
+            let image_block_id = data[0];
+            let form_element = data[1];
 
 
-                let images = [];
+            let images = [];
 
-                form_element.items.forEach( function(i){
-                    images.push( i.media );
+            form_element.items.forEach( function(i){
+                images.push( i.media );
+            });
+
+            let konva = new Konva.Stage({
+                container: image_block_id,
+            });
+
+
+            let layer = new Konva.Layer();
+
+            konva.add( layer );
+
+            form_element.items.forEach(function(item) {
+                Konva.Image.fromURL( item.media, function (image ) {
+
                 });
+            });
 
-                let konva = new Konva.Stage({
-                    container: image_block_id,
-                });
+                // if( stored_x !== null && stored_y !== null)
+                // {
+                //     image.position({
+                //         x: stored_x,
+                //         y: stored_y,
+                //     });
+                // }
+                // else
+                // {
+                //     image.position({
+                //         x: canvas_x,
+                //         y: canvas_y,
+                //     });
+                // }
 
-                resolve("created canvas");
-            })
+
+
+            konva.setSize([200, 400]);
+
         }
 
 
