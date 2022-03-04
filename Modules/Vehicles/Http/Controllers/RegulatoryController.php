@@ -4,10 +4,13 @@ namespace Modules\Vehicles\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
+use App\Models\VehicleDate;
 use App\Models\VehicleSerial;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 
@@ -47,7 +50,7 @@ class RegulatoryController extends Controller
     {
 
         try {
-            $vehicle->update( $request->except(['CAAS_GVS_label_serial']) );
+            $vehicle->update( $request->except(['CAAS_GVS_label_serial', 'o2_test_date', 'load_test_date']) );
         } catch( \Exception $e )
         {
             Log::error("failed to update regulatory for vehicle $vehicle->id". $e);
@@ -67,6 +70,48 @@ class RegulatoryController extends Controller
         }
 
 
+        if( $request->input('o2_test_date') && $request->input('o2_test_date') != null )
+        {
+            try {
+                VehicleDate::create([
+                    'vehicle_id' => $vehicle->id,
+                    'user_id' => Auth::user()->id,
+                    'timestamp' => Carbon::create($request->input('o2_test_date'), 'America/Moncton')
+                        ->toIso8601String(),
+                    'name' => 'o2_test', // name of date field
+                    'notes' => "from regulatory stickers page", // use preset notes if provided
+                    'update_ford' => false,
+                    'submitted_to_ford' => false,
+                    'current' => 1,
+                ]);
+            } catch(\Exception $e )
+            {
+                Log::error("failed to update o2_test details for vehicle $vehicle->id". $e);
+            }
+        }
+
+
+
+
+        if( $request->input('load_test_date') && $request->input('load_test_date') != null )
+        {
+            try {
+                VehicleDate::create([
+                    'vehicle_id' => $vehicle->id,
+                    'user_id' => Auth::user()->id,
+                    'timestamp' => Carbon::create($request->input('load_test_date'), 'America/Moncton')
+                        ->toIso8601String(),
+                    'name' => 'load_test', // name of date field
+                    'notes' => "from regulatory stickers page", // use preset notes if provided
+                    'update_ford' => false,
+                    'submitted_to_ford' => false,
+                    'current' => 1,
+                ]);
+            } catch(\Exception $e )
+            {
+                Log::error("failed to update load_test_date details for vehicle $vehicle->id". $e);
+            }
+        }
 
         Log::info("updatedxw regulatory details for vehicle $vehicle->id");
         return redirect()

@@ -167,7 +167,7 @@
                 let container = document.createElement('div');
                     container.classList.add(
                         'card','border-dark','bg-light',
-                        'col-8','offset-2',
+                        'col-10','offset-1',
                         'form-image-block', // used by the rules checker
                         'mb-2' // bootstrap helper class that adds margin below the element
                     );
@@ -367,6 +367,7 @@
                 }));
 
                 xhr.error = function(){
+                    location.reload();
                     reject("failed to update blueprint database");
                 }
 
@@ -417,6 +418,7 @@
                 }));
 
                 xhr.error = function(){
+                    location.reload();
                     reject("failed to update blueprint database");
                 }
 
