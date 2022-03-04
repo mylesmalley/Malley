@@ -109,7 +109,7 @@
 
     star.fillText(`Date`, 50,  line(11));
     star.fillText(`of Test ____________`, 50,  line(12));
-    star.fillText(`{{ $vehicle->o2_test_date  }}`, 200,  line(12));
+    star.fillText(`{{ $vehicle->milestone('o2_test') ?? "O2_TEST" }}`, 200,  line(12));
 
     star.fillText(`Authorized Ambulance `, 410,  line(11));
     star.fillText(`Manufacturer Representative ________________`, 410,  line(12));
@@ -272,7 +272,7 @@
     star.fillText(`Malley Industries Inc`, 270, line(53));
 
     star.fillText(`Date of Manufacture ___________`, 650, line(53));
-    star.fillText(`{{ $vehicle->date_malley_finished_conversion ?? date("Y-m-d") }}`, 1000, line(53));
+    star.fillText(`{{ $vehicle->milestone('completed') ?? date("Y-m-d") }}`, 1000, line(53));
 
     star.fillText(`Address _________________ City ________ State _____ ZIP ________`, 40, line(54));
     star.fillText(`1100 Aviation Ave`, 200, line(54));
@@ -498,7 +498,7 @@
     star.fillText(`I`, col(53), line(47));
     star.fillText(`Date of test`,col(56), line(47));
     star.fillText(`________________________`, col(78), line(47));
-    star.fillText(`{{ $vehicle->load_test_date }}`, col(80), line(47));
+    star.fillText(`{{$vehicle->milestone('load_test') ?? "LOAD_TEST" }}`, col(80), line(47));
 
 
     star.fillText(`J`, col(53), line(48));

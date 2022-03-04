@@ -225,7 +225,7 @@
         ctx.textAlign = 'right';
 
         // remove day from date
-                ctx.fillText( "{{ Carbon\Carbon::create( $vehicle->date_chassis_manufactured )->format('Y-m') ?? "XXXXXXXXXXX" }}", fmvss_width - QUARTER, cursor );
+    ctx.fillText( "{{ $vehicle->milestone('chassis_manufactured') ?? "XXXXXXXXXXX" }}", fmvss_width - QUARTER, cursor );
 
         cursor += 16 * SCALE_FACTOR;
 

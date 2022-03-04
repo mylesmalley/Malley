@@ -109,7 +109,7 @@
 
     star.fillText(`Date`, 50,  line(11));
     star.fillText(`du test ____________`, 50,  line(12));
-    star.fillText(`{{ $vehicle->o2_test_date  }}`, 200,  line(12));
+    star.fillText(`{{ $vehicle->milestone('o2_test') ?? "O2_TEST" }}`, 200,  line(12));
 
     star.fillText(`Signature de l'opérateur `, 410,  line(11));
     star.fillText(`ayant fait le test: ___________________________`, 410,  line(12));
@@ -495,7 +495,7 @@
     star.fillText(`I`, col(52), line(47+2));
     star.fillText(`Date des tests`,col(56), line(47+2));
     star.fillText(`________________________`, col(78), line(47+2));
-    star.fillText(`{{ $vehicle->load_test_date }}`, col(80), line(47+2));
+    star.fillText(`{{ $vehicle->milestone('load_test') ?? "LOAD_TEST" }}`, col(80), line(47+2));
 
 
     star.fillText(`J`, col(52), line(48+2));

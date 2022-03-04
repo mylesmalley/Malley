@@ -76,7 +76,6 @@
         tire_ctx.fillStyle = "black";
         tire_ctx.fillRect( 4, 520, 1406, 2 )
 
-        {{--cmvss_ctx.fillText("{{ $vehicle->manufacturer_code }}", 395, 97);--}}
-        {{--cmvss_ctx.fillText("{{ date('Y-m') }}", 94, 70);--}}
+
 
 </script>
