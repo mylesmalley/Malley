@@ -14,6 +14,8 @@
         <form action="{{ route('blueprint.store') }}" method="POST">
             @csrf
             <input type="hidden" name="base_van_id" value="{{ $baseVan->id }}">
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
 
         <div class=" col-10 offset-1">
             <div class="card border-primary">

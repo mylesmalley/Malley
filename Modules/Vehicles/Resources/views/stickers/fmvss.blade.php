@@ -212,7 +212,7 @@
         ctx.textAlign = 'left';
         ctx.fillText( "VIN", QUARTER, cursor-4 );
         ctx.textAlign = 'right';
-        ctx.fillText( "{{ $vehicle->vin ?? "XXXXXXXXXXXXXXX" }}", fmvss_width - QUARTER, cursor -4 );
+        ctx.fillText( "{{ $vehicle->vin ?? "VINVINVINVINVIN" }}", fmvss_width - QUARTER, cursor -4 );
         cursor += 16;
 
         ctx.textAlign = 'left';
@@ -225,7 +225,7 @@
         ctx.textAlign = 'right';
 
         // remove day from date
-    ctx.fillText( "{{ $vehicle->milestone('chassis_manufactured') ?? "XXXXXXXXXXX" }}", fmvss_width - QUARTER, cursor );
+    ctx.fillText( "{{ $vehicle->milestone('chassis_manufactured') ?? "chassis_manufactured" }}", fmvss_width - QUARTER, cursor );
 
         cursor += 16 * SCALE_FACTOR;
 

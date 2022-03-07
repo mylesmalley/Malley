@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Blueprint;
 use App\Models\BaseVan;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use Modules\Blueprint\Jobs\ResetRenderTemplates;
 use Modules\Blueprint\Jobs\EmaiStaffAboutBlueprintCreation;
@@ -61,11 +60,13 @@ class CreateController extends Controller
             'description'        => 'string|nullable|max:255',
             'base_van_id' => 'required|integer',
             'layout_id'=>'nullable|integer',
+            'user_id' => 'required|integer',
         ]);
 
         // create the new blueprint
         $blueprint =  Blueprint::create( $request->only( [
             'name', 'description', 'base_van_id', 'layout_id', 'config',
+             'user_id',
              "customer_name",
             "customer_address_1",
             "customer_address_2",
@@ -83,7 +84,7 @@ class CreateController extends Controller
         ] ) );
 
         // apply the blueprint to the authorized user
-        $blueprint = Auth::user()->blueprints()->save( $blueprint );
+    //    $blueprint = Auth::user()->blueprints()->save( $blueprint );
 
         // upgrade that blueprint
         UpgradeBlueprint::dispatch( $blueprint );

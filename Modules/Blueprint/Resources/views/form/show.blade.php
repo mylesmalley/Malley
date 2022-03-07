@@ -183,6 +183,14 @@
                     body.setAttribute('id', image_block_id )
 
                 container.appendChild( body );
+                    let footer = document.createElement('div');
+                        footer.classList.add('card-footer','text-center');
+                        footer.innerHTML = form_element.label + " View" ;
+
+
+                container.appendChild( footer );
+                container.appendChild( footer );
+
 
                 form_container.appendChild( container );
 
