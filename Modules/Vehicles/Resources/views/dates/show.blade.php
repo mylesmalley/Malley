@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-2">
                         <label for="location">Location</label>
-                        <select name="location" id="location">
+                        <select class="form-control" name="location" id="location">
                             <option readonly value="">Location</option>
                             @foreach( \App\Models\VehicleDate::locations() as $location )
                                 <option

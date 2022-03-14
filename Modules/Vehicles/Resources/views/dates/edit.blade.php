@@ -97,7 +97,7 @@
                         </td>
                         <td>
                             <label for="location">Location</label>
-                            <select name="location" id="location">
+                            <select class="form-control" name="location" id="location">
                                 @foreach( \App\Models\VehicleDate::locations() as $location )
                                     <option
                                         @if ( old('location', $date->location) === $location )
