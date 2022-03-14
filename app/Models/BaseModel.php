@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class BaseModel extends Model 
 {
 
-    protected $dates = [
+    public $dates = [
         'created_at',
         'updated_at',
     ];

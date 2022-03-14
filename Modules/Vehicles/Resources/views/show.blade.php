@@ -10,7 +10,10 @@
             </div>
         </div>
         <h2 class="text-center text-secondary">{{ $vehicle->year ?? '' }} {{ ucfirst( strtolower( $vehicle->make ) ) ?? "" }} {{ ucfirst( $vehicle->model ) ?? "" }}</h2>
-
+        @if ($vehicle->location)
+        <h3 class="text-center text-secondary">
+            Location: {{ $vehicle->location }}</h3>
+        @endif
         <br>
         @if( $vehicle->id !== 3086)
 
@@ -68,20 +71,15 @@
             <div class="row">
                 <div class="col-md-6">
                     @include('vehicles::sections.files')
-
+                    <br>
+                        @include('vehicles::sections.serials')
                 </div>
                 <div class="col-md-6">
                     @include('vehicles::sections.dates')
                 </div>
 
             </div>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    @include('vehicles::sections.serials')
-                </div>
 
-            </div>
         @endif
 
         @if( $vehicle->id !== 3086)

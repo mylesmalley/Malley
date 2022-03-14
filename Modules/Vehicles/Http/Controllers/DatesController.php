@@ -112,7 +112,7 @@ class DatesController extends Controller
             'time' => 'required|string',
             'notes' => 'nullable|string|max:255',
             'name' => 'required|string',
-            'location' => 'required}string',
+            'location' => 'required|string',
         ]);
 
         $ts = Carbon::create($request->input('date') . ' '
@@ -172,6 +172,13 @@ class DatesController extends Controller
      */
     private function create_vehicle_date_record(Vehicle $vehicle, string $ts, Request $request): void
     {
+
+        $most_recent_date = $vehicle->dates->last();
+
+        $most_recent_date_timestamp =  ( $most_recent_date )
+            ? Carbon::parse( $most_recent_date->timestamp )
+            : Carbon::yesterday();
+
         $vehicleDate = VehicleDate::create([
             'vehicle_id' => $vehicle->id,
             'user_id' => Auth::user()->id,
@@ -183,6 +190,23 @@ class DatesController extends Controller
             'current' => 1,
             'location' => $request->location ?? 'N/A'
         ]);
+
+        $new_record_timestamp = Carbon::parse( $ts ) ;
+
+       // dd( $most_recent_date_timestamp, $new_record_timestamp );
+
+        if (  $new_record_timestamp->isAfter($most_recent_date_timestamp) )
+        {
+            Log::info("Vehicle location needs updating");
+            $vehicle->update([
+               'location' =>  $request->location ?? 'N/A',
+            ]);
+        }
+//        else
+//        {
+//            Log::debug("Date is before, ODNT update location");
+//        }
+
 
         Log::info("Created date $vehicleDate->id for Vehicle $vehicle->id");
 
