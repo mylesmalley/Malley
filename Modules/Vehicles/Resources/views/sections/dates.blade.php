@@ -8,50 +8,45 @@
 {{--        @endif--}}
     </div>
     <table class="table table-striped table-sm detail-table">
+        <thead>
+            <tr>
+                <th class="text-start">Event</th>
+                <th class="text-start">Date</th>
+                <th class="text-center">Notes</th>
+                <th class="text-start">Location</th>
+            </tr>
+        </thead>
+        <tbody>
+
         <tr>
-            <th role="row">
+            <td>
                 Added to Database
-            </th>
+            </td>
             <td>
                 {{ \Carbon\Carbon::create($vehicle->created_at)->format('Y-m-d') }}
             </td>
-            <td>
-
-            </td>
+            <td></td>
+            <td></td>
         </tr>
         @foreach( $vehicle->dates as $date )
             <tr>
-                <th role="row">
+                <td>
                     {{ ucwords( str_replace('_', ' ', $date->name ) ) }}
-                </th>
+                </td>
                 <td>
                     {{ \Carbon\Carbon::create($date->timestamp)->format('Y-m-d') }}
                 </td>
                 <td>
                     {{ $date->notes }}
                 </td>
+                <td>
+                    {{ $date->location ?? '-' }}
+                </td>
             </tr>
-            @endforeach
-{{--        @foreach ( App\Models\Vehicle::dateFields() as $date )--}}
-{{--            @php--}}
-{{--                $notes = "{$date}_notes"--}}
-{{--            @endphp--}}
-{{--            @if ( $vehicle->$date && $vehicle->$date !== '' )--}}
-{{--                <tr>--}}
-{{--                    <th role="row">--}}
-{{--                        {{ str_replace( 'Date', '', ucwords( str_replace('_', ' ', $date ) )  )}}--}}
-{{--                    </th>--}}
-{{--                    <td>{{ $vehicle->$date }}--}}
-{{--                        @if ($vehicle->{$notes} )--}}
-{{--                            <br > <span class="text-secondary">--}}
 
+        @endforeach
 
-{{--                            {{  $vehicle->{$notes} }}</span>--}}
-{{--                            @endif--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--            @endif--}}
-{{--        @endforeach--}}
+        </tbody>
 
     </table>
 

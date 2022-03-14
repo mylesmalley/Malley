@@ -63,22 +63,26 @@
         @endif
 
     <br>
-
-    <div class="row">
-        <div class="col-md-4">
-            @include('vehicles::sections.files')
-
-        </div>
         @if( $vehicle->id !== 3086)
 
-        <div class="col-md-4">
-            @include('vehicles::sections.serials')
-        </div>
-        <div class="col-md-4">
-            @include('vehicles::sections.dates')
-        </div>
-            @endif
-    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @include('vehicles::sections.files')
+
+                </div>
+                <div class="col-md-6">
+                    @include('vehicles::sections.dates')
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @include('vehicles::sections.serials')
+                </div>
+
+            </div>
+        @endif
 
         @if( $vehicle->id !== 3086)
 

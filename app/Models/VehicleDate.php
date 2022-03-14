@@ -19,6 +19,7 @@ class VehicleDate extends BaseModel
         'update_ford', // bit
         'submitted_to_ford', // but
         'current', //bit
+        'location',
     ];
 
 
