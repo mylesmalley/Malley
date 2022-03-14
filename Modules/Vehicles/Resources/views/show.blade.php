@@ -10,7 +10,7 @@
             </div>
         </div>
         <h2 class="text-center text-secondary">{{ $vehicle->year ?? '' }} {{ ucfirst( strtolower( $vehicle->make ) ) ?? "" }} {{ ucfirst( $vehicle->model ) ?? "" }}</h2>
-        @if ($vehicle->location)
+        @if ( $vehicle->dates )
         <h3 class="text-center text-secondary">
             Location: {{ $vehicle->location }}</h3>
         @endif

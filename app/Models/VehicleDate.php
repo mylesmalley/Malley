@@ -24,9 +24,9 @@ class VehicleDate extends BaseModel
 
     protected static array $locations =
     [
+        "N / A",
         "At Malley",
         "Off site; coming back",
-        "N / A",
     ];
 
     /**

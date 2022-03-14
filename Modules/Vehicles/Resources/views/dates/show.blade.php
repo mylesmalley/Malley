@@ -69,8 +69,13 @@
                         <select name="name"
                                 class="form-control"
                                 id="name">
+                            <option  disabled>Pick an Event</option>
                             @foreach( \App\Models\VehicleDate::available_events() as $available_date )
-                                <option value="{{ $available_date }}">
+                                <option
+                                        @if ( old('name' ) === $available_date )
+                                        selected
+                                        @endif
+                                        value="{{ $available_date }}">
                                     {{ ucwords( str_replace('_', ' ', $available_date ) ) }}
                                 </option>
                             @endforeach
@@ -119,7 +124,7 @@
                     <div class="col-2">
                         <label for="location">Location</label>
                         <select class="form-control" name="location" id="location">
-                            <option readonly value="">Location</option>
+{{--                            <option readonly value="">Location</option>--}}
                             @foreach( \App\Models\VehicleDate::locations() as $location )
                                 <option
                                         @if ( old('location' ) === $location )

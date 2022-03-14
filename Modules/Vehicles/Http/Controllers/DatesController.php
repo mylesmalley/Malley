@@ -77,7 +77,11 @@ class DatesController extends Controller
                 . $request->input('time'), 'America/Moncton')->greaterThan( Carbon::tomorrow() )
             && $request->input('location') != ""  )
         {
-            return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
+//            return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
+
+            $request['location'] = "N / A";
+            Log::info("Can't set a location for a future-dated event");
+
         }
 
         $ts = Carbon::create($request->input('date') . ' ' . $request->input('time'), 'America/Moncton')
@@ -124,7 +128,10 @@ class DatesController extends Controller
                 . $request->input('time'), 'America/Moncton')->greaterThan( Carbon::tomorrow() )
             && $request->input('location') != ""  )
         {
-            return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
+            $request['location'] = "N / A";
+            Log::info("Can't set a location for a future-dated event");
+
+           // return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
         }
 
 
@@ -173,7 +180,9 @@ class DatesController extends Controller
     private function create_vehicle_date_record(Vehicle $vehicle, string $ts, Request $request): void
     {
 
-        $most_recent_date = $vehicle->dates->last();
+        $most_recent_date = $vehicle->dates
+            ->where('timestamp', '<=', Carbon::tomorrow())
+            ->last();
 
         $most_recent_date_timestamp =  ( $most_recent_date )
             ? Carbon::parse( $most_recent_date->timestamp )
@@ -195,7 +204,11 @@ class DatesController extends Controller
 
        // dd( $most_recent_date_timestamp, $new_record_timestamp );
 
-        if (  $new_record_timestamp->isAfter($most_recent_date_timestamp) )
+        if (
+            // only present or past events should be considered
+            $new_record_timestamp->isBefore( Carbon::tomorrow() ) &&
+            // check if the event is after the most recent past event.
+            $new_record_timestamp->isAfter($most_recent_date_timestamp) )
         {
             Log::info("Vehicle location needs updating");
             $vehicle->update([
