@@ -79,7 +79,7 @@ class DatesController extends Controller
         $date->update([
             'current' => false,
         ]);
-        $date->save();
+      //  $date->save();
 
         $this->create_vehicle_date_record($vehicle, $ts, $request);
 
@@ -108,13 +108,13 @@ class DatesController extends Controller
 
 
 
-        // turn off any duplicates
-        VehicleDate::where([
-            'vehicle_id' => $vehicle->id,
-            'name' => $request->input('name')
-        ])->update([
-            'current' => false,
-        ]);
+//        // turn off any duplicates
+//        VehicleDate::where([
+//            'vehicle_id' => $vehicle->id,
+//            'name' => $request->input('name')
+//        ])->update([
+//            'current' => false,
+//        ]);
 
 
         $this->create_vehicle_date_record($vehicle, $ts, $request);

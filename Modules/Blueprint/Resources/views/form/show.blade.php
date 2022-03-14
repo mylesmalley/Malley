@@ -113,7 +113,7 @@
          * loops through the form elements and hides or shows
          * them based on the array of affected options and rules
          */
-        function update_form_element_visibility()
+        function update_form_element_visibility(  first_run_on_page_load = false  )
         {
             return new Promise((resolve) => {
                 let elements = document.getElementsByClassName('form-element-question');
@@ -139,7 +139,10 @@
                             elements[i].classList.add('d-none');
 
                             // turn off options that are hidden on the form, even accidentally.
-                            toggle_selection( blueprint_id, JSON.parse( elements[i].dataset.element_option_ids ), []);
+                            if ( first_run_on_page_load === false)
+                            {
+                                toggle_selection( blueprint_id, JSON.parse( elements[i].dataset.element_option_ids ), []);
+                            }
                         }
                         else
                         {
@@ -456,13 +459,13 @@
 
 
         // first run through on page load
-        get_option_names_for_rule_comparison()
+        get_option_names_sfor_rule_comparison()
             // create the elements required
             .then( build_form )
             // updates the local state of the form to reflect the database
             .then( refresh_selected_options )
             // hides elements that don't pass rules.
-            .then( update_form_element_visibility );
+            .then( update_form_element_visibility(true) );
 
     </script>
 
