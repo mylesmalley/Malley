@@ -32,6 +32,7 @@
                     <th>Event</th>
                     <th>Date</th>
                     <th>Notes</th>
+                    <th>Location</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,7 @@
                         <td>
                             {{ $date->notes }}
                         </td>
+                        <td> {{ $date->location ?? "N/A" }}</td>
                     </tr>
 
                     <tr>
@@ -92,6 +94,14 @@
                                    value="{{ old('notes', $date->notes ) ?? '' }}"
                                    class="form-control"
                                     type="text">
+                        </td>
+                        <td>
+                            <label for="location">Location</label>
+                            <input id="location"
+                                   name="location"
+                                   value="{{ old('location', $date->location ) ?? '' }}"
+                                   class="form-control"
+                                   type="text">
                         </td>
                     </tr>
                 </tbody>

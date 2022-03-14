@@ -16,6 +16,7 @@
                 <th>Event</th>
                 <th>Date</th>
                 <th>Notes</th>
+                <th>Location</th>
                 <th></th>
             </tr>
             </thead>
@@ -33,6 +34,9 @@
                         </td>
                         <td>
                             {{ $date->notes }}
+                        </td>
+                        <td>
+                            {{ $date->location ?? "?" }}
                         </td>
                         <td class="text-end">
                             <a href="{{ route('vehicle.date.edit', [$vehicle, $date ]) }}"
@@ -60,7 +64,7 @@
             <form action="{{ route('vehicle.date.store', [$vehicle]) }}" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-2">
                         <label for="name">Name of Event</label>
                         <select name="name"
                                 class="form-control"
@@ -75,7 +79,7 @@
 
 
 
-                    <div class="col-3">
+                    <div class="col-2">
                         <label for="date">Date</label>
                         <input
                             id="date"
@@ -112,7 +116,17 @@
                                class="form-control"
                                type="text">
                     </div>
-
+                    <div class="col-2">
+                        <label for="location">Location</label>
+                        <input
+                                id="location"
+                                type="text"
+                                required
+                                name="location"
+                                class="form-control"
+                                value="TEST"
+                        >
+                    </div>
                     <div class="col-1" style="vertical-align: bottom;">
                         <input type="submit" class="btn btn-primary" value="Add">
                     </div>

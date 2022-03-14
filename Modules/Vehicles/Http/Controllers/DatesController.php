@@ -71,6 +71,14 @@ class DatesController extends Controller
             'name' => 'required|string',
         ]);
 
+
+        if ( Carbon::create($request->input('date') . ' '
+                . $request->input('time'), 'America/Moncton')->greaterThan( Carbon::tomorrow() )
+            && $request->input('location') != ""  )
+        {
+            return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
+        }
+
         $ts = Carbon::create($request->input('date') . ' ' . $request->input('time'), 'America/Moncton')
             ->toIso8601String();
 
@@ -79,6 +87,9 @@ class DatesController extends Controller
         $date->update([
             'current' => false,
         ]);
+
+
+
       //  $date->save();
 
         $this->create_vehicle_date_record($vehicle, $ts, $request);
@@ -100,11 +111,21 @@ class DatesController extends Controller
             'time' => 'required|string',
             'notes' => 'nullable|string|max:255',
             'name' => 'required|string',
+            'location' => 'string',
         ]);
 
         $ts = Carbon::create($request->input('date') . ' '
             . $request->input('time'), 'America/Moncton')
             ->toIso8601String();
+
+
+        if ( Carbon::create($request->input('date') . ' '
+                . $request->input('time'), 'America/Moncton')->greaterThan( Carbon::tomorrow() )
+            && $request->input('location') != ""  )
+        {
+            return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
+        }
+
 
 
 
@@ -159,6 +180,7 @@ class DatesController extends Controller
             'update_ford' => VehicleDate::ford_update_required( $vehicle, $request->input('name') ),
             'submitted_to_ford' => 0,
             'current' => 1,
+            'location' => $request->location ?? ' ? '
         ]);
 
         Log::info("Created date $vehicleDate->id for Vehicle $vehicle->id");
