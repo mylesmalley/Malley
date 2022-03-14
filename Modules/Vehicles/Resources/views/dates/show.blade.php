@@ -118,14 +118,24 @@
                     </div>
                     <div class="col-2">
                         <label for="location">Location</label>
-                        <input
-                                id="location"
-                                type="text"
-                                required
-                                name="location"
-                                class="form-control"
-                                value="TEST"
-                        >
+                        <select name="location" id="location">
+                            <option readonly value="">Location</option>
+                            @foreach( \App\Models\VehicleDate::locations() as $location )
+                                <option
+                                        @if ( old('location' ) === $location )
+                                        selected
+                                        @endif
+                                        value="{{ $location }}">{{ $location }}</option>
+                            @endforeach
+                        </select>
+{{--                        <input--}}
+{{--                                id="location"--}}
+{{--                                type="text"--}}
+{{--                                required--}}
+{{--                                name="location"--}}
+{{--                                class="form-control"--}}
+{{--                                value="TEST"--}}
+{{--                        >--}}
                     </div>
                     <div class="col-1" style="vertical-align: bottom;">
                         <input type="submit" class="btn btn-primary" value="Add">

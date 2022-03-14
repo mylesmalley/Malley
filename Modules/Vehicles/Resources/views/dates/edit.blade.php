@@ -97,11 +97,20 @@
                         </td>
                         <td>
                             <label for="location">Location</label>
-                            <input id="location"
-                                   name="location"
-                                   value="{{ old('location', $date->location ) ?? '' }}"
-                                   class="form-control"
-                                   type="text">
+                            <select name="location" id="location">
+                                @foreach( \App\Models\VehicleDate::locations() as $location )
+                                    <option
+                                        @if ( old('location', $date->location) === $location )
+                                            selected
+                                        @endif
+                                        value="{{ $location }}">{{ $location }}</option>
+                                @endforeach
+                            </select>
+{{--                            <input id="location"--}}
+{{--                                   name="location"--}}
+{{--                                   value="{{ old('location', $date->location ) ?? '' }}"--}}
+{{--                                   class="form-control"--}}
+{{--                                   type="text">--}}
                         </td>
                     </tr>
                 </tbody>

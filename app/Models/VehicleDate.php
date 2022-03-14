@@ -22,6 +22,22 @@ class VehicleDate extends BaseModel
         'location',
     ];
 
+    protected static array $locations =
+    [
+        "At Malley",
+        "Off site; coming back",
+        "N / A",
+    ];
+
+    /**
+     * @return array|string[]
+     */
+    public static function locations()
+    {
+        return self::$locations;
+    }
+
+
 
     /**
      * @var bool

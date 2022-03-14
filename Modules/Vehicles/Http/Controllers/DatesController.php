@@ -69,6 +69,7 @@ class DatesController extends Controller
             'time' => 'required|string',
             'notes' => 'nullable|string|max:255',
             'name' => 'required|string',
+            'location' => 'required|string',
         ]);
 
 
@@ -111,7 +112,7 @@ class DatesController extends Controller
             'time' => 'required|string',
             'notes' => 'nullable|string|max:255',
             'name' => 'required|string',
-            'location' => 'string',
+            'location' => 'required}string',
         ]);
 
         $ts = Carbon::create($request->input('date') . ' '
@@ -180,7 +181,7 @@ class DatesController extends Controller
             'update_ford' => VehicleDate::ford_update_required( $vehicle, $request->input('name') ),
             'submitted_to_ford' => 0,
             'current' => 1,
-            'location' => $request->location ?? ' ? '
+            'location' => $request->location ?? 'N/A'
         ]);
 
         Log::info("Created date $vehicleDate->id for Vehicle $vehicle->id");
