@@ -123,6 +123,30 @@ class VehicleDate extends BaseModel
 
 
     /**
+     * tries to determine if ford should be notified. first instance of an event of a type,
+     * only for Ford vans. otherwise ignore.
+     *
+     * @param Vehicle $vehicle
+     * @param string $milestone
+     * @return bool
+     */
+    public static function ford_update_required( Vehicle $vehicle, string $milestone ): bool
+    {
+        $existing_milestones = $vehicle->milestones()->toArray();
+        $existing_milestones = array_keys( $existing_milestones );
+        // ignore non-ford vans
+        if ( strtoupper($vehicle->make) === 'FORD'
+            // only ping needed milestones
+            && in_array($milestone, self::ford_milestone())
+            // only ping first-of events for this van
+            && !in_array( $milestone, $existing_milestones )) return true;
+
+        // or don't let them know at all.
+        return false;
+    }
+
+
+    /**
      * pulls everything together and then formats to send vehicle milestone to Ford.
      *
      * @return array
