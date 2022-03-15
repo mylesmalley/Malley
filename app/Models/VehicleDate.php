@@ -49,36 +49,31 @@ class VehicleDate extends BaseModel
      * @var array
      */
     protected static array $events = [
+        'confirmed_location',
+        'sent_out_for_service',
+        'arrival',
         "at_york_or_thornton",
+        'chassis_manufactured',
+        'compound_exit',  // Compound Exit
+        'delivered_by_malley', // same as released to carrier but for when we ship it ourselves
         "entry_to_canada",
         "exit_from_canada",
+        'expected_delivery',
+        'incoming_inspection',    // Inspection Complete
         "in_service",
+        'lease_expiry',
         "lease_expiry_of_refurb",
-        "warranty_expiry",
-        'arrival',
-        'chassis_manufactured',
-     //   'delivery',
-        'lease_expirey',
         'leaving_malley_facility',
-        //'malley_finished_conversion', // replaced with work_completed. updated database
         'next_renewal',
         'of_purchase',
-        'warranty_registered',
-
-        // newly required
-        'incoming_inspection',    // Inspection Complete
-        'work_scheduled' , // Work Scheduled
-        'work_expected_to_be_completed', // Work Estimated to be Completed
-        'work_started', // Work Started
-        'work_completed', // Work Completed
-        'released_to_carrier', // Released to Carrier
-        'expected_delivery',
-        'delivered_by_malley', // same as released to carrier but for when we ship it ourselves
-
-        'compound_exit',  // Compound Exit
-
-        // optional fields for Ford
         'pre_production_damage_identified', //Damage Identified
+        'released_to_carrier', // Released to Carrier
+        "warranty_expiry",
+        'warranty_registered',
+        'work_completed', // Work Completed
+        'work_expected_to_be_completed', // Work Estimated to be Completed
+        'work_scheduled' , // Work Scheduled
+        'work_started', // Work Started
     ];
 
 
