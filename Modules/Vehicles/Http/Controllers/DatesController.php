@@ -29,7 +29,7 @@ class DatesController extends Controller
      */
     public function show(Vehicle $vehicle): Response
     {
-        $vehicle->load('dates');
+        $vehicle->load(['dates','dates.user']);
 
         return response()->view('vehicles::dates.show', [
             'vehicle' => $vehicle

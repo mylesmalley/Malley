@@ -17,14 +17,18 @@
                 <th>Date</th>
                 <th>Notes</th>
                 <th>Location</th>
+                <th>Added By</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
 
                 @forelse( $vehicle->dates as $date)
-                    <tr>
-                        <th role="row">
+                    <tr
+                        @if (\Carbon\Carbon::create($date->timestamp)->isAfter( \Carbon\Carbon::now()))
+                        class="table-info"
+                        @endif
+                    >                        <th role="row">
 {{--                            {{ ($date->current) ? '*' : '' }}--}}
 
                             {{ ucwords( str_replace('_', ' ', $date->name ) ) }}
@@ -38,6 +42,7 @@
                         <td>
                             {{ $date->location ?? "?" }}
                         </td>
+                        <td>{{ $date->user->first_name ?? "" }}</td>
                         <td class="text-end">
                             <a href="{{ route('vehicle.date.edit', [$vehicle, $date ]) }}"
                                class="btn btn-sm btn-success">Change</a>
@@ -50,7 +55,9 @@
                 @endforelse
             </tbody>
         </table>
-
+        <div class="card-footer">
+            <span class="bg-info">Dates in the future.</span>
+        </div>
     </div>
     <br>
     @includeIf('vehicles::errors')
