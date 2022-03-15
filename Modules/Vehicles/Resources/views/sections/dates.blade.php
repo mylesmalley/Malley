@@ -29,7 +29,11 @@
             <td></td>
         </tr>
         @foreach( $vehicle->dates as $date )
-            <tr>
+            <tr
+                @if (\Carbon\Carbon::create($date->timestamp)->isAfter( \Carbon\Carbon::now()))
+                    class="table-info"
+                @endif
+            >
                 <td>
                     {{ ucwords( str_replace('_', ' ', $date->name ) ) }}
                 </td>
@@ -49,5 +53,7 @@
         </tbody>
 
     </table>
-
+    <div class="card-footer">
+        <span class="bg-info">Dates in the future.</span>
+    </div>
 </div>

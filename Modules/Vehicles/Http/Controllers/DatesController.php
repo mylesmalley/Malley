@@ -79,7 +79,7 @@ class DatesController extends Controller
         {
 //            return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
 
-            $request['location'] = "N / A";
+            $request['location'] = "";
             Log::info("Can't set a location for a future-dated event");
 
         }
@@ -128,7 +128,7 @@ class DatesController extends Controller
                 . $request->input('time'), 'America/Moncton')->greaterThan( Carbon::tomorrow() )
             && $request->input('location') != ""  )
         {
-            $request['location'] = "N / A";
+            $request['location'] = "";
             Log::info("Can't set a location for a future-dated event");
 
            // return redirect()->back()->withErrors(["Location" => "You can't say where the vehicle will be in the future"]);
@@ -197,7 +197,7 @@ class DatesController extends Controller
             'update_ford' => VehicleDate::ford_update_required( $vehicle, $request->input('name') ),
             'submitted_to_ford' => 0,
             'current' => 1,
-            'location' => $request->location ?? 'N/A'
+            'location' => $request->location ?? ''
         ]);
 
         $new_record_timestamp = Carbon::parse( $ts ) ;
@@ -212,7 +212,7 @@ class DatesController extends Controller
         {
             Log::info("Vehicle location needs updating");
             $vehicle->update([
-               'location' =>  $request->location ?? 'N/A',
+               'location' =>  $request->location ?? '',
             ]);
         }
 //        else
