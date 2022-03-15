@@ -459,7 +459,7 @@
 
 
         // first run through on page load
-        get_option_names_sfor_rule_comparison()
+        get_option_names_for_rule_comparison()
             // create the elements required
             .then( build_form )
             // updates the local state of the form to reflect the database
