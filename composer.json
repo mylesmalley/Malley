@@ -15,7 +15,6 @@
         "codedge/laravel-fpdf": "^1.8",
         "dreamonkey/laravel-cloudfront-url-signer": "~3",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "http-interop/http-factory-guzzle": "^1.0",
         "inertiajs/inertia-laravel": "^0.4.0",
@@ -65,7 +64,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Modules\\" : "Modules/"
+            "Modules\\": "Modules/"
         },
         "files": [
             "app/Helpers/helper.php"
