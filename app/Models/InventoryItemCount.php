@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use \Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\InventoryItemCount
@@ -36,18 +35,12 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class InventoryItemCount extends BaseModel
 {
+    protected $table = 'inventory_item_counts';
 
-	protected $table = 'inventory_item_counts';
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
-
-    protected $fillable= [
+    protected $fillable = [
         'id',
         'created_at',
-	    'updated_at',
+        'updated_at',
         'counted',
         'counter_name',
         'user_id',
@@ -56,13 +49,12 @@ class InventoryItemCount extends BaseModel
         'recounted',
     ];
 
-
     /**
      * @return BelongsTo
      */
     public function item(): BelongsTo
     {
-        return $this->belongsTo('App\Models\InventoryItem');
+        return $this->belongsTo(\App\Models\InventoryItem::class);
     }
 
     /**
@@ -70,9 +62,6 @@ class InventoryItemCount extends BaseModel
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
-
-
-
 }

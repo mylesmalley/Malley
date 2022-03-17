@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use App\Models\BaseModel;
-use \Illuminate\Database\Eloquent\Relations\HasMany;
-
 
 class Folder extends BaseModel implements HasMedia
 {
@@ -17,20 +16,17 @@ class Folder extends BaseModel implements HasMedia
     /**
      * @var bool
      */
-    public $timestamps= false;
+    public $timestamps = false;
 
     /**
      * @var string
      */
-    protected $table = "folders";
-
+    protected $table = 'folders';
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        "name"
+        'name',
     ];
-
-
 }

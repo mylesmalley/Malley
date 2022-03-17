@@ -34,24 +34,21 @@ class LayoutOption extends BaseModel
 {
     protected $table = 'layout_options';
 
-	protected $fillable= [
-		'layout_id',
-		'option_id',
-		'x_pos',
-		'y_pos',
-		'qty',
-	];
-
+    protected $fillable = [
+        'layout_id',
+        'option_id',
+        'x_pos',
+        'y_pos',
+        'qty',
+    ];
 
     public function layout()
     {
-    	return $this->belongsTo('App\Models\Layout');
+        return $this->belongsTo(\App\Models\Layout::class);
     }
 
     public function option()
     {
-    	return $this->belongsTo('App\Models\Option');
+        return $this->belongsTo(\App\Models\Option::class);
     }
-
-
 }

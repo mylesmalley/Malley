@@ -10,7 +10,7 @@ class VehicleDate extends BaseModel
     /**
      * @var string[]
      */
-    protected $fillable= [
+    protected $fillable = [
         'vehicle_id', // int
         'name', // nvarchar50
         'user_id', //int
@@ -24,9 +24,9 @@ class VehicleDate extends BaseModel
 
     protected static array $locations =
     [
-        "N / A",
-        "At Malley",
-        "Off site; coming back",
+        'N / A',
+        'At Malley',
+        'Off site; coming back',
     ];
 
     /**
@@ -37,13 +37,10 @@ class VehicleDate extends BaseModel
         return self::$locations;
     }
 
-
-
     /**
      * @var bool
      */
-    public $timestamps= true;
-
+    public $timestamps = true;
 
     /**
      * @var array
@@ -52,30 +49,29 @@ class VehicleDate extends BaseModel
         'confirmed_location',
         'sent_out_for_service',
         'arrival',
-        "at_york_or_thornton",
+        'at_york_or_thornton',
         'chassis_manufactured',
         'compound_exit',  // Compound Exit
         'delivered_by_malley', // same as released to carrier but for when we ship it ourselves
-        "entry_to_canada",
-        "exit_from_canada",
+        'entry_to_canada',
+        'exit_from_canada',
         'expected_delivery',
         'incoming_inspection',    // Inspection Complete
-        "in_service",
+        'in_service',
         'lease_expiry',
-        "lease_expiry_of_refurb",
+        'lease_expiry_of_refurb',
         'leaving_malley_facility',
         'next_renewal',
         'of_purchase',
         'pre_production_damage_identified', //Damage Identified
         'released_to_carrier', // Released to Carrier
-        "warranty_expiry",
+        'warranty_expiry',
         'warranty_registered',
         'work_completed', // Work Completed
         'work_expected_to_be_completed', // Work Estimated to be Completed
-        'work_scheduled' , // Work Scheduled
+        'work_scheduled', // Work Scheduled
         'work_started', // Work Started
     ];
-
 
     /**
      * @var array
@@ -96,9 +92,8 @@ class VehicleDate extends BaseModel
         'compound_exit' => 'OA',  // Compound Exit
 
         // optional fields for Ford
-//        'pre_production_damage_identified' => 'A0', //Damage Identified
+        //        'pre_production_damage_identified' => 'A0', //Damage Identified
     ];
-
 
     /**
      * returns the short milestone code from Ford
@@ -106,11 +101,10 @@ class VehicleDate extends BaseModel
      * @param string $event_name
      * @return string
      */
-    public static function ford_milestone_code( string $event_name ): string
+    public static function ford_milestone_code(string $event_name): string
     {
-        return self::$ford_mapping[ $event_name ] ?? 'ERROR';
+        return self::$ford_mapping[$event_name] ?? 'ERROR';
     }
-
 
     /**
      * returns the keys from the ford Milestones list to compare with the full dates table list
@@ -119,9 +113,8 @@ class VehicleDate extends BaseModel
      */
     public static function ford_milestone(): array
     {
-        return array_keys( self::$ford_mapping );
+        return array_keys(self::$ford_mapping);
     }
-
 
     /**
      * returns a list of all available date milestones that can be added to a vehicle.
@@ -133,7 +126,6 @@ class VehicleDate extends BaseModel
         return self::$events;
     }
 
-
     /**
      * tries to determine if ford should be notified. first instance of an event of a type,
      * only for Ford vans. otherwise ignore.
@@ -142,96 +134,93 @@ class VehicleDate extends BaseModel
      * @param string $milestone
      * @return bool
      */
-    public static function ford_update_required( Vehicle $vehicle, string $milestone ): bool
+    public static function ford_update_required(Vehicle $vehicle, string $milestone): bool
     {
         $existing_milestones = $vehicle->milestones()->toArray();
-        $existing_milestones = array_keys( $existing_milestones );
+        $existing_milestones = array_keys($existing_milestones);
         // ignore non-ford vans
-        if ( strtoupper($vehicle->make) === 'FORD'
+        if (strtoupper($vehicle->make) === 'FORD'
             // only ping needed milestones
             && in_array($milestone, self::ford_milestone())
             // only ping first-of events for this van
-            && !in_array( $milestone, $existing_milestones )) return true;
+            && ! in_array($milestone, $existing_milestones)) {
+            return true;
+        }
 
         // or don't let them know at all.
         return false;
     }
-
 
     /**
      * pulls everything together and then formats to send vehicle milestone to Ford.
      *
      * @return array
      */
-    #[ArrayShape(["vin" => "string", "code" => "string", "statusUpdateTs" => "string", "references" => "\string[][]"])]
+    #[ArrayShape(['vin' => 'string', 'code' => 'string', 'statusUpdateTs' => 'string', 'references' => "\string[][]"])]
     public function freight_verify_api_payload(): array
     {
         return [
-            "vin" => (string) $this->vehicle->vin,
-            "code" => $this->ford_milestone_code($this->attributes['name']),
-            "statusUpdateTs" => (string) $this->attributes['timestamp'],
-            "references" => [
+            'vin' => (string) $this->vehicle->vin,
+            'code' => $this->ford_milestone_code($this->attributes['name']),
+            'statusUpdateTs' => (string) $this->attributes['timestamp'],
+            'references' => [
                 [
-                    "qualifier" => "senderName",
-                    "value" => "Malley Industries Inc."
+                    'qualifier' => 'senderName',
+                    'value' => 'Malley Industries Inc.',
                 ],
                 [
-                    "qualifier" => "receiverCode",
-                    "value" => "FORDIT",
+                    'qualifier' => 'receiverCode',
+                    'value' => 'FORDIT',
                 ],
                 [
-                    "qualifier" => "scac",
-                    "value" => "MALLEY",
+                    'qualifier' => 'scac',
+                    'value' => 'MALLEY',
                 ],
                 [
-                    "qualifier" => "ms1LocationCode",
-                    "value" => ($this->attributes['name'] !== 'arrival') ? "UX" : 'CB3893'
+                    'qualifier' => 'ms1LocationCode',
+                    'value' => ($this->attributes['name'] !== 'arrival') ? 'UX' : 'CB3893',
                 ],
                 [
-                    "qualifier" => "ms1StateOrProvinceCode",
-                    "value" => "NB",
+                    'qualifier' => 'ms1StateOrProvinceCode',
+                    'value' => 'NB',
                 ],
                 [
-                    "qualifier" => "ms1CountryCode",
-                    "value" => "Canada",
+                    'qualifier' => 'ms1CountryCode',
+                    'value' => 'Canada',
                 ],
                 [
-                    "qualifier" => "compoundCode",
-                    "value" => ($this->attributes['name'] !== 'arrival') ? "UX" : 'CB3893'
+                    'qualifier' => 'compoundCode',
+                    'value' => ($this->attributes['name'] !== 'arrival') ? 'UX' : 'CB3893',
                 ],
                 [
-                    "qualifier" => "yardCode",
-                    "value" => "NA",
+                    'qualifier' => 'yardCode',
+                    'value' => 'NA',
                 ],
                 [
-                    "qualifier" => "bayCode",
-                    "value" => "NA",
+                    'qualifier' => 'bayCode',
+                    'value' => 'NA',
                 ],
                 [
-                    "qualifier" => "partnerType",
-                    "value" => "UP",
-                ]
-            ]
+                    'qualifier' => 'partnerType',
+                    'value' => 'UP',
+                ],
+            ],
         ];
     }
-
-
-
 
     /**
      * @return BelongsTo
      */
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo(Vehicle::class );
+        return $this->belongsTo(Vehicle::class);
     }
-
 
     /**
      * @return BelongsTo
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class );
+        return $this->belongsTo(User::class);
     }
 }

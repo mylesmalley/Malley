@@ -82,45 +82,43 @@ use Illuminate\Support\Carbon;
  */
 class Configuration extends BaseModel
 {
+    /**
+     * @var string
+     */
+    protected $table = 'configurations';
 
-	/**
-	 * @var string
-	 */
-    protected $table = "configurations";
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'blueprint_id',
+        'name',
+        'description',
+        'positive_requirements',
+        'negative_requirements',
+        'base_van_id',
+        'syspro_phantom',
+        'cost',
+        'price_tier_1',
+        'price_tier_2',
+        'price_tier_3',
+        'price_base_offset', // OLD
 
-	/**
-	 * @var array
-	 */
-	protected $fillable = [
-	    "blueprint_id",
-		"name",
-		"description",
-		"positive_requirements",
-		"negative_requirements",
-		"base_van_id",
-		"syspro_phantom",
-	   	"cost",
-	   	"price_tier_1",
-	    "price_tier_2",
-	   	"price_tier_3",
-		"price_base_offset", // OLD
+        'price_dealer_offset',
+        'price_msrp_offset',
 
-		"price_dealer_offset",
-		"price_msrp_offset",
-
-	   	"value",
-	   	'long_lead_time',
-	   	'show_on_quote',
-	   	'light_component',
-	   	'location',
-	   	'locked',
-	   	'option_id',
-	   	'fingerprint',
-
+        'value',
+        'long_lead_time',
+        'show_on_quote',
+        'light_component',
+        'location',
+        'locked',
+        'option_id',
+        'fingerprint',
 
         'quantity',
 
-		'notes',
+        'notes',
 
         // comes from if the parent option is retired or not
         'retired',
@@ -128,112 +126,102 @@ class Configuration extends BaseModel
         'obsolete',
 
         'lock_pricing', // 2021-09-01 bool, 1 can't be changed with rev, 0, normal behaviour
-	];
+    ];
 
-
-    /**
-     *
-     */
     protected static function booted()
     {
         static::saving(function ($configuration) {
-            $configuration->setAttribute('fingerprint',  $configuration->fingerprintString()  );
+            $configuration->setAttribute('fingerprint', $configuration->fingerprintString());
         });
     }
 
-
 //
 //    /**
-//	 * if the option isn't selected, return 0 regardless. If the option is on, return the quantity
-//	 * @return int
-//	 */
-//	public function physicalQuantity(): int
-//	{
-//		if ( $this->value ) return $this->quantity;
-//		return 0;
-//	}
+    //	 * if the option isn't selected, return 0 regardless. If the option is on, return the quantity
+    //	 * @return int
+    //	 */
+    //	public function physicalQuantity(): int
+    //	{
+    //		if ( $this->value ) return $this->quantity;
+    //		return 0;
+    //	}
 //
 //
-//	/**
-//	 * @return int
-//	 */
-//	public function increaseQuantity(): int
-//	{
-//		if ( $this->attributes['value'] == 0)
-//		{
-//			$this->attributes['quantity'] = 1;
-//			$this->attributes['value'] = 1;
-//			return 1;
-//		}
+    //	/**
+    //	 * @return int
+    //	 */
+    //	public function increaseQuantity(): int
+    //	{
+    //		if ( $this->attributes['value'] == 0)
+    //		{
+    //			$this->attributes['quantity'] = 1;
+    //			$this->attributes['value'] = 1;
+    //			return 1;
+    //		}
 //
-//		$this->attributes['quantity'] += 1;
-//		return $this->attributes['quantity'];
-//	}
+    //		$this->attributes['quantity'] += 1;
+    //		return $this->attributes['quantity'];
+    //	}
 //
-//	/**
-//	 * @return int
-//	 */
-//	public function decreaseQuantity(): int
-//	{
-//		if ( $this->attributes['quantity'] == 1)
-//		{
-//			$this->attributes['value'] = 0;
-//			return 1;
-//		}
+    //	/**
+    //	 * @return int
+    //	 */
+    //	public function decreaseQuantity(): int
+    //	{
+    //		if ( $this->attributes['quantity'] == 1)
+    //		{
+    //			$this->attributes['value'] = 0;
+    //			return 1;
+    //		}
 //
-//		$this->attributes['quantity'] -= 1;
-//		return $this->attributes['quantity'] - 1;
-//	}
+    //		$this->attributes['quantity'] -= 1;
+    //		return $this->attributes['quantity'] - 1;
+    //	}
 
+    //	/**
+    //	 * @return string
+    //	 */
+    //	public function friendlyValue()
+    //	{
+    //		return ($this->attributes['value']) ? 'Yes' : 'No';
+    //	}
 
-//	/**
-//	 * @return string
-//	 */
-//	public function friendlyValue()
-//	{
-//		return ($this->attributes['value']) ? 'Yes' : 'No';
-//	}
-
-	/**
-	 * @return BelongsTo
-	 */
-	public function blueprint(): BelongsTo
-	{
-		return $this->belongsTo("\App\Models\Blueprint");
-	}
-
-
-	/**
-	 * @param $value
-	 */
-    public function setNameAttribute( $value )
+    /**
+     * @return BelongsTo
+     */
+    public function blueprint(): BelongsTo
     {
-    	$prohibited = [' ','_','.',',',"'",'"','&','(',')','$','#','@','*','!','=','+','%','--'];
-        $this->attributes['name'] = strtoupper( str_replace( $prohibited , '-', $value ) );
+        return $this->belongsTo(\App\Models\Blueprint::class);
     }
 
-
-	/**
-	 * @param $value
-	 */
-    public function setDescriptionAttribute( $value )
+    /**
+     * @param $value
+     */
+    public function setNameAttribute($value)
     {
-        $this->attributes['description'] = strtoupper( $value );
+        $prohibited = [' ', '_', '.', ',', "'", '"', '&', '(', ')', '$', '#', '@', '*', '!', '=', '+', '%', '--'];
+        $this->attributes['name'] = strtoupper(str_replace($prohibited, '-', $value));
     }
 
+    /**
+     * @param $value
+     */
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
 
-	/**
-	 * @return string
-	 */
+    /**
+     * @return string
+     */
     public function fingerprintString(): string
     {
-
-        return $this->name .
-            $this->description .
-            $this->syspro_phantom .
-            round($this->price_tier_3) .
-                round( $this->price_tier_2) .
-                    round($this->price_tier_1) .
+        return $this->name.
+            $this->description.
+            $this->syspro_phantom.
+            round($this->price_tier_3).
+                round($this->price_tier_2).
+                    round($this->price_tier_1).
             $this->long_lead_time;
     }
 
@@ -246,67 +234,58 @@ class Configuration extends BaseModel
 //        return ($this->fingerprint === $this->option->fingerprint ) ? true : false;
 //    }
 
-
     /**
      * @return int
      */
-	public function getQuantityAttribute(): int
-	{
+    public function getQuantityAttribute(): int
+    {
         return $this->attributes['quantity'] ?? 1;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getCostAttribute(): string
-	{
-		return number_format( (float) $this->attributes['cost'], 2, '.', '');
-	}
-
-
-	/**
-	 * @return BelongsTo
-	 */
-	public function option(): BelongsTo
-	{
-		return $this->belongsTo('App\Models\Option');
-	}
-
-
-	/**
-	 * @param float $exchange
-	 * @return float
-	 */
-	public function MSRPPrice( float $exchange = 1 ): float
-	{
-        return ( $this->attributes['price_tier_3']
-                    - $this->attributes['price_msrp_offset'] )
-                    * $exchange
-                    * $this->attributes['quantity'];
-	}
-
-	/**
-	 * @param float $exchange
-	 * @return float
-	 */
-	public function DealerPrice( float $exchange = 1 ): float
-	{
-		return ( $this->attributes['price_tier_2']
-                - $this->attributes['price_dealer_offset'] )
-                * $exchange
-                * $this->attributes['quantity'];
-	}
-
+    }
 
     /**
-     *
+     * @return string
      */
-	public function resetPrice(): void
-	{
-		$this->attributes['price_tier_2'] = $this->option->option_price_tier_2;
-		$this->attributes['price_tier_3'] = $this->option->option_price_tier_3;
-		$this->save();
-	}
+    public function getCostAttribute(): string
+    {
+        return number_format((float) $this->attributes['cost'], 2, '.', '');
+    }
 
+    /**
+     * @return BelongsTo
+     */
+    public function option(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Option::class);
+    }
+
+    /**
+     * @param float $exchange
+     * @return float
+     */
+    public function MSRPPrice(float $exchange = 1): float
+    {
+        return ($this->attributes['price_tier_3']
+                    - $this->attributes['price_msrp_offset'])
+                    * $exchange
+                    * $this->attributes['quantity'];
+    }
+
+    /**
+     * @param float $exchange
+     * @return float
+     */
+    public function DealerPrice(float $exchange = 1): float
+    {
+        return ($this->attributes['price_tier_2']
+                - $this->attributes['price_dealer_offset'])
+                * $exchange
+                * $this->attributes['quantity'];
+    }
+
+    public function resetPrice(): void
+    {
+        $this->attributes['price_tier_2'] = $this->option->option_price_tier_2;
+        $this->attributes['price_tier_3'] = $this->option->option_price_tier_3;
+        $this->save();
+    }
 }

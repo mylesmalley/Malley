@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\hasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 
 /**
  * App\Models\WorkOrder
@@ -70,7 +70,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WorkOrder extends BaseModel
 {
-
     /**
      * @var string
      */
@@ -79,7 +78,7 @@ class WorkOrder extends BaseModel
     /**
      * @var string[]
      */
-    protected $fillable= [
+    protected $fillable = [
         'id',
         'vehicle_id',
         'user_id',
@@ -96,13 +95,13 @@ class WorkOrder extends BaseModel
         'expected_customer_pickup_date',
         'type',
         'customer_address_1',
-	    'customer_address_2',
-	    'customer_city',
-	    'customer_province',
-	    'customer_postalcode',
-	    'customer_email',
-	    'customer_phone',
-	    'customer_contact',
+        'customer_address_2',
+        'customer_city',
+        'customer_province',
+        'customer_postalcode',
+        'customer_email',
+        'customer_phone',
+        'customer_contact',
         'customer_name',
         'linecount',
     ];
@@ -112,27 +111,25 @@ class WorkOrder extends BaseModel
      */
     public function lines(): hasMany
     {
-        return $this->hasMany("\App\Models\WorkOrderLine")
+        return $this->hasMany(\App\Models\WorkOrderLine::class)
             ->orderBy('order');
     }
-
 
     /**
      * @return BelongsTo
      */
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo('\App\Models\Vehicle');
+        return $this->belongsTo(\App\Models\Vehicle::class);
     }
 
     public function user()
     {
-        return $this->belongsTo("\App\Models\User");
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function getLinecountAttribute()
     {
         return $this->attributes['linecount'] ?? 18;
     }
-
 }

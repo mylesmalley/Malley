@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Inspection
@@ -62,13 +62,12 @@ class Inspection extends Model
     /**
      * @var string
      */
-    protected $table = "inspections";
-
+    protected $table = 'inspections';
 
     /**
      * @var array
      */
-    protected $fillable= [
+    protected $fillable = [
         'vin',
         'date_entered',
         'work_order',
@@ -90,48 +89,46 @@ class Inspection extends Model
         'user_id',
     ];
 
-
     /**
      * @return array
      */
     public static function types(): array
     {
         return [
-            "Screws",
-            "Inspection issue",
-            "Work order issue",
-            "Workmanship",
-            "Torque",
-            "Incorrect specification",
-            "Engineering",
-            "Damage",
-            "Lack of work instruction",
-            "Sharp",
-            "N / A",
-            "Purchased part",
-            "Seal",
-            "Cleaning issue",
-            "Loose",
-            "Part quality",
-            "Missing",
+            'Screws',
+            'Inspection issue',
+            'Work order issue',
+            'Workmanship',
+            'Torque',
+            'Incorrect specification',
+            'Engineering',
+            'Damage',
+            'Lack of work instruction',
+            'Sharp',
+            'N / A',
+            'Purchased part',
+            'Seal',
+            'Cleaning issue',
+            'Loose',
+            'Part quality',
+            'Missing',
         ];
     }
 
     public static function locations(): array
     {
         return [
-            "N / A",
-            "Assembly",
-            "Decals",
-            "Mill",
-            "Electrical",
-            "Upholstery",
-            "Plastics",
-            "Paint",
-            "Metal Fabrication",
+            'N / A',
+            'Assembly',
+            'Decals',
+            'Mill',
+            'Electrical',
+            'Upholstery',
+            'Plastics',
+            'Paint',
+            'Metal Fabrication',
         ];
     }
-
 
     /**
      * @return array
@@ -139,21 +136,17 @@ class Inspection extends Model
     public static function sources(): array
     {
         return [
-            "In Process",
-            "Engineering",
-            "N / A",
-            "Work Instructions",
-            "Sales",
-            "Supplier",
+            'In Process',
+            'Engineering',
+            'N / A',
+            'Work Instructions',
+            'Sales',
+            'Supplier',
         ];
     }
 
-
     public function vehicle()
     {
-        return $this->belongsTo('App\Models\Vehicle');
+        return $this->belongsTo(\App\Models\Vehicle::class);
     }
-
-
-
 }

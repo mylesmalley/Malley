@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 /**
  * App\Models\Tag
  *
@@ -26,27 +25,21 @@ class Tag extends Model
     /**
      * @var string
      */
-    protected $table = "tags";
-
+    protected $table = 'tags';
 
     /**
      * @var array
      */
-    protected $fillable= [
+    protected $fillable = [
         'vin',
         'name',
     ];
 
-
-    public $timestamps= false;
+    public $timestamps = false;
 
     protected function vehicles()
     {
-        return $this->belongsToMany('App\Models\Vehicle',
+        return $this->belongsToMany(\App\Models\Vehicle::class,
             'vehicle_tags')->orderBy('malley_number');
     }
-
-
-
-
 }

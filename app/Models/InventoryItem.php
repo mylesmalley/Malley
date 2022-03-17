@@ -6,21 +6,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-
 class InventoryItem extends BaseModel
 {
+    protected $table = 'inventory_items';
 
-	protected $table = 'inventory_items';
-
-    protected $dates = [
+    protected $fillable = [
+        'id',
         'created_at',
         'updated_at',
-    ];
-
-    protected $fillable= [
-        'id',
-	    'created_at',
-	    'updated_at',
 
         'stock_code',
         'description_1',
@@ -40,9 +33,8 @@ class InventoryItem extends BaseModel
         'locked',
         'manually_added',
 
-        'ticket_number'
+        'ticket_number',
     ];
-
 
     /**
      * Get the format for database stored dates.
@@ -54,23 +46,20 @@ class InventoryItem extends BaseModel
         return 'Y-m-d H:i:s.u0';
     }
 
-
-
     /**
      * @return BelongsTo
      */
     public function inventory(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Inventory');
+        return $this->belongsTo(\App\Models\Inventory::class);
     }
-
 
     /**
      * @return HasMany
      */
     public function counts(): HasMany
     {
-        return $this->hasMany('App\Models\InventoryItemCount')
+        return $this->hasMany(\App\Models\InventoryItemCount::class)
             ->orderBy('created_at', 'DESC');
     }
 
@@ -79,8 +68,7 @@ class InventoryItem extends BaseModel
      */
     public function latestCount(): HasOne
     {
-        return $this->hasOne('App\Models\InventoryItemCount')
+        return $this->hasOne(\App\Models\InventoryItemCount::class)
             ->orderBy('created_at', 'DESC');
     }
-
 }

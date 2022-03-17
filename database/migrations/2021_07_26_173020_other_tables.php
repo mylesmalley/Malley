@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class OtherTables extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,7 +14,7 @@ class OtherTables extends Migration
     {
         DB::statement(
 /** @lang text */
-<<<SQL
+<<<'SQL'
 create table templates
 (
 	id int identity
@@ -452,7 +451,6 @@ create unique index inventory_count_items_id_uindex
 
 
 SQL);
-
     }
 
     /**
@@ -471,7 +469,6 @@ SQL);
         Schema::dropIfExists('layout_options');
         Schema::dropIfExists('light_pods');
 
-
         Schema::dropIfExists('inventory');
         Schema::dropIfExists('fleet_audits');
         Schema::dropIfExists('failed_jobs');
@@ -488,4 +485,4 @@ SQL);
         Schema::dropIfExists('inventory_item_counts');
         Schema::dropIfExists('inventory_items');
     }
-}
+};

@@ -4,14 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class VehicleTables extends Migration
-{
-
+return new class extends Migration {
     public function up()
-{
-    DB::statement(
-    /** @lang text */
-<<<SQL
+    {
+        DB::statement(
+/** @lang text */
+<<<'SQL'
     create table tags
     (
         id int identity
@@ -122,8 +120,7 @@ class VehicleTables extends Migration
     )
 
 
-SQL );
-
+SQL);
     }
 
     /**
@@ -141,4 +138,4 @@ SQL );
         Schema::dropIfExists('vehicle_contact');
         Schema::dropIfExists('vehicle_tags');
     }
-}
+};

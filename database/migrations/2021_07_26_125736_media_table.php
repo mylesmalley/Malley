@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MediaTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -27,7 +26,7 @@ class MediaTable extends Migration
             $table->integer('order_column');
             $table->datetime('created_at', 2);
             $table->datetime('updated_at', 2);
-            $table->string('model_type',255);
+            $table->string('model_type', 255);
             $table->integer('base_van_id')->nullable();
             $table->string('option_name', 50)->nullable();
             $table->text('responsive_images');
@@ -45,6 +44,5 @@ class MediaTable extends Migration
     public function down()
     {
         Schema::dropIfExists('media');
-
     }
-}
+};

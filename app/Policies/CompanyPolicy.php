@@ -13,10 +13,8 @@ class CompanyPolicy
      * @param User $user
      * @return bool
      */
-    public function manage_companies( User $user ): bool
+    public function manage_companies(User $user): bool
     {
         return $user->can('manage_companies');
     }
-
-
 }

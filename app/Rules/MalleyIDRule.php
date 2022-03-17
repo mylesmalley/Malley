@@ -28,7 +28,6 @@ class MalleyIDRule implements Rule
         return preg_match('/^[a-zA-Z]+\d+$/', $value);
     }
 
-
     /**
      * Get the validation error message.
      *

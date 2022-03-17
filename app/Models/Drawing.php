@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use \App\Models\BaseModel;
+use App\Models\BaseModel;
+use Cache;
 use Illuminate\Support\Facades\DB;
 use Image;
 use Storage;
-use Cache;
-
 
 class Drawing extends BaseModel
 {
-    protected $table = "drawings";
+    protected $table = 'drawings';
 
     protected $fillable = [
-    	'name',
-    	'path',
-    	'base_van',
+        'name',
+        'path',
+        'base_van',
     ];
     // protected $dates = [
     //     'created_at',
@@ -27,7 +26,7 @@ class Drawing extends BaseModel
 
     public function platform()
     {
-    	return $this->belongsTo('\App\Models\BaseVan');
+        return $this->belongsTo(\App\Models\BaseVan::class);
     }
 
 //    public function setNameAttribute( $value )
@@ -40,29 +39,26 @@ class Drawing extends BaseModel
         return strtoupper($this->attributes['name']);
     }
 
-
     public function getUrlAttribute()
     {
-        return url('/drawing/'.$this->id );
+        return url('/drawing/'.$this->id);
     }
-
-
-
 
     public function getThumbnailUrlAttribute()
     {
-        return url('/drawing/'.$this->id.'/thumbnail' );
+        return url('/drawing/'.$this->id.'/thumbnail');
     }
-
 
     public function getHeightAttribute()
     {
         $path = $this->path;
         $height = Cache::remember("drawing-{$this->id}-height", 14400, function () use ($path) {
             $contents = Storage::disk('drawings')
-                            ->get( $path);
-            return Image::make( $contents )->height();
+                            ->get($path);
+
+            return Image::make($contents)->height();
         });
+
         return $height;
     }
 
@@ -71,10 +67,11 @@ class Drawing extends BaseModel
         $path = $this->path;
         $width = Cache::remember("drawing-{$this->id}-width", 14400, function () use ($path) {
             $contents = Storage::disk('drawings')
-                            ->get( $path );
-            return Image::make( $contents )->width();
+                            ->get($path);
+
+            return Image::make($contents)->width();
         });
+
         return $width;
     }
-
 }

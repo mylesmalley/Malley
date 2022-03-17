@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Labour extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -30,21 +29,18 @@ class Labour extends Migration
 //            $table->dateTimeTz('end' , 0)
 //                ->nullable();
 
-            $table->boolean('flagged')->default( false );
-            $table->boolean('posted')->default(false );
-
+            $table->boolean('flagged')->default(false);
+            $table->boolean('posted')->default(false);
         });
         DB::statement(
-        /** @lang text */
-
-<<<SQL
+/** @lang text */
+<<<'SQL'
 alter table labour
 	add [start] datetimeoffset(0),
 	  [end] datetimeoffset(0) default null
 
 SQL
 );
-
     }
 
     /**
@@ -55,6 +51,5 @@ SQL
     public function down()
     {
         Schema::dropIfExists('labour');
-
     }
-}
+};

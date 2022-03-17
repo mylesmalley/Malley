@@ -238,7 +238,7 @@ class FormElementController extends Controller
 				->get()
 			->keyBy('id');
 
-		$media = \App\Models\Media::where('model_type','App\Models\Option')
+		$media = \App\Models\Media::where('model_type',\App\Models\Option::class)
 			->select(['media.id','options.id AS option_id','options.option_name','options.option_description',
 				'model_id','media.name AS media_name'])
 			->where('media.base_van_id', $basevan->id)

@@ -25,13 +25,12 @@ class BlueprintWizardAnswer extends Model
         'wizard_id', // the parent wizard for resetting
     ];
 
-
     /**
      * @return BelongsTo
      */
     public function blueprint(): BelongsTo
     {
-        return $this->belongsTo(Blueprint::class );
+        return $this->belongsTo(Blueprint::class);
     }
 
     /**
@@ -39,10 +38,9 @@ class BlueprintWizardAnswer extends Model
      */
     public function answer(): HasOne
     {
-        return $this->hasOne( WizardAnswer::class, 'id', 'wizard_answer_id' );
-          //  ->with('actions');
+        return $this->hasOne(WizardAnswer::class, 'id', 'wizard_answer_id');
+        //  ->with('actions');
     }
-
 
 //    /**
 //     * @return HasMany
@@ -51,7 +49,4 @@ class BlueprintWizardAnswer extends Model
 //    {
 //        return $this->answer()->actions();
 //    }
-
-
-
 }

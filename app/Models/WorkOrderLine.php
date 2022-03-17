@@ -32,17 +32,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WorkOrderLine extends BaseModel
 {
-
     /**
      * @var string
      */
     protected $table = 'work_order_lines';
 
-
     /**
      * @var string[]
      */
-    protected $fillable= [
+    protected $fillable = [
         'id',
         'work_order_id',
         'order',
@@ -58,6 +56,6 @@ class WorkOrderLine extends BaseModel
      */
     public function work_order(): BelongsTo
     {
-        return $this->belongsTo('App\Models\WorkOrder');
+        return $this->belongsTo(\App\Models\WorkOrder::class);
     }
 }

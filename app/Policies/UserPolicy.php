@@ -10,9 +10,6 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-
-
-
     /**
      * Determine whether the user can view any models.
      *
@@ -21,14 +18,14 @@ class UserPolicy
      */
     public function all(User $user): bool
     {
-        return $user->hasAnyRole(['super_admin','user_admin']);
+        return $user->hasAnyRole(['super_admin', 'user_admin']);
     }
 
     /**
      * @param User $user
      * @return bool
      */
-    public function manage_general_users( User $user ): bool
+    public function manage_general_users(User $user): bool
     {
         return $user->can('manage_general_users');
     }
@@ -37,25 +34,28 @@ class UserPolicy
      * @param User $user
      * @return bool
      */
-    public function manage_production_staff( User $user ): bool
+    public function manage_production_staff(User $user): bool
     {
         return $user->can('manage_production_staff');
     }
 
-
-
-    public function see_user_blueprints( User $user, User $target )
+    public function see_user_blueprints(User $user, User $target)
     {
         // my own blueprints
-        if ( $user === $target ) return true;
+        if ($user === $target) {
+            return true;
+        }
 
         // malley staff
-        if ( $user->is_malley_staff() ) return true;
+        if ($user->is_malley_staff()) {
+            return true;
+        }
 
         // co-workers
-        if ( $user->company_id === $target->company_id) return true;
+        if ($user->company_id === $target->company_id) {
+            return true;
+        }
 
         return false;
     }
-
 }

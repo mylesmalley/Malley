@@ -26,25 +26,23 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
+        'current_password',
         'password',
         'password_confirmation',
     ];
-
 
     /**
      * @param Throwable $e
      */
     public function report(Throwable $e): void
     {
-        if ($this->shouldReport( $e ))
-        {
+        if ($this->shouldReport($e)) {
             Log::error('['.$e->getCode().
                 '] "'.$e->getMessage().
                 '" on line '.$e->getTrace()[0]['line'].
                 ' of file '.$e->getTrace()[0]['file']);
         }
     }
-
 
     /**
      * Register the exception handling callbacks for the application.

@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Facades\Log;
-use Modules\BugReport\Mail\DigestEmail;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Modules\BugReport\Mail\DigestEmail;
 
 class EngineeringDigestEmail extends Command
 {
@@ -35,19 +34,13 @@ class EngineeringDigestEmail extends Command
         parent::__construct();
     }
 
-    /**
-     *
-     */
     public function handle(): void
     {
-
-
-        foreach( User::where('can_edit_purchase_requests', true)->get() as $user )
-        {
-            Mail::to( $user->email )
-                ->send( new DigestEmail( $user ) );
+        foreach (User::where('can_edit_purchase_requests', true)->get() as $user) {
+            Mail::to($user->email)
+                ->send(new DigestEmail($user));
         }
 
-        Log::info("Sent engineering digest emails");
+        Log::info('Sent engineering digest emails');
     }
 }

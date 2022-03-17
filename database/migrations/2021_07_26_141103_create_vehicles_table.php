@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVehiclesTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -23,7 +22,7 @@ class CreateVehiclesTable extends Migration
             $table->integer('blueprint_id');
             $table->string('vin', 17);
             $table->string('malley_number', 32);
-            $table->string('customer_name',100);
+            $table->string('customer_name', 100);
             $table->string('customer_number', 20);
             $table->string('work_order');
             $table->string('oem_dealer');
@@ -37,7 +36,6 @@ class CreateVehiclesTable extends Migration
             $table->string('customer_city');
             $table->string('customer_province');
             $table->string('customer_postalcode');
-
 
             // vehicle data from nhtsa
             $table->string('make', 20);
@@ -55,12 +53,9 @@ class CreateVehiclesTable extends Migration
             $table->string('roof_height');
             $table->string('wheelbase');
 
-
             // other specs
             $table->string('location');
             $table->string('status');
-
-
 
             // serials
             $table->string('suction_regulator_serial');
@@ -108,7 +103,6 @@ class CreateVehiclesTable extends Migration
             $table->string('danhard_serial');
             $table->string('danhard_model');
 
-
             // testing fields
             $table->integer('tank_volume')->default(1);
 
@@ -152,7 +146,6 @@ class CreateVehiclesTable extends Migration
             $table->float('cab_seat_3_wheel');
             $table->boolean('cab_seat_3_used');
             $table->string('cab_seat_3_desc', 40);
-
 
             $table->float('passenger_seat_1_axel');
             $table->float('passenger_seat_1_wheel');
@@ -234,7 +227,6 @@ class CreateVehiclesTable extends Migration
             $table->boolean('passenger_seat_16_used');
             $table->string('passenger_seat_16_desc', 40);
 
-
             $table->string('wheel_size', 20);
             $table->string('tire_size', 20);
 
@@ -254,14 +246,12 @@ class CreateVehiclesTable extends Migration
             $table->string('ambulance_model', 20);
             $table->string('ambulance_type', 20);
 
-
             $table->integer('alternator_amperage');
             $table->float('load_test_2_highest');
             $table->float('load_test_1_highest');
             $table->float('load_test_2_lowest');
             $table->float('load_test_1_lowest');
             $table->date('load_test_date');
-
 
             $table->string('country', 20);
 
@@ -317,7 +307,6 @@ class CreateVehiclesTable extends Migration
 //            $table->date('date_x');
 //            $table->string('date_x_notes');
 
-
             $table->integer('front_axel_weight_with_fuel');
             $table->integer('rear_axel_weight_with_fuel');
             $table->integer('total_weight');
@@ -326,9 +315,6 @@ class CreateVehiclesTable extends Migration
             $table->boolean('warranty_submitted')->default(0);
             $table->integer('warranty_odometer');
 
-
-
-
             // finance
             $table->string('finance_invoice_number', 20);
             $table->float('finance_pretax_invoice_value');
@@ -336,14 +322,13 @@ class CreateVehiclesTable extends Migration
             $table->string('finance_lease_number', 50);
             $table->float('finance_monthly_lease_pretax');
             $table->float('finance_monthly_lease_tax');
-
         });
 
-        DB::statement("
+        DB::statement('
                 ALTER TABLE vehicles ADD
     computed_vehicle_number as right(left([work_order], 8), 4),
     first_work_order as left([work_order], 8)
-            ") ;
+            ');
     }
 
     /**
@@ -355,4 +340,4 @@ class CreateVehiclesTable extends Migration
     {
         Schema::dropIfExists('vehicles');
     }
-}
+};

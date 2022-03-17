@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Blueprint;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
-
 
 class BlueprintPolicy
 {
@@ -22,7 +21,6 @@ class BlueprintPolicy
 //        //
 //    }
 
-
     /**
      * @param $user
      * @param $ability
@@ -35,7 +33,7 @@ class BlueprintPolicy
 //            abort(403, "Your account has not yet been enabled.");
 //            return false;
 //        }
-    //    die('here');
+        //    die('here');
 
 //        if (!$user->can('use_blueprint'))
 //        {
@@ -46,16 +44,17 @@ class BlueprintPolicy
         return null;
     }
 
-
     /**
      * @param User $user
      * @return bool
      */
-    public function create( User $user ): bool
+    public function create(User $user): bool
     {
-        if ( $user->hasPermissionTo('blueprint.create')) return true;
+        if ($user->hasPermissionTo('blueprint.create')) {
+            return true;
+        }
 
-            return false;
+        return false;
     }
 
 //
@@ -66,81 +65,91 @@ class BlueprintPolicy
 //            : Response::deny('You do not own this post.');
 //    }
 
-
     /**
      * @param User $user
      * @return bool
      */
-    public function home( User $user, Blueprint $blueprint ): bool
+    public function home(User $user, Blueprint $blueprint): bool
     {
 
-
         // they own the blueprint
-        if ($user->id === $blueprint->user_id) return true;
+        if ($user->id === $blueprint->user_id) {
+            return true;
+        }
 
         // user is malley staff
-        if ($user->is_malley_staff) return true;
+        if ($user->is_malley_staff) {
+            return true;
+        }
 
         // user is of the same company
-        if ($user->company->id === $blueprint->user->company_id ) return true;
+        if ($user->company->id === $blueprint->user->company_id) {
+            return true;
+        }
 
         abort(403, "You don't have permission to see this Blueprint.");
+
         return false;
-
     }
-
 
     /**
      * @param User $user
      * @param Blueprint $blueprint
      * @return bool
      */
-    public function edit( User $user, Blueprint $blueprint ): bool
+    public function edit(User $user, Blueprint $blueprint): bool
     {
 
         // they own the blueprint
-        if ($user->id === $blueprint->user_id) return true;
+        if ($user->id === $blueprint->user_id) {
+            return true;
+        }
 
         // user is malley staff
-        if ($user->is_malley_staff) return true;
+        if ($user->is_malley_staff) {
+            return true;
+        }
 
         // user is of the same company
-        if ($user->company->id === $blueprint->user->company_id ) return true;
+        if ($user->company->id === $blueprint->user->company_id) {
+            return true;
+        }
 
         abort(403, "You don't have permission to edit this Blueprint.");
+
         return false;
-
     }
-
 
     /**
      * @param User $user
      * @param Blueprint $blueprint
      * @return bool
      */
-    public function update( User $user, Blueprint $blueprint ): bool
+    public function update(User $user, Blueprint $blueprint): bool
     {
-
-        if ( $blueprint->is_locked )
-        {
-            abort(403, "This Blueprint has been locked and can only be changed by an administrator");
+        if ($blueprint->is_locked) {
+            abort(403, 'This Blueprint has been locked and can only be changed by an administrator');
         }
 
         // they own the blueprint
-        if ($user->id === $blueprint->user_id) return true;
+        if ($user->id === $blueprint->user_id) {
+            return true;
+        }
 
         // user is malley staff
-        if ($user->is_malley_staff) return true;
+        if ($user->is_malley_staff) {
+            return true;
+        }
 
         // user is of the same company
-        if ($user->company->id === $blueprint->user->company_id ) return true;
-
+        if ($user->company->id === $blueprint->user->company_id) {
+            return true;
+        }
 
         abort(403, "You don't have permission to edit this Blueprint.");
+
         return false;
-
     }
-
 
     /**
      * includes if the user can make changes to the quote or not
@@ -149,30 +158,32 @@ class BlueprintPolicy
      * @param Blueprint $blueprint
      * @return bool
      */
-    public function edit_configuration( User $user, Blueprint $blueprint ): bool
+    public function edit_configuration(User $user, Blueprint $blueprint): bool
     {
+        if ($blueprint->is_locked) {
+            return false;
+        }
 
-        if ( $blueprint->is_locked ) return false;
-
-        if ($user->hasPermissionTo('blueprint.quote')) return true;
+        if ($user->hasPermissionTo('blueprint.quote')) {
+            return true;
+        }
 
         return false;
     }
 
-
-
-    public function reset_configuration( User $user, Blueprint $blueprint ): bool
+    public function reset_configuration(User $user, Blueprint $blueprint): bool
     {
-
-        if ( $blueprint->is_locked ) return false;
+        if ($blueprint->is_locked) {
+            return false;
+        }
 
         // user is malley staff
-        if ($user->hasPermissionTo('blueprint.reset')) return true;
+        if ($user->hasPermissionTo('blueprint.reset')) {
+            return true;
+        }
 
         return false;
     }
-
-
 
     /*
             C H A N G E S  T O  N O T E S
@@ -272,15 +283,16 @@ class BlueprintPolicy
      * @param  User   $user [description]
      * @return [type]       [description]
      */
-    public function index( User $user )
+    public function index(User $user)
     {
         // user is malley staff
-        if ($user->is_malley_staff) return true;
+        if ($user->is_malley_staff) {
+            return true;
+        }
 
         abort(403, "You don't have permission to see all Blueprints.");
 
         return false;
-
     }
 
 //
@@ -465,6 +477,4 @@ class BlueprintPolicy
 //        }
 //        return false;
 //    }
-
-
 }

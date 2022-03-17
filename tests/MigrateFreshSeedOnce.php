@@ -3,19 +3,23 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\Artisan;
-trait MigrateFreshSeedOnce{
+
+trait MigrateFreshSeedOnce
+{
     /**
      * If true, setup has run at least once.
-     * @var boolean
+     * @var bool
      */
-    protected static bool $setUpHasRunOnce = false;    /**
+    protected static bool $setUpHasRunOnce = false;
+
+    /**
      * After the first run of setUp "migrate:fresh --seed"
      * @return void
      */
-    public function setUp() :void
+    protected function setUp() :void
     {
         parent::setUp();
-        if (!static::$setUpHasRunOnce) {
+        if (! static::$setUpHasRunOnce) {
             Artisan::call('migrate:reset');
             Artisan::call('migrate --seed');
             static::$setUpHasRunOnce = true;

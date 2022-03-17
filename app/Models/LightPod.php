@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class LightPod
  *
- * @package App\Models
  * @property int $id
  * @property int $blueprint_id
  * @property string|null $data
@@ -24,30 +23,30 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LightPod extends Model
 {
-	/**
-	 * @var string
-	 */
+    /**
+     * @var string
+     */
     protected $table = 'light_pods';
-	
-	/**\
-	 * @var array
-	 */
-    protected $fillable= [
-    	'blueprint_id',
-	    'data',
-	    'instructions',
+
+    /**\
+     * @var array
+     */
+    protected $fillable = [
+        'blueprint_id',
+        'data',
+        'instructions',
     ];
-	
-	/**
-	 * @var bool
-	 */
-    public $timestamps= false;
-	
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
+
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function blueprint()
     {
-    	return $this->belongsTo('App\Models\Blueprint');
+        return $this->belongsTo(\App\Models\Blueprint::class);
     }
 }

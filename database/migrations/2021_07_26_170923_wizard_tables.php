@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class WizardTables extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -14,9 +13,8 @@ class WizardTables extends Migration
     public function up()
     {
         DB::statement(
-        /** @lang text */
-
-<<<SQL
+/** @lang text */
+<<<'SQL'
     create table wizards
     (
         id int identity
@@ -74,8 +72,7 @@ class WizardTables extends Migration
         wizard_id int
     )
 
-SQL );
-
+SQL);
     }
 
     /**
@@ -91,4 +88,4 @@ SQL );
         Schema::dropIfExists('wizard_answers');
         Schema::dropIfExists('blueprint_wizard_answers');
     }
-}
+};
