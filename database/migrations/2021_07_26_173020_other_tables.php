@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class OtherTables extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -486,4 +486,4 @@ SQL);
         Schema::dropIfExists('inventory_item_counts');
         Schema::dropIfExists('inventory_items');
     }
-}
+};

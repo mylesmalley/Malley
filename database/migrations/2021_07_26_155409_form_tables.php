@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FormTables extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -85,4 +85,4 @@ FORM);
         Schema::dropIfExists('form_element_items');
         Schema::dropIfExists('form_element_rules');
     }
-}
+};

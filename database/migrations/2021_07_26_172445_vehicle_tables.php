@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class VehicleTables extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -139,4 +139,4 @@ SQL);
         Schema::dropIfExists('vehicle_contact');
         Schema::dropIfExists('vehicle_tags');
     }
-}
+};

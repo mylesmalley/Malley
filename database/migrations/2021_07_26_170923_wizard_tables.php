@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class WizardTables extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -89,4 +89,4 @@ SQL);
         Schema::dropIfExists('wizard_answers');
         Schema::dropIfExists('blueprint_wizard_answers');
     }
-}
+};

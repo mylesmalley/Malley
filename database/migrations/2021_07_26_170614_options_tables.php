@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class OptionsTables extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -101,4 +101,4 @@ SQL
         Schema::dropIfExists('option_tags');
         Schema::dropIfExists('option_rules');
     }
-}
+};

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVehiclesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -341,4 +341,4 @@ class CreateVehiclesTable extends Migration
     {
         Schema::dropIfExists('vehicles');
     }
-}
+};
