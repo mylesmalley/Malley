@@ -46,7 +46,7 @@ class StockCode extends Model
      */
     public function latestPricing() : HasOne
     {
-        return $this->hasOne('App\Models\StockCodePrice',
+        return $this->hasOne(\App\Models\StockCodePrice::class,
             'stockcode', 'StockCode')->latest();
     }
 
@@ -55,7 +55,7 @@ class StockCode extends Model
      */
     public function history(): HasMany
     {
-        return $this->hasMany('App\Models\StockCodePrice',
+        return $this->hasMany(\App\Models\StockCodePrice::class,
             'stockcode', 'StockCode')
             ->orderBy('updated_at', 'DESC');
     }

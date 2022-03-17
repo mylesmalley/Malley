@@ -15,12 +15,12 @@ class BlueprintLog extends BaseModel
 
     public function blueprint()
     {
-        return $this->belongsTo('\App\Models\Blueprint');
+        return $this->belongsTo(\App\Models\Blueprint::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('\App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function setTypeAttribute($value)

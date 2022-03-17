@@ -42,6 +42,6 @@ class FunnelStatus extends Model
      */
     public function opportunities()
     {
-        return $this->hasMany('App\Models\Opportunity', 'funnel_status_id');
+        return $this->hasMany(\App\Models\Opportunity::class, 'funnel_status_id');
     }
 }

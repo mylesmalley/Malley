@@ -31,7 +31,7 @@ class BugReportActivity extends BaseModel implements HasMedia
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -39,12 +39,12 @@ class BugReportActivity extends BaseModel implements HasMedia
      */
     public function bugReport()
     {
-        return $this->belongsTo('App\Models\BugReport');
+        return $this->belongsTo(\App\Models\BugReport::class);
     }
 
     public function assignedUser()
     {
-        return $this->belongsTo('App\Models\User', 'assigned_user_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'assigned_user_id', 'id');
     }
 
     /**

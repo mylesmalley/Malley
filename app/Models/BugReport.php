@@ -47,12 +47,12 @@ class BugReport extends BaseModel implements HasMedia
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function assignedUser()
     {
-        return $this->belongsTo('App\Models\User', 'assigned_user_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'assigned_user_id', 'id');
     }
 
     public function getUserNameAttribute(): string
@@ -143,7 +143,7 @@ class BugReport extends BaseModel implements HasMedia
      */
     public function activities()
     {
-        return $this->hasMany('App\Models\BugReportActivity')
+        return $this->hasMany(\App\Models\BugReportActivity::class)
             ->orderBy('sequence', 'ASC');
     }
 
@@ -171,7 +171,7 @@ class BugReport extends BaseModel implements HasMedia
             return 1;
         }
 
-        $latest = $this->hasMany('App\Models\BugReportActivity')
+        $latest = $this->hasMany(\App\Models\BugReportActivity::class)
         ->orderBy('sequence', 'DESC')
             ->first();
 

@@ -17,11 +17,11 @@ class Render extends BaseModel
 
     public function template()
     {
-        return $this->hasOne('App\Models\Template');
+        return $this->hasOne(\App\Models\Template::class);
     }
 
     public function blueprint()
     {
-        return $this->hasOne('App\Models\Blueprint');
+        return $this->hasOne(\App\Models\Blueprint::class);
     }
 }

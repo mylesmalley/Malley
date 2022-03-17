@@ -56,6 +56,6 @@ class WorkOrderLine extends BaseModel
      */
     public function work_order(): BelongsTo
     {
-        return $this->belongsTo('App\Models\WorkOrder');
+        return $this->belongsTo(\App\Models\WorkOrder::class);
     }
 }

@@ -48,7 +48,7 @@ class OptionRule extends Model
      */
     public function option()
     {
-        return $this->belongsTo('App\Models\Option');
+        return $this->belongsTo(\App\Models\Option::class);
     }
 
     /**
@@ -56,7 +56,7 @@ class OptionRule extends Model
      */
     public function relatedOption()
     {
-        return $this->belongsTo('App\Models\Option', 'related_option_id');
+        return $this->belongsTo(\App\Models\Option::class, 'related_option_id');
     }
 
     /**

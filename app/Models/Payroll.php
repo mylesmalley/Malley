@@ -122,7 +122,7 @@ class Payroll extends BaseModel
      */
     public function staff()
     {
-        return $this->belongsTo('App\Models\Staff');
+        return $this->belongsTo(\App\Models\Staff::class);
     }
 
     /**

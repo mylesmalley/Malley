@@ -21,7 +21,7 @@ class TemplateOption extends BaseModel
      */
     public function template(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Template');
+        return $this->belongsTo(\App\Models\Template::class);
     }
 
     /**
@@ -29,6 +29,6 @@ class TemplateOption extends BaseModel
      */
     public function option(): HasOne
     {
-        return $this->hasOne('App\Models\Option');
+        return $this->hasOne(\App\Models\Option::class);
     }
 }

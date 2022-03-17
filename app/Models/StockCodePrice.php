@@ -64,7 +64,7 @@ class StockCodePrice extends Model
      */
     public function parent(): BelongsTo
     {
-        return $this->belongsTo('App\Models\StockCode');
+        return $this->belongsTo(\App\Models\StockCode::class);
     }
 
     /**

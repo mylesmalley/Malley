@@ -43,7 +43,7 @@ class Department extends Model
      */
     public function users(): HasMany
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany(\App\Models\User::class);
     }
 
     /**
@@ -51,6 +51,6 @@ class Department extends Model
      */
     public function opportunities(): HasMany
     {
-        return $this->hasMany('App\Models\Opportunity');
+        return $this->hasMany(\App\Models\Opportunity::class);
     }
 }

@@ -37,7 +37,7 @@ class Form extends BaseModel
      */
     public function platform(): BelongsTo
     {
-        return $this->belongsTo('App\Models\BaseVan');
+        return $this->belongsTo(\App\Models\BaseVan::class);
     }
 
     /**
@@ -45,7 +45,7 @@ class Form extends BaseModel
      */
     public function elements(): HasMany
     {
-        return $this->hasMany('App\Models\FormElement')->orderBy('position', 'ASC');
+        return $this->hasMany(\App\Models\FormElement::class)->orderBy('position', 'ASC');
     }
 
     /**
@@ -61,6 +61,6 @@ class Form extends BaseModel
      */
     public function basevan(): BelongsTo
     {
-        return $this->belongsTo('App\Models\BaseVan', 'base_van_id', 'id');
+        return $this->belongsTo(\App\Models\BaseVan::class, 'base_van_id', 'id');
     }
 }

@@ -59,7 +59,7 @@ class InventoryItemCount extends BaseModel
      */
     public function item(): BelongsTo
     {
-        return $this->belongsTo('App\Models\InventoryItem');
+        return $this->belongsTo(\App\Models\InventoryItem::class);
     }
 
     /**
@@ -67,6 +67,6 @@ class InventoryItemCount extends BaseModel
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 }

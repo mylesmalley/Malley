@@ -20,6 +20,6 @@ class Question extends BaseModel
 
     public function layout()
     {
-        return $this->belongsTo('\App\Models\Layout');
+        return $this->belongsTo(\App\Models\Layout::class);
     }
 }

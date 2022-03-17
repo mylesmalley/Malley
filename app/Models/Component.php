@@ -124,7 +124,7 @@ class Component extends \App\Models\BaseModel
 
     public function option()
     {
-        return $this->belongsTo('App\Models\Option');
+        return $this->belongsTo(\App\Models\Option::class);
     }
 
     /*

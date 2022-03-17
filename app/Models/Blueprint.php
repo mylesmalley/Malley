@@ -101,7 +101,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function layout(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Layout');
+        return $this->belongsTo(\App\Models\Layout::class);
     }
 
     /**
@@ -109,7 +109,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function lightPods(): HasOne
     {
-        return $this->hasOne('App\Models\LightPod');
+        return $this->hasOne(\App\Models\LightPod::class);
     }
 
     /**
@@ -133,7 +133,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo("\App\Models\User");
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -141,7 +141,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function platform(): BelongsTo
     {
-        return $this->belongsTo('\App\Models\BaseVan', 'base_van_id');
+        return $this->belongsTo(\App\Models\BaseVan::class, 'base_van_id');
     }
 
     /**
@@ -149,7 +149,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function configuration(): HasMany
     {
-        return $this->hasMany("\App\Models\Configuration")
+        return $this->hasMany(\App\Models\Configuration::class)
             ->orderBy('name');
     }
 
@@ -485,7 +485,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function imageElements(): HasManyThrough
     {
-        return $this->hasManyThrough('App\Models\Element', 'App\Models\Sheet', 'base_van_id', 'sheet', 'base_van_id')
+        return $this->hasManyThrough(\App\Models\Element::class, \App\Models\Sheet::class, 'base_van_id', 'sheet', 'base_van_id')
             ->where('type', 'images');
     }
 
@@ -494,7 +494,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function log(): HasMany
     {
-        return $this->hasMany('\App\Models\BlueprintLog');
+        return $this->hasMany(\App\Models\BlueprintLog::class);
     }
 
     /**
@@ -610,7 +610,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function vehicles()
     {
-        return $this->hasMany('\App\Models\Vehicle');
+        return $this->hasMany(\App\Models\Vehicle::class);
     }
 
     /**
@@ -643,7 +643,7 @@ class Blueprint extends BaseModel implements HasMedia
      */
     public function renders()
     {
-        return $this->hasMany('App\Models\Render');
+        return $this->hasMany(\App\Models\Render::class);
     }
 
     /**
@@ -721,7 +721,7 @@ class Blueprint extends BaseModel implements HasMedia
 
     public function activeDrawingIDs()
     {
-        return Media::where('model_type', 'App\Models\Option')
+        return Media::where('model_type', \App\Models\Option::class)
             ->where('collection_name', 'drawings')
             ->whereIn('model_id', $this->activeOptionIDs())
             ->pluck('id');

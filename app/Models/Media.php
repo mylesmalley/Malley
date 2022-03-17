@@ -87,7 +87,7 @@ class Media extends BaseMedia
 
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Tag', 'media_tags');
+        return $this->belongsToMany(\App\Models\Tag::class, 'media_tags');
     }
 
     /**

@@ -111,7 +111,7 @@ class WorkOrder extends BaseModel
      */
     public function lines(): hasMany
     {
-        return $this->hasMany("\App\Models\WorkOrderLine")
+        return $this->hasMany(\App\Models\WorkOrderLine::class)
             ->orderBy('order');
     }
 
@@ -120,12 +120,12 @@ class WorkOrder extends BaseModel
      */
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo('\App\Models\Vehicle');
+        return $this->belongsTo(\App\Models\Vehicle::class);
     }
 
     public function user()
     {
-        return $this->belongsTo("\App\Models\User");
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function getLinecountAttribute()

@@ -242,7 +242,7 @@ class Staff extends Authenticatable
      */
     public function labour()
     {
-        return $this->hasMany('App\Models\Labour');
+        return $this->hasMany(\App\Models\Labour::class);
     }
 
     public function day(Carbon $date)
@@ -287,7 +287,7 @@ class Staff extends Authenticatable
      */
     public function payroll()
     {
-        return $this->hasMany('App\Models\Payroll');
+        return $this->hasMany(\App\Models\Payroll::class);
     }
 
     public function toggleAccountStatus()
@@ -338,7 +338,7 @@ class Staff extends Authenticatable
      */
     public function activeLabour()
     {
-        return $this->hasMany('App\Models\Labour')->where('end', null);
+        return $this->hasMany(\App\Models\Labour::class)->where('end', null);
     }
 
     /**
@@ -346,7 +346,7 @@ class Staff extends Authenticatable
      */
     public function activePayroll()
     {
-        return $this->hasOne('App\Models\Payroll')->where('end', null);
+        return $this->hasOne(\App\Models\Payroll::class)->where('end', null);
     }
 
     //	/**

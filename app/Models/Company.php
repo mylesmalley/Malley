@@ -56,7 +56,7 @@ class Company extends BaseModel implements HasMedia
 
     public function users()
     {
-        return $this->hasMany('\App\Models\User');
+        return $this->hasMany(\App\Models\User::class);
     }
 
     public function getLogoAttribute(): string

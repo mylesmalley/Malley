@@ -68,7 +68,7 @@ class OpportunityLog extends Model
      */
     public function opportunity(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Opportunity');
+        return $this->belongsTo(\App\Models\Opportunity::class);
     }
 
     /**
@@ -76,6 +76,6 @@ class OpportunityLog extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 }

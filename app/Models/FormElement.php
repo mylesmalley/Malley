@@ -33,7 +33,7 @@ class FormElement extends BaseModel
      */
     public function form(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Form');
+        return $this->belongsTo(\App\Models\Form::class);
     }
 
     /**
@@ -41,7 +41,7 @@ class FormElement extends BaseModel
      */
     public function items(): HasMany
     {
-        return $this->hasMany('App\Models\FormElementItem');
+        return $this->hasMany(\App\Models\FormElementItem::class);
     }
 
     /**
@@ -67,7 +67,7 @@ class FormElement extends BaseModel
      */
     public function rule(): HasOne
     {
-        return $this->hasOne('App\Models\FormElementRule', 'form_element_id');
+        return $this->hasOne(\App\Models\FormElementRule::class, 'form_element_id');
     }
 
     /**

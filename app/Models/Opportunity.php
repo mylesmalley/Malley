@@ -193,7 +193,7 @@ class Opportunity extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
     /**
@@ -201,7 +201,7 @@ class Opportunity extends Model
      */
     public function status(): BelongsTo
     {
-        return $this->belongsTo('App\Models\FunnelStatus', 'funnel_status_id');
+        return $this->belongsTo(\App\Models\FunnelStatus::class, 'funnel_status_id');
     }
 
     /**
@@ -209,7 +209,7 @@ class Opportunity extends Model
      */
     public function blueprint(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Blueprint', 'blueprint_id');
+        return $this->belongsTo(\App\Models\Blueprint::class, 'blueprint_id');
     }
 
     /**
@@ -217,7 +217,7 @@ class Opportunity extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo('App\Models\BaseVan', 'base_van_id');
+        return $this->belongsTo(\App\Models\BaseVan::class, 'base_van_id');
     }
 
     /**
@@ -225,7 +225,7 @@ class Opportunity extends Model
      */
     public function dealer(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Company', 'company_id');
+        return $this->belongsTo(\App\Models\Company::class, 'company_id');
     }
 
     /**
@@ -233,7 +233,7 @@ class Opportunity extends Model
      */
     public function department(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo(\App\Models\Department::class);
     }
 
     /**
@@ -241,7 +241,7 @@ class Opportunity extends Model
      */
     public function notes(): HasMany
     {
-        return $this->hasMany('App\Models\OpportunityNote')
+        return $this->hasMany(\App\Models\OpportunityNote::class)
             ->orderBy('created_at', 'DESC');
     }
 

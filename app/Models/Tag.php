@@ -39,7 +39,7 @@ class Tag extends Model
 
     protected function vehicles()
     {
-        return $this->belongsToMany('App\Models\Vehicle',
+        return $this->belongsToMany(\App\Models\Vehicle::class,
             'vehicle_tags')->orderBy('malley_number');
     }
 }

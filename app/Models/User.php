@@ -268,7 +268,7 @@ class User extends Authenticatable
      */
     public function createdBugReports(): HasMany
     {
-        return $this->hasMany('App\Models\BugReport', 'user_id', 'id');
+        return $this->hasMany(\App\Models\BugReport::class, 'user_id', 'id');
     }
 
     /**
@@ -277,29 +277,29 @@ class User extends Authenticatable
      */
     public function assignedBugReports(): HasMany
     {
-        return $this->hasMany('App\Models\BugReport', 'assigned_user_id', 'id')
+        return $this->hasMany(\App\Models\BugReport::class, 'assigned_user_id', 'id')
             ->where('status', '!=', 'Closed');
     }
 
     public function bugReportTasks(): HasMany
     {
-        return $this->hasMany('App\Models\BugReportActivity', 'assigned_user_id', 'id')
+        return $this->hasMany(\App\Models\BugReportActivity::class, 'assigned_user_id', 'id')
             ->where('completed', '!=', true);
     }
 
     public function company()
     {
-        return $this->belongsTo("\App\Models\Company");
+        return $this->belongsTo(\App\Models\Company::class);
     }
 
     public function blueprints()
     {
-        return $this->hasMany("\App\Models\Blueprint");
+        return $this->hasMany(\App\Models\Blueprint::class);
     }
 
     public function department()
     {
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo(\App\Models\Department::class);
     }
 
     /**

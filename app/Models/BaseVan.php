@@ -50,18 +50,18 @@ class BaseVan extends BaseModel implements HasMedia
 
     public function options()
     {
-        return $this->hasMany("\App\Models\Option")
+        return $this->hasMany(\App\Models\Option::class)
                     ->orderBy('option_name', 'ASC');
     }
 
     public function sheets()
     {
-        return $this->hasMany('\App\Models\Sheet');
+        return $this->hasMany(\App\Models\Sheet::class);
     }
 
     public function drawings()
     {
-        return $this->hasMany('\App\Models\Drawing');
+        return $this->hasMany(\App\Models\Drawing::class);
     }
 
     /**
@@ -69,8 +69,8 @@ class BaseVan extends BaseModel implements HasMedia
      */
     public function drawingElements(): HasManyThrough
     {
-        return $this->hasManyThrough('\App\Models\FormElement',
-            '\App\Models\Form',
+        return $this->hasManyThrough(\App\Models\FormElement::class,
+            \App\Models\Form::class,
             'base_van_id',
             'form_id',
             'id')
@@ -80,7 +80,7 @@ class BaseVan extends BaseModel implements HasMedia
     public function templates()
     {
         return $this->hasMany(
-            'App\Models\Template',
+            \App\Models\Template::class,
             'base_van',
             'id')
             ->orderBy('order', 'ASC');
@@ -88,7 +88,7 @@ class BaseVan extends BaseModel implements HasMedia
 
     public function layouts()
     {
-        return $this->hasMany('App\Models\Layout');
+        return $this->hasMany(\App\Models\Layout::class);
     }
 
     public static function layoutMenu(bool $withBlank = true):array
@@ -135,7 +135,7 @@ class BaseVan extends BaseModel implements HasMedia
      */
     public function forms()
     {
-        return $this->hasMany('App\Models\Form')
+        return $this->hasMany(\App\Models\Form::class)
             ->orderBy('order', 'ASC');
     }
 }

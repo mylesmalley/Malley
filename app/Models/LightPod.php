@@ -47,6 +47,6 @@ class LightPod extends Model
      */
     public function blueprint()
     {
-        return $this->belongsTo('App\Models\Blueprint');
+        return $this->belongsTo(\App\Models\Blueprint::class);
     }
 }

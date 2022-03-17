@@ -103,7 +103,7 @@ class Template extends BaseModel //implements Auditable
     public function options()
     {
         return $this->belongsToMany(
-            "App\Models\Option",
+            \App\Models\Option::class,
             'template_options'
             );
     }
@@ -115,7 +115,7 @@ class Template extends BaseModel //implements Auditable
     public function platform()
     {
         return $this->belongsTo(
-            '\App\Models\BaseVan',
+            \App\Models\BaseVan::class,
             'base_van');
     }
 

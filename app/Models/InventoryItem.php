@@ -56,7 +56,7 @@ class InventoryItem extends BaseModel
      */
     public function inventory(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Inventory');
+        return $this->belongsTo(\App\Models\Inventory::class);
     }
 
     /**
@@ -64,7 +64,7 @@ class InventoryItem extends BaseModel
      */
     public function counts(): HasMany
     {
-        return $this->hasMany('App\Models\InventoryItemCount')
+        return $this->hasMany(\App\Models\InventoryItemCount::class)
             ->orderBy('created_at', 'DESC');
     }
 
@@ -73,7 +73,7 @@ class InventoryItem extends BaseModel
      */
     public function latestCount(): HasOne
     {
-        return $this->hasOne('App\Models\InventoryItemCount')
+        return $this->hasOne(\App\Models\InventoryItemCount::class)
             ->orderBy('created_at', 'DESC');
     }
 }

@@ -65,7 +65,7 @@ class FormElementRule extends BaseModel
      */
     public function formElement()
     {
-        return $this->belongsTo('App\Models\FormElement');
+        return $this->belongsTo(\App\Models\FormElement::class);
     }
 
     /**

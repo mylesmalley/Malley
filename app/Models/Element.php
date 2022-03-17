@@ -62,7 +62,7 @@ class Element extends BaseModel
 
     public function sheet()
     {
-        return $this->belongsTo('\App\Models\Sheet', 'id', 'form');
+        return $this->belongsTo(\App\Models\Sheet::class, 'id', 'form');
     }
 
     public function setOptionsAttribute($input)

@@ -87,7 +87,7 @@ class Contact extends BaseModel
 
     public function vehicles()
     {
-        return $this->belongsToMany('App\Models\Vehicle', 'vehicle_contact');
+        return $this->belongsToMany(\App\Models\Vehicle::class, 'vehicle_contact');
     }
 
     public function getContactTypeAttribute()

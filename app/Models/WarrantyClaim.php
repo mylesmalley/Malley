@@ -88,7 +88,7 @@ class WarrantyClaim extends BaseModel implements HasMedia
 
     public function vehicle()
     {
-        return $this->belongsTo('App\Models\Vehicle',
+        return $this->belongsTo(\App\Models\Vehicle::class,
             'vin',
             'vin');
     }

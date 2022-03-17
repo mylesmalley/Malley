@@ -44,11 +44,11 @@ class LayoutOption extends BaseModel
 
     public function layout()
     {
-        return $this->belongsTo('App\Models\Layout');
+        return $this->belongsTo(\App\Models\Layout::class);
     }
 
     public function option()
     {
-        return $this->belongsTo('App\Models\Option');
+        return $this->belongsTo(\App\Models\Option::class);
     }
 }

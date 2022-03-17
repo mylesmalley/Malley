@@ -35,6 +35,6 @@ class OptionTag extends BaseModel
      */
     public function options()
     {
-        return $this->hasManyThrough('App\Models\Option', 'option_tags');
+        return $this->hasManyThrough(\App\Models\Option::class, 'option_tags');
     }
 }

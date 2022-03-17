@@ -26,7 +26,7 @@ class Drawing extends BaseModel
 
     public function platform()
     {
-        return $this->belongsTo('\App\Models\BaseVan');
+        return $this->belongsTo(\App\Models\BaseVan::class);
     }
 
 //    public function setNameAttribute( $value )

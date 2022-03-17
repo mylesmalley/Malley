@@ -450,27 +450,27 @@ class Vehicle extends BaseModel implements HasMedia
     public function inspections()
     {
         //   return $this->hasMany('\App\Models\Inspection', 'vin', 'vin');
-        return $this->hasMany('\App\Models\Inspection')->orderBy('date_entered', 'DESC');
+        return $this->hasMany(\App\Models\Inspection::class)->orderBy('date_entered', 'DESC');
     }
 
     public function albums()
     {
-        return $this->belongsToMany('\App\Models\Album', 'vehicle_albums');
+        return $this->belongsToMany(\App\Models\Album::class, 'vehicle_albums');
     }
 
     protected function tags()
     {
-        return $this->belongsToMany('App\Models\Tag', 'vehicle_tags');
+        return $this->belongsToMany(\App\Models\Tag::class, 'vehicle_tags');
     }
 
     public function dealer()
     {
-        return $this->belongsTo('\App\Models\Company', 'company_id', 'id');
+        return $this->belongsTo(\App\Models\Company::class, 'company_id', 'id');
     }
 
     public function creator()
     {
-        return $this->belongsTo('\App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -478,7 +478,7 @@ class Vehicle extends BaseModel implements HasMedia
      */
     public function blueprint()
     {
-        return $this->belongsTo('App\Models\Blueprint');
+        return $this->belongsTo(\App\Models\Blueprint::class);
     }
 
     /**
@@ -486,7 +486,7 @@ class Vehicle extends BaseModel implements HasMedia
      */
     public function contacts()
     {
-        return $this->belongsToMany('App\Models\Contact', 'vehicle_contact');
+        return $this->belongsToMany(\App\Models\Contact::class, 'vehicle_contact');
     }
 
     /**
@@ -583,7 +583,7 @@ class Vehicle extends BaseModel implements HasMedia
      */
     public function work_orders(): HasMany
     {
-        return $this->hasMany('\App\Models\WorkOrder');
+        return $this->hasMany(\App\Models\WorkOrder::class);
     }
 
     /**

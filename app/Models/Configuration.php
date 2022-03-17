@@ -191,7 +191,7 @@ class Configuration extends BaseModel
      */
     public function blueprint(): BelongsTo
     {
-        return $this->belongsTo("\App\Models\Blueprint");
+        return $this->belongsTo(\App\Models\Blueprint::class);
     }
 
     /**
@@ -255,7 +255,7 @@ class Configuration extends BaseModel
      */
     public function option(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Option');
+        return $this->belongsTo(\App\Models\Option::class);
     }
 
     /**

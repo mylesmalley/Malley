@@ -44,7 +44,7 @@ class FormElementController extends Controller
             ->pluck('id');
 
 
-        $query = Media::where('model_type', 'App\Models\Option')
+        $query = Media::where('model_type', \App\Models\Option::class)
             ->whereIn('model_id', $allOptions)
             ->where('collection_name','drawings')
             ->whereNotIn('id', $except)

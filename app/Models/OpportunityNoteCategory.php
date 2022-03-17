@@ -41,6 +41,6 @@ class OpportunityNoteCategory extends Model
      */
     public function notes(): HasMany
     {
-        return $this->hasMany('App\Models\OpportunityNote');
+        return $this->hasMany(\App\Models\OpportunityNote::class);
     }
 }

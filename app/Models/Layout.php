@@ -63,12 +63,12 @@ class Layout extends BaseModel implements HasMedia
 
     public function options()
     {
-        return $this->hasMany('App\Models\LayoutOption');
+        return $this->hasMany(\App\Models\LayoutOption::class);
     }
 
     public function associatedOptions()
     {
-        return $this->belongsToMany('App\Models\Option',
+        return $this->belongsToMany(\App\Models\Option::class,
             'layout_options')
             ->orderBy('option_name');
     }
@@ -115,6 +115,6 @@ class Layout extends BaseModel implements HasMedia
      */
     public function questions()
     {
-        return $this->hasMany('App\Models\Question');
+        return $this->hasMany(\App\Models\Question::class);
     }
 }

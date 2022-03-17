@@ -51,7 +51,7 @@ class Sheet extends BaseModel
      */
     public function components()
     {
-        return $this->hasMany('\App\Models\Element');
+        return $this->hasMany(\App\Models\Element::class);
     }
 
     /**
@@ -59,7 +59,7 @@ class Sheet extends BaseModel
      */
     public function base_van()
     {
-        return $this->belongsTo("\App\Models\BaseVan");
+        return $this->belongsTo(\App\Models\BaseVan::class);
     }
 
     public function platform()

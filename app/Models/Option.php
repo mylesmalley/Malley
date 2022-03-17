@@ -102,7 +102,7 @@ class Option extends BaseModel implements HasMedia
     public function templates(): BelongsToMany
     {
         return $this->belongsToMany(
-            'App\Models\Template',
+            \App\Models\Template::class,
             'template_options');
     }
 
@@ -113,7 +113,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function rules(): HasMany
     {
-        return $this->hasMany("App\Models\OptionRule");
+        return $this->hasMany(\App\Models\OptionRule::class);
     }
 
     /**
@@ -123,7 +123,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function relatedRules(): HasMany
     {
-        return $this->hasMany("App\Models\OptionRule", 'related_option_id');
+        return $this->hasMany(\App\Models\OptionRule::class, 'related_option_id');
     }
 
     /**
@@ -131,7 +131,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -147,7 +147,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function formElementItems(): HasMany
     {
-        return $this->hasMany('App\Models\FormElementItem');
+        return $this->hasMany(\App\Models\FormElementItem::class);
     }
 
     /**
@@ -196,7 +196,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function components(): HasMany
     {
-        return $this->hasMany('App\Models\Component')
+        return $this->hasMany(\App\Models\Component::class)
             ->orderBy('component_stock_code', 'ASC');
     }
 
@@ -292,7 +292,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function base_van(): BelongsTo
     {
-        return $this->belongsTo("\App\Models\BaseVan");
+        return $this->belongsTo(\App\Models\BaseVan::class);
     }
 
     /**
@@ -370,7 +370,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Tag', 'option_tags');
+        return $this->belongsToMany(\App\Models\Tag::class, 'option_tags');
     }
 
     /**
@@ -526,7 +526,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function configurations(): HasMany
     {
-        return $this->hasMany('App\Models\Configuration');
+        return $this->hasMany(\App\Models\Configuration::class);
     }
 
     /**
@@ -612,7 +612,7 @@ class Option extends BaseModel implements HasMedia
      */
     public function componentCount(): HasOne
     {
-        return $this->hasOne('App\Models\Component')
+        return $this->hasOne(\App\Models\Component::class)
             ->selectRaw('option_id, count(*) as aggregate')
             ->groupBy('option_id');
     }

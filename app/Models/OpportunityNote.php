@@ -57,7 +57,7 @@ class OpportunityNote extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -65,7 +65,7 @@ class OpportunityNote extends Model
      */
     public function opportunity(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Opportunity');
+        return $this->belongsTo(\App\Models\Opportunity::class);
     }
 
     /**
@@ -73,7 +73,7 @@ class OpportunityNote extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo('App\Models\OpportunityNoteCategory', 'note_category_id');
+        return $this->belongsTo(\App\Models\OpportunityNoteCategory::class, 'note_category_id');
     }
 
     /**

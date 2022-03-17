@@ -47,7 +47,7 @@ class Album extends BaseModel implements HasMedia
      */
     public function photos()
     {
-        return $this->hasMany('App\Models\Media');
+        return $this->hasMany(\App\Models\Media::class);
     }
 
     /**
@@ -55,7 +55,7 @@ class Album extends BaseModel implements HasMedia
      */
     public function topphotos()
     {
-        return $this->hasMany('App\Models\Media', 'model_id', 'id')->limit(6);
+        return $this->hasMany(\App\Models\Media::class, 'model_id', 'id')->limit(6);
     }
 
 //
