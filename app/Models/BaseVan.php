@@ -35,7 +35,6 @@ class BaseVan extends BaseModel implements HasMedia
         //	'categories' => 'array',
     ];
 
-
     /**
      * @return mixed
      */

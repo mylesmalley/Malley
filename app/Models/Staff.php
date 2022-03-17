@@ -182,7 +182,6 @@ class Staff extends Authenticatable
         'password',
     ];
 
-
     /**
      * Get the format for database stored dates.
      *

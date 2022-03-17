@@ -28,7 +28,6 @@ class Form extends BaseModel
      * @var array
      */
 
-
     /**
      * @return BelongsTo
      */

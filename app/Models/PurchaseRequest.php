@@ -50,7 +50,6 @@ class PurchaseRequest extends BaseModel
 {
     protected $table = 'purchase_requests';
 
-
     protected $fillable = [
         'id',
 

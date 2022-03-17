@@ -181,8 +181,8 @@ class BugReport extends BaseModel implements HasMedia
     public function pendingUserActions(User $user)
     {
         return  self::withCount(['nextActivities' => function ($query) use ($user) {
-                $query->where('assigned_user_id', $user->id);
-            }, '>', 0])
+            $query->where('assigned_user_id', $user->id);
+        }, '>', 0])
             ->with(['nextActivities' => function ($query) use ($user) {
                 $query->where('assigned_user_id', $user->id);
             }])

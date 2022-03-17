@@ -37,7 +37,6 @@ class InventoryItemCount extends BaseModel
 {
     protected $table = 'inventory_item_counts';
 
-
     protected $fillable = [
         'id',
         'created_at',

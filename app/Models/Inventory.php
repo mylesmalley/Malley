@@ -8,7 +8,6 @@ class Inventory extends BaseModel
 {
     protected $table = 'inventory';
 
-
     protected $fillable = [
         'id',
 

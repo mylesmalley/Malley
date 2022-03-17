@@ -40,7 +40,6 @@ class Announcement extends Model
      * @var string[]
      */
 
-
     /**
      * @return BelongsTo
      */

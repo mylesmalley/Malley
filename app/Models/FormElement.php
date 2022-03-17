@@ -23,7 +23,6 @@ class FormElement extends BaseModel
         'position',
     ];
 
-
     /**
      * @return BelongsTo
      */

@@ -213,7 +213,6 @@ class User extends Authenticatable
         return $this->getPrefs();
     }
 
-
     /**
      * Get the format for database stored dates.
      *
