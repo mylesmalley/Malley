@@ -182,10 +182,6 @@ class Staff extends Authenticatable
         'password',
     ];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
 
     /**
      * Get the format for database stored dates.

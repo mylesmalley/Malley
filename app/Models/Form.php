@@ -27,10 +27,7 @@ class Form extends BaseModel
     /**
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
+
 
     /**
      * @return BelongsTo

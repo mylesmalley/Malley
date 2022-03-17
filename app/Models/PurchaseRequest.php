@@ -50,10 +50,6 @@ class PurchaseRequest extends BaseModel
 {
     protected $table = 'purchase_requests';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
 
     protected $fillable = [
         'id',

@@ -213,10 +213,6 @@ class User extends Authenticatable
         return $this->getPrefs();
     }
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
 
     /**
      * Get the format for database stored dates.

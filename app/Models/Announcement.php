@@ -34,18 +34,12 @@ class Announcement extends Model
      */
     protected $casts = [
         'start_date' => 'date:y-m-d',
-        'end_date' => 'date:y-m-d',
-    ];
+        'end_date' => 'date:y-m-d',    ];
 
     /**
      * @var string[]
      */
-    protected $dates = [
-        'start_date',
-        'end_date',
-        'created_at',
-        'updated_at',
-    ];
+
 
     /**
      * @return BelongsTo

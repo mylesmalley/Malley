@@ -8,10 +8,6 @@ class Inventory extends BaseModel
 {
     protected $table = 'inventory';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
 
     protected $fillable = [
         'id',

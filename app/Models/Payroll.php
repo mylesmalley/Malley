@@ -70,11 +70,9 @@ class Payroll extends BaseModel
     /**
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'start',
-        'end',
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
     ];
 
     /**

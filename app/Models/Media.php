@@ -7,10 +7,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
 class Media extends BaseMedia
 {
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
+
 
     /**
      * Get the format for database stored dates.

@@ -35,10 +35,6 @@ class BaseVan extends BaseModel implements HasMedia
         //	'categories' => 'array',
     ];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
 
     /**
      * @return mixed
