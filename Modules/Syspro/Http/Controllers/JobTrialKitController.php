@@ -28,7 +28,7 @@ class JobTrialKitController extends Controller
         }
 
         // create an array of duplicate stock codes
-        $dups = array();
+        $dups = [];
         foreach(array_count_values($stockCodes) as $val => $c)
         {
             if($c > 1) $dups[] = trim( $val );
