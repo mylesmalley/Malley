@@ -115,12 +115,19 @@
          */
         function update_form_element_visibility(  first_run_on_page_load = false  )
         {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 let elements = document.getElementsByClassName('form-element-question');
+
+               if (! elements.length )
+               {
+                  // console.log(`hide ${elements.length}`);
+                   return reject("no elements found.");
+               }
 
                 // loop through each form element
                 for (let i = 0; i < elements.length; i++)
                 {
+
                     // convert the rules into an array
                     let element_rules = JSON.parse( elements[i].dataset.rules );
 
@@ -331,7 +338,9 @@
                             toggle_checkbox( blueprint_id,  item.option.id )
                                 .then( refresh_selected_options )
                                 .then( update_form_element_visibility )
-                                .then( update_image_blocks );
+                                .then( update_image_blocks, function(err) {
+                                    console.error( err );
+                                } );
                         }
                     });
 
@@ -465,7 +474,8 @@
             // updates the local state of the form to reflect the database
             .then( refresh_selected_options )
             // hides elements that don't pass rules.
-            .then( update_form_element_visibility(true) );
+           // .then( update_form_element_visibility(true) )
+            .then( update_form_element_visibility );
 
     </script>
 
