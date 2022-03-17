@@ -9,13 +9,6 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = User::class;
-
     public function malley()
     {
         return $this->state(function (array $attributes) {
