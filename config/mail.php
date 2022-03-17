@@ -53,8 +53,6 @@ return [
             'version' => '2010-12-01',
         ],
 
-
-
         'mailgun' => [
             'transport' => 'mailgun',
         ],

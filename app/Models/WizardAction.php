@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
-
 /**
  * App\Models\WizardAction
  *
@@ -32,16 +31,15 @@ class WizardAction extends Model
 {
     use HasFactory;
 
-    protected $fillable= [
+    protected $fillable = [
         'id',
         'wizard_answer_id',
         'option_id',
         'action',
-        'value'
+        'value',
     ];
 
-    public $timestamps= false;
-
+    public $timestamps = false;
 
     /**
      * handle the changes specified
@@ -49,45 +47,40 @@ class WizardAction extends Model
      * @param int $blueprint_id
      * @return bool
      */
-    public function do( int $blueprint_id ): bool
+    public function do(int $blueprint_id): bool
     {
-        $config = Configuration::where('blueprint_id', $blueprint_id )
-            ->where('option_id', $this->attributes['option_id'] )
+        $config = Configuration::where('blueprint_id', $blueprint_id)
+            ->where('option_id', $this->attributes['option_id'])
             ->first();
 
-        if (! $config ) return false;
+        if (! $config) {
+            return false;
+        }
 
-        switch ( $this->attributes['action'] )
-        {
-            case "switch_on":
+        switch ($this->attributes['action']) {
+            case 'switch_on':
                 $config->value = 1;
                 $config->quantity = 1;
                 break;
-            case "switch_off":
+            case 'switch_off':
                 $config->value = 0;
                 $config->quantity = 1;
                 break;
-            case "increment":
-                if ( !$config->value )
-                {
+            case 'increment':
+                if (! $config->value) {
                     $config->value = 1;
                     $config->quantity = 1;
-                }
-                else
-                {
-                    $config->quantity ++;
+                } else {
+                    $config->quantity++;
                 }
                 break;
-            case "decrement":
-                if ( $config->quantity === 1)
-                {
+            case 'decrement':
+                if ($config->quantity === 1) {
                     $config->value = 0;
                     $config->quantity = 1;
-                }
-                else
-                {
+                } else {
                     $config->value = 1;
-                    $config->quantity --;
+                    $config->quantity--;
                 }
 
                 break;
@@ -103,53 +96,45 @@ class WizardAction extends Model
         return true;
     }
 
-
     /**
      * revert the changes made by this action
      *
      * @param int $blueprint_id
      * @return bool
      */
-    public function undo( int $blueprint_id ): bool
+    public function undo(int $blueprint_id): bool
     {
         $config = DB::table('configurations')
-            ->where('blueprint_id', $blueprint_id )
-            ->where('option_id', $this->attributes['option_id'] )
+            ->where('blueprint_id', $blueprint_id)
+            ->where('option_id', $this->attributes['option_id'])
             ->first();
 
-        switch ( $this->attributes['action'] )
-        {
-            case "switch_on":
+        switch ($this->attributes['action']) {
+            case 'switch_on':
                 $config->value = 0;
                 $config->quantity = 1;
 
                 break;
-            case "switch_off":
+            case 'switch_off':
                 $config->value = 1;
                 $config->quantity = 1;
 
                 break;
-            case "increment":
+            case 'increment':
 
-                if ($config->quantity === 1)
-                {
+                if ($config->quantity === 1) {
                     $config->value = 0;
                     $config->quantity = 1;
-                }
-                else
-                {
-                    $config->value --;
+                } else {
+                    $config->value--;
                 }
                 break;
-            case "decrement":
-                if (! $config->value )
-                {
+            case 'decrement':
+                if (! $config->value) {
                     $config->value = true;
                     $config->quantity = 1;
-                }
-                else
-                {
-                    $config->value ++;
+                } else {
+                    $config->value++;
                 }
 
                 break;
@@ -168,16 +153,14 @@ class WizardAction extends Model
      */
     public function option(): BelongsTo
     {
-        return $this->belongsTo(Option::class );
+        return $this->belongsTo(Option::class);
     }
-
 
     /**
      * @return BelongsTo
      */
     public function answer(): BelongsTo
     {
-        return $this->belongsTo(WizardAnswer::class, 'wizard_answer_id'  );
+        return $this->belongsTo(WizardAnswer::class, 'wizard_answer_id');
     }
-
 }

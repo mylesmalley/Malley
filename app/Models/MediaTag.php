@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-
 class MediaTag extends BaseModel
 {
-
-    protected $table = "media_tags";
+    protected $table = 'media_tags';
 
     public $timestamps = false;
 
     protected $fillable = [
-    	'media_id',
-	    'id',
-	    'tag_id',
+        'media_id',
+        'id',
+        'tag_id',
     ];
 
 //    /**

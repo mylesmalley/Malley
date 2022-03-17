@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 255)->unique();
             $table->string('password', 255);
             $table->integer('company_id')->default(0);
-     //       $table->string('role', 15)->default('distributor');
+            //       $table->string('role', 15)->default('distributor');
             $table->datetime('created_at', 2);
             $table->datetime('updated_at', 2);
 
@@ -80,10 +80,7 @@ class CreateUsersTable extends Migration
             $table->boolean('index_show_pricing_columns')->default(0);
             $table->text('preferences')->default('{}');
 
-
             $table->rememberToken();
-
-
         });
     }
 
@@ -96,6 +93,4 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
-
-
 }

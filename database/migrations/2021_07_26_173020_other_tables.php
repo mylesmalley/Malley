@@ -15,7 +15,7 @@ class OtherTables extends Migration
     {
         DB::statement(
 /** @lang text */
-<<<SQL
+<<<'SQL'
 create table templates
 (
 	id int identity
@@ -452,7 +452,6 @@ create unique index inventory_count_items_id_uindex
 
 
 SQL);
-
     }
 
     /**
@@ -470,7 +469,6 @@ SQL);
         Schema::dropIfExists('layouts');
         Schema::dropIfExists('layout_options');
         Schema::dropIfExists('light_pods');
-
 
         Schema::dropIfExists('inventory');
         Schema::dropIfExists('fleet_audits');

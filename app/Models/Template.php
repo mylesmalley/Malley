@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use \App\Models\BaseModel;
-use \App\Models\Blueprint;
-use Purifier;
+use App\Models\BaseModel;
+use App\Models\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Purifier;
+
 // use OwenIt\Auditing\Contracts\Auditable;
 
 /**
@@ -45,50 +46,48 @@ use Illuminate\Support\Facades\DB;
  */
 class Template extends BaseModel //implements Auditable
 {
-	// version handling
-  //  use \OwenIt\Auditing\Auditable;
+    // version handling
+    //  use \OwenIt\Auditing\Auditable;
 
-	/**
-	 * @var string
-	 */
-	protected $table = "templates";
+    /**
+     * @var string
+     */
+    protected $table = 'templates';
 
-	/**
-	 * @var array
-	 */
-    protected $fillable= [
-    	"base_van",
-    	"name",
-        "page_id",
-    	"visibility",
-    	"template",
-    	"order",
-	    "sales_drawing",
-	    "production_drawing",
-	    'pdf'
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'base_van',
+        'name',
+        'page_id',
+        'visibility',
+        'template',
+        'order',
+        'sales_drawing',
+        'production_drawing',
+        'pdf',
     ];
 
-	/**
-	 * @var array
-	 */
+    /**
+     * @var array
+     */
     protected $casts = [
-    	"visibility" => "boolean",
+        'visibility' => 'boolean',
     ];
 
-	/**
-	 * @var array
-	 */
+    /**
+     * @var array
+     */
     private $selectedOptions = [];
 
-
-	/**
-	 * @param array $options
-	 */
-    public function setSelectedOptions( array $options )
+    /**
+     * @param array $options
+     */
+    public function setSelectedOptions(array $options)
     {
         $this->selectedOptions = $options;
     }
-
 
 //    private $aws = "https:://www.aws.com/";
 //
@@ -98,17 +97,16 @@ class Template extends BaseModel //implements Auditable
 //    }
 //
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-	 */
-	public function options()
-	{
-		return $this->belongsToMany(
-			"App\Models\Option",
-			"template_options"
-			);
-	}
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function options()
+    {
+        return $this->belongsToMany(
+            "App\Models\Option",
+            'template_options'
+            );
+    }
 
     /**
      * [platform description]
@@ -117,8 +115,8 @@ class Template extends BaseModel //implements Auditable
     public function platform()
     {
         return $this->belongsTo(
-        	'\App\Models\BaseVan',
-	        'base_van');
+            '\App\Models\BaseVan',
+            'base_van');
     }
 
 //    public function setTemplateAttribute ( ?string $template  )
@@ -127,20 +125,19 @@ class Template extends BaseModel //implements Auditable
 //    }
 //
 
-	/**
-	 * returns a collection of options that match active configuration items in the blueprint
-	 *
-	 * @return mixed
-	 */
-	public function optionsToShow()
+    /**
+     * returns a collection of options that match active configuration items in the blueprint
+     *
+     * @return mixed
+     */
+    public function optionsToShow()
     {
-	    $allBlueprintOptions = array_flip( array_keys( $this->selectedOptions ) );
+        $allBlueprintOptions = array_flip(array_keys($this->selectedOptions));
 
-	    $optionsToShow = $this->options->keyBy('option_name');
+        $optionsToShow = $this->options->keyBy('option_name');
 
-	    return $optionsToShow->intersectByKeys( $allBlueprintOptions );
+        return $optionsToShow->intersectByKeys($allBlueprintOptions);
     }
-
 
     /**
      * Takes a base van id and returns the most current templates for it
@@ -157,19 +154,16 @@ class Template extends BaseModel //implements Auditable
 //        return Template::find( $ids );
 //    }
 
+    /**
+     * @param string $append
+     * @return string
+     */
+    public function url(string $append = ''): string
+    {
+        return "/basevan/{$this->base_van}/templates/{$this->id}/{$append}";
+    }
 
-
-	/**
-	 * @param string $append
-	 * @return string
-	 */
-	public function url( string $append = ""): string
-	{
-		return "/basevan/{$this->base_van}/templates/{$this->id}/{$append}";
-	}
-
-
-//	/**
+    //	/**
 //	 * @return string
 //	 */
 //	public function getNameAttribute() : string

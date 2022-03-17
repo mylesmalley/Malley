@@ -14,7 +14,7 @@ class BaseVans extends Migration
     public function up()
     {
         DB::statement(
-/** @lang text */ <<<STMNT
+/** @lang text */ <<<'STMNT'
     create table base_vans
     (
         id int identity

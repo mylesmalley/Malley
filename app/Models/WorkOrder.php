@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\hasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 
 /**
  * App\Models\WorkOrder
@@ -70,7 +70,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WorkOrder extends BaseModel
 {
-
     /**
      * @var string
      */
@@ -79,7 +78,7 @@ class WorkOrder extends BaseModel
     /**
      * @var string[]
      */
-    protected $fillable= [
+    protected $fillable = [
         'id',
         'vehicle_id',
         'user_id',
@@ -96,13 +95,13 @@ class WorkOrder extends BaseModel
         'expected_customer_pickup_date',
         'type',
         'customer_address_1',
-	    'customer_address_2',
-	    'customer_city',
-	    'customer_province',
-	    'customer_postalcode',
-	    'customer_email',
-	    'customer_phone',
-	    'customer_contact',
+        'customer_address_2',
+        'customer_city',
+        'customer_province',
+        'customer_postalcode',
+        'customer_email',
+        'customer_phone',
+        'customer_contact',
         'customer_name',
         'linecount',
     ];
@@ -115,7 +114,6 @@ class WorkOrder extends BaseModel
         return $this->hasMany("\App\Models\WorkOrderLine")
             ->orderBy('order');
     }
-
 
     /**
      * @return BelongsTo
@@ -134,5 +132,4 @@ class WorkOrder extends BaseModel
     {
         return $this->attributes['linecount'] ?? 18;
     }
-
 }

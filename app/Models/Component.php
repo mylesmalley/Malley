@@ -58,7 +58,7 @@ use Illuminate\Support\Facades\DB;
  */
 class Component extends \App\Models\BaseModel
 {
-    protected $fillable=
+    protected $fillable =
     [
         'option_id',
         'component_sub_assembly',
@@ -76,7 +76,7 @@ class Component extends \App\Models\BaseModel
         'component_where_built_location',
         'component_install_area',
         'component_notes',
-	    "component_price_category",
+        'component_price_category',
 
     ];
     /**
@@ -86,7 +86,7 @@ class Component extends \App\Models\BaseModel
     /**
      * uppercase the stock code
      */
-    public function setComponentStockCodeAttribute( $value )
+    public function setComponentStockCodeAttribute($value)
     {
         return $this->attributes['component_stock_code'] = strtoupper($value);
     }
@@ -94,7 +94,7 @@ class Component extends \App\Models\BaseModel
     /**
      * uppercase teh description
      */
-    public function setComponentDescriptionAttribute( $value )
+    public function setComponentDescriptionAttribute($value)
     {
         return $this->attributes['component_description'] = strtoupper($value);
     }
@@ -102,7 +102,7 @@ class Component extends \App\Models\BaseModel
     /**
      * force upper case long description
      */
-    public function setComponentLongDescriptionAttribute( $value )
+    public function setComponentLongDescriptionAttribute($value)
     {
         return $this->attributes['component_long_description'] = strtoupper($value);
     }
@@ -110,11 +110,10 @@ class Component extends \App\Models\BaseModel
     /**
      * force uppercase UOM
      */
-    public function setComponentUnitOfMeasureAttribute( $value )
+    public function setComponentUnitOfMeasureAttribute($value)
     {
         return $this->attributes['component_unit_of_measure'] = strtoupper($value);
     }
-
 
     // protected $dates = [
     //     'created_at',
@@ -123,12 +122,10 @@ class Component extends \App\Models\BaseModel
 
     // protected $dateFormat = "Y-m-d H:i:s.u";
 
-
     public function option()
     {
-    	return $this->belongsTo('App\Models\Option');
+        return $this->belongsTo('App\Models\Option');
     }
-
 
     /*
         RETURNS MATERIAL COST. LABOUR COST TIED IN WITH PARTS.
@@ -136,45 +133,39 @@ class Component extends \App\Models\BaseModel
      */
     public function getTotalCostAttribute(): float
     {
-        return ( $this->attributes['component_material_qty'] * $this->attributes['component_material_cost']) ;
+        return  $this->attributes['component_material_qty'] * $this->attributes['component_material_cost'];
     }
 
+    public static function priceCategory()
+    {
+        $components = DB::table('components')
+            ->select('component_stock_code')
+            ->distinct('component_stock_code')
+            ->get()
+            ->pluck('component_stock_code');
 
-	public static function priceCategory()
-	{
-		$components = DB::table('components')
-			->select('component_stock_code')
-			->distinct('component_stock_code')
-			->get()
-			->pluck('component_stock_code');
+        $syspro = DB::connection('syspro')
+                ->table('InvMaster')
+                ->select('StockCode', 'PriceCategory')
+                ->whereIn('StockCode', $components)
+                ->get();
 
-		$syspro = DB::connection('syspro')
-				->table('InvMaster')
-				->select('StockCode','PriceCategory')
-				->whereIn('StockCode', $components)
-				->get();
+        foreach ($syspro as $sys) {
+            DB::table('components')
+                ->where('component_stock_code', '=', trim($sys->StockCode))
+                ->update(['component_price_category' => trim($sys->PriceCategory)]);
+        }
 
-		foreach( $syspro as $sys )
-		{
-			DB::table('components')
-				->where('component_stock_code', '=', trim( $sys->StockCode ))
-				->update([ 'component_price_category' => trim( $sys->PriceCategory ) ]);
-		}
-
-		return $syspro;
-	}
-
-
-
+        return $syspro;
+    }
 
     public function scopeSearchByKeyword($query, $keyword)
     {
         if ($keyword) {
-
-            $keyword = strtoupper( $keyword );
+            $keyword = strtoupper($keyword);
 
             $query->where(function ($query) use ($keyword) {
-                $query->select(['id', 'component_stock_code', 'component_description','component_long_description'])
+                $query->select(['id', 'component_stock_code', 'component_description', 'component_long_description'])
                     ->where('component_stock_code', 'like', "%{$keyword}%")
                     ->orWhere('component_description', 'like', "%{$keyword}%")
                     ->orWhere('component_long_description', 'like', "%{$keyword}%")
@@ -183,7 +174,7 @@ class Component extends \App\Models\BaseModel
                     });
             });
         }
+
         return $query->limit(10);
     }
-
 }

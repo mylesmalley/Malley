@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 class Wizard extends Model
 {
     use HasFactory;
@@ -25,23 +24,21 @@ class Wizard extends Model
         'completed_form_option', // option that gets triggered when the wizard is complete
     ];
 
-    public $timestamps= false;
+    public $timestamps = false;
 
     /**
      * @return HasMany
      */
     public function questions(): HasMany
     {
-        return $this->hasMany(WizardQuestion::class );
+        return $this->hasMany(WizardQuestion::class);
     }
-
 
     /**
      * @return WizardQuestion
      */
     public function startWizard(): WizardQuestion
     {
-        return WizardQuestion::find( $this->attributes['start']);
+        return WizardQuestion::find($this->attributes['start']);
     }
-
 }

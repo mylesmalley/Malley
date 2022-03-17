@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Carbon\Carbon;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Announcement extends Model
 {
@@ -33,11 +32,10 @@ class Announcement extends Model
     /**
      * @var string[]
      */
-    protected  $casts = [
+    protected $casts = [
         'start_date' => 'date:y-m-d',
         'end_date' => 'date:y-m-d',
     ];
-
 
     /**
      * @var string[]
@@ -46,7 +44,7 @@ class Announcement extends Model
         'start_date',
         'end_date',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**
@@ -54,18 +52,18 @@ class Announcement extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class );
+        return $this->belongsTo(User::class);
     }
 
     /**
      * @param $query
      * @return mixed
      */
-    public function scopeActive( $query )
+    public function scopeActive($query)
     {
         return $query->where([
             ['start_date', '<=', Carbon::now()],
-            ['end_date', '>=', Carbon::now()]
+            ['end_date', '>=', Carbon::now()],
         ]);
     }
 
@@ -74,16 +72,13 @@ class Announcement extends Model
      */
     public static function randomItem()
     {
-        return Announcement::active()
+        return self::active()
             ->inRandomOrder()
             ->first();
     }
 
-
     public function media()
     {
-        return Media::find( $this->attributes['media_id'] ) ?? Media::find( 22095 );
-
+        return Media::find($this->attributes['media_id']) ?? Media::find(22095);
     }
-
 }

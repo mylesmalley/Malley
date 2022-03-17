@@ -18,23 +18,22 @@ class LabourPolicy
      * @param User $user
      * @return bool
      */
-    public function manage_labour( User $user ): bool
+    public function manage_labour(User $user): bool
     {
         return $user->can('manage_labour');
     }
 
-    public function labour_clock_in( User $user ): bool
+    public function labour_clock_in(User $user): bool
     {
         return $user->can('labour_clock_in');
     }
 
-    public function labour_reports( User $user ): bool
+    public function labour_reports(User $user): bool
     {
         return $user->can('labour_reports');
     }
 
-
-    public function labour_post( User $user ): bool
+    public function labour_post(User $user): bool
     {
         return $user->can('labour_post');
     }

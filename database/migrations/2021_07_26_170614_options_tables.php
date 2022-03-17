@@ -15,8 +15,7 @@ class OptionsTables extends Migration
     {
         DB::statement(
         /** @lang text */
-
-        <<<SQL
+        <<<'SQL'
     create table options
     (
         id int identity

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-
 /**
  * App\Models\Layout
  *
@@ -43,18 +42,18 @@ class Layout extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
-	protected $table = 'layouts';
+    protected $table = 'layouts';
 
-	protected $fillable= [
-		'base_van_id',
-		'visibility',
-		'name',
-		'notes',
-	];
+    protected $fillable = [
+        'base_van_id',
+        'visibility',
+        'name',
+        'notes',
+    ];
 
     public function platform()
     {
-        return \App\Models\BaseVan::find( $this->base_van_id );
+        return \App\Models\BaseVan::find($this->base_van_id);
     }
 
     public function getPlatformAttribute()
@@ -64,35 +63,30 @@ class Layout extends BaseModel implements HasMedia
 
     public function options()
     {
-    	return $this->hasMany('App\Models\LayoutOption');
+        return $this->hasMany('App\Models\LayoutOption');
     }
-
 
     public function associatedOptions()
     {
         return $this->belongsToMany('App\Models\Option',
             'layout_options')
             ->orderBy('option_name');
-
     }
-
 
     public function duplicate()
     {
-    	$new = $this->replicate();
-    	$new->name = $new->name.' copy';
-    	$new->save();
+        $new = $this->replicate();
+        $new->name = $new->name.' copy';
+        $new->save();
 
-    	foreach ($this->options as $option)
-	    {
-	    	$opt = $option->replicate();
-	    	$opt->layout_id = $new->id;
-	    	$opt->save();
-	    }
+        foreach ($this->options as $option) {
+            $opt = $option->replicate();
+            $opt->layout_id = $new->id;
+            $opt->save();
+        }
 
-	    return $new;
+        return $new;
     }
-
 
     /**
      * returns a formatted list of options avaible to this particular base van platform
@@ -104,25 +98,23 @@ class Layout extends BaseModel implements HasMedia
 
         // db query to get available options
         $options = DB::table('options')
-            ->where( 'base_van_id', $this->base_van_id )
-            ->select(['id','option_name','option_description'])
+            ->where('base_van_id', $this->base_van_id)
+            ->select(['id', 'option_name', 'option_description'])
             ->get();
 
         // formatting
-        foreach ($options as $v)
-        {
+        foreach ($options as $v) {
             $results[$v->id] = "{$v->option_name} - {$v->option_description}";
         }
 
         return $results;
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function questions()
     {
-        return $this->hasMany('App\Models\Question' );
+        return $this->hasMany('App\Models\Question');
     }
 }

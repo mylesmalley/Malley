@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Modules\Blueprint\Http\Controllers\Wizard\RedirectFunctions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
-
-
+use Modules\Blueprint\Http\Controllers\Wizard\RedirectFunctions;
 
 class WizardQuestion extends Model
 {
@@ -17,9 +15,9 @@ class WizardQuestion extends Model
 
     protected $table = 'wizard_questions';
 
-    public $timestamps= false;
+    public $timestamps = false;
 
-    protected $fillable= [
+    protected $fillable = [
         'id', // self
         'wizard_id', // parent
         'text', // the question
@@ -27,13 +25,12 @@ class WizardQuestion extends Model
         'type',
     ];
 
-
     /**
      * @return BelongsTo
      */
     public function wizard(): BelongsTo
     {
-        return $this->belongsTo(Wizard::class, 'wizard_id' );
+        return $this->belongsTo(Wizard::class, 'wizard_id');
     }
 
     /**
@@ -41,19 +38,14 @@ class WizardQuestion extends Model
      */
     public function answers(): HasMany
     {
-        return $this->hasMany( WizardAnswer::class )
-            ->orderBy('position','DESC');
+        return $this->hasMany(WizardAnswer::class)
+            ->orderBy('position', 'DESC');
     }
 
-
-
-
-
-
-
-    public function redirect( Collection $selectedAnswers )
+    public function redirect(Collection $selectedAnswers)
     {
         $redirect = $this->attributes['redirect_method'];
-        return RedirectFunctions::{$redirect}( $selectedAnswers );
+
+        return RedirectFunctions::{$redirect}($selectedAnswers);
     }
 }

@@ -6,12 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class VehicleTables extends Migration
 {
-
     public function up()
-{
-    DB::statement(
-    /** @lang text */
-<<<SQL
+    {
+        DB::statement(
+/** @lang text */
+<<<'SQL'
     create table tags
     (
         id int identity
@@ -122,8 +121,7 @@ class VehicleTables extends Migration
     )
 
 
-SQL );
-
+SQL);
     }
 
     /**

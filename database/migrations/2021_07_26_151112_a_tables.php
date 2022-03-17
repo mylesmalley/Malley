@@ -14,7 +14,7 @@ class ATables extends Migration
     public function up()
     {
         DB::statement(/** @lang text */
-<<<ALBUMS
+<<<'ALBUMS'
     create table albums
     (
         id int identity,
@@ -28,10 +28,9 @@ class ATables extends Migration
 ALBUMS
 );
 
-
-    DB::statement(
-    /** @lang text */
-<<<ANNOUNCEMENTS
+        DB::statement(
+/** @lang text */
+<<<'ANNOUNCEMENTS'
     create table announcements
     (
         id int identity
@@ -51,8 +50,8 @@ ANNOUNCEMENTS
     );
 
         DB::statement(
-        /** @lang text */
-<<<AUDITS
+/** @lang text */
+<<<'AUDITS'
 
       create table audits
         (
@@ -73,10 +72,6 @@ ANNOUNCEMENTS
     )
 AUDITS
     );
-
-
-
-
     }
 
     /**
@@ -89,6 +84,5 @@ AUDITS
         Schema::dropIfExists('albums');
         Schema::dropIfExists('announcements');
         Schema::dropIfExists('audits');
-
     }
 }

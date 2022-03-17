@@ -6,7 +6,7 @@ return [
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
-    'disk_name' => env( 's3'),
+    'disk_name' => env('s3'),
 
     /*
      * The maximum file size of an item in bytes.
@@ -58,8 +58,8 @@ return [
     /*
      * The class that contains the strategy for determining a media file's path.
      */
-   // 'path_generator' => Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator::class,
-     'path_generator' => \App\Helpers\BlueprintMediaPath::class,
+    // 'path_generator' => Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator::class,
+    'path_generator' => \App\Helpers\BlueprintMediaPath::class,
 
     /*
      * When urls to files get generated, this class will be called. Use the default
@@ -106,10 +106,10 @@ return [
             '-O3', // this produces the slowest but best results
         ],
         Spatie\ImageOptimizer\Optimizers\Cwebp::class => [
-                '-m 6', // for the slowest compression method in order to get the best compression.
-                '-pass 10', // for maximizing the amount of analysis pass.
-                '-mt', // multithreading for some speed improvements.
-                '-q 90', //quality factor that brings the least noticeable changes.
+            '-m 6', // for the slowest compression method in order to get the best compression.
+            '-pass 10', // for maximizing the amount of analysis pass.
+            '-mt', // multithreading for some speed improvements.
+            '-q 90', //quality factor that brings the least noticeable changes.
         ],
     ],
 

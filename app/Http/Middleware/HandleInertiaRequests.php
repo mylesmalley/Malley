@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
-use Closure;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -42,10 +42,9 @@ class HandleInertiaRequests extends Middleware
         ]);
     }
 
-
     public function handle(Request $request, Closure $next)
     {
-        if($request->route()->getPrefix() === '/demo'){
+        if ($request->route()->getPrefix() === '/demo') {
             $this->rootView = 'demo::index';
         }
 

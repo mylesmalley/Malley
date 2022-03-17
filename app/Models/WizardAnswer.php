@@ -7,16 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 class WizardAnswer extends Model
 {
     use HasFactory;
 
     protected $table = 'wizard_answers';
 
-    public $timestamps= false;
+    public $timestamps = false;
 
-    protected $fillable= [
+    protected $fillable = [
         'id', // me
         'wizard_question_id', // parent question
         'text', // text of the answer
@@ -31,7 +30,7 @@ class WizardAnswer extends Model
     public function question(): BelongsTo
     {
         return $this->belongsTo(WizardQuestion::class,
-            'wizard_question_id' );
+            'wizard_question_id');
     }
 
     /**
@@ -40,16 +39,15 @@ class WizardAnswer extends Model
     public function next_question(): BelongsTo
     {
         return $this->belongsTo(WizardQuestion::class,
-            'next' );
+            'next');
     }
-
 
     /**
      * @return WizardQuestion
      */
     public function nextQuestion(): WizardQuestion
     {
-        return WizardQuestion::find( $this->attributes['next']);
+        return WizardQuestion::find($this->attributes['next']);
     }
 
     /**
@@ -57,6 +55,6 @@ class WizardAnswer extends Model
      */
     public function actions(): HasMany
     {
-        return $this->hasMany(WizardAction::class );
+        return $this->hasMany(WizardAction::class);
     }
 }

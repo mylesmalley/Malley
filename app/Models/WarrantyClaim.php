@@ -9,7 +9,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 /**
  * Class WarrantyClaim
  *
- * @package App\Programs\WarrantyClaim\Models
  * @property int $id
  * @property string $first_name
  * @property string $last_name
@@ -58,36 +57,34 @@ class WarrantyClaim extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $table = 'warranty_claims';
 
-    protected $table = "warranty_claims";
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'organization',
+        'make',
+        'model',
+        'year',
+        'mileage',
+        'vin',
+        'date',
+        'issue',
+        'pin',
 
-    protected $fillable= [
-    	'first_name',
-	    'last_name',
-	    'email',
-	    'phone',
-	    'organization',
-	    'make',
-	    'model',
-	    'year',
-	    'mileage',
-	    'vin',
-	    'date',
-	    'issue',
-	    'pin',
-
-        'notes' // added 2020-10-16
+        'notes', // added 2020-10-16
     ];
 
-	/**
-	 * @param string $vin
-	 * @return string
-	 */
-    public function setVinAttribute( string $vin )
+    /**
+     * @param string $vin
+     * @return string
+     */
+    public function setVinAttribute(string $vin)
     {
-    	return $this->attributes['vin'] = strtoupper( $vin );
+        return $this->attributes['vin'] = strtoupper($vin);
     }
-
 
     public function vehicle()
     {

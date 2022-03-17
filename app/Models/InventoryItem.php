@@ -6,21 +6,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-
 class InventoryItem extends BaseModel
 {
-
-	protected $table = 'inventory_items';
+    protected $table = 'inventory_items';
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected $fillable= [
+    protected $fillable = [
         'id',
-	    'created_at',
-	    'updated_at',
+        'created_at',
+        'updated_at',
 
         'stock_code',
         'description_1',
@@ -40,9 +38,8 @@ class InventoryItem extends BaseModel
         'locked',
         'manually_added',
 
-        'ticket_number'
+        'ticket_number',
     ];
-
 
     /**
      * Get the format for database stored dates.
@@ -54,8 +51,6 @@ class InventoryItem extends BaseModel
         return 'Y-m-d H:i:s.u0';
     }
 
-
-
     /**
      * @return BelongsTo
      */
@@ -63,7 +58,6 @@ class InventoryItem extends BaseModel
     {
         return $this->belongsTo('App\Models\Inventory');
     }
-
 
     /**
      * @return HasMany
@@ -82,5 +76,4 @@ class InventoryItem extends BaseModel
         return $this->hasOne('App\Models\InventoryItemCount')
             ->orderBy('created_at', 'DESC');
     }
-
 }

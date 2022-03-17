@@ -14,9 +14,8 @@ class WizardTables extends Migration
     public function up()
     {
         DB::statement(
-        /** @lang text */
-
-<<<SQL
+/** @lang text */
+<<<'SQL'
     create table wizards
     (
         id int identity
@@ -74,8 +73,7 @@ class WizardTables extends Migration
         wizard_id int
     )
 
-SQL );
-
+SQL);
     }
 
     /**

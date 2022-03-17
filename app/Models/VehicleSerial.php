@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 class VehicleSerial extends BaseModel
 {
     protected $table = 'vehicle_serials';
@@ -64,18 +63,16 @@ class VehicleSerial extends BaseModel
         'FORD_21S29', // added 2022-02-04
     ];
 
-
     /**
      * @return array
      */
     public static function available_serials(): array
     {
         $arr = self::$fields;
-        sort( $arr );
+        sort($arr);
+
         return $arr;
     }
-
-
 
     /**
      * @return BelongsTo
@@ -85,11 +82,10 @@ class VehicleSerial extends BaseModel
         return $this->belongsTo(Vehicle::class);
     }
 
-
     /**
      * @param string $key
      */
-    public function setKeyAttribute( string $key ): void
+    public function setKeyAttribute(string $key): void
     {
         $this->attributes['key'] = strtoupper($key);
     }
@@ -97,10 +93,8 @@ class VehicleSerial extends BaseModel
     /**
      * @param string $key
      */
-    public function setValueAttribute( string $value ): void
+    public function setValueAttribute(string $value): void
     {
         $this->attributes['value'] = strtoupper($value);
     }
-
-
 }

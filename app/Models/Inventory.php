@@ -4,28 +4,25 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-
 class Inventory extends BaseModel
 {
-
-	protected $table = 'inventory';
+    protected $table = 'inventory';
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected $fillable= [
+    protected $fillable = [
         'id',
 
         // timestamps
-	    'created_at',
-	    'updated_at',
+        'created_at',
+        'updated_at',
         'user_id',
         'description',
         'locked',
     ];
-
 
     /**
      * Get the format for database stored dates.
@@ -37,18 +34,13 @@ class Inventory extends BaseModel
         return 'Y-m-d H:i:s.u0';
     }
 
-
-
     public function user()
     {
-    	return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
-
 
     public function items()
     {
         return $this->hasMany('App\Models\InventoryItem');
     }
-
-
 }

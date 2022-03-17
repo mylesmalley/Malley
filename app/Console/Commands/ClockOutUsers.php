@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Console\Command;
 
 class ClockOutUsers extends Command
 {
@@ -31,12 +31,8 @@ class ClockOutUsers extends Command
         parent::__construct();
     }
 
-    /**
-     *
-     */
     public function handle(): void
     {
-
         $time = Carbon::now('America/Moncton')->toIso8601String();
 
         DB::table('labour')
@@ -46,6 +42,6 @@ class ClockOutUsers extends Command
                 'flagged' => true,
             ]);
 
-        Log::info("Clocked out active labour users.");
+        Log::info('Clocked out active labour users.');
     }
 }

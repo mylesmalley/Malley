@@ -3,10 +3,11 @@
 namespace Database\Factories;
 
 use App\Models\labour;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
-use Illuminate\Support\Facades\DB;class LabourFactory extends Factory
+class LabourFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\DB;class LabourFactory extends Factory
      */
     protected $model = labour::class;
 
-    protected string $timezone =  "America/Moncton";
+    protected string $timezone = 'America/Moncton';
 
     public function active()
     {
@@ -33,15 +34,14 @@ use Illuminate\Support\Facades\DB;class LabourFactory extends Factory
      */
     public function definition()
     {
-        $end = Carbon::now( $this->timezone )->toIso8601String();
-        $start = Carbon::now( $this->timezone )->subHours( rand(1, 5) )->toIso8601String();
-
+        $end = Carbon::now($this->timezone)->toIso8601String();
+        $start = Carbon::now($this->timezone)->subHours(rand(1, 5))->toIso8601String();
 
         return [
-            "job" => $this->faker->randomElement(["A1000", 'PL1230', 'XYZ1A', 'CD002' ]),
-        //    "user_id" => rand(1, 50),
-            'department_id' => rand(1, DB::table('departments')->count() ),
-            "start" => $start,
+            'job' => $this->faker->randomElement(['A1000', 'PL1230', 'XYZ1A', 'CD002']),
+            //    "user_id" => rand(1, 50),
+            'department_id' => rand(1, DB::table('departments')->count()),
+            'start' => $start,
             'end' => $end,
         ];
     }

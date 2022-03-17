@@ -12,45 +12,42 @@ use Illuminate\Support\Collection;
  */
 class FormElement extends BaseModel
 {
-	protected $table = "form_elements";
+    protected $table = 'form_elements';
 
-	protected $fillable= [
-		'label',
-		'type',
+    protected $fillable = [
+        'label',
+        'type',
         'form_id',
-		'option_id_requirement',
+        'option_id_requirement',
         'indent',
-		'position',
-	];
+        'position',
+    ];
 
-	protected $dates = [
-		'created_at',
-		'updated_at',
-	];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
 
+    /**
+     * @return BelongsTo
+     */
+    public function form(): BelongsTo
+    {
+        return $this->belongsTo('App\Models\Form');
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function form(): BelongsTo
-	{
-		return $this->belongsTo( 'App\Models\Form' );
-	}
-
-
-	/**
-	 * @return HasMany
-	 */
-	public function items(): HasMany
-	{
-		return $this->hasMany( 'App\Models\FormElementItem' );
-	}
-
+    /**
+     * @return HasMany
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany('App\Models\FormElementItem');
+    }
 
     /**
      * @return Collection
      */
-	public function itemMedia(): Collection
+    public function itemMedia(): Collection
     {
         $media = [];
         $items = FormElementItem::where('form_element_id', $this->attributes['id'])
@@ -58,48 +55,40 @@ class FormElement extends BaseModel
             ->with('media')
             ->get();
 
-        foreach( $items as $i)
-        {
+        foreach ($items as $i) {
             $media[] = $i->media;
         }
 
-        return collect( $media );
+        return collect($media);
     }
-
 
     /**
      * @return HasOne
      */
-	public function rule(): HasOne
-	{
-		return $this->hasOne('App\Models\FormElementRule', 'form_element_id');
-	}
+    public function rule(): HasOne
+    {
+        return $this->hasOne('App\Models\FormElementRule', 'form_element_id');
+    }
 
+    /**
+     * @return array
+     */
+    public function affectedOptions(): array
+    {
+        $options = [];
+        $items = $this->items;
+        foreach ($items as $item) {
+            $options[] = $item->option->option_name;
+        }
 
-	/**
-	 * @return array
-	 */
-	public function affectedOptions(): array
-	{
-		$options = [];
-		$items = $this->items;
-		foreach ($items as $item)
-		{
-			$options[] = $item->option->option_name;
-		}
-		return $options;
-	}
+        return $options;
+    }
 
-
-	/**
-	 * @return string
-	 */
-	public function getAffectedOptionsJSONAttribute(): string
-	{
-		return '["'. implode('","', $this->affectedOptions() ).'"]';
-	}
-
-
-
-
+    /**
+     * @return string
+     */
+    public function getAffectedOptionsJSONAttribute(): string
+    {
+        return '["'.implode('","', $this->affectedOptions()).'"]';
+    }
 }

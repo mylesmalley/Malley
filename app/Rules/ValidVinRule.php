@@ -18,17 +18,16 @@ class ValidVinRule implements Rule
 
     private function transliterate(string $c)
     {
-        return strpos("0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ", $c) % 10;
+        return strpos('0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ', $c) % 10;
     }
 
     private function getCheckDigit(string $vin)
     {
-        $map = "0123456789X";
-        $weights = "8765432X098765432";
+        $map = '0123456789X';
+        $weights = '8765432X098765432';
         $sum = 0;
-        for ($i = 0; $i < 17; ++$i)
-        {
-            $sum += (  $this->transliterate( $vin[$i] ) * stripos( $map, $weights[$i] ) );
+        for ($i = 0; $i < 17; $i++) {
+            $sum += ($this->transliterate($vin[$i]) * stripos($map, $weights[$i]));
         }
         $key = $sum % 11;
 
@@ -44,9 +43,11 @@ class ValidVinRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ( strlen($value) !== 17) return false;
+        if (strlen($value) !== 17) {
+            return false;
+        }
 
-        return $this->getCheckDigit( $value ) === substr( $value, 8, 1 );
+        return $this->getCheckDigit($value) === substr($value, 8, 1);
     }
 
     /**

@@ -13,10 +13,9 @@ class FormTables extends Migration
      */
     public function up()
     {
-
         DB::statement(
-        /** @lang text */
-<<<FORM
+/** @lang text */
+<<<'FORM'
 
 
             create table forms
@@ -71,8 +70,7 @@ class FormTables extends Migration
 
 
 
-FORM );
-
+FORM);
     }
 
     /**

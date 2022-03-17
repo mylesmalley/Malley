@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 /**
  * App\Models\OptionTag
  *
@@ -21,22 +20,21 @@ namespace App\Models;
  */
 class OptionTag extends BaseModel
 {
+    protected $table = 'option_tags';
 
-    protected $table = "option_tags";
+    public $timestamps = false;
 
-    public $timestamps= false;
-
-    protected $fillable= [
-    	'option_id',
-	    'id',
-	    'tag_id',
+    protected $fillable = [
+        'option_id',
+        'id',
+        'tag_id',
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function options( )
+    public function options()
     {
-    	return $this->hasManyThrough('App\Models\Option', 'option_tags' );
+        return $this->hasManyThrough('App\Models\Option', 'option_tags');
     }
 }
