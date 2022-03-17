@@ -20,6 +20,13 @@ class Vehicle extends BaseModel implements HasMedia
         'raw_nhtsa_data',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+     //   unset ($this->dates);
+    }
+
+
     protected $fillable = [
         'vin',
         'malley_number',

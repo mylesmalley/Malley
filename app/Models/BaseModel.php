@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class BaseModel extends Model
 {
-    public $dates = [
-        'created_at',
-        'updated_at',
-    ];
+//    public $dates = [
+//        'created_at',
+//        'updated_at',
+//    ];
 
     /**
      * Get the format for database stored dates.
