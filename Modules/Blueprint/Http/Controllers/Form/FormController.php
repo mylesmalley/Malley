@@ -26,9 +26,7 @@ class FormController extends Controller
 
          $form_data = $form
             ->load([
-                'elements' => function($q){
-                    $q->orderby('position');
-                },
+                'elements',
                 'elements.rule',
                 'elements.items.option' => function( $query) {
                     $query->select('id','option_name', 'option_description');

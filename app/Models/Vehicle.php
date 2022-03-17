@@ -8,8 +8,9 @@ use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Model;
 
-class Vehicle extends BaseModel implements HasMedia
+class Vehicle extends Model implements HasMedia
 {
     use InteractsWithMedia;
     use Searchable;
