@@ -6,22 +6,21 @@ namespace Modules\Index\Http\Controllers\Option;
 use App\Http\Controllers\Controller;
 use App\Models\MediaTag;
 use App\Models\Option;
-use App\Models\FormElementItem;
-use App\Models\TemplateOption;
-use App\Models\LayoutOption;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\View\View;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class CloneController extends Controller
 {
     /**
      * @param Option $option
-     * @return View
+     * @return Response
      */
-    public function form( Option $option ): View
+    public function form( Option $option ): Response
     {
-        return view('index::options.clone', ['option'=>$option]);
+        return response()
+            ->view('index::options.clone', ['option'=>$option]);
     }
 
 
@@ -29,6 +28,10 @@ class CloneController extends Controller
     protected $messages = [];
 
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function clone( Request $request )
     {
 
@@ -60,10 +63,10 @@ class CloneController extends Controller
         $new->save();
 
 
-        $this->messages[] = "Cloned {$request->old_name}.";
+        $this->messages[] = "Cloned {$request->input('old_name')}.";
 
 
-        if ( $request->option_syspro_phantom  )
+        if ( $request->input('option_syspro_phantom')  )
         {
             // if a phantom is provided, try to import the components
             $import = $new->importComponentsFromSyspro();
@@ -130,7 +133,9 @@ class CloneController extends Controller
 
 
 
-        return redirect("/index/option/{$new->id}/home")->with(['errors'=>$errors, 'info'=>$this->messages ]);
+        return redirect("/index/option/{$new->id}/home")
+            ->with(['errors'=>$errors,
+                'info'=>$this->messages ]);
 
     }
 
@@ -198,9 +203,9 @@ class CloneController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyRules( Option $old, Option $new ): bool
+    private function copyRules( Option $old, Option $new ): void
     {
         $relatedRules = $old->rules()->get();
 
@@ -212,7 +217,6 @@ class CloneController extends Controller
         }
 
 
-        return true;
     }
 
 
@@ -222,9 +226,9 @@ class CloneController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyTags( Option $old, Option $new )
+    private function copyTags( Option $old, Option $new ): void
     {
         $tags = $old->tags;
 
@@ -240,7 +244,6 @@ class CloneController extends Controller
         }
 
 
-        return true;
     }
 
 
@@ -249,9 +252,9 @@ class CloneController extends Controller
     /**
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyDrawingsAndUpdateReferences(  Option $old, Option $new ): bool
+    private function copyDrawingsAndUpdateReferences(  Option $old, Option $new ): void
     {
         $media = $old->getMedia('drawings');
         $changeCount = 0;
@@ -281,23 +284,21 @@ class CloneController extends Controller
 
         $this->messages[] = "Updated {$changeCount} references to images in forms.";
 
-        return true;
     }
 
 
     /**
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyPhotos(  Option $old, Option $new ): bool
+    private function copyPhotos(  Option $old, Option $new ): void
     {
         $media = $old->getMedia('photos');
         foreach( $media as $med )
         {
             $med->copy( $new, 'photos', 's3');
         }
-        return true;
     }
 
 
@@ -306,9 +307,9 @@ class CloneController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyRelatedRules( Option $old, Option $new ): bool
+    private function copyRelatedRules( Option $old, Option $new ): void
     {
         $rules = $old->relatedRules()->get();
 
@@ -320,24 +321,7 @@ class CloneController extends Controller
             $rule->save();
         }
 
-        return true;
     }
 
 }
 
-
-//( App\Models\FormElementItem::where('form_element_id', 174 ))->each( function( $val, $key ){
-//    if(App\Models\Media::find($val->media_id)) \
-//    App\Models\MediaTag::updateOrCreate(['media_id'=> $val->media_id, 'tag_id'=> 55 ])->save();
-//});
-//( App\Models\FormElementItem::where('form_element_id', 80 ))->each( function( $val, $key ){
-//    if(App\Models\Media::find($val->media_id)) \
-//    App\Models\MediaTag::updateOrCreate(['media_id'=> $val->media_id, 'tag_id'=> 81 ])->save();
-//});
-//( App\Models\FormElementItem::where('form_element_id', 71 ))->each( function( $val, $key ){
-//    if(App\Models\Media::find($val->media_id)) \
-//    App\Models\MediaTag::updateOrCreate(['media_id'=> $val->media_id, 'tag_id'=> 86 ])->save();
-//});
-
-
-//174
