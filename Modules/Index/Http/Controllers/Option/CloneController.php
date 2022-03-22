@@ -85,18 +85,18 @@ class CloneController extends Controller
 
 
         // duplicate rules and reassign related ones handle rules and related rules
-        $this->copyRules( $old, $new );
-        $this->copyRelatedRules( $old, $new );
+        $this->copy_rules( $old, $new );
+        $this->copy_related_rules( $old, $new );
 
 
         // duplicate related media...
         // fix references to form images to reference duplicated drawings
-        $this->copyDrawingsAndUpdateReferences( $old, $new );
-        $this->copyPhotos( $old, $new );
+        $this->copy_drawings_and_update_references( $old, $new );
+        $this->copy_photos( $old, $new );
 
 
         // duplicate the tags to the new revision
-        $this->copyTags( $old, $new );
+        $this->copy_tags( $old, $new );
 
 
 
@@ -205,7 +205,7 @@ class CloneController extends Controller
      * @param Option $new
      * @return void
      */
-    private function copyRules( Option $old, Option $new ): void
+    private function copy_rules(Option $old, Option $new ): void
     {
         $relatedRules = $old->rules()->get();
 
@@ -228,7 +228,7 @@ class CloneController extends Controller
      * @param Option $new
      * @return void
      */
-    private function copyTags( Option $old, Option $new ): void
+    private function copy_tags( Option $old, Option $new ): void
     {
         $tags = $old->tags;
 
@@ -254,7 +254,7 @@ class CloneController extends Controller
      * @param Option $new
      * @return void
      */
-    private function copyDrawingsAndUpdateReferences(  Option $old, Option $new ): void
+    private function copy_drawings_and_update_references(  Option $old, Option $new ): void
     {
         $media = $old->getMedia('drawings');
         $changeCount = 0;
@@ -292,7 +292,7 @@ class CloneController extends Controller
      * @param Option $new
      * @return void
      */
-    private function copyPhotos(  Option $old, Option $new ): void
+    private function copy_photos(Option $old, Option $new ): void
     {
         $media = $old->getMedia('photos');
         foreach( $media as $med )
@@ -309,7 +309,7 @@ class CloneController extends Controller
      * @param Option $new
      * @return void
      */
-    private function copyRelatedRules( Option $old, Option $new ): void
+    private function copy_related_rules( Option $old, Option $new ): void
     {
         $rules = $old->relatedRules()->get();
 
