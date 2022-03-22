@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CloneController extends Controller
 {
@@ -62,7 +63,7 @@ class CloneController extends Controller
         $new->revision = 1; // increment the revision number
         $new->save();
 
-
+        Log::info( "Cloned {$request->input('old_name')}.");
         $this->messages[] = "Cloned {$request->input('old_name')}.";
 
 
@@ -75,10 +76,12 @@ class CloneController extends Controller
             if (!$import )
             {
                 $errors[] = "The Syspro phantom number provided doesn't appear to be valid or there was a problem recovering components.";
+                Log::error( "The Syspro phantom number provided doesn't appear to be valid or there was a problem recovering components.");
             }
             else
             {
                 $this->messages[] = "Synced components from Syspro using the phantom provided. ";
+                Log::info( "Synced components from Syspro using the phantom provided. ");
             }
         }
 
@@ -216,7 +219,7 @@ class CloneController extends Controller
             $rule->save();
         }
 
-
+        Log::info("Copied rules from $old->id to $new->id ");
     }
 
 
@@ -242,6 +245,7 @@ class CloneController extends Controller
             ]);
 
         }
+        Log::info("Copied tags from $old->id to $new->id ");
 
 
     }
@@ -260,27 +264,26 @@ class CloneController extends Controller
         $changeCount = 0;
         foreach( $media as $med )
         {
-            $copiedMedia = $med->copy( $new, 'drawings', 's3');
+            try {
+                $copiedMedia = $med->copy( $new, 'drawings', 's3');
 
-//            FormElementItem::where('media_id', $med->id )
-//                ->update([
-//                    'media_id' => $copiedMedia->id,
-//                ]);
+                foreach( $med->tags as $tag )
+                {
 
-            foreach( $med->tags as $tag )
+                    MediaTag::updateOrCreate([
+                        'media_id' => $copiedMedia->id,
+                        'tag_id' => $tag->id,
+                    ])->save();
+                }
+            } catch (\Exception $e)
             {
-       //         dd( $tag );
-//                $tag->replicate()->fill([
-//                    'media_id' => $copiedMedia->id,
-//                ]);
-                MediaTag::updateOrCreate([
-                    'media_id' => $copiedMedia->id,
-                    'tag_id' => $tag->id,
-                ])->save();
+                Log::error("Failed to copy and update $med ", $e);
             }
+
 
             $changeCount++;
         }
+        Log::info("Updated {$changeCount} references to images in forms.");
 
         $this->messages[] = "Updated {$changeCount} references to images in forms.";
 

@@ -11,22 +11,23 @@ use App\Models\TemplateOption;
 use App\Models\LayoutOption;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use \Illuminate\View\View;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RevisionController extends Controller
 {
     /**
      * @param Option $option
-     * @return View
+     * @return Response
      */
-    public function create( Option $option ): View
+    public function create( Option $option ): Response
     {
         /** REMOVE WHEN NEW PHANTOM APPROACH ACCEPTED */
     //    if ($option->base_van_id != 10) die('currently disabled');
 
-        return view('index::options.revision', ['option'=>$option]);
+        return response()
+            ->view('index::options.revision', ['option'=>$option]);
     }
 
 
@@ -34,6 +35,9 @@ class RevisionController extends Controller
     protected $messages = [];
 
 
+    /*
+     * 
+     */
     public function store( Request $request )
     {
 
@@ -61,7 +65,7 @@ class RevisionController extends Controller
         ]);
 
 
-        $new = $this->generateRevision( $request );
+        $new = $this->generate_revision( $request );
 
         // container for any errors to be passed to the user upon redirection
         $errors = [];
@@ -81,7 +85,7 @@ class RevisionController extends Controller
         ]);
 
 
-        $new = $this->generateRevision( $request );
+        $new = $this->generate_revision( $request );
 
         // container for any errors to be passed to the user upon redirection
         $errors = [];
@@ -108,7 +112,7 @@ class RevisionController extends Controller
         ]);
 
 
-        $new = $this->generateRevision( $request );
+        $new = $this->generate_revision( $request );
 
         // container for any errors to be passed to the user upon redirection
         $errors = [];
@@ -145,7 +149,7 @@ class RevisionController extends Controller
 //
 //        return true;
 //
-//        //$new = $this->generateRevision( $request );
+//        //$new = $this->generate_revision( $request );
 //
 //        // container for any errors to be passed to the user upon redirection
 //        $errors = [];
@@ -164,7 +168,7 @@ class RevisionController extends Controller
      * @param Request $request
      * @return Option
      */
-    private function generateRevision( Request $request ) : Option
+    private function generate_revision( Request $request ) : Option
     {
 
 
@@ -240,27 +244,27 @@ class RevisionController extends Controller
         // copy any components from the old to new, but preserve old
 
 
-        $this->copyComponents( $old, $new );
+        $this->copy_components( $old, $new );
         $this->messages[] = "Copied components from the old revision";
 
 
 
 
         // duplicate rules and reassign related ones handle rules and related rules
-        $this->copyRules( $old, $new );
-        $this->copyRelatedRules( $old, $new );
+        $this->copy_rules( $old, $new );
+        $this->copy_related_rules( $old, $new );
 
 
         // duplicate related media...
         // fix references to form images to reference duplicated drawings
-        $this->copyDrawingsAndUpdateReferences( $old, $new );
-        $this->copyPhotos( $old, $new );
-        $this->copyWizardImage( $old, $new );
+        $this->copy_drawings_and_update_references( $old, $new );
+        $this->copy_photos( $old, $new );
+        $this->copy_wizard_image( $old, $new );
 
 
 
         // duplicate the tags to the new revision
-        $this->copyTags( $old, $new );
+        $this->copy_tags( $old, $new );
 
 
 
@@ -319,9 +323,9 @@ class RevisionController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyComponents( Option $old, Option $new ): bool
+    private function copy_components( Option $old, Option $new ): void
     {
         $components = $old->components()->get();
 
@@ -347,7 +351,6 @@ class RevisionController extends Controller
 
         }
 
-        return true;
     }
 
 
@@ -434,7 +437,7 @@ class RevisionController extends Controller
 
         // fire off some happy messages.
         $this->messages[] = "Added {$new->fullName} to {$counter} Blueprints.";
-        $this->messages[] = "{$updated} Blueprints that had revision {$old->revision} turned on now have revision {$new->revision} instead.";
+        $this->messages[] = "$updated Blueprints that had revision {$old->revision} turned on now have revision $new->revision instead.";
 
         return true;
     }
@@ -446,9 +449,9 @@ class RevisionController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyRules( Option $old, Option $new ): bool
+    private function copy_rules( Option $old, Option $new ): void
     {
         $relatedRules = $old->rules()->get();
 
@@ -460,7 +463,6 @@ class RevisionController extends Controller
         }
 
 
-        return true;
     }
 
 
@@ -470,9 +472,9 @@ class RevisionController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyTags( Option $old, Option $new )
+    private function copy_tags( Option $old, Option $new ): void
     {
         $tags = $old->tags;
 
@@ -488,7 +490,6 @@ class RevisionController extends Controller
         }
 
 
-        return true;
     }
 
 
@@ -497,9 +498,9 @@ class RevisionController extends Controller
     /**
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyDrawingsAndUpdateReferences(  Option $old, Option $new ): bool
+    private function copy_drawings_and_update_references( Option $old, Option $new ): void
     {
         $media = $old->getMedia('drawings');
         $changeCount = 0;
@@ -514,10 +515,7 @@ class RevisionController extends Controller
 
             foreach( $med->tags as $tag )
             {
-       //         dd( $tag );
-//                $tag->replicate()->fill([
-//                    'media_id' => $copiedMedia->id,
-//                ]);
+
                 MediaTag::updateOrCreate([
                     'media_id' => $copiedMedia->id,
                     'tag_id' => $tag->id,
@@ -529,39 +527,36 @@ class RevisionController extends Controller
 
         $this->messages[] = "Updated {$changeCount} references to images in forms.";
 
-        return true;
     }
 
 
     /**
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyPhotos(  Option $old, Option $new ): bool
+    private function copy_photos(  Option $old, Option $new ): void
     {
         $media = $old->getMedia('photos');
         foreach( $media as $med )
         {
             $med->copy( $new, 'photos', 's3');
         }
-        return true;
     }
 
 
     /**
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyWizardImage(  Option $old, Option $new ): bool
+    private function copy_wizard_image(  Option $old, Option $new ): void
     {
         $media = $old->getMedia('wizard_image');
         foreach( $media as $med )
         {
             $med->copy( $new, 'wizard_image', 's3');
         }
-        return true;
     }
 
 
@@ -570,21 +565,19 @@ class RevisionController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyRelatedRules( Option $old, Option $new ): bool
+    private function copy_related_rules( Option $old, Option $new ): void
     {
         $rules = $old->relatedRules()->get();
 
         foreach( $rules as $rule )
         {
-            // don't replicate because it will clog up current options with outdated references
-           //     $rule->replicate();
+
             $rule->related_option_id = $new->id;
             $rule->save();
         }
 
-        return true;
     }
 
 
@@ -593,18 +586,3 @@ class RevisionController extends Controller
 }
 
 
-//( App\Models\FormElementItem::where('form_element_id', 174 ))->each( function( $val, $key ){
-//    if(App\Models\Media::find($val->media_id)) \
-//    App\Models\MediaTag::updateOrCreate(['media_id'=> $val->media_id, 'tag_id'=> 55 ])->save();
-//});
-//( App\Models\FormElementItem::where('form_element_id', 80 ))->each( function( $val, $key ){
-//    if(App\Models\Media::find($val->media_id)) \
-//    App\Models\MediaTag::updateOrCreate(['media_id'=> $val->media_id, 'tag_id'=> 81 ])->save();
-//});
-//( App\Models\FormElementItem::where('form_element_id', 71 ))->each( function( $val, $key ){
-//    if(App\Models\Media::find($val->media_id)) \
-//    App\Models\MediaTag::updateOrCreate(['media_id'=> $val->media_id, 'tag_id'=> 86 ])->save();
-//});
-
-
-//174
