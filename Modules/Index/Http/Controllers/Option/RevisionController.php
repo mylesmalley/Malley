@@ -9,6 +9,7 @@ use App\Models\Option;
 use App\Models\FormElementItem;
 use App\Models\TemplateOption;
 use App\Models\LayoutOption;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Response;
@@ -43,25 +44,18 @@ class RevisionController extends Controller
 
         $request->validate([
             'engineering_notes' => 'required|string',
-
             "option_description"     => 'required|max:100',
-
-          //  "option_syspro_phantom" => 'nullable|alpha_dash|max:30',
-
             "option_price_tier_2"    => 'required|numeric',
             "option_price_tier_3"    =>  'required|numeric',
             "option_price_dealer_offset"    =>  'numeric',
             "option_price_msrp_offset"    =>  'numeric',
-
             "option_labour_qty"    =>  'numeric',
             "option_labour_cost"    =>  'numeric',
             'show_on_templates' => 'boolean',
             'show_on_forms' => 'boolean',
-
             "option_long_lead_time"    => 'required|boolean',
             "option_show_on_quote"     => 'required|boolean',
             'has_pricing' => 'boolean',
-
         ]);
 
 
@@ -70,7 +64,8 @@ class RevisionController extends Controller
         // container for any errors to be passed to the user upon redirection
         $errors = [];
 
-        return redirect("/index/option/{$new->id}/home")->with(['errors'=>$errors, 'info'=>$this->messages ]);
+        return redirect("/index/option/$new->id/home")
+            ->with(['errors'=>$errors, 'info'=>$this->messages ]);
 
     }
 
@@ -132,35 +127,6 @@ class RevisionController extends Controller
     }
 
 
-//    /**
-//     * @param Request $request
-//     * @return bool
-//     */
-//    public function generate_revision_from_pricing_livewire_component( Request $request ): bool
-//    {
-//
-//        $request->validate([
-//            'engineering_notes' => 'required|string', //change notes
-//            "option_name"     => 'required', // used to find revisions
-//            "option_price_tier_2"    => 'required|numeric|lte:option_price_tier_3',
-//            "option_price_tier_3"    =>  'required|numeric|gte:option_price_tier_2',
-//
-//        ]);
-//
-//        return true;
-//
-//        //$new = $this->generate_revision( $request );
-//
-//        // container for any errors to be passed to the user upon redirection
-//        $errors = [];
-//        $this->messages[] = "Pushed new changes to Syspro";
-//
-//    }
-
-
-
-
-
 
     /**
      * function that actually creates the revision and marks the old rev as obsolete
@@ -173,7 +139,7 @@ class RevisionController extends Controller
 
 
         // base everything off of the newest revision prior to these changes.
-        $old = Option::where('option_name', $request->option_name )
+        $old = Option::where('option_name', $request->input('option_name') )
             ->orderBy('revision','DESC')
             ->get()
             ->first();
@@ -182,7 +148,7 @@ class RevisionController extends Controller
      //   if ($old->base_van_id != 10) die('currently disabled');
 
 
-        if ( $old->revision == $request->revision )
+        if ( $old->revision == $request->input('revision') )
         {
             die( "You can't submit a form twice." );
             //return redirect("/index/option/{$old->id}/home")->with(['errors'=> $errors]);
@@ -360,9 +326,9 @@ class RevisionController extends Controller
      *
      * @param Option $old
      * @param Option $new
-     * @return bool
+     * @return void
      */
-    private function copyConfigurationsAndUpdateReferences( Option $old, Option $new ): bool
+    private function copyConfigurationsAndUpdateReferences( Option $old, Option $new ): void
     {
         $configurations = $old->configurations()
             ->where('locked', false) // only update and replace config items that aren't locked
@@ -439,7 +405,6 @@ class RevisionController extends Controller
         $this->messages[] = "Added {$new->fullName} to {$counter} Blueprints.";
         $this->messages[] = "$updated Blueprints that had revision {$old->revision} turned on now have revision $new->revision instead.";
 
-        return true;
     }
 
 
@@ -462,7 +427,7 @@ class RevisionController extends Controller
             $rule->save();
         }
 
-
+        Log::info("Copied rules from $old->id to $new->id ");
     }
 
 
@@ -489,7 +454,7 @@ class RevisionController extends Controller
 
         }
 
-
+        Log::info("Copied tags from $old->id to $new->id ");
     }
 
 
@@ -540,8 +505,16 @@ class RevisionController extends Controller
         $media = $old->getMedia('photos');
         foreach( $media as $med )
         {
-            $med->copy( $new, 'photos', 's3');
+            try {
+                $med->copy( $new, 'photos', 's3');
+            } catch ( Exception $e )
+            {
+                Log::error("Failed to copy image $med", $e );
+            }
         }
+
+        Log::info("Copied photos from $old->id to $new->id ");
+
     }
 
 
@@ -555,8 +528,16 @@ class RevisionController extends Controller
         $media = $old->getMedia('wizard_image');
         foreach( $media as $med )
         {
-            $med->copy( $new, 'wizard_image', 's3');
+            try {
+                $med->copy( $new, 'wizard_image', 's3');
+            } catch ( Exception $e )
+            {
+                Log::error("Failed to copy image $med", $e );
+            }
         }
+
+        Log::info("Copied wizard_images from $old->id to $new->id ");
+
     }
 
 
