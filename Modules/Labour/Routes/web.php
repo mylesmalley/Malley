@@ -59,9 +59,16 @@ Route::prefix('labour')->group(function() {
     });
 
 
+    Route::get("/alphabet", [LoginController::class, "alphabet"])
+        ->name("labour.login.alphabet");
+    Route::get("/letter/{letter}", [LoginController::class, "letter"])
+        ->name("labour.login.letter");
+    Route::get("/user/{user?}", [LoginController::class, "user"])
+        ->name("labour.login.user_form");
 
-    Route::get('/{user?}', [ LoginController::class, 'loginForm' ])
-        ->name('labour.login');
+//
+//    Route::get('/{user?}', [ LoginController::class, 'loginForm' ])
+//        ->name('labour.login');
     Route::post('/login', [ LoginController::class, 'submitLogin' ])
         ->name('labour.submitLogin');
 
