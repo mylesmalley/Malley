@@ -18,9 +18,9 @@ class ClockedInUsersController extends Controller
     {
         $this->authorize('labour_edit', Labour::class);
 
-        $labour = Labour::where('end', '=', '')
+        $labour = Labour::whereNull('end')
             ->join('users', 'users.id', '=', 'labour.user_id')
-            ->with('user', 'user.department')
+            ->join('departments', 'users.department_id', '=', 'departments.id')
             ->orderBy('users.last_name')
             ->get();
 
