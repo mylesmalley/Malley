@@ -3,7 +3,6 @@
 namespace Modules\Labour\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
@@ -12,28 +11,49 @@ use App\Models\User;
 class LoginController extends Controller
 {
 
-
+    /**
+     * @return Response
+     */
     public function alphabet( ): Response
     {
+        Auth::logout();
+
         return response()
             ->view('labour::login.alphabet');
     }
 
-    public function letter( string $letter ): Response
+    /**
+     * @param string $letter
+     * @return Response
+     */
+    public function letter( string $letter = "A" ): Response
     {
+        Auth::logout();
+
+        $users = User::where('is_enabled', true)
+            ->role('labour')
+            ->where('last_name', 'like', $letter . "%" )
+            ->select('first_name','last_name','id')
+            ->get();
+
         return response()
-            ->view('labour::login.letter');
+            ->view('labour::login.letter', ['users' => $users ]);
     }
+
+
+
 //
-//    /**
-//     * @param User|null $user
-//     * @return View
-//     */
-//    public function loginForm( User $user = null ): View
-//    {
-//        Auth::logout();
-//        return view('labour::login', [ 'user' => $user ]);
-//    }
+    /**
+     * @param User|null $user
+     * @return RedirectResponse|Response
+     */
+    public function login_form( User $user = null ): RedirectResponse|Response
+    {
+        Auth::logout();
+        if (!$user) return redirect()->route('labour.login.alphabet');
+        return response()
+            ->view('labour::login.login-form', [ 'user' => $user ]);
+    }
 //
 //
 //    /**
