@@ -29,16 +29,22 @@ class HomeController extends Controller
             'active_tab' => 'sometimes|string',
         ]);
 
+        // set useful defaults
         $start_date = $request->input('start_date')
             ?? Carbon::today()->format('Y-m-d');
 
-        $end_date = $request->input('end_date') ?? null;
-        $user_id = $request->input('user_id') ?? null;
-        $department = $request->input('department') ?? 8; // production
+        $end_date = $request->input('end_date')
+            ?? Carbon::today()->format('Y-m-d');
+
+        $user_id = $request->input('user_id')
+            ?? null;
+        $department = $request->input('department')
+            ?? 8; // production
 
         $active_tab = $request->input('active_tab')
             ?? 'all';
 
+        // which users should we grab?
         $users = match ($active_tab) {
             'all' => $this->all_staff(),
             'department' => $this->by_department($department),
@@ -50,24 +56,26 @@ class HomeController extends Controller
 
         $user_days = [];
 
-        if ( $active_tab === 'all')
+        // same day, different user
+        if ( $active_tab === 'all' || $active_tab === 'department')
         {
             foreach( $users as $user )
             {
                 $user_days[] = UserDay::get($user, $start_date );
             }
-
         }
 
+        // same user, different days
+        if ( $active_tab === 'person' && $user_id )
+        {
+            $dates = $this->dates( $start_date, $end_date );
 
+            foreach( $dates as $date )
+            {
+                $user_days[] = UserDay::get(User::find($user_id), $date );
+            }
+        }
 
-
-
-
-      //  188
-
-        //dd( UserDay::get( User::find(188), $start_date ));
-      //  dd( $request->all(), $active_tab );
 
         return response()
             ->view('labour::manage_labour.home', [

@@ -29,8 +29,7 @@ class ManageLabourController extends Controller
             'filter' => 'sometimes|string',
             'user' => 'sometimes|int',
             'department' => 'sometimes|integer',
-        //    'selected_user' => 'sometimes|integer',
-      //      'selected_id' => 'sometimes|integer',
+
         ]);
 
 
