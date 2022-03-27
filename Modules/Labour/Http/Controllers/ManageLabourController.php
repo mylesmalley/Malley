@@ -28,7 +28,9 @@ class ManageLabourController extends Controller
             'end' => 'sometimes|date',
             'filter' => 'sometimes|string',
             'user' => 'sometimes|int',
-            'department' => 'sometimes|int',
+            'department' => 'sometimes|integer',
+        //    'selected_user' => 'sometimes|integer',
+      //      'selected_id' => 'sometimes|integer',
         ]);
 
 
@@ -41,6 +43,7 @@ class ManageLabourController extends Controller
         $filter = $request->input('filter') ?? 'all';
         $user = $request->input('user') ?? Auth::user()->id;
         $department = $request->input('department') ?? 1;
+      //  $selectedUser = $request->input('selected_user') ?? null;
 
 
         //Tab handling
@@ -59,6 +62,9 @@ class ManageLabourController extends Controller
                 'dates' => $dates,
                 'user_ids' => $users,
                 'activeTab' => $tab,
+                'selectedUser' => null,
+                'selectedDate' => null,
+
             ]);
     }
 
