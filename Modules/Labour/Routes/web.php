@@ -7,6 +7,7 @@ use Modules\Labour\Http\Controllers\HomeController;
 use Modules\Labour\Http\Controllers\LoginController;
 use Modules\Labour\Http\Controllers\Reports\ClockedInUsersController;
 use Modules\Labour\Http\Controllers\ManageLabourController;
+use Modules\Labour\Http\Controllers\ManageLabour\HomeController as NewManageLabour;
 use Modules\Labour\Http\Controllers\Reports\LabourOnJobReportController;
 
 
@@ -18,9 +19,13 @@ Route::prefix('labour')->group(function() {
         /**
          * ROUTES FOR MANAGING LABOUR
          */
-        Route::prefix('management')->group(function() {
-            Route::get('', [ ManageLabourController::class, 'home' ])
+        Route::prefix('manage_labour')->group(function() {
+            Route::get('new', [ NewManageLabour::class, 'home' ])
+                ->name('labour.management.home_new');
+
+            Route::get('old', [ ManageLabourController::class, 'home' ])
                 ->name('labour.management.home');
+
         });
 
         /**
