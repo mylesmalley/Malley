@@ -10,7 +10,7 @@
             <div class="col-12">
                 @include('labour::manage_labour.filter_tabs' )
 
-                {{ dd($start_date, $end_date, $user_id, $department, $active_tab) }}
+{{--                {{ dd($start_date, $end_date, $user_id, $department, $active_tab) }}--}}
             </div>
         </div>
     </div>

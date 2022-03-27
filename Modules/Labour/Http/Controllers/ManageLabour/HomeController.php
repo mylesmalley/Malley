@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $end_date = $request->input('end_date') ?? null;
         $user_id = $request->input('user_id') ?? null;
-        $department = $request->input('department') ?? null;
+        $department = $request->input('department') ?? 8; // production
 
         $active_tab = $request->input('active_tab')
             ?? 'all';

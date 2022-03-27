@@ -150,7 +150,7 @@
                                         ->where('is_enabled', true )
                                         ->orderBy('last_name')
                                         ->get()  as $user )
-                                @if ( $user_id === $user->id)
+                                @if ( $user_id == $user->id)
                                     <option value="{{ $user->id }}" selected>{{ $user->first_name . ' ' . $user->last_name }}</option>
                                 @else
                                     <option value="{{ $user->id }}" >{{ $user->first_name . ' ' . $user->last_name }}</option>
