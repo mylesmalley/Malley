@@ -3,10 +3,12 @@
 namespace Modules\Labour\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -54,25 +56,29 @@ class LoginController extends Controller
         return response()
             ->view('labour::login.login-form', [ 'user' => $user ]);
     }
-//
-//
-//    /**
-//     * @param Request $request
-//     * @return RedirectResponse
-//     */
-//    public function submitLogin( Request $request ): RedirectResponse
-//    {
-//
-//        $credentials = $request->only('id', 'password');
-//
-//        if (Auth::attempt($credentials)) {
-//            return redirect()->route('labour.home');
-//        }
-//
-//        return redirect()
-//            ->route('labour.login', $request->input('id'));
-//
-//    }
+
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function submitLogin( Request $request ): RedirectResponse
+    {
+
+        $credentials = $request->only('id', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('labour.home');
+        }
+
+        $user = User::find($request->input('id'));
+        Log::info("Failed labour login attempt for $user->first_name $user->last_name");
+
+        return redirect()
+            ->route('labour.login', $request->input('id') )
+            ->withErrors(['password' => "Sorry, but that was not the correct password."]);
+
+    }
 
     public function logout()
     {
