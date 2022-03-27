@@ -21,10 +21,10 @@ Route::prefix('labour')->group(function() {
          */
         Route::prefix('manage_labour')->group(function() {
             Route::get('new', [ NewManageLabour::class, 'home' ])
-                ->name('labour.management.home_new');
+                ->name('labour.management.home');
 
             Route::get('old', [ ManageLabourController::class, 'home' ])
-                ->name('labour.management.home');
+                ->name('labour.management.home_old');
 
         });
 
