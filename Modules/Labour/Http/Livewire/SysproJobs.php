@@ -100,8 +100,8 @@ class SysproJobs extends Component
                         ->where('Complete', '=', 'N')
                         ->where('Job', 'like', $tab . "%")
                         ->orderBy('Job', 'ASC')
-                        ->paginate(15);
-                      //  ->get();
+                       // ->simplePaginate();
+                        ->get();
                 });
     }
 
@@ -129,7 +129,7 @@ class SysproJobs extends Component
 
         $this->selectedTab = $this->prefixes->first();
 
-        $this->clickTab( $this->selectedTab );
+        $this->clickTab( $this->selectedTab, request() );
     }
 
 
