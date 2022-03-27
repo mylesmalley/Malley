@@ -10,17 +10,8 @@
     <div class="card-header bg-secondary text-white">
         {{ $ud['user']['first_name'] }} {{ $ud['user']['last_name'] }} on {{ $ud['monthDay'] }}
 
-        @if ( $a_user_day_is_active )
-            @if ($this_user_day_is_active)
-                selected!!!!
-            @endif
-        @else
-            no day selected
-        @endif
-        <a href="{{ request()->fullUrlWithQuery([
-                'selected_user'=>$ud['user']['id'],
-                'selected_date'=>$ud['date'],
-            ]) }}">select</a>
+
+
 
 
     </div>
@@ -36,6 +27,14 @@
             </tr>
         </thead>
         <tbody>
+            @if( $a_user_day_is_active && $this_user_day_is_active )
+                <tr class="table-success">
+                    <td colspan="100">
+                        Adding time to this day -->
+                    </td>
+                </tr>
+                @endif
+
             @forelse( $ud['labour'] as $lab )
 
                 <tr
@@ -65,7 +64,26 @@
         </tbody>
             <tfoot>
             <tr>
-                <td colspan="4"></td>
+                <td colspan="4">
+
+
+                    @if ( $a_user_day_is_active )
+                        @if ($this_user_day_is_active)
+                            selected!!!!
+                        @endif
+                    @else
+                        <a class="btn btn-sm btn-success"
+                           href="{{ request()->fullUrlWithQuery([
+                        'selected_user'=>$ud['user']['id'],
+                        'selected_date'=>$ud['date'],
+                        'mode' => 'add',
+                    ]) }}">Add Time</a>
+
+{{--                        no day selected--}}
+                    @endif
+                    
+                    
+                </td>
                 <td >{{ $ud['total_elapsed_labour'] }} Hours</td>
             </tr>
         </tfoot>

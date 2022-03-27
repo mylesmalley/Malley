@@ -27,6 +27,7 @@ class HomeController extends Controller
             'user_id' => 'sometimes|integer',
             'department' => 'sometimes|integer',
             'active_tab' => 'sometimes|string',
+            'mode' => 'sometimes|string',
         ]);
 
         // set useful defaults
@@ -43,6 +44,9 @@ class HomeController extends Controller
 
         $active_tab = $request->input('active_tab')
             ?? 'all';
+
+
+        $mode = $request->input('mode') ?? null;
 
         // which users should we grab?
         $users = match ($active_tab) {
@@ -85,6 +89,7 @@ class HomeController extends Controller
                 'user_id' => $user_id,
                 'department' => $department,
                 'user_days' => $user_days,
+                'mode' => $mode,
             ] );
     }
 
