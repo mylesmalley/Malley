@@ -1,7 +1,6 @@
 @php
 
     $time = \Carbon\Carbon::now("America/Moncton");
-
     $start_hours = $time->copy()->subHour()->format('g');
     $end_hours = $time->format('g');
     $start_minutes = '00';
@@ -209,3 +208,4 @@
     </div>
 
 </div>
+
