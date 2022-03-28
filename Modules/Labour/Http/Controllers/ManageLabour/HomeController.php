@@ -32,10 +32,10 @@ class HomeController extends Controller
 
         // set useful defaults
         $start_date = $request->input('start_date')
-            ?? Carbon::today()->format('Y-m-d');
+            ?? Carbon::today('America/Moncton')->format('Y-m-d');
 
         $end_date = $request->input('end_date')
-            ?? Carbon::today()->format('Y-m-d');
+            ?? Carbon::today('America/Moncton')->format('Y-m-d');
 
         $user_id = $request->input('user_id')
             ?? null;

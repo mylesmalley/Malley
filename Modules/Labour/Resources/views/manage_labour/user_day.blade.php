@@ -38,6 +38,14 @@
             @forelse( $ud['labour'] as $lab )
 
                 <tr
+                    onclick="window.location = '{{ request()->fullUrlWithQuery([
+                        'selected_user'=>$ud['user']['id'],
+                        'selected_date'=>$ud['date'],
+                        'mode' => 'edit',
+                        'labour_id' => $lab['id'],
+                    ]) }}'"
+
+
                     class="
 {{--                    {{  $lab['id'] === $selectedRow ? 'table-info' : '' }}--}}
                     {{  $lab['flagged'] ? 'table-warning' : '' }} ">
@@ -58,7 +66,8 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-center"> No labour on this date</td>
+                    <td colspan="6"
+                        class="text-center"> No labour on this date</td>
                 </tr>
             @endforelse
         </tbody>
@@ -77,6 +86,7 @@
                         'selected_user'=>$ud['user']['id'],
                         'selected_date'=>$ud['date'],
                         'mode' => 'add',
+                        'labour_id' => null,
                     ]) }}">Add Time</a>
 
 {{--                        no day selected--}}

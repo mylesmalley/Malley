@@ -32,9 +32,20 @@
                        href="{{ request()->fullUrlWithQuery([
                         'selected_user'=>null,
                         'selected_date'=>null,
+                            'labour_id' => null,
                         'mode' =>  null,
                     ]) }}">Cancel</a>
                 @endif
+                    @if ( $mode === 'edit' )
+                        Editing this record
+                        <a class="btn btn-sm btn-danger"
+                           href="{{ request()->fullUrlWithQuery([
+                            'labour_id' => null,
+                        'selected_user'=>null,
+                        'selected_date'=>null,
+                        'mode' =>  null,
+                    ]) }}">Cancel</a>
+                    @endif
             </div>
         </div>
     </div>
