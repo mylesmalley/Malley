@@ -31,7 +31,12 @@
     <div class="card-body">
 
 
-        <form wire:submit.prevent="save_new_labour">
+        <form method="POST" action="{{ route('labour.management.add') }}">
+            <input type="hidden" name="referer_url" value="{{ request()->fullUrlWithQuery([]) }}">
+            <input type="hidden" name="user_id" value="{{ $selected_user->id }}">
+            <input type="hidden" name="date" value="{{ $selected_date }}">
+
+            @csrf
             <div class="form-group row">
                 <div class="col-3">
                     <label for="start_time">Start</label>
