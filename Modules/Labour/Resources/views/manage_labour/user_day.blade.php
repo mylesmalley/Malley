@@ -27,9 +27,9 @@
             </tr>
         </thead>
         <tbody>
-            @if( $a_user_day_is_active && $this_user_day_is_active )
+            @if( $a_user_day_is_active && $this_user_day_is_active && $mode === 'add' )
                 <tr class="table-success">
-                    <td colspan="100">
+                    <td class="text-end" colspan="100">
                         Adding time to this day -->
                     </td>
                 </tr>
@@ -38,17 +38,23 @@
             @forelse( $ud['labour'] as $lab )
 
                 <tr
-                    onclick="window.location = '{{ request()->fullUrlWithQuery([
-                        'selected_user'=>$ud['user']['id'],
-                        'selected_date'=>$ud['date'],
-                        'mode' => 'edit',
-                        'labour_id' => $lab['id'],
-                    ]) }}'"
+                    @if ( !$form_locked )
+                        onclick="window.location = '{{ request()->fullUrlWithQuery([
+                            'selected_user'=>$ud['user']['id'],
+                            'selected_date'=>$ud['date'],
+                            'mode' => 'edit',
+                             'form_locked' => true,
+                            'labour_id' => $lab['id'],
+                        ]) }}'"
+                    @endif
 
 
                     class="
-{{--                    {{  $lab['id'] === $selectedRow ? 'table-info' : '' }}--}}
-                    {{  $lab['flagged'] ? 'table-warning' : '' }} ">
+                    {{  $lab['flagged'] ? 'table-warning' : '' }}
+                    {{ request()->has('labour_id')
+                        && request()->input('labour_id') == $lab['id'] ? "table-info" : "" }}
+
+                            ">
 
                     <td>{{ $lab['job'] }}</td>
                     <td>{{ $lab['department'] ?? "Department" }}</td>
@@ -86,6 +92,7 @@
                         'selected_user'=>$ud['user']['id'],
                         'selected_date'=>$ud['date'],
                         'mode' => 'add',
+                        'form_locked' => true,
                         'labour_id' => null,
                     ]) }}">Add Time</a>
 

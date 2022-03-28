@@ -28,6 +28,7 @@ class HomeController extends Controller
             'department' => 'sometimes|integer',
             'active_tab' => 'sometimes|string',
             'mode' => 'sometimes|string',
+            'form_locked' => "sometimes|boolean",
         ]);
 
         // set useful defaults
@@ -39,12 +40,25 @@ class HomeController extends Controller
 
         $user_id = $request->input('user_id')
             ?? null;
+
+        $selected_user = $request->input('selected_user')
+            ? User::find($request->input('selected_user'))
+            : null;
+
+        $selected_date = $request->input('selected_date')
+            ? $request->input('selected_date')
+            : null;
+
+
+
+
         $department = $request->input('department')
             ?? 8; // production
 
         $active_tab = $request->input('active_tab')
             ?? 'all';
 
+        $form_locked = $request->input('form_locked') ?? false;
 
         $mode = $request->input('mode') ?? null;
 
@@ -90,6 +104,9 @@ class HomeController extends Controller
                 'department' => $department,
                 'user_days' => $user_days,
                 'mode' => $mode,
+                'form_locked' => $form_locked, // prevent links and buttons appearing when a form is being edited
+                'selected_user' => $selected_user, // for filling out add labour and edit labour forms
+                'selected_date' => $selected_date,
             ] );
     }
 

@@ -26,16 +26,14 @@
                 @endforelse
             </div>
             <div class="col-6">
-                @if ( $mode === 'add' )
-                    ADD NEW
-                    <a class="btn btn-sm btn-danger"
-                       href="{{ request()->fullUrlWithQuery([
-                        'selected_user'=>null,
-                        'selected_date'=>null,
-                            'labour_id' => null,
-                        'mode' =>  null,
-                    ]) }}">Cancel</a>
+
+
+                @if ( $mode === 'add'  )
+                    @include('labour::manage_labour.add_labour')
                 @endif
+
+
+
                     @if ( $mode === 'edit' )
                         Editing this record
                         <a class="btn btn-sm btn-danger"
@@ -43,6 +41,7 @@
                             'labour_id' => null,
                         'selected_user'=>null,
                         'selected_date'=>null,
+                     'form_locked' => false,
                         'mode' =>  null,
                     ]) }}">Cancel</a>
                     @endif
