@@ -16,8 +16,12 @@
                         href="{{ url('/vehicles/dealers') }}">List of Dealers</a>
                     <a class="list-group-item list-group-item-action"
                         href="{{ url('/vehicles/create') }}">Add a Vehicle</a>
-                </div>
+                    <a class="list-group-item list-group-item-action"
+                       target="_blank"
+                       href="https://vpic.nhtsa.dot.gov/decoder/">NHTSA VIN Decoder Tool</a>
 
+                </div>
+                <br>
                 <h4>Blank Forms</h4>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action"
@@ -48,8 +52,10 @@
                         Inspection Report</a>
                     <a class="list-group-item list-group-item-action"
                        href="{{ route("vehicles.reports.ford_compliance" ) }}">
-                        Date Compliance Report</a>
-
+                        Ford Compliance Report</a>
+                    <a class="list-group-item list-group-item-action"
+                       href="{{ route("vehicles.reports.location" ) }}">
+                        Vehicle Locations</a>
 
                 </div>
 
