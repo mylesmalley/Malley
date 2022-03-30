@@ -15,13 +15,15 @@ class VehicleLocationReport extends Controller
     public function view( ): Response
     {
         $matches = Vehicle::whereIn('location', ['At Malley', 'Off site; coming back'])
-            ->select(['id','vin','make','model','year','location'])
+            ->select(['id','vin','make','model','year','location','work_order'])
             ->with(['dates' => function($query){
                 $query
                     ->where('location','!=', null)
                     ->where('timestamp', '<=', Carbon::today());
             },'dates.user'])
             ->get();
+
+       // dd( $matches );
 
     //    dd( $matches->first() );
 
