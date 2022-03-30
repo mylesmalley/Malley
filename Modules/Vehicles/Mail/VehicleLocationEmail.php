@@ -12,17 +12,17 @@ class VehicleLocationEmail extends Mailable
 	use SerializesModels;
 
 	public string $email;
-    public Collection $chassis;
+    public Collection $matches;
 
 
     /**
      * @param string $email
-     * @param Collection $chassis
+     * @param Collection $matches
      */
-	public function __construct( string $email, Collection $chassis )
+	public function __construct( string $email, Collection $matches )
 	{
         $this->email = $email;
-        $this->chassis = $chassis;
+        $this->matches = $matches;
 	}
 
     /**
@@ -35,7 +35,7 @@ class VehicleLocationEmail extends Mailable
 		return $this
             ->subject("Vehicle Location Report")
 			->view('vehicles::mail.vehicle_location_report',[
-			    'chassis' => $this->chassis,
+			    'matches' => $this->matches,
             ]);
 	}
 }
