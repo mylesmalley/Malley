@@ -1,8 +1,11 @@
 
     <h1 class="text-center">Vehicle Location Report</h1>
 
+    <p>This is the new report to more accurately show vehicle locations.
+        It shows any vehicles that are either at Malley or offsite and due back. </p>
+    <p>This report will replace the Chassis Here report that goes out daily when all vehicles on site are included.</p>
 
-    <table>
+    <table cellspacing="2" cellpadding="2" border="1">
         <thead>
         <tr>
 
@@ -12,8 +15,8 @@
             <th>Model</th>
             <th>Year</th>
             <th>Location</th>
-            <td>Last Update</td>
-            <td>Checked By</td>
+            <th>Last Update</th>
+            <th>Checked By</th>
             <th>On</th>
 
         </tr>
@@ -23,8 +26,8 @@
             @php
                 $date = $v->dates->last() ?? null;
             @endphp
-            <tr onclick="window.location = '{{ route('vehicle.home', [$v->id]) }}'">
-                <td>{{ $v->vin ?? '' }}</td>
+            <tr style="border-bottom: 1px solid black;">
+                <td><a href="{{ route('vehicle.home', [$v->id]) }}">{{ $v->vin ?? '' }}</a></td>
 
                 <td>{{ $v->firstWorkOrder() ?? "" }}</td>
 

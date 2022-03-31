@@ -34,6 +34,10 @@ class Kernel extends ConsoleKernel
             ->dailyAt('7:30')
             ->timezone('America/Moncton');
 
+        $schedule->command('blueprint:vehicle-locations')
+            ->dailyAt('7:31')
+            ->timezone('America/Moncton');
+
         $schedule->command('queue:prune-batches')
             ->dailyAt('19:00')
             ->timezone('America/Moncton');

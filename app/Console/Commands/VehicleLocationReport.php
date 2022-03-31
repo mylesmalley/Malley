@@ -50,15 +50,15 @@ class VehicleLocationReport extends Command
 
         foreach ([
             'mmalley@malleyindustries.com',
-//            'tmalley@malleyindustries.com',
-//            'dpargiter@malleyindustries.com',
-//            'jbourque@malleyindustries.com',
-//            'kmalley@malleyindustries.com',
-//            'bcroucher@malleyindustries.com',
-//            'CDeveau@malleyindustries.com',
-//            'MarcALeblanc@malleyindustries.com',
-//            'kprasad@malleyindustries.com',
-//            'vhinojosa@malleyindustries.com',
+            'tmalley@malleyindustries.com',
+            'dpargiter@malleyindustries.com',
+            'jbourque@malleyindustries.com',
+            'kmalley@malleyindustries.com',
+            'bcroucher@malleyindustries.com',
+            'CDeveau@malleyindustries.com',
+            'MarcALeblanc@malleyindustries.com',
+            'kprasad@malleyindustries.com',
+            'vhinojosa@malleyindustries.com',
         ] as $email) {
             Mail::to($email)
                 ->send(new VehicleLocationEmail($email, $matches));
