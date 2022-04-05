@@ -359,10 +359,10 @@ class User extends Authenticatable
         $b = hexdec( $b );
 
         $r = abs( $r - 100 );
-        $g = abs( $g - 100 );
+        $g = abs( $g - 125 );
         $b = abs( $b - 100 );
 
-        return "#". dechex($r) . dechex($g) . dechex( $b );
+        return "#". str_pad(  dechex($r) . dechex($g) . dechex( $b  ), 6, '5' );
     }
 
 
