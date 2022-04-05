@@ -2,6 +2,7 @@
 
 namespace Modules\Labour\Http\Controllers\ManageLabour;
 
+use App\Models\Labour;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -29,6 +30,7 @@ class HomeController extends Controller
             'active_tab' => 'sometimes|string',
             'mode' => 'sometimes|string',
             'form_locked' => "sometimes|boolean",
+            'labour_id' => 'sometimes|integer',
         ]);
 
         // set useful defaults
@@ -61,6 +63,11 @@ class HomeController extends Controller
         $form_locked = $request->input('form_locked') ?? false;
 
         $mode = $request->input('mode') ?? null;
+
+        // labour record for editing
+        $labour = $request->has('labour_id')
+            ? Labour::find( (int) $request->input('labour_id') )
+            : null;
 
         // which users should we grab?
         $users = match ($active_tab) {
@@ -107,6 +114,7 @@ class HomeController extends Controller
                 'form_locked' => $form_locked, // prevent links and buttons appearing when a form is being edited
                 'selected_user' => $selected_user, // for filling out add labour and edit labour forms
                 'selected_date' => $selected_date,
+                'labour' => $labour,
             ] );
     }
 

@@ -5,6 +5,7 @@ use Modules\Labour\Http\Controllers\ClockOutController;
 use Modules\Labour\Http\Controllers\FlagController;
 use Modules\Labour\Http\Controllers\HomeController;
 use Modules\Labour\Http\Controllers\LoginController;
+use Modules\Labour\Http\Controllers\ManageLabour\EditController;
 use Modules\Labour\Http\Controllers\Reports\ClockedInUsersController;
 use Modules\Labour\Http\Controllers\ManageLabourController;
 use Modules\Labour\Http\Controllers\ManageLabour\HomeController as NewManageLabour;
@@ -26,6 +27,9 @@ Route::prefix('labour')->group(function() {
 
             Route::post('add', [ AddController::class, 'add' ])
                 ->name('labour.management.add');
+
+            Route::post('edit', [ EditController::class, 'edit' ])
+                ->name('labour.management.edit');
 
             Route::get('old', [ ManageLabourController::class, 'home' ])
                 ->name('labour.management.home_old');

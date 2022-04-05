@@ -34,16 +34,8 @@
 
 
 
-                    @if ( $mode === 'edit' )
-                        Editing this record
-                        <a class="btn btn-sm btn-danger"
-                           href="{{ request()->fullUrlWithQuery([
-                            'labour_id' => null,
-                        'selected_user'=>null,
-                        'selected_date'=>null,
-                     'form_locked' => false,
-                        'mode' =>  null,
-                    ]) }}">Cancel</a>
+                    @if ( $mode === 'edit' && $labour != null )
+                        @include('labour::manage_labour.edit_labour')
                     @endif
             </div>
         </div>
