@@ -3,28 +3,27 @@
 namespace Modules\Labour\Http\Controllers\ManageLabour;
 
 use App\Models\Labour;
-use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 class EditController extends Controller
 {
+    use ParsesTimeTrait;
 
-
-    public function add( Request $request )
+    public function edit( Request $request )
     {
         $request->validate([
             "referer_url" => "required|string",
             "user_id" => "required|integer",
             "date" => "required|date",
-            "start_hours" => "required|integer",
-            "start_minutes" => "required|integer",
+            "start_hours" => "required|numeric",
+            "start_minutes" => "required|numeric",
             "start_ampm" => "required|string",
-            "end_hours" => "required|integer",
-            "end_minutes" => "required|integer",
+            "end_hours" => "required|numeric",
+            "end_minutes" => "required|numeric",
             "end_ampm" => "required|string",
             "department_id" => "required|integer",
-          //  "job" => "required|string",
+            "job" => "required|string",
         ]);
 
 
@@ -61,22 +60,6 @@ class EditController extends Controller
     }
 
 
-    /**
-     * @param string $date
-     * @param string $hours
-     * @param string $minutes
-     * @param string $ampm
-     * @return Carbon
-     */
-    private function parse_time( string $date, string $hours, string $minutes, string $ampm): Carbon
-    {
 
-        $newEndString = $date . ' ' .
-            $hours . ":" .
-            str_pad($minutes, 2, '0', STR_PAD_LEFT)
-            . ' ' . $ampm;
-
-        return Carbon::parse($newEndString, 'America/Moncton');
-    }
 
 }

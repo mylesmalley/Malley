@@ -3,12 +3,12 @@
 namespace Modules\Labour\Http\Controllers\ManageLabour;
 
 use App\Models\Labour;
-use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 class AddController extends Controller
 {
+    use ParsesTimeTrait;
 
 
     public function add( Request $request )
@@ -60,23 +60,5 @@ class AddController extends Controller
        // dd( $request->all() );
     }
 
-
-    /**
-     * @param string $date
-     * @param string $hours
-     * @param string $minutes
-     * @param string $ampm
-     * @return Carbon
-     */
-    private function parse_time( string $date, string $hours, string $minutes, string $ampm): Carbon
-    {
-
-        $newEndString = $date . ' ' .
-            $hours . ":" .
-            str_pad($minutes, 2, '0', STR_PAD_LEFT)
-            . ' ' . $ampm;
-
-        return Carbon::parse($newEndString, 'America/Moncton');
-    }
 
 }
