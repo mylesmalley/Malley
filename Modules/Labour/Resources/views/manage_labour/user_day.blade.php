@@ -6,12 +6,9 @@
         && request()->input('selected_date') ==   $ud['date'];
 @endphp
 
-<div class="card border-secondary">
+<div class="card border-secondary m-1">
     <div class="card-header bg-secondary text-white">
         {{ $ud['user']['first_name'] }} {{ $ud['user']['last_name'] }} on {{ $ud['monthDay'] }}
-
-
-
 
 
     </div>
@@ -83,9 +80,7 @@
 
 
                     @if ( $a_user_day_is_active )
-                        @if ($this_user_day_is_active)
-                            selected!!!!
-                        @endif
+
                     @else
                         <a class="btn btn-sm btn-success"
                            href="{{ request()->fullUrlWithQuery([
@@ -107,7 +102,6 @@
     </table>
 
 </div>
-<br>
 
 {{--<div class="--}}
 {{--            card border-info">--}}

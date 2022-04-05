@@ -9,7 +9,7 @@
     $end_ampm = $time->copy()->subHour()->format('A');
 
 @endphp
-<div class="card border-success sticky-top">
+<div class="card border-success sticky-top m-1">
 
     <div class="card-header bg-success text-white">
         <h4>
