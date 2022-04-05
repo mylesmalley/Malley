@@ -5,13 +5,18 @@ namespace Modules\Labour\Http\Controllers\ManageLabour;
 use App\Models\Labour;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class AddController extends Controller
 {
     use ParsesTimeTrait;
 
 
-    public function add( Request $request )
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function add( Request $request ): RedirectResponse
     {
         $request->validate([
             "referer_url" => "required|string",
@@ -56,7 +61,13 @@ class AddController extends Controller
             'job' => "TEST",
         ]);
 
-
+        // return to the previous page but clear out the details
+        return redirect( $request->fullUrlWithQuery([
+            'selected_user'=>null,
+            'labour_id' => null,
+            'form_locked' => false,
+            'mode' =>  null,
+        ]));
        // dd( $request->all() );
     }
 

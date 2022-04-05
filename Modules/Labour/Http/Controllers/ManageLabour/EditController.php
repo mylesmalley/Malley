@@ -13,6 +13,7 @@ class EditController extends Controller
     public function edit( Request $request )
     {
         $request->validate([
+            'labour_id' => 'required|integer',
             "referer_url" => "required|string",
             "user_id" => "required|integer",
             "date" => "required|date",
@@ -25,8 +26,6 @@ class EditController extends Controller
             "department_id" => "required|integer",
             "job" => "required|string",
         ]);
-
-
 
         $first = $this->parse_time(
             $request->input('date'),
@@ -42,17 +41,15 @@ class EditController extends Controller
             $request->input('end_ampm')
         );
 
+        $labour = Labour::find( $request->input('labour_id') );
 
-
-        Labour::create([
-            'user_id' => $request->input('user_id'),
-           // 'job' => $request->input('job'),
+        $labour->update([
             'department_id' => $request->input('department_id'),
             'flagged' => false,
             'posted' => false,
             'start' => $first->lessThan($second) ? $first : $second,
             'end' => $first->greaterThanOrEqualTo($first) ? $second : $first,
-            'job' => "TEST",
+            'job' => $request->input('job') ?? "MISSING_JOB",
         ]);
 
 
