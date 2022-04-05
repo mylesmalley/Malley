@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-        <div class="row g-7" style="padding-top:20%;">
+        <div class="row g-7" style="">
 
             <div class="col-12 text-center">
 
@@ -23,7 +23,7 @@
                     <div class="card-body">
 
                         @foreach( $users as $user )
-                            <a class="btn btn-secondary"
+                            <a class="btn btn-secondary btn-lg m-1"
                                href="{{ route('labour.login', [ $user ]) }}">
                                 {{ $user->first_name ?? "FIRST" }} {{ $user->last_name ?? "LAST" }}
                             </a>
