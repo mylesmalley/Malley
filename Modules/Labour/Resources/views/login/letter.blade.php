@@ -24,6 +24,7 @@
 
                         @foreach( $users as $user )
                             <a class="btn btn-secondary btn-lg m-1"
+                               style="background-color: {{ $user->unique_colour() }} !important;"
                                href="{{ route('labour.login', [ $user ]) }}">
                                 {{ $user->first_name ?? "FIRST" }} {{ $user->last_name ?? "LAST" }}
                             </a>

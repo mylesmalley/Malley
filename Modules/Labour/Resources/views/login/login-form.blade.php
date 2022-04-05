@@ -12,8 +12,8 @@
         </div>
         <div class="row">
             <div class="col-8 offset-2">
-                <div class="card border-primary">
-                    <div class="card-header bg-primary text-white">
+                <div class="card border-primary" style="border-color: {{ $user->unique_colour() }} !important">
+                    <div class="card-header bg-primary text-white" style="background-color: {{ $user->unique_colour() }} !important">
                         <h1>Hello, {{ $user->first_name }}
                             <a href="{{ route('labour.login.letter', [ substr($user->last_name, 0,1)]) }}"
                                class="btn btn-light float-end">Go Back</a>

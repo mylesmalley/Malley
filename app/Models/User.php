@@ -342,6 +342,31 @@ class User extends Authenticatable
         ';
     }
 
+
+    /**
+     * @return string
+     */
+    public function unique_colour(): string
+    {
+        $input = md5( $this->attributes['first_name'] );
+
+        $r = substr( $input, 0, 2);
+        $g = substr( $input, 7, 2);
+        $b = substr( $input, 8, 2);
+
+        $r = hexdec( $r );
+        $g = hexdec( $g );
+        $b = hexdec( $b );
+
+        $r = abs( $r - 100 );
+        $g = abs( $g - 100 );
+        $b = abs( $b - 100 );
+
+        return "#". dechex($r) . dechex($g) . dechex( $b );
+    }
+
+
+
     /**
      * @return array
      */
