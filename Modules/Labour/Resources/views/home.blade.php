@@ -3,10 +3,9 @@
 @section('content')
     <div class="container">
         <br>
-        <div class="row g-5">
+        <div class="row g-2">
             <div class="col-12">
                 @includeIf('labour::userInfo')
-
             </div>
             <div class="col-12">
                 @if ( $user->hasActiveLabour )
