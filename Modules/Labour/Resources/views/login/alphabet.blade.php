@@ -19,7 +19,7 @@
                     <div class="card-body">
 
                         @foreach( range("A", "Z") as $letter)
-                            <a class="btn btn-secondary"
+                            <a class="btn btn-secondary btn-lg"
                                href="{{ route('labour.login.letter', [ $letter ]) }}">
                                 {{ $letter }}
                             </a>

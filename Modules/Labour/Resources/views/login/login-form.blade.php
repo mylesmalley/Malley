@@ -15,6 +15,11 @@
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">
                         <h1>Hello, {{ $user->first_name }}
+
+                            <a href="{{ route('labour.login.letter', [ substr($user->last_name, 0,1)]) }}"
+                               class="btn btn-light float-end">Go Back</a>
+                        </h1>
+
                     </div>
 
         <div class="card-body">

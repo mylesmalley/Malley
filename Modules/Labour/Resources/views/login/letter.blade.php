@@ -14,7 +14,11 @@
             <div class="col-8 offset-2">
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">
-                        <h1>Choose your name</h1>
+                        <h1>Choose your name
+                            <a href="{{ route('labour.login.alphabet') }}"
+                               class="btn btn-light float-end">Go Back</a>
+                        </h1>
+
                     </div>
                     <div class="card-body">
 
