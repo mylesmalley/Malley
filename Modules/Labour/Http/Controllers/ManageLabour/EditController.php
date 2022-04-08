@@ -78,6 +78,8 @@ class EditController extends Controller
         return redirect()->route('labour.management.home',[
             "active_tab" => $query_string["active_tab"] ?? "all",
             "selected_date" => $request->input('date'),
+            "start_date" => $request->input('date'),
+            "end_date" => $request->input('date'),
         ]);
        // dd( $request->all() );
     }

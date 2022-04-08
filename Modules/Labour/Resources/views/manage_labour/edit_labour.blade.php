@@ -14,7 +14,7 @@
     $end_ampm = $time->copy()->subHour()->format('A');
 */
 @endphp
-<div class="card border-primary sticky-top m-1">
+<div class="card border-primary  m-1">
 
     <div class="card-header bg-primary text-white">
         <h4>
@@ -225,4 +225,3 @@
     </div>
 
 </div>
-

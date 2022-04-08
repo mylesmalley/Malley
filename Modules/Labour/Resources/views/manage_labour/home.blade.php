@@ -25,18 +25,24 @@
                     <h2>No records</h2>
                 @endforelse
             </div>
-            <div class="col-6">
+            <div class="col-6 sticky-top">
 
 
                 @if ( $mode === 'add'  )
                     @include('labour::manage_labour.add_labour')
+                    @livewire('labour::job-search-component' )
+
                 @endif
 
 
 
                     @if ( $mode === 'edit' && $labour != null )
                         @include('labour::manage_labour.edit_labour')
+                        @livewire('labour::job-search-component' )
+
                     @endif
+
+
             </div>
         </div>
     </div>

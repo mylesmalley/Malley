@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMissingFieldTypeInspection */
+<?php
 
 namespace Modules\Labour\Http\Livewire;
 
@@ -6,12 +6,13 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Labour;
-use App\Models\User;
 
 class JobSearchComponent extends Component
 {
@@ -20,44 +21,6 @@ class JobSearchComponent extends Component
     public Collection $results ;
     public bool $searchMode = false;
     public string $searchTerm = '';
-    public ?User $user;
-    public bool $visible;
-
-
-    protected $listeners = [
-        'manageTime',
-        'cancel_selected_record',
-        'addTime',
-    ];
-
-    public function manageTime( array $payload )
-    {
-        $this->visible = true;
-        $this->user = Labour::where('id', '=', $payload['labour_id'])
-            ->first()
-            ->user;
-
-        $this->clickTabRecent();
-    }
-
-    public function addTime( array $payload )
-    {
-        $this->visible = true;
-        $this->user = User::find( $payload['user_id']);
-
-        $this->clickTabRecent();
-    }
-
-
-    public function cancel_selected_record()
-    {
-        unset( $this->user );
-        $this->visible = false;
-    }
-
-
-
-
 
 
     public function clickTabSearch(): void
@@ -99,58 +62,75 @@ class JobSearchComponent extends Component
         $this->selectedTab = "RECENT";
         $this->searchMode = false;
 
-
+        // grab the 10 most recent labour rows from the blueprint db
+        $users_jobs = Labour::where('user_id', Auth::user()->id )
+            ->pluck('job') // only job
+            ->unique()  // unique values
+            ->values()
+            ->take(10); // trim to at most 10
 
         // grab the records from syspro that match those job codes
-        $this->results = Cache::remember('user_'.$this->user->id.'_recent_jobs',
-            Carbon::now()->addDay(), function() {
+        $this->results = DB::connection('syspro')
+            ->table('WipMaster')
+            ->select('Job', 'JobDescription')
+            ->where( 'Complete' , '=', 'N' ) // only show active jobs
+            ->whereIn('Job', $users_jobs)
+            ->get();
+    }
 
-                // grab the 10 most recent labour rows from the blueprint db
-                $users_jobs = Labour::where('user_id', $this->user->id )
-                    ->pluck('job') // only job
-                    ->unique()  // unique values
-                    ->values()
-                    ->take(10); // trim to at most 10
+    /**
+     * Receives a string and returns the jobs in syspro that match
+     * @param string $tab
+     * @param Request $request
+     */
+    public function clickTab(  string $tab, Request $request ): void
+    {
+        $this->selectedTab = $tab;
+        $this->searchMode = false;
 
+        $page = $request->input('page');
+        $limit = $request->input('limit' );
 
+        $this->results =
+            Cache::remember('_syspro_job_tab_search_tab_'. $tab .$page. $limit ,
+                Carbon::now()->minutes(15), function() use ($tab) {
 
-            return DB::connection('syspro')
-                ->table('WipMaster')
-                ->select('Job', 'JobDescription')
-                ->where( 'Complete' , '=', 'N' ) // only show active jobs
-                ->whereIn('Job', $users_jobs)
-                ->get();
-        });
-
-
-
-
-
-
+                    return DB::connection('syspro')
+                        ->table('WipMaster')
+                        ->select('Job', 'JobDescription')
+                        ->where('Complete', '=', 'N')
+                        ->where('Job', 'like', $tab . "%")
+                        ->orderBy('Job', 'ASC')
+                        // ->simplePaginate();
+                        ->get();
+                });
     }
 
 
     /**
      * set up the component
      */
-    public function mount( User $user ): void
+    public function mount(): void
     {
-       $this->results = collect([]);
+        $this->results = collect([]);
 
-       $this->user = $user;
-//
-//        $this->prefixes = DB::connection('syspro')
-//            ->table('WipMaster')
-//            ->selectRaw("  LEFT(Job,3)  AS Prefix ")
-//            ->where('Complete', '=', 'N')
-//            ->orderBy('Prefix', 'ASC')
-//            ->distinct('Prefix')
-//            ->pluck('Prefix');
-//
-//        $this->selectedTab = $this->prefixes->first();
-//
-//        $this->clickTab( $this->selectedTab );
-        $this->clickTabRecent();
+        $this->prefixes =
+            Cache::remember('_syspro_all_job_prefixes' ,
+                Carbon::now()->hours(24), function() {
+                    return  DB::connection('syspro')
+                        ->table('WipMaster')
+                        ->selectRaw("  LEFT(Job,3)  AS Prefix ")
+                        ->where('Complete', '=', 'N')
+                        ->orderBy('Prefix', 'ASC')
+                        ->distinct('Prefix')
+                        ->pluck('Prefix');
+                });
+
+
+
+        $this->selectedTab = $this->prefixes->first();
+
+        $this->clickTab( $this->selectedTab, request() );
     }
 
 
