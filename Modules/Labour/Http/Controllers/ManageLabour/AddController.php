@@ -3,9 +3,13 @@
 namespace Modules\Labour\Http\Controllers\ManageLabour;
 
 use App\Models\Labour;
+use Exception;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class AddController extends Controller
 {
@@ -18,6 +22,7 @@ class AddController extends Controller
      */
     public function add( Request $request ): RedirectResponse
     {
+
         $request->validate([
             "referer_url" => "required|string",
             "user_id" => "required|integer",
@@ -31,7 +36,6 @@ class AddController extends Controller
             "department_id" => "required|integer",
           //  "job" => "required|string",
         ]);
-
 
 
         $first = $this->parse_time(
@@ -49,26 +53,36 @@ class AddController extends Controller
         );
 
 
-
-        Labour::create([
+        $details = [
             'user_id' => $request->input('user_id'),
-           // 'job' => $request->input('job'),
+            // 'job' => $request->input('job'),
             'department_id' => $request->input('department_id'),
             'flagged' => false,
             'posted' => false,
-            'start' => $first->lessThan($second) ? $first : $second,
-            'end' => $first->greaterThanOrEqualTo($first) ? $second : $first,
+            'start' => $first->lessThan($second) ? $first->format('c') : $second->format('c'),
+            'end' => $first->greaterThanOrEqualTo($first) ? $second->format('c') : $first->format('c'),
             'job' => "TEST",
-        ]);
+        ];
 
-        // return to the previous page but clear out the details
-        return redirect( $request->fullUrlWithQuery([
-            'selected_user'=>null,
-            'labour_id' => null,
-            'form_locked' => false,
-            'mode' =>  null,
-        ]));
-       // dd( $request->all() );
+        try {
+            $l = Labour::create( $details );
+            Log::info("User ".Auth::user()->id." saved a new labour record for user {$request->input('user_id')} " . $l->id);
+            Cache::forget('_user_day_' . $request->input('user_id') . '-' . $request->input('date'));
+
+        }
+        catch ( Exception $e )
+        {
+            Log::info("Error creating labour record for user {$request->input('user_id')}" , $e);
+
+        }
+
+
+
+
+        return redirect()->route('labour.management.home',[
+            "active_tab" => "all",
+            "selected_date" => $request->input('date'),
+        ]);
     }
 
 

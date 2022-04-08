@@ -31,8 +31,8 @@ Route::prefix('labour')->group(function() {
             Route::post('edit', [ EditController::class, 'edit' ])
                 ->name('labour.management.edit');
 
-            Route::get('old', [ ManageLabourController::class, 'home' ])
-                ->name('labour.management.home_old');
+//            Route::get('old', [ ManageLabourController::class, 'home' ])
+//                ->name('labour.management.home_old');
 
         });
 

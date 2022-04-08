@@ -20,7 +20,7 @@
                 str_pad($minutes, 2, '0', STR_PAD_LEFT)
                 . ' ' . $ampm;
 
-            return Carbon::parse($newEndString, 'America/Moncton');
+            return Carbon::parse($newEndString, 'America/Moncton' );
         }
 
     }
