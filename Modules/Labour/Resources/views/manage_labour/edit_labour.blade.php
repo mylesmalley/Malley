@@ -34,11 +34,12 @@
 
     </div>
     <div class="card-body">
-
+        @includeIf('app.components.errors')
         <form method="POST" action="{{ route('labour.management.edit') }}">
             <input type="hidden" name="referer_url" value="{{ request()->fullUrlWithQuery([]) }}">
-            <input type="text" value="{{ $labour->id }}" name="labour_id" id="labour_id">
-
+            <input type="hidden" value="{{ $labour->id }}" name="labour_id" id="labour_id">
+            <input type="hidden" value="{{ $labour->user_id }}" name="user_id" id="user_id">
+            <input type="hidden" value="{{ $selected_date }}" name="date" id="date">
             @csrf
             <div class="form-group row">
                 <div class="col-3">

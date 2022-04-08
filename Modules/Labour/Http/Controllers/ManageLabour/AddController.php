@@ -55,13 +55,12 @@ class AddController extends Controller
 
         $details = [
             'user_id' => $request->input('user_id'),
-            // 'job' => $request->input('job'),
+             'job' => $request->input('job') ?? "MISSING_JOB",
             'department_id' => $request->input('department_id'),
             'flagged' => false,
             'posted' => false,
             'start' => $first->lessThan($second) ? $first->format('c') : $second->format('c'),
             'end' => $first->greaterThanOrEqualTo($first) ? $second->format('c') : $first->format('c'),
-            'job' => "TEST",
         ];
 
         try {
@@ -77,10 +76,13 @@ class AddController extends Controller
         }
 
 
-
+        $referer =  parse_url( $request->input('referer_url'), PHP_URL_QUERY );
+        $query_string = [];
+        parse_str( $referer, $query_string );
+        //dd( $query_string );
 
         return redirect()->route('labour.management.home',[
-            "active_tab" => "all",
+            "active_tab" => $query_string["active_tab"] ?? "all",
             "selected_date" => $request->input('date'),
         ]);
     }
