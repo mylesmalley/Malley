@@ -21,6 +21,7 @@ class JobSearchComponent extends Component
     public Collection $results ;
     public bool $searchMode = false;
     public string $searchTerm = '';
+    public $user_id = null;
 
 
     public function clickTabSearch(): void
@@ -63,7 +64,7 @@ class JobSearchComponent extends Component
         $this->searchMode = false;
 
         // grab the 10 most recent labour rows from the blueprint db
-        $users_jobs = Labour::where('user_id', Auth::user()->id )
+        $users_jobs = Labour::where('user_id', $this->user_id )
             ->pluck('job') // only job
             ->unique()  // unique values
             ->values()
@@ -110,8 +111,10 @@ class JobSearchComponent extends Component
     /**
      * set up the component
      */
-    public function mount(): void
+    public function mount( $user_id = null ): void
     {
+        $this->user_id = $user_id;
+
         $this->results = collect([]);
 
         $this->prefixes =

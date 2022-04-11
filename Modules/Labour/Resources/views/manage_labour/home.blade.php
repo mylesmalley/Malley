@@ -30,7 +30,7 @@
 
                 @if ( $mode === 'add'  )
                     @include('labour::manage_labour.add_labour')
-                    @livewire('labour::job-search-component' )
+                    @livewire('labour::job-search-component', ['user_id'=> request()->input('selected_user',Auth::user()->id )] )
 
                 @endif
 
@@ -38,7 +38,7 @@
 
                     @if ( $mode === 'edit' && $labour != null )
                         @include('labour::manage_labour.edit_labour')
-                        @livewire('labour::job-search-component' )
+                        @livewire('labour::job-search-component', ['user_id'=> request()->input('selected_user',Auth::user()->id )] )
 
                     @endif
 
