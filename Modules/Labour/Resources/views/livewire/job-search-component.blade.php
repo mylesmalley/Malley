@@ -67,15 +67,10 @@
                     <td>{{ $r->Job ?? 'Job Number' }}</td>
                     <td>{{ $r->JobDescription ?? "description" }}</td>
                     <td class="text-end">
-
-                        <form action="{{ route('labour.clock_in') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="job" id="job" value="{{ $r->Job }}">
                             <button type="submit"
                                     id="startJob{{ $r->Job }}"
-                                    dusk="startJob{{ $r->Job }}"
+                                    onclick="selected_job('{{$r->Job }}')"
                                     class="btn btn-sm btn-outline-primary"> Start on {{ $r->Job }}</button>
-                        </form>
                     </td>
                 </tr>
             @endif
@@ -89,5 +84,11 @@
         @endforelse
         </tbody>
     </table>
+    <script>
+        function selected_job( job )
+        {
+            document.getElementById('job').value = job;
+        }
+    </script>
 </div>
 
