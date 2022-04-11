@@ -3,8 +3,13 @@
 @section('content')
 
     <div class="container">
-
-        manage labour
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <h4 class="text-secondary text-center">Labour Tracking Management</h4>
+                <h1 class="text-center">Make Changes</h1>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12">
