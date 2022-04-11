@@ -25,11 +25,17 @@ Route::prefix('labour')->group(function() {
             Route::get('new', [ NewManageLabour::class, 'home' ])
                 ->name('labour.management.home');
 
+            Route::get('clear_cache/{user_id}/{date}', [ NewManageLabour::class, 'clear_cache' ])
+                ->name('labour.management.clear_cache');
+
             Route::post('add', [ AddController::class, 'add' ])
                 ->name('labour.management.add');
 
             Route::post('edit', [ EditController::class, 'edit' ])
                 ->name('labour.management.edit');
+
+            Route::delete('delete', [ EditController::class, 'delete' ])
+                ->name('labour.management.delete');
 
 //            Route::get('old', [ ManageLabourController::class, 'home' ])
 //                ->name('labour.management.home_old');

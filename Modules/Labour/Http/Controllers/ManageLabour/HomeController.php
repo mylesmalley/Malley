@@ -6,11 +6,14 @@ use App\Models\Labour;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Modules\Labour\Models\UserDay;
 
 class HomeController extends Controller
@@ -163,6 +166,21 @@ class HomeController extends Controller
             ->where('is_enabled', true )
             ->orderBy('last_name')
             ->get();
+    }
+
+
+    /**
+     * @param int $user_id
+     * @param string $date
+     * @return RedirectResponse
+     */
+    public function clear_cache( int $user_id, string $date )
+    {
+        Cache::forget('_user_day_' . $user_id . '-' . $date );
+        Log::info("Manually flushed cache for '_user_day_$user_id-$date");
+
+        return redirect()
+            ->back();
     }
 
 

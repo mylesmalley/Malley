@@ -214,10 +214,29 @@
             <div class="row">
                 <div class="col-12">
                     <input type="submit" value="Save Changes" class="btn btn-success">
+
+
                 </div>
             </div>
         </form>
-
+        <form   class="text-end"
+                action="{{ route('labour.management.delete') }}"
+                method="POST">
+            @method('DELETE')
+            @csrf
+            <input type="hidden"
+                   class="text-end"
+                   name="labour_id"
+                   value="{{ $labour->id }}"
+                   id="labour_id">
+            <input type="hidden"
+                   name="date"
+                   id="date"
+                   value="{{ $selected_user }}">
+            <input type="submit"
+                   class="text-end btn btn-sm btn-outline-danger"
+                   value="DELETE THIS TIME">
+        </form>
 
 
     </div>

@@ -10,7 +10,14 @@
     <div class="card-header bg-secondary text-white">
         {{ $ud['user']['first_name'] }} {{ $ud['user']['last_name'] }} on {{ $ud['monthDay'] }}
 
-
+        <a class="float-end"
+           href="{{ route('labour.management.clear_cache', [$ud['user']['id'],$ud['date']]) }}">
+            <img style="width:
+            15px; height:15px;
+            filter: invert(100%);"
+                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABE0lEQVRIibWVv0rFMBSHP+ron76Am+1uXbWLdtXH8S4Xr69h36GvIMXl7nfp4iS4VATBjkIdckpD8KYmbX5QAqe/nC/k5CTgpkdHv3PyPnTyIAA9eQ90QAOUQBECYH41kC4JOQQyYA20EvsE8qUguk6ASoMkS0BMRRrkeSrBFXDvAY4Zt+vGZizFdOcBeZC5TzbTTkznHoBM5jY20xfjSXHVscz91oORYTrYE3fRjw3wLuOZR+Kh2d5sgBcZbz0ApzJubaYCtY8tqolctQIup0y1QCr+rsXsNyFFtf0AiY3//RKQXIN8oJroAjhivPRmQxLU3WK7qichtvP+ClyjCl+iOrSbteR/alj9JiQgWHJwLO4vxc1ViHdP3xMAAAAASUVORK5CYII=" alt="">
+            
+        </a>
     </div>
 
     <table  class="table table-striped table-hover table-sm">

@@ -81,7 +81,37 @@ class EditController extends Controller
             "start_date" => $request->input('date'),
             "end_date" => $request->input('date'),
         ]);
-       // dd( $request->all() );
+    }
+
+
+    public function delete( Request $request )
+    {
+        $request->validate([
+            'active_tab' => 'sometimes|string',
+            'selected_date' => 'sometimes|date',
+            'start_date' => 'sometimes|date',
+            'end_date' => 'sometimes|date',
+            'labour_id' => 'required|integer',
+            'date' => 'required|date',
+        ]);
+
+//        dd( $request->all() );
+
+        $labour = Labour::find( $request->input('labour_id') );
+
+
+        Log::info("User ".Auth::user()->id." made a change to $labour->id");
+        Cache::forget('_user_day_' . $labour->user_id . '-' . $request->input('date'));
+
+        $labour->delete();
+
+
+        return redirect()->route('labour.management.home',[
+            "active_tab" => $query_string["active_tab"] ?? "all",
+            "selected_date" => $request->input('date'),
+            "start_date" => $request->input('date'),
+            "end_date" => $request->input('date'),
+        ]);
     }
 
 
