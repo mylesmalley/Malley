@@ -1,18 +1,15 @@
 <div class="card border-secondary m-1">
-    <div class="card-header bg-secondary text-white">
+    <div class="card-header text-center bg-secondary text-white">
         <h6>Choose a Job</h6>
-
     </div>
     <div class="card-body">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <button class="nav-link {{ ( 'RECENT' === $selectedTab) ? 'active' : '' }} "
+
+                <button class="btn btn-sm btn-outline-primary {{ ( 'RECENT' === $selectedTab) ? 'active' : '' }} text-sm "
                         wire:click="clickTabRecent"
                         dusk="clickTabRecent"
                 >RECENT</button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link {{ ( 'SEARCH' === $selectedTab) ? 'active' : '' }} "
+
+                <button class="btn btn-sm btn-outline-primary {{ ( 'SEARCH' === $selectedTab) ? 'active' : '' }} "
                         wire:click="clickTabSearch"
                         dusk="clickTabSearch"
                 >SEARCH &nbsp;
@@ -20,18 +17,14 @@
                          style="width:14px;"
                          alt="" >
                 </button>
-            </li>
             @foreach( $prefixes as $prefix )
 
 
-                <li class="nav-item">
-                    <button class="nav-link {{ ( $prefix === $selectedTab) ? 'active' : '' }} "
+                    <button class="btn btn-sm btn-outline-primary  {{ ( $prefix === $selectedTab) ? 'active' : '' }} "
                             wire:click="clickTab('{{ $prefix }}')"
                             dusk="clickTab{{ $prefix }}"
                     >{{ trim( $prefix, '0') }}</button>
-                </li>
             @endforeach
-        </ul>
         @if ( $searchMode )
             <div id="searchForm" class="card border-secondary bg-secondary text-white">
                 <div class="card-body">
@@ -58,7 +51,7 @@
         @endif
     </div>
 
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover table-sm">
         <thead>
         <tr>
             <th>Job</th>
@@ -73,7 +66,7 @@
                 <tr>
                     <td>{{ $r->Job ?? 'Job Number' }}</td>
                     <td>{{ $r->JobDescription ?? "description" }}</td>
-                    <td>
+                    <td class="text-end">
 
                         <form action="{{ route('labour.clock_in') }}" method="POST">
                             @csrf
@@ -81,7 +74,7 @@
                             <button type="submit"
                                     id="startJob{{ $r->Job }}"
                                     dusk="startJob{{ $r->Job }}"
-                                    class="btn btn-large btn-warning"> Start on {{ $r->Job }}</button>
+                                    class="btn btn-sm btn-outline-primary"> Start on {{ $r->Job }}</button>
                         </form>
                     </td>
                 </tr>
