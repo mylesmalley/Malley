@@ -51,6 +51,7 @@
                                type="number"
                                aria-label=""
                                min="1"
+                               value="{{ old('start_hours') }}"
                                max="12"
                                step="1"
                                class="form-control form-control-sm"
@@ -69,6 +70,8 @@
                         <input id="start_minutes"
                                type="number"
                                aria-label=""
+                               value="{{ old('start_minutes') }}"
+
                                min="0"
                                max="59"
                                step="1"
@@ -85,8 +88,8 @@
                             class="form-control"
                             name="start_ampm"
                             id="start_ampm">
-                        <option {{ $start_ampm === 'AM' ? 'selected' : '' }}>AM</option>
-                        <option {{ $start_ampm === 'PM' ? 'selected' : '' }}>PM</option>
+                        <option {{  old('start_ampm') === 'AM' ? 'selected' : '' }}>AM</option>
+                        <option {{ old('start_ampm') === 'PM' ? 'selected' : '' }}>PM</option>
                     </select>
 
 
@@ -113,6 +116,7 @@
                                type="number"
                                aria-label=""
                                min="1"
+                               value="{{ old('end_hours') }}"
                                max="12"
                                step="1"
                                class="form-control form-control-sm"
@@ -133,6 +137,7 @@
                                aria-label=""
                                min="0"
                                max="59"
+                               value="{{ old('end_minutes') }}"
                                step="1"
                                class="form-control form-control-sm"
                                name="end_minutes">
@@ -148,8 +153,8 @@
                             name="end_ampm"
                             id="end_ampm">
 
-                        <option {{ $end_ampm === 'AM' ? 'selected' : '' }}>AM</option>
-                        <option {{ $end_ampm === 'PM' ? 'selected' : '' }}>PM</option>
+                        <option {{  old('end_ampm') === 'AM' ? 'selected' : '' }}>AM</option>
+                        <option {{ old('end_ampm') === 'PM' ? 'selected' : '' }}>PM</option>
                     </select>
                     @error('end_ampm') <span class="text-danger">{{ $message }}</span> @enderror
 
@@ -165,12 +170,11 @@
                     <select
                             class="form-control"
                             name="department_id"
-                            wire:model.defer="labour.department_id"
                             id="department_id"
                             aria-label=""
                     >
                         @foreach( App\Models\Department::all()  as $dept )
-                            @if ( $selected_user->department_id == $dept->id)
+                            @if ( $selected_user->department_id == $dept->id || old('department_id') == $dept->id)
                                 <option value="{{ $dept->id }}" selected>{{ $dept->name }}</option>
                             @else
                                 <option value="{{ $dept->id }}" >{{ $dept->name }}</option>
@@ -189,13 +193,13 @@
                     <input type="text"
                            readonly
                            id="job"
-                           wire:model.defer="labour.job"
                            name="job"
+                           value="{{ old('job') }}"
                            class="form-control"
                            required
                            placeholder="Search or Pick a Recent Job Below"
                     >
-                    @error('labour.job') <span class="text-danger">{{ $message }}</span> @enderror
+                    @error('job') <span class="text-danger">You need to pick a job from the list below.</span> @enderror
                 </div>
             </div>
 
