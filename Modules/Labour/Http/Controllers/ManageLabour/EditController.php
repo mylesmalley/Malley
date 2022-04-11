@@ -28,7 +28,7 @@ class EditController extends Controller
             "end_minutes" => "required|numeric",
             "end_ampm" => "required|string",
             "department_id" => "required|integer",
-//            "job" => "required|string",
+            "job" => "required|string",
         ]);
 
         $first = $this->parse_time(

@@ -213,13 +213,11 @@
 
             <div class="row">
                 <div class="col-12">
-                    <input type="submit" value="Add Labour" class="btn btn-success">
+                    <input type="submit" value="Save Changes" class="btn btn-success">
                 </div>
             </div>
         </form>
 
-
-        <hr>
 
 
     </div>

@@ -34,7 +34,7 @@ class AddController extends Controller
             "end_minutes" => "required|integer",
             "end_ampm" => "required|string",
             "department_id" => "required|integer",
-          //  "job" => "required|string",
+            "job" => "required|string",
         ]);
 
 
