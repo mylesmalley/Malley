@@ -91,8 +91,15 @@
     @endif
 
 
+    {{-- Ford Transit Mobility --}}
+    @if( (int)$blueprint->base_van_id === 11)
+        @includeIf('blueprint::custom_layouts.setup.transit_mobility.components')
 
+        @if ($layout->name === 'floor')
+            @include('blueprint::custom_layouts.setup.transit_mobility.setup_floor', [ 'c' => $configuration ])
+        @endif
 
+    @endif
 
 
 
