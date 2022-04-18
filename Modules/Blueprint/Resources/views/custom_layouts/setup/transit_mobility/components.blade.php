@@ -181,12 +181,14 @@
         {{--    ],--}}
         {{--},--}}
 
-        {{--shoulder_harness_label: {--}}
-        {{--    image: '{{ mix('img/blueprint/other/shoulder-harness.png') }}',--}}
-        {{--    options: [--}}
-        {{--        'FTM-D010-001',--}}
-        {{--    ],--}}
-        {{--},--}}
+        shoulder_harness_label: {
+            image: '{{ mix('img/blueprint/other/shoulder-harness.png') }}',
+            options: [
+                'FTM-D004-004',
+            ],
+        },
+
+
 
         belt_extension_8: {
             image: '{{ mix('img/blueprint/seats/seatbelt-8.png') }}',
