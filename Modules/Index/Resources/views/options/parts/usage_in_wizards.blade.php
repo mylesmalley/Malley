@@ -7,6 +7,7 @@
     <div class="list-group">
         @forelse( $option->wizard_usage as $use )
             <div class="list-group-item text-center">
+                @if (  $option->answer && $option->answer->question )
                 <h3>{{ $use->answer->question->wizard->name }}</h3>
                 When the user is asked <strong>"{{ $use->answer->question->text }}"</strong>, and they answer <strong>"{{ $use->answer->text }}"</strong> this option is
                 @switch( $use->action )
@@ -25,6 +26,7 @@
                 @endswitch
                 .
                 Then they are asked,  <strong>"{{ $use->answer->next_question->text }}"</strong>.
+                    @endif
             </div>
         @empty
             <div class="list-group-item list-group-item-secondary text-center">

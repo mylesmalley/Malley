@@ -208,7 +208,7 @@ class CustomLayoutController extends Controller
             Log::error("Failed to generate new copy of ". $request->input('name'), $e->getMessage() );
         }
 
-        return response("Saved $location_name", 200);
+        return response("Saved $location_name image", 200);
     }
 
 }
