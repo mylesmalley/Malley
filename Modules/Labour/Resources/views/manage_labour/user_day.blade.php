@@ -28,6 +28,7 @@
                 <th>Started At</th>
                 <th>Finished At</th>
                 <th>Elapsed</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -42,17 +43,6 @@
             @forelse( $ud['labour'] as $lab )
 
                 <tr
-                    @if ( !$form_locked )
-                        onclick="window.location = '{{ request()->fullUrlWithQuery([
-                            'selected_user'=>$ud['user']['id'],
-                            'selected_date'=>$ud['date'],
-                            'mode' => 'edit',
-                             'form_locked' => true,
-                            'labour_id' => $lab['id'],
-                        ]) }}'"
-                    @endif
-
-
                     class="
                     {{  $lab['flagged'] ? 'table-warning' : '' }}
                     {{ request()->has('labour_id')
@@ -67,12 +57,37 @@
                     <td>
                         @if ( ! $lab['end'] )
                             Ongoing
+
                         @else
                             {{ $lab['end'] }}
                         @endif
                     </td>
 
                     <td>{{ $lab['elapsed'] }}</td>
+                    <td>
+                        @if ( !$form_locked )
+                            @if (  $lab['end'] )
+                                <a class="btn btn-sm btn-outline-secondary"
+                                    href="{{ request()->fullUrlWithQuery([
+                                    'selected_user'=>$ud['user']['id'],
+                                    'selected_date'=>$ud['date'],
+                                    'mode' => 'edit',
+                                     'form_locked' => true,
+                                    'labour_id' => $lab['id'],
+                                ]) }}">Edit</a>
+                            @else
+                                <a class="btn btn-sm btn-outline-dark"
+                                   href="{{ request()->fullUrlWithQuery([
+                                        'selected_user'=>$ud['user']['id'],
+                                        'selected_date'=>$ud['date'],
+                                        'mode' => 'clock_out',
+                                        'form_locked' => true,
+                                        'labour_id' => null,
+                                    ]) }}">Clock Out</a>
+                            @endif
+                        @endif
+
+                    </td>
                 </tr>
             @empty
                 <tr>

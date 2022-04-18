@@ -3,6 +3,7 @@
 namespace Modules\Labour\Http\Controllers\ManageLabour;
 
 use App\Models\Labour;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -115,6 +116,33 @@ class EditController extends Controller
     }
 
 
+    public function clock_out( Request $request )
+    {
+        $labour = Labour::find( $request->input('labour_id') );
+        $now = Carbon::now('America\Moncton');
 
+
+        if ( $labour->end === null)
+        {
+            $labour->update([
+                'end' => $now->format('c'),
+            ]);
+            Log::info("User ".Auth::user()->id." made a change to $labour->id");
+            Cache::forget('_user_day_' . $labour->user_id . '-' . $now->format('Y-m-d'));
+        }
+        else
+        {
+            Log::info("Did not clock out labour id $labour->id as an end time was already present");
+        }
+
+
+
+        return redirect()->route('labour.management.home',[
+            "active_tab" => $query_string["active_tab"] ?? "all",
+            "selected_date" => $request->input('date'),
+            "start_date" => $request->input('date'),
+            "end_date" => $request->input('date'),
+        ]);
+    }
 
 }

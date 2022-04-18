@@ -39,7 +39,9 @@
 
                 @endif
 
-
+                    @if ( $mode === 'clock_out'  )
+                        @include('labour::manage_labour.clock_out')
+                    @endif
 
                     @if ( $mode === 'edit' && $labour != null )
                         @include('labour::manage_labour.edit_labour')

@@ -34,6 +34,9 @@ Route::prefix('labour')->group(function() {
             Route::post('edit', [ EditController::class, 'edit' ])
                 ->name('labour.management.edit');
 
+            Route::post('clock_out', [ EditController::class, 'clock_out' ])
+                ->name('labour.management.clock_out');
+
             Route::delete('delete', [ EditController::class, 'delete' ])
                 ->name('labour.management.delete');
 
