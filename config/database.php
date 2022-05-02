@@ -102,14 +102,27 @@ return [
             'prefix' => '',
         ],
 
+//        'syspro' => [
+//            'driver' => env('DB_DRIVER'),
+//            'host' => env('DB_HOST'),
+//            'database' => env('DB_DATABASE_SYSPRO'),
+//            'username' => env('DB_USERNAME'),
+//            'password' => env('DB_PASSWORD'),
+//            //  'port' => env('DB_PORT',49831),
+//            'port' => env('DB_PORT', 1433),
+//            //'charset' => 'utf8',
+//            'prefix' => '',
+//        ],
+
+
         'syspro' => [
             'driver' => env('DB_DRIVER'),
-            'host' => env('DB_HOST'),
-            'database' => env('DB_DATABASE_SYSPRO'),
-            'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD'),
+            'host' => env('DB_HOST_SYSPRO'),
+            'database' => env('DB_DATABASE_SYSPRO_8'),
+            'username' => env('DB_USERNAME_SYSPRO_8'),
+            'password' => env('DB_PASSWORD_SYSPRO_8'),
             //  'port' => env('DB_PORT',49831),
-            'port' => env('DB_PORT', 1433),
+            'port' => env('DB_PORT_SYSPRO_8', 1433),
             //'charset' => 'utf8',
             'prefix' => '',
         ],

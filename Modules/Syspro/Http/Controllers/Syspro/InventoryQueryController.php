@@ -23,12 +23,10 @@ class InventoryQueryController extends Controller
 
 		$highlight = [];
 
-		if ( $request->term )
+		if ( $request->input('term') )
 		{
-			$bind = "%".strtoupper( $request->term )."%";
-			$term =  $request->term ;
-
-			//$term = "%INVE%";
+			$bind = "%".strtoupper( $request->input('term') )."%";
+			$term =  $request->input('term') ;
 
 			$search = DB::connection('syspro')
 				->table('InvMaster AS Inv')
@@ -47,10 +45,10 @@ class InventoryQueryController extends Controller
 
 				return collect([
 					'Code' =>$value->StockCode ,
-					'StockCode' => str_ireplace($term, "<span class='search-highlight'>{$term}</span>", $value->StockCode ),
-					'Description' => str_ireplace($term, "<span class='search-highlight'>{$term}</span>", $value->Description ),
-                    'LongDesc' => str_ireplace($term, "<span class='search-highlight'>{$term}</span>", $value->LongDesc ),
-                    'SupCatalogueNum' => str_ireplace($term, "<span class='search-highlight'>{$term}</span>", $value->SupCatalogueNum ),
+					'StockCode' => str_ireplace($term, "<span class='search-highlight'>$term</span>", $value->StockCode ),
+					'Description' => str_ireplace($term, "<span class='search-highlight'>$term</span>", $value->Description ),
+                    'LongDesc' => str_ireplace($term, "<span class='search-highlight'>$term</span>", $value->LongDesc ),
+                    'SupCatalogueNum' => str_ireplace($term, "<span class='search-highlight'>$term</span>", $value->SupCatalogueNum ),
 				]);
 			});
 
@@ -61,7 +59,7 @@ class InventoryQueryController extends Controller
 		return response()
             ->view('syspro::syspro.inventoryQuery.search', [
                 'results' => $highlight,
-                'term' => $request->term
+                'term' => $request->input('term')
             ]);
 	}
 
@@ -81,7 +79,7 @@ class InventoryQueryController extends Controller
 		]);
 
 		// if no code provided, redirect to this one
-		$query = $code ?? $request->term ?? "15-13200";
+		$query = $code ?? $request->input('term') ?? "15-13200";
 
 		return redirect( '/syspro/inventoryQuery/'. strtoupper( $query ) );
 	}
@@ -113,7 +111,7 @@ class InventoryQueryController extends Controller
 		}
 
 		// determine if the stock code is bought in or not, which influences the next query
-		$boughtin = ($stockCode->PartCategory === "B" && $stockCode->StockOnHold === " " && $stockCode->LastPricePaid) ? true : false;
+		$bought_in = $stockCode->PartCategory === "B" && $stockCode->StockOnHold === " " && $stockCode->LastPricePaid;
 
 
 		$inv = DB::connection('syspro')
@@ -141,7 +139,7 @@ class InventoryQueryController extends Controller
 			->leftJoin('InvWarehouse AS IW', 'Inv.StockCode', '=','IW.StockCode')
 			->leftJoin('ApSupplier AS AP', 'Inv.Supplier', '=','AP.Supplier')
 			->where( 'Inv.StockCode', $query )
-			->when( $boughtin, function( $in ){
+			->when( $bought_in, function( $in ){
 				// if the part is bought in, make this comparison
 				$in->whereRaw("PS.Supplier = Inv.Supplier");
 			})
@@ -154,7 +152,7 @@ class InventoryQueryController extends Controller
 
 //		if ( !$inv->count() ) dd( $stockCode);
 
-		// remove all of the extra spaces Syspro appends to columns
+		// remove all the extra spaces Syspro appends to columns
 		$trimmed = $inv->map(function ($item, $key) {
 			return trim($item);
 		});
@@ -185,24 +183,14 @@ class InventoryQueryController extends Controller
 		// add the costs to the response
 		$trimmed->put('MaxCost',  $MaxCost );
 		// work out the margin to use based on the price category
-		$margin = 0;
-		switch ( $inv->get("PriceCategory"))
-		{
-			case "A":   // no tier set
-				$margin = 0.0;
-				break;
-			case "B":  // made in parts
-				$margin = 0.65;
-				break;
-			case "C":  // bought out parts
-				$margin = 0.35;
-				break;
-			case "D": // pass-through parts
-				$margin = 0.2;
-				break;
-			default: // anything missed
-				$margin = 0.4;
-		}
+
+        $margin = match ($inv->get("PriceCategory")) {
+            "A" => 0.0,
+            "B" => 0.65,
+            "C" => 0.35,
+            "D" => 0.2,
+            default => 0.4,
+        };
 
 		$trimmed->put('MarginUsed',  $margin * 100 );
 
@@ -218,7 +206,7 @@ class InventoryQueryController extends Controller
 		$DistributorSellPriceCAD = $RetailSellPriceCAD * $distributorDiscountRate;
 		$DistributorSellPriceUSD = $RetailSellPriceUSD * $distributorDiscountRate;
 
-		// add everythign to the response
+		// add everything to the response
 		$trimmed->put('RetailSellPriceCAD', $RetailSellPriceCAD );
 		$trimmed->put('RetailSellPriceUSD', $RetailSellPriceUSD );
 		$trimmed->put('DistributorSellPriceCAD', $DistributorSellPriceCAD );
@@ -256,21 +244,13 @@ class InventoryQueryController extends Controller
             ->pluck('innactive_option')
             ->toArray();
 
-        $allParentPhantoms = DB::connection('syspro')
-            ->table('BomStructure')
-            ->select("BomStructure.ParentPart as part")
-            ->where( "Component", $query )
-            ->pluck('part');
+//        $allParentPhantoms = DB::connection('syspro')
+//            ->table('BomStructure')
+//            ->select("BomStructure.ParentPart as part")
+//            ->where( "Component", $query )
+//            ->pluck('part');
 
 
-        $trimedAllParentPhantoms = $allParentPhantoms->map(function ($item, $key) {
-            return trim($item);
-        });
-
-
-
-
-   //    dd($query, $inactive_options, $trimedAllParentPhantoms);
 
         $whereUsed = DB::connection('syspro')
             ->table('BomStructure')
@@ -278,10 +258,8 @@ class InventoryQueryController extends Controller
             ->leftJoin("InvMaster", "BomStructure.ParentPart", "=", "InvMaster.StockCode")
             ->where( "Component", $query )
             ->whereNotIn('BomStructure.ParentPart', $inactive_options )
-
             ->get();
 
-      //  dd( $structure );
 
         return response()
             ->view( 'syspro::syspro.inventoryQuery.inventoryQuery', [

@@ -3,7 +3,7 @@
     $time = \Carbon\Carbon::now("America/Moncton");
 
     $start = \Carbon\Carbon::parse( $labour->start, 'America/Moncton' );
-    $end = \Carbon\Carbon::parse( $labour->stop , 'America/Moncton' );
+    $end = \Carbon\Carbon::parse( $labour->end , 'America/Moncton' );
 
     /*
     $start_hours = $time->copy()->subHour()->format('g');
@@ -19,6 +19,8 @@
     <div class="card-header bg-primary text-white">
         <h4>
             Editing Labour for <b>{{ $selected_user->first_name }}  {{ $selected_user->last_name }}</b> on <b>{{ $selected_date }}</b>
+
+
 
             <a class="btn btn-warning btn-sm float-end"
                href="{{ request()->fullUrlWithQuery([
@@ -52,12 +54,9 @@
                             <span class="input-group-text" id="start_hrs">Hr</span>
                         </div>
                         <input id="start_hours"
-                               type="number"
+                               type="text"
                                aria-label=""
-                               min="1"
-                               max="12"
-                               step="1"
-                               value="{{ old("start_hrs", $start->format('h')) }}"
+                               value="{{ old("start_hours", $start->format('h')) }}"
                                class="form-control form-control-sm"
                                name="start_hours">
                         @error('start_hours') <span class="text-danger">{{ $message }}</span> @enderror
@@ -72,11 +71,9 @@
                             <span class="input-group-text" id="start_mins">Min</span>
                         </div>
                         <input id="start_minutes"
-                               type="number"
+                               type="text"
                                aria-label=""
-                               min="0"
-                               max="59"
-                               step="1"
+
                                value="{{ old("start_minutes", $start->format('i')) }}"
 
                                class="form-control form-control-sm"
@@ -114,15 +111,12 @@
                     <div class="input-group">
 
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="end_hrs">Hr</span>
+                            <span class="input-group-text">Hr</span>
                         </div>
                         <input id="end_hours"
-                               type="number"
+                               type="text"
                                aria-label=""
-                               min="1"
-                               max="12"
-                               step="1"
-                               value="{{ old("end_hours", $start->format('h')) }}"
+                               value="{{ old("end_hours", $end->format('h')) }}"
 
                                class="form-control form-control-sm"
                                name="end_hours">
@@ -138,12 +132,9 @@
                             <span class="input-group-text" id="end_mins">Min</span>
                         </div>
                         <input id="end_minutes"
-                               type="number"
+                               type="text"
                                aria-label=""
-                               min="0"
-                               max="59"
-                               step="1"
-                               value="{{ old("end_minutes", $start->format('m')) }}"
+                               value="{{ old("end_minutes", $end->format('i')) }}"
 
                                class="form-control form-control-sm"
                                name="end_minutes">
@@ -215,7 +206,8 @@
                 <div class="col-12">
                     <input type="submit" value="Save Changes" class="btn btn-success">
 
-
+                    <br>
+                    <small class="text-secondary text-sm">{{ $labour->id }}</small>
                 </div>
             </div>
         </form>
