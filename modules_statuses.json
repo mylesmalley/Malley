@@ -13,5 +13,6 @@
     "Labour": true,
     "Questionnaire": true,
     "UserManagement": true,
-    "Blueprint": true
+    "Blueprint": true,
+    "BodyguardBOM": true
 }

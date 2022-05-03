@@ -1,0 +1,13 @@
+{
+    "name": "BodyguardBOM",
+    "alias": "bodyguardbom",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BodyguardBOM\\Providers\\BodyguardBOMServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
