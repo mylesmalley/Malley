@@ -88,6 +88,9 @@ return [
             'port' => env('DB_PORT', 1433),
             //'charset' => 'utf8',
             'prefix' => '',
+            'encrypt' => 'yes', // alternatively, defer to an env variable
+            'trust_server_certificate' => 'true', // alternatively, defer to an env variable
+
         ],
 
         'blueprint_testing' => [
@@ -125,6 +128,9 @@ return [
             'port' => env('DB_PORT_SYSPRO_8', 1433),
             //'charset' => 'utf8',
             'prefix' => '',
+            'encrypt' => 'yes', // alternatively, defer to an env variable
+            'trust_server_certificate' => 'true', // alternatively, defer to an env variable
+
         ],
 
     ],
