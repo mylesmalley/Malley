@@ -52,33 +52,38 @@ class LoginController extends Controller
     public function login_form( User $user = null ): RedirectResponse|Response
     {
         Auth::logout();
+
         if (!$user) return redirect()->route('labour.login.alphabet');
-        return response()
-            ->view('labour::login.login-form', [ 'user' => $user ]);
+
+        Auth::login( $user );
+        return redirect()->route('labour.home');
+
+//        return response()
+//            ->view('labour::login.login-form', [ 'user' => $user ]);
     }
 
-
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function submitLogin( Request $request ): RedirectResponse
-    {
-
-        $credentials = $request->only('id', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('labour.home');
-        }
-
-        $user = User::find($request->input('id'));
-        Log::info("Failed labour login attempt for $user->first_name $user->last_name");
-
-        return redirect()
-            ->route('labour.login', $request->input('id') )
-            ->withErrors(['password' => "Sorry, but that was not the correct password."]);
-
-    }
+//
+//    /**
+//     * @param Request $request
+//     * @return RedirectResponse
+//     */
+//    public function submitLogin( Request $request ): RedirectResponse
+//    {
+//
+//        $credentials = $request->only('id', 'password');
+//
+//        if (Auth::attempt($credentials)) {
+//            return redirect()->route('labour.home');
+//        }
+//
+//        $user = User::find($request->input('id'));
+//        Log::info("Failed labour login attempt for $user->first_name $user->last_name");
+//
+//        return redirect()
+//            ->route('labour.login', $request->input('id') )
+//            ->withErrors(['password' => "Sorry, but that was not the correct password."]);
+//
+//    }
 
     public function logout()
     {
