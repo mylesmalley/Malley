@@ -55,8 +55,22 @@ class LoginController extends Controller
 
         if (!$user) return redirect()->route('labour.login.alphabet');
 
-        Auth::login( $user );
-        return redirect()->route('labour.home');
+        if ( $user->can('manage_production_staff'))
+        {
+            return redirect()->route('labour.management.home');
+        }
+        elseif ( $user->canAny(['labour_clock_in']))
+        {
+            Auth::login( $user );
+            return redirect()->route('labour.home');
+        }
+        else
+        {
+            return redirect()->route('labour.management.home');
+
+        }
+
+
 
 //        return response()
 //            ->view('labour::login.login-form', [ 'user' => $user ]);
