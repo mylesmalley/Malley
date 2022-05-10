@@ -51,9 +51,34 @@ class CategoriesController extends Controller
             ->back();
     }
 
-    public function update( Request $request )
+    /**
+     * @param Category $category
+     * @return Response
+     */
+    public function edit( Category $category ) : Response
     {
+        return response()->view('bodyguardbom::categories.edit',[
+            'category' => $category,
+        ]);
+    }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update( Request $request ) : RedirectResponse
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'name' => 'required|string|max:255',
+        ]);
+
+        $category = Category::find( $request->input('id') );
+
+        $category->update( $request->only('name'));
+
+        return redirect()
+            ->route('bg.categories.show', [ $request->input('id') ]);
     }
 
 

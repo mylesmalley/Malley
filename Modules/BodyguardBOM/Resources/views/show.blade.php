@@ -1,7 +1,11 @@
 @extends('bodyguardbom::layouts.master')
 
 @section('content')
-    <h1>{{ $category->name }}</h1>
+    <h1>{{ $category->name }}
+    @if( !$category->isRoot() )
+            <a href="{{ route('bg.categories.edit', [$category]) }}">[Edit]</a>
+        @endif
+    </h1>
 
     <ol>
         @foreach($category->ancestors as $anc)
