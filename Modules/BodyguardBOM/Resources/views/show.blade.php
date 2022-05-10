@@ -6,7 +6,7 @@
     <ol>
         @foreach($category->ancestors as $anc)
         <lil>
-            <a href="{{ route('bg.index.show', [$anc->id]) }}">
+            <a href="{{ route('bg.categories.show', [$anc->id]) }}">
                 {{ $anc->name }}
             </a>
         </lil>
@@ -16,16 +16,32 @@
     <ul>
         @forelse( $category->children as $child )
             <li>
-                <a href="{{ route('bg.index.show', [$child->id]) }}">
+                <a href="{{ route('bg.categories.show', [$child->id]) }}">
                     {{ $child->name }}
                 </a>
             </li>
         @empty
-            <li>No Children</li>
+            <li>No Children <br>
+                <form action="{{ route('bg.categories.delete') }}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <input type="hidden"
+                           name="id"
+                           id="id"
+                           value="{{ $category->id }}">
+
+                    <input type="hidden"
+                           name="parent_id"
+                           id="parent_id"
+                           value="{{ $category->parent_id }}">
+
+                    <input type="submit" value="Delete">
+                </form>
+
+            </li>
         @endforelse
     </ul>
 
-    @if( ! $category->isRoot() )
         <form action="{{ route('bg.categories.store') }}" method="POST">
             @csrf
             <input type="hidden"
@@ -43,5 +59,4 @@
                    required>
             <input type="submit" value="Save">
         </form>
-    @endif
 @endsection

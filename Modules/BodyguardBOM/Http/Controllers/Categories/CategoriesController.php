@@ -56,9 +56,29 @@ class CategoriesController extends Controller
 
     }
 
-    public function delete( Request $request )
-    {
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete( Request $request ) : RedirectResponse
+    {
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
+
+        $category = Category::findOrFail( $request->input('id') );
+        $parent_id = $category->parent_id;
+
+        if ( $category->children()->count() === 0)
+        {
+            $category->delete();
+            return redirect()
+                ->route('bg.categories.show', [$parent_id]);
+        }
+        return redirect()
+            ->route('bg.categories.show', [$parent_id])
+            ->withErrors(["Can't delete a category that has children."]);
     }
 
 }
