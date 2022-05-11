@@ -28,10 +28,10 @@
 
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-9">
             @includeIf('bodyguardbom::categories.components.parts')
-
         </div>
+        <div class="col"></div>
     </div>
 
 

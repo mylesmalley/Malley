@@ -21,7 +21,7 @@ class ShowController extends Controller
 
         return response()->view('bodyguardbom::parts.show', [
             'part' => $part,
-            'categories' => $part->categories->all()
+            'categories' => $part->categories
         ]);
     }
 
