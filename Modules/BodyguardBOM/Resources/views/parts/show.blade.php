@@ -10,7 +10,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-
+                    <h2>Categories</h2>
                 </div>
                 <table class="table table-striped table-hover">
                     @foreach( $categories as $category )
