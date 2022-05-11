@@ -3,44 +3,36 @@
 namespace Modules\BodyguardBOM\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model implements HasMedia
+class Part extends Model implements HasMedia
 {
-    use NodeTrait;
     use InteractsWithMedia;
 
     public $timestamps = false;
 
-    protected $table = 'bg_categories';
+    protected $table = 'bg_parts';
 
     protected $fillable = [
-        'name',
-        'parent_id',
-        '_rgt',
-        '_lft',
         'id',
+        'part_number',
+        'description',
     ];
+
 
     /**
      * @return BelongsToMany
      */
-    public function parts(): BelongsToMany
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(
-            Part::class,
+            Category::class,
             'bg_category_parts',
-            'bg_category_id',
-
             'bg_part_id',
-
+            'bg_category_id',
         );
     }
-
-
-
 
 }
