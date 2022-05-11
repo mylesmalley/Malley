@@ -50,7 +50,12 @@
                     name="category_id"
                     id="category_id">
                 @foreach( $tree as $k => $v )
-                    <option value="{{ $k }}">{{ $v }}</option>
+
+
+
+                    <option
+                            {{ $category && $category === $k ? " selected " : ""   }}
+                            value="{{ $k }}">{{ $v }}</option>
                 @endforeach
             </select>
         </div>

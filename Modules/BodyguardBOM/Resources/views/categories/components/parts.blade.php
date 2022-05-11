@@ -1,6 +1,10 @@
 <div class="card border-primary">
     <div class="card-header bg-primary text-white">
-        <h2>Parts in this category</h2>
+        <h2>Parts in this category
+            <a href="{{ route('bg.parts.create', [$category]) }}"
+               class="btn btn-success text-end">
+                Add</a>
+        </h2>
     </div>
     <table class="table table-striped table-hover">
         <thead>

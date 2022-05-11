@@ -27,13 +27,17 @@ Route::prefix('bodyguardbom')->group(function() {
 
     Route::prefix('parts')->group(function() {
 
-        Route::get("/{bg_part}}", [ ShowController::class, 'show'])
-            ->name('bg.parts.show');
-
-        Route::get("/create", [ CreateController::class, 'create'])
+        Route::get("/create/{bg_category?}", [ CreateController::class, 'create'])
             ->name('bg.parts.create');
+
         Route::post("/", [ CreateController::class, 'store'])
             ->name('bg.parts.store');
+
+        Route::get("/{bg_part}", [ ShowController::class, 'show'])
+            ->name('bg.parts.show');
+
+
+
     });
 
 

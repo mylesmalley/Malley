@@ -15,9 +15,13 @@ class CreateController extends Controller
     /**
      * @return Response
      */
-    public function create() : Response
+    public function create( Category $category = null ) : Response
     {
+
+        $category = $category->id ?? null;
+
         return response()->view('bodyguardbom::parts.create', [
+            'category' => $category,
             'tree' => $this->category_tree()
         ]);
     }
