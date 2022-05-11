@@ -2,6 +2,7 @@
 
 use Modules\BodyguardBOM\Http\Controllers\Categories\CategoriesController;
 use Modules\BodyguardBOM\Http\Controllers\Parts\CreateController;
+use Modules\BodyguardBOM\Http\Controllers\Parts\ShowController;
 
 Route::prefix('bodyguardbom')->group(function() {
 
@@ -25,6 +26,9 @@ Route::prefix('bodyguardbom')->group(function() {
     });
 
     Route::prefix('parts')->group(function() {
+
+        Route::get("/{bg_part}}", [ ShowController::class, 'show'])
+            ->name('bg.parts.show');
 
         Route::get("/create", [ CreateController::class, 'create'])
             ->name('bg.parts.create');

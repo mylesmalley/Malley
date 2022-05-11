@@ -1,6 +1,6 @@
 <div class="card border-primary">
     <div class="card-header bg-primary text-white">
-        <h2>Parts</h2>
+        <h2>Parts in this category</h2>
     </div>
     <table class="table table-striped table-hover">
         <thead>
@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             @forelse( $category->parts as $part )
-                <tr>
+                <tr onclick="location.href = '{{ route('bg.parts.show', [$part]) }}'">
                     <td>{{ $part->part_number }}</td>
                     <td>{{ $part->description }}</td>
                 </tr>
