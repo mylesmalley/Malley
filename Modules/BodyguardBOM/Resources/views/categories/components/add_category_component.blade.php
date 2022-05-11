@@ -1,0 +1,25 @@
+<div class="card border-primary">
+    <div class="card-header bg-primary text-white">
+        <h2>Add New Category</h2>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('bg.categories.store') }}" method="POST">
+            @csrf
+            <input type="hidden"
+                   name="parent_id"
+                   id="parent_id"
+                   value="{{ $category->id }}">
+
+            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+            <label for="name">Category Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   value="{{ old('name') }}"
+                   required>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+
+</div>

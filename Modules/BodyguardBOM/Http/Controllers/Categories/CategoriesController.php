@@ -24,7 +24,7 @@ class CategoriesController extends Controller
             'ancestors'
         ]);
 
-        return response()->view('bodyguardbom::show',[
+        return response()->view('bodyguardbom::categories.show',[
             'category' => $category,
         ]);
     }

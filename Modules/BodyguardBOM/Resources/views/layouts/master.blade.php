@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bodyguard Components</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{--        Laravel Mix - CSS File--}}
     <link rel="stylesheet" href="{{ mix('css/homepage.css') }}">
 
     @includeIf('homepage::googleAnalytics')
@@ -19,7 +18,12 @@
 
 
 @includeIf('homepage::malleyMenu')
-@yield('content')
+
+<div class="container ">
+    @yield('content')
+
+</div>
+
 
 
 @livewireScripts
