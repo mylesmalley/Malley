@@ -28,7 +28,8 @@ Route::prefix('bodyguardbom')->group(function() {
 
         Route::get("/create", [ CreateController::class, 'create'])
             ->name('bg.parts.create');
-
+        Route::post("/", [ CreateController::class, 'store'])
+            ->name('bg.parts.store');
     });
 
 
