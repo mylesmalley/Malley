@@ -1,6 +1,6 @@
 <div class="card border-danger">
     <div class="card-header bg-danger text-white">
-        <h2>Delete Category</h2>
+        <h5>Delete Category</h2>
     </div>
     <div class="card-body">
         <p>This cateogry has no children so can be deleted.</p>

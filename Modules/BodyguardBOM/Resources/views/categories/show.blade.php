@@ -24,29 +24,32 @@
 
     </div>
 
-    <ul>
-        @forelse( $category->children as $child )
-            <li>
-                <a href="{{ route('bg.categories.show', [$child->id]) }}">
-                    {{ $child->name }}
-                </a>
-            </li>
-        @empty
-            <li>No Children <br>
 
 
-            </li>
-        @endforelse
-    </ul>
 
     <div class="row">
+        <div class="col-12">
+            @includeIf('bodyguardbom::categories.components.parts')
+
+        </div>
+    </div>
+
+
+
+    <hr />
+
+
+    <div class="row">
+        <div class="col-7">
+            @includeIf('bodyguardbom::categories.components.sub_categories')
+        </div>
         <div class="col-5">
             @includeIf('bodyguardbom::categories.components.add_category_component')
-        </div>
-        @if( !$category->children()->count() )
-            <div class="col-3">
+            <br>
+            @if( !$category->children()->count() && !$category->parts->count() )
                 @includeIf('bodyguardbom::categories.components.delete_category_component')
-            </div>
-        @endif
+            @endif
+        </div>
+
     </div>
 @endsection

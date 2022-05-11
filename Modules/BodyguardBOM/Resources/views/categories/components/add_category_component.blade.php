@@ -1,6 +1,6 @@
-<div class="card border-primary">
-    <div class="card-header bg-primary text-white">
-        <h2>Add New Category</h2>
+<div class="card border-secondary">
+    <div class="card-header bg-secondary text-white">
+        <h5>Add Sub Category</h2>
     </div>
     <div class="card-body">
         <form action="{{ route('bg.categories.store') }}" method="POST">
