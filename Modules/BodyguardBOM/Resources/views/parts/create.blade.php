@@ -59,7 +59,30 @@
                 @endforeach
             </select>
         </div>
+
         </div>
+
+
+        <div class="row">
+
+            <div class="col-2">
+                @error('prefix') <span class="text-danger">{{ $message }}</span> @enderror
+                <label for="prefix"
+                       class="form-label">
+                    Category</label>
+                <select class="form-control"
+                        name="prefix"
+                        id="prefix">
+                    @foreach( $prefixes as $k => $v )
+                        <option
+                            {{ old('prefix') === $k ? " selected " : ""   }}
+                            value="{{ $k }}">{{ $v }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+        </div>
+
 
         <div class="row">
 

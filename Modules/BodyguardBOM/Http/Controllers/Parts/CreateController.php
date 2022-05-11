@@ -13,6 +13,7 @@ class CreateController extends Controller
 {
 
     use CategoryTreeTrait;
+    use PartNumberComponentsTrait;
 
     /**
      * @param Category|null $category
@@ -25,7 +26,11 @@ class CreateController extends Controller
 
         return response()->view('bodyguardbom::parts.create', [
             'category' => $category,
-            'tree' => $this->category_tree()
+            'tree' => $this->category_tree(),
+            'prefixes' => $this->prefix,
+            'colours' => $this->colours,
+            'roof_heights' => $this->roof_heights,
+
         ]);
     }
 
