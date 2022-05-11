@@ -2,7 +2,7 @@
 
 namespace Modules\BodyguardBOM\Providers;
 
-use App\Models\BG\Category;
+use Modules\BodyguardBOM\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 

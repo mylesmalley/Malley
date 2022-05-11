@@ -2,7 +2,7 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Categories;
 
-use App\Models\BG\Category;
+use Modules\BodyguardBOM\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

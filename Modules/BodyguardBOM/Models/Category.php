@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\BG;
+namespace Modules\BodyguardBOM\Models;
 
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
