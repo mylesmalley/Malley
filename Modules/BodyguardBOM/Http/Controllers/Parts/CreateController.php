@@ -12,7 +12,10 @@ use Illuminate\Http\Request;
 class CreateController extends Controller
 {
 
+    use CategoryTreeTrait;
+
     /**
+     * @param Category|null $category
      * @return Response
      */
     public function create( Category $category = null ) : Response
@@ -48,26 +51,7 @@ class CreateController extends Controller
     }
 
 
-    /**
-     * @return array
-     */
-    private function category_tree(): array
-    {
-        $nodes = Category::get()->toTree();
 
-        $category_tree = [];
-
-        $traverse = function ($categories, $prefix = ' - ') use (&$traverse, &$category_tree) {
-            foreach ($categories as $category) {
-                $category_tree[ $category->id ] = $prefix.' '.$category->name;
-                $traverse($category->children, $prefix.' - ');
-            }
-        };
-
-        $traverse($nodes);
-
-        return $category_tree;
-    }
 }
 
 

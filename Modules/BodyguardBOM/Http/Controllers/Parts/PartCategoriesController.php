@@ -12,7 +12,10 @@ use Illuminate\Http\Request;
 class PartCategoriesController extends Controller
 {
 
+    use CategoryTreeTrait;
+
     /**
+     * @param Part $part
      * @return Response
      */
     public function create( Part $part ) : Response
@@ -49,26 +52,6 @@ class PartCategoriesController extends Controller
     }
 
 
-    /**
-     * @return array
-     */
-    private function category_tree(): array
-    {
-        $nodes = Category::get()->toTree();
-
-        $category_tree = [];
-
-        $traverse = function ($categories, $prefix = ' - ') use (&$traverse, &$category_tree) {
-            foreach ($categories as $category) {
-                $category_tree[ $category->id ] = $prefix.' '.$category->name;
-                $traverse($category->children, $prefix.' - ');
-            }
-        };
-
-        $traverse($nodes);
-
-        return $category_tree;
-    }
 }
 
 
