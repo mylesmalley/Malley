@@ -2,6 +2,7 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Parts;
 
+use Illuminate\Support\Facades\DB;
 use Modules\BodyguardBOM\Models\Category;
 use Modules\BodyguardBOM\Models\Part;
 use Illuminate\Http\RedirectResponse;
@@ -51,6 +52,28 @@ class PartCategoriesController extends Controller
             ->route('bg.parts.show', [$part]);
     }
 
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete( Request $request ) : RedirectResponse
+    {
+        $request->validate([
+            'category_id' => 'required|integer',
+            'part_id' => 'required|integer',
+        ]);
+
+        DB::table('bg_category_parts')
+            ->where([
+                ['bg_category_id', '=', $request->input('category_id')],
+                ['bg_part_id', '=', $request->input('part_id') ],
+            ])
+            ->delete();
+
+        return redirect()
+            ->route( 'bg.parts.show', [$request->input('part_id')]);
+    }
 
 }
 

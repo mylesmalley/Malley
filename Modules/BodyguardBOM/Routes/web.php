@@ -34,14 +34,20 @@ Route::prefix('bodyguardbom')->group(function() {
         Route::post("/", [ CreateController::class, 'store'])
             ->name('bg.parts.store');
 
-        Route::get("/{bg_part}", [ ShowController::class, 'show'])
-            ->name('bg.parts.show');
+
+
+        Route::post("/add_to_category", [ PartCategoriesController::class, 'store'])
+            ->name('bg.parts.categories.store');
+
+        Route::delete("/remove_from_category", [ PartCategoriesController::class, 'delete'])
+            ->name('bg.parts.categories.remove');
 
         Route::get("/{bg_part}/add_to_category", [ PartCategoriesController::class, 'create'])
             ->name('bg.parts.categories.add');
 
-        Route::post("/add_to_category", [ PartCategoriesController::class, 'store'])
-            ->name('bg.parts.categories.store');
+        Route::get("/{bg_part}", [ ShowController::class, 'show'])
+            ->name('bg.parts.show');
+
 
     });
 
