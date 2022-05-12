@@ -744,7 +744,7 @@ class Vehicle extends Model implements HasMedia
     public function getCabSeatsUsedAttribute(): int
     {
         $used = 0;
-        for ($i = 1; $i <= 2; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             $used += ($this->attributes["cab_seat_{$i}_used"]) ? 1 : 0;
         }
 

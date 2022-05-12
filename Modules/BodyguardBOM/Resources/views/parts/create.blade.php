@@ -81,6 +81,40 @@
                 </select>
             </div>
 
+
+
+            <div class="col-2">
+                @error('colour') <span class="text-danger">{{ $message }}</span> @enderror
+                <label for="colour"
+                       class="form-label">
+                    Colour</label>
+                <select class="form-control"
+                        name="colour"
+                        id="colour">
+                    @foreach( $colours as $k => $v )
+                        <option
+                                {{ old('colour') === $k ? " selected " : ""   }}
+                                value="{{ $k }}">{{ $v }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-2">
+                @error('roof_height') <span class="text-danger">{{ $message }}</span> @enderror
+                <label for="roof_height"
+                       class="form-label">
+                    Roof Height</label>
+                <select class="form-control"
+                        name="roof_height"
+                        id="roof_height">
+                    @foreach( $roof_heights as $k => $v )
+                        <option
+                                {{ old('roof_height') === $k ? " selected " : ""   }}
+                                value="{{ $k }}">{{ $v }}</option>
+                    @endforeach
+                </select>
+            </div>
+
         </div>
 
 
