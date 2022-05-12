@@ -118,6 +118,46 @@
         </div>
 
 
+        <div class="card">
+            <div class="card-header">
+                <h5>Type of Product</h5>
+            </div>
+        <table class="table table-striped">
+
+
+        @foreach( $kit_codes as $k => $v )
+            <tr>
+                <td>
+
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="radio"
+                       name="kit_code"
+                       value="{{ $k }}"
+                       id="kit_code{{ $k }}">
+                <label class="form-check-label" for="kit_code{{ $k }}">
+                    <strong>
+                        {{ $v['desc'] }}
+                    </strong>
+                    <br>
+                    {{ $v['ext'] }}
+                </label>
+            </div>
+                </td>
+
+            </tr>
+
+            @endforeach
+
+        </table>
+
+        </div>
+
+
+
+
+
+
         <div class="row">
 
             <div class="col-3">
@@ -132,3 +172,36 @@
 
 
 @endsection
+
+@push('scripts')
+    <script>
+        function generate_part_number()
+        {
+
+            let prefix_el = document.getElementById("prefix");
+            prefix_el.addEventListener('change', generate_part_number)
+            let prefix = prefix_el.options[prefix_el.selectedIndex].value;
+
+            let colour_el = document.getElementById("colour");
+            colour_el.addEventListener('change', generate_part_number);
+            let colour = colour_el.options[colour_el.selectedIndex].value;
+
+            let roof_height_el = document.getElementById("roof_height");
+            roof_height_el.addEventListener('change', generate_part_number);
+            let roof_height = roof_height_el.options[roof_height_el.selectedIndex].value;
+
+
+            let kit_code_els = document.querySelectorAll('input[name="kit_code"]');
+            kit_code_els.forEach(function(el){
+                el.addEventListener('change', generate_part_number);
+            });
+
+            let kit_code = document.querySelector('input[name="kit_code"]:checked').value ?? "C1D";
+
+            document.getElementById('part_number').value = `${prefix}_${kit_code}_${colour}_${roof_height}`;
+        }
+
+
+        generate_part_number();
+    </script>
+@endpush

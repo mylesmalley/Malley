@@ -30,6 +30,7 @@ class CreateController extends Controller
             'prefixes' => $this->prefix,
             'colours' => $this->colours,
             'roof_heights' => $this->roof_heights,
+            'kit_codes' => $this->kit_codes,
 
         ]);
     }
