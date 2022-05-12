@@ -18,4 +18,18 @@
             </li>
 		</ul>
 	</div>
+
+    <br>
+
+    <div class="card" style="border: 1px solid #901d1d;">
+        <div class="card-header text-white " style="background-color: #901d1d;">
+            Bodyguard
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a href="{{ route('bg.categories.show') }}" >Parts </a>
+            </li>
+        </ul>
+    </div>
+
 </div>
