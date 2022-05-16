@@ -33,7 +33,7 @@ class Category extends Model implements HasMedia
     public function parts(): BelongsToMany
     {
         return $this->belongsToMany(
-            Part::class,
+            Kit::class,
             'bg_category_parts',
             'bg_category_id',
 

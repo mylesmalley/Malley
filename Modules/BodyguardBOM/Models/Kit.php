@@ -7,18 +7,23 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Model;
 
-class Part extends Model implements HasMedia
+class Kit extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
     public $timestamps = false;
 
-    protected $table = 'bg_parts';
+    protected $table = 'bg_kits';
 
     protected $fillable = [
         'id',
         'part_number',
         'description',
+        'chassis',
+        'roof_height',
+        'colour',
+        'type', // type of kit - liner, liner with e-track
+        'category', // BGK / BGC
     ];
 
 

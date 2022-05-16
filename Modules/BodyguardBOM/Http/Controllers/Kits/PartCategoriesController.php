@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BodyguardBOM\Http\Controllers\Parts;
+namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
 use Illuminate\Support\Facades\DB;
 use Modules\BodyguardBOM\Models\Category;

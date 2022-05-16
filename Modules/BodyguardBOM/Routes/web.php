@@ -1,17 +1,15 @@
 <?php
 
 use Modules\BodyguardBOM\Http\Controllers\Categories\CategoriesController;
-use Modules\BodyguardBOM\Http\Controllers\Parts\CreateController;
-use Modules\BodyguardBOM\Http\Controllers\Parts\ShowController;
-use Modules\BodyguardBOM\Http\Controllers\Parts\PartCategoriesController;
+use Modules\BodyguardBOM\Http\Controllers\Kits\CreateController;
+use Modules\BodyguardBOM\Http\Controllers\Kits\ShowController;
+use Modules\BodyguardBOM\Http\Controllers\Kits\PartCategoriesController;
+use Modules\BodyguardBOM\Http\Controllers\Kits\IndexController;
 
 Route::prefix('bodyguardbom')->group(function() {
 
-    Route::get('/', function(){
-        return response()->view('bodyguardbom::parts.index',[
-            'active_tab' => 'all',
-        ]);
-    });
+    Route::get('/', [IndexController::class, 'show'])
+        ->name('bg.kits.home');
 
 
 

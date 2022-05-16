@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BodyguardBOM\Http\Controllers\Parts;
+namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
 use Modules\BodyguardBOM\Models\Category;
 use Modules\BodyguardBOM\Models\Part;

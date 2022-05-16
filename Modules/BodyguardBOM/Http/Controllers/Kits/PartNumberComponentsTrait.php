@@ -1,5 +1,5 @@
 <?php
-namespace Modules\BodyguardBOM\Http\Controllers\Parts;
+namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
 
 trait PartNumberComponentsTrait {
