@@ -15,7 +15,7 @@ trait PartNumberComponentsTrait {
     ];
 
     protected array $roof_heights = [
-        "NA" => "Not applicable",
+        "" => "Not applicable",
         "HR" => "High Roof",
         "MR" => "Medium Roof",
         "LR" => "Low Roof",
@@ -97,9 +97,10 @@ trait PartNumberComponentsTrait {
 
     protected array $wheelbases = [
         "Ford Transit" => [
-            "130STD" => '130" regular wheelbase',
-            "148STD" => '148" regular wheelbase',
-            "148EXT" => '148" extended wheelbase',
+            "FTR" => "Any wheelbase",
+            "FTR130STD" => '130" regular wheelbase',
+            "FTR148STD" => '148" regular wheelbase',
+            "FTR148EXT" => '148" extended wheelbase',
         ],
 //        'Ram ProMaster' => [
 //

@@ -13,19 +13,30 @@
 
 
 
-        <div class="col-3">
-            @error('part_number') <span class="text-danger">{{ $message }}</span> @enderror
+    <div class="col-3">
 
-            <label for="part_number"
+            @error('wheelbase') <span class="text-danger">{{ $message }}</span> @enderror
+            <label for="wheelbase"
                    class="form-label">
-                Part Number</label>
-            <input type="text"
-                   class="form-control"
-                   id="part_number"
-                   name="part_number"
-                   value="{{ old('part_number') }}"
-                   placeholder="PART NUMBER">
+                Roof Height</label>
+            <select class="form-control"
+                    name="wheelbase"
+                    id="wheelbase">
+                @foreach( $wheelbases as $van => $options )
+                    <optgroup label="{{ $van }}">
+                        @foreach( $options as $key => $desc)
+                            <option
+                                    {{--                                        {{ old('roof_height') === $k ? " selected " : ""   }}--}}
+                                    value="{{ $key ?? "aaa" }}">{{ $desc ?? 'bbb' }}</option>
+                        @endforeach
+                    </optgroup>
+
+
+
+                @endforeach
+            </select>
         </div>
+
 
         <div class="col-3">
             @error('description') <span class="text-danger">{{ $message }}</span> @enderror
@@ -155,10 +166,24 @@
 
 
 
+    <div class="row">
+        <div class="col-8">
+            @error('part_number') <span class="text-danger">{{ $message }}</span> @enderror
 
+            <label for="part_number"
+                   class="form-label">
+                Part Number</label>
+            <input type="text"
+                   class="form-control"
+                   readonly
+                   id="part_number"
+                   name="part_number"
+                   value="{{ old('part_number') }}"
+                   placeholder="PART NUMBER">
+        </div>
+    </div>
 
-
-        <div class="row">
+    <div class="row">
 
             <div class="col-3">
                 <input type="submit" value="Save" class="btn btn-success">
@@ -195,10 +220,15 @@
             kit_code_els.forEach(function(el){
                 el.addEventListener('change', generate_part_number);
             });
-
             let kit_code = document.querySelector('input[name="kit_code"]:checked').value ?? "C1D";
 
-            document.getElementById('part_number').value = `${prefix}_${kit_code}_${colour}_${roof_height}`;
+            let wheelbase_el = document.getElementById("wheelbase");
+            wheelbase_el.addEventListener('change', generate_part_number)
+            let wheelbase = wheelbase_el.options[wheelbase_el.selectedIndex].value;
+
+
+
+            document.getElementById('part_number').value = `${prefix}_${kit_code}_${colour}_${wheelbase}${roof_height}`;
         }
 
 

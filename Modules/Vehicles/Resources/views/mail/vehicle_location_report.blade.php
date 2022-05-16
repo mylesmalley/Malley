@@ -27,7 +27,7 @@
                 $date = $v->dates->last() ?? null;
             @endphp
             <tr style="border-bottom: 1px solid black;">
-                <td><a href="{{ route('vehicle.home', [$v->id]) }}">{{ $v->vin ?? '' }}</a></td>
+                <td><a href="https://index.malleyindustries.com/vehicles/{{$v->id }}">{{ $v->vin ?? '' }}</a></td>
 
                 <td>{{ $v->firstWorkOrder() ?? "" }}</td>
 

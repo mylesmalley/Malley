@@ -20,6 +20,8 @@ class Category extends Model implements HasMedia
     protected $fillable = [
         'name',
         'parent_id',
+        'type', // what the category represents in a part number
+        'code', // unique short code from a part number
         '_rgt',
         '_lft',
         'id',

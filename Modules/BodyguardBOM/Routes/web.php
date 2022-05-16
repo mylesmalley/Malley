@@ -7,6 +7,14 @@ use Modules\BodyguardBOM\Http\Controllers\Parts\PartCategoriesController;
 
 Route::prefix('bodyguardbom')->group(function() {
 
+    Route::get('/', function(){
+        return response()->view('bodyguardbom::parts.index',[
+            'active_tab' => 'all',
+        ]);
+    });
+
+
+
     Route::prefix('category')->group(function() {
 
         Route::get('/{bg_category?}', [ CategoriesController::class, 'show' ])
