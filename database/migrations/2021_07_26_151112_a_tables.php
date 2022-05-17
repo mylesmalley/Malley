@@ -34,7 +34,6 @@ ALBUMS
     (
         id int identity
             constraint announcements_pk
-                primary key nonclustered,
         content text not null,
         start_date date,
         end_date date,

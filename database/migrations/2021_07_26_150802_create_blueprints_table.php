@@ -37,7 +37,6 @@ return new class extends Migration {
     number              nvarchar(12),
     notes               nvarchar(4000),
     currency            nvarchar(3)
-        constraint DF__blueprint__curre__6D8D2138 default 'CAD' not null,
     exchange_rate       float default '1'                       not null,
     is_locked           bit
         constraint DF_blueprints_is_locked default 0            not null,
