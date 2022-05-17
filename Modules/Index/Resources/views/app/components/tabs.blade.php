@@ -2,19 +2,19 @@
 	<ul>
 		<li>
 			<a {!!   $selected === 'options' ? "class='blueprint-tabs-active'":'' !!}
-			    href="/basevan/{{ $platform->id }}" >
+			   href="/basevan/{{ $platform->id }}">
 				Options </a>
 			<a href="/basevan/{{ $platform->id }}/layouts"
-				{!! $selected === 'layouts' ? "class='blueprint-tabs-active'":'' !!}>
+					{!! $selected === 'layouts' ? "class='blueprint-tabs-active'":'' !!}>
 				Layouts</a>
 			<a href="/basevan/{{ $platform->id }}/templates"
 					{!! $selected === 'templates' ? "class='blueprint-tabs-active'":'' !!} >
 				Blueprint Templates</a>
 			<a href="/basevan/{{ $platform->id }}/forms"
-				{!! $selected === 'forms' ? "class='blueprint-tabs-active'":'' !!} >
+					{!! $selected === 'forms' ? "class='blueprint-tabs-active'":'' !!} >
 				Blueprint Forms</a>
-			
-			@if ( Auth::user()->show_sales_in_index == true )
+
+			@if ( Auth::user()->show_sales_in_index )
 				<a href="/sales/{{ $platform->id }}/pricelist"
 						{!! $selected === 'pricelist' ? "class='blueprint-tabs-active'":'' !!} >
 					Price List</a>

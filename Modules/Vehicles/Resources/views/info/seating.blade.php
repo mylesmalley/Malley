@@ -59,15 +59,16 @@
                                 name="{{ $used }}"
                                 id="{{ $used }}">
                             <option
-                                @if( old( $used ) == false || $vehicle->$used == false )
-                                selected
-                                @endif
-                                value="0"></option>
+                                    @if( !old( $used ) || !$vehicle->$used )
+                                        selected
+                                    @endif
+                                    value="0"></option>
                             <option
-                                @if( old( $used ) == true || $vehicle->$used == true)
-                                selected
-                                @endif
-                                value="1">Yes</option>
+                                    @if( old( $used ) || $vehicle->$used)
+                                        selected
+                                    @endif
+                                    value="1">Yes
+                            </option>
 
 
                         </select>
@@ -89,8 +90,6 @@
         </table>
     </div>
 </div>
-
-
 
 
 <div class="row text-center">
@@ -148,27 +147,28 @@
                                 name="{{ $used }}"
                                 id="{{ $used }}">
                             <option
-                                @if( old( $used ) == false || $vehicle->$used == false )
-                                selected
-                                @endif
-                                value="0"></option>
+                                    @if( !old( $used ) || !$vehicle->$used )
+                                        selected
+                                    @endif
+                                    value="0"></option>
                             <option
-                                @if( old( $used ) == true || $vehicle->$used == true)
-                                selected
-                                @endif
-                                value="1">Yes</option>
+                                    @if( old( $used ) || $vehicle->$used)
+                                        selected
+                                    @endif
+                                    value="1">Yes
+                            </option>
 
 
                         </select>
-{{--                        <select aria-label=""--}}
-{{--                                class="form-control"--}}
-{{--                                name="{{ $used }}"--}}
+                        {{--                        <select aria-label=""--}}
+                        {{--                                class="form-control"--}}
+                        {{--                                name="{{ $used }}"--}}
 
-{{--                                id="{{ $used }}">--}}
-{{--                            <option value="0">No</option>--}}
-{{--                            <option value="1">Yes</option>--}}
+                        {{--                                id="{{ $used }}">--}}
+                        {{--                            <option value="0">No</option>--}}
+                        {{--                            <option value="1">Yes</option>--}}
 
-{{--                        </select>--}}
+                        {{--                        </select>--}}
                     </td>
                     <td>
                         <div class="input-group">
