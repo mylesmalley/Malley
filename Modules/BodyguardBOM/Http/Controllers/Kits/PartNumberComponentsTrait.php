@@ -12,10 +12,14 @@ trait PartNumberComponentsTrait {
     protected array $colours = [
         "WHT" => "White",
         "GRY" => "Malley Grey",
+        "YLW" => "Yellow",
+        "GRN" => "Green",
+        "BLU" => "Blue",
+        "BLK" => "Black",
     ];
 
     protected array $roof_heights = [
-        "" => "Not applicable",
+        "ALL" => "Not applicable",
         "HR" => "High Roof",
         "MR" => "Medium Roof",
         "LR" => "Low Roof",

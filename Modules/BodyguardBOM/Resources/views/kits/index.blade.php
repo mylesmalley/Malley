@@ -7,8 +7,11 @@
     <div class="row">
         <div class="col-12">
             <div class="card border-primary">
+
+
+
                  <div class="card-body">
-                     <form class="row row-cols-lg-auto g-3 align-items-center"
+                     <form class="row row-cols-lg-auto g-3 align-items-end"
                           action="{{ route('bg.kits.home') }}"
                           method="GET">
 
@@ -30,17 +33,80 @@
                                                      value="{{ $key }}">{{ $desc  }}</option>
                                          @endforeach
                                      </optgroup>
+                                 @endforeach
+                             </select>
+                         </div>
 
+
+                         <div class="col-2">
+                             <label for="roof_height"
+                                    class="form-label">
+                                 Roof Height</label>
+                             <select class="form-control"
+                                     name="roof_height"
+                                     id="roof_height">
+                                 <option value="ALL">All</option>
+                                 @foreach( $roof_heights as $key => $desc)
+                                     <option
+                                         {{ request()->input('roof_height') === $key ? " selected " : ""   }}
+                                         value="{{ $key }}">{{ $desc  }}</option>
+                                 @endforeach
+                             </select>
+                         </div>
+
+
+                         <div class="col-3">
+                             <label for="roof_height"
+                                    class="form-label">
+                                 Kit Type</label>
+                             <select class="form-control"
+                                     name="type"
+                                     id="type">
+                                 <option value="ALL">All</option>
+                                 @foreach( $kit_codes as $key => $val)
+                                     <option
+                                             {{ request()->input('type') === $key ? " selected " : ""   }}
+                                             value="{{ $key }}">{{ $val['desc']  }}</option>
                                  @endforeach
                              </select>
                          </div>
 
 
 
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Go</button>
+
+
+                         <div class="col-2">
+                             <label for="colour"
+                                    class="form-label">
+                                 Colour</label>
+                             <select class="form-control"
+                                     name="colour"
+                                     id="colour">
+                                 <option value="ALL">All</option>
+                                 @foreach( $colours as $key => $desc)
+                                     <option
+                                             {{ request()->input('colour') === $key ? " selected " : ""   }}
+                                             value="{{ $key }}">{{ $desc  }}</option>
+                                 @endforeach
+                             </select>
+                         </div>
+
+
+
+
+
+                        <div class="col-2 " >
+                            <button
+                                    id="go"
+                                    name="go"
+                                    type="submit"
+                                    class="btn btn-primary">Go</button>
                         </div>
                     </form>
+
+
+
+
                  </div>
             </div>
         </div>

@@ -21,19 +21,20 @@ class IndexController extends Controller
     public function show( Request $request ) : Response
     {
         $request->validate([
-            'chassis' => 'alpha_num'
+            'chassis' => 'sometimes|alpha_num',
+            'roof_height' => 'sometimes|alpha_num',
+            'type' => 'sometimes|alpha_num',
         ]);
 
 
         $query = DB::table('bg_kits');
 
-//        $chassis = $request->input('chassis' );
         $chassis = ( $request->input('chassis' ) === "ALL")
             ? null : $request->input('chassis' );
 
 
-        $query->when($chassis, function( $query ) use ($chassis){
 
+        $query->when($chassis, function( $query ) use ($chassis){
             if (strlen($chassis) === 3)
             {
                 $query->where('chassis', 'like', "{$chassis}%" );
@@ -44,6 +45,29 @@ class IndexController extends Controller
             }
         });
 
+
+        $roof_height = ( $request->input('roof_height' ) === "ALL")
+            ? null : $request->input('roof_height' );
+
+        $query->when($roof_height, function( $query ) use ($roof_height){
+            $query->where('roof_height', '=', $roof_height );
+        });
+
+
+        $type = ( $request->input('type' ) === "ALL")
+            ? null : $request->input('type' );
+
+        $query->when($type, function( $query ) use ($type){
+            $query->where('type', '=', $type );
+        });
+
+
+        $colour = ( $request->input('colour' ) === "ALL")
+            ? null : $request->input('colour' );
+
+        $query->when($colour, function( $query ) use ($colour){
+            $query->where('colour', '=', $colour );
+        });
 
         return response()->view('bodyguardbom::kits.index',[
             'query' => $query->dump(),
