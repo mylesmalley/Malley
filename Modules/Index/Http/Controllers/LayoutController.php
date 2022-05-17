@@ -84,16 +84,7 @@ class LayoutController extends Controller
         return redirect('basevan/'.$layout->base_van_id.'/layouts');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Layout  $layout
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Layout $layout)
-    {
-        //
-    }
+
 
 	/**
 	 * @param Layout $layout

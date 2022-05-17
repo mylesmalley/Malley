@@ -52,16 +52,7 @@ class DocumentController extends Controller
         return redirect( '/documents/'.$request->parent_id );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $document)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

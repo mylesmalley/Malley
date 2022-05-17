@@ -92,7 +92,7 @@ class IndexController extends Controller
          * filter if the user does not want to see obsolete items
          */
         if (isset(Auth::user()->index_show_obsolete_options)
-            && Auth::user()->index_show_obsolete_options == false) {
+            && !Auth::user()->index_show_obsolete_options) {
             $db->where('obsolete', '!=', true);
         }
 
@@ -100,7 +100,7 @@ class IndexController extends Controller
          * filter if the user wants to see blueprint only options
          */
         if (isset(Auth::user()->index_show_blueprint_only_options)
-            && Auth::user()->index_show_blueprint_only_options == false) {
+            && !Auth::user()->index_show_blueprint_only_options) {
             $db->where('option_name', 'not like', '%-Z%');
         }
 

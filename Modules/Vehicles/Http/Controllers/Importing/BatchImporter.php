@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use App\Models\Inspection;use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Ixudra\Curl\Facades\Curl;
+use JetBrains\PhpStorm\NoReturn;
 
 
 class BatchImporter extends Controller
@@ -699,7 +700,7 @@ class BatchImporter extends Controller
 
 
 
-    public function thirteen(  )
+    #[NoReturn] public function thirteen(  )
     {
 
         $records = include('/var/www/OptionMaker/app/Programs/Vehicles/Imports/13.php');

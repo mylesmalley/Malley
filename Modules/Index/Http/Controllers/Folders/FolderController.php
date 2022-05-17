@@ -18,12 +18,7 @@ class FolderController extends Controller
         ]);
     }
 
-    public function create( Folder $folder ): View
-    {
-//        return view('Documents.files.create', [
-//            'folder'=> $folder,
-//        ]);
-    }
+
 
     public function store( Request $request, Folder $parent )
     {

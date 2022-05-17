@@ -42,16 +42,7 @@ class QuestionController extends Controller
         return redirect( '/questions/'.$request->parent_id );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function show(QuestionRequest $question)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -11,15 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ComponentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,15 +36,7 @@ class ComponentController extends Controller
         return redirect( 'option/'.$request->option_id );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show( Component $component )
-    {
-    }
+
 
     /**
      * Show the form for editing the specified resource.

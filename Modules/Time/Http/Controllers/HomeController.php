@@ -61,8 +61,8 @@ class HomeController extends Controller
 
 
 
-    public function clockIn( Request $request )
-    {
-        dd( $request );
-    }
+//    public function clockIn( Request $request )
+//    {
+//        dd( $request );
+//    }
  }
