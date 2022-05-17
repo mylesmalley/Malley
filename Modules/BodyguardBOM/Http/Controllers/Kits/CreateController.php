@@ -16,15 +16,15 @@ class CreateController extends Controller
     use PartNumberComponentsTrait;
 
     /**
-     * @param Category|null $category
+     * @param Request $request
      * @return Response
      */
-    public function create( Category $category = null ) : Response
+    public function create( Request $request ) : Response
     {
 
         $category = $category->id ?? null;
 
-        return response()->view('bodyguardbom::parts.create', [
+        return response()->view('bodyguardbom::kits.create', [
             'category' => $category,
             'tree' => $this->category_tree(),
             'prefixes' => $this->prefix,

@@ -4,7 +4,7 @@
     <h1>New Part</h1>
     @includeIf('app.components.errors')
 
-    <form action="{{ route('bg.parts.store') }}"
+    <form action="{{ route('bg.kits.store') }}"
           method="POST"
         class="form">
         @csrf
@@ -22,11 +22,12 @@
             <select class="form-control"
                     name="wheelbase"
                     id="wheelbase">
+
                 @foreach( $wheelbases as $van => $options )
                     <optgroup label="{{ $van }}">
                         @foreach( $options as $key => $desc)
                             <option
-                                    {{--                                        {{ old('roof_height') === $k ? " selected " : ""   }}--}}
+                                  {{ old('wheelbase', request()->input('wheelbase') ) == $key ? " selected " : ""   }}
                                     value="{{ $key ?? "aaa" }}">{{ $desc ?? 'bbb' }}</option>
                         @endforeach
                     </optgroup>
@@ -120,7 +121,7 @@
                         id="roof_height">
                     @foreach( $roof_heights as $k => $v )
                         <option
-                                {{ old('roof_height') === $k ? " selected " : ""   }}
+                                {{ old('roof_height', request()->input('roof_height')) === $k ? " selected " : ""   }}
                                 value="{{ $k }}">{{ $v }}</option>
                     @endforeach
                 </select>

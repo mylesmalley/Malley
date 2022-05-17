@@ -95,13 +95,17 @@
 
 
 
-                        <div class="col-2 " >
+                        <div class="col-1 " >
                             <button
                                     id="go"
                                     name="go"
                                     type="submit"
                                     class="btn btn-primary">Go</button>
                         </div>
+                         <div class="col-1 " >
+                             <a href="{{ route('bg.kits.create') }}"
+                                class="btn btn-info">Add</a>
+                         </div>
                     </form>
 
 

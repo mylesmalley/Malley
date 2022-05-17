@@ -32,27 +32,27 @@ Route::prefix('bodyguardbom')->group(function() {
 
     });
 
-    Route::prefix('parts')->group(function() {
+    Route::prefix('kits')->group(function() {
 
         Route::get("/create/{bg_category?}", [ CreateController::class, 'create'])
-            ->name('bg.parts.create');
+            ->name('bg.kits.create');
 
         Route::post("/", [ CreateController::class, 'store'])
-            ->name('bg.parts.store');
+            ->name('bg.kits.store');
 
 
 
-        Route::post("/add_to_category", [ PartCategoriesController::class, 'store'])
-            ->name('bg.parts.categories.store');
-
-        Route::delete("/remove_from_category", [ PartCategoriesController::class, 'delete'])
-            ->name('bg.parts.categories.remove');
-
-        Route::get("/{bg_part}/add_to_category", [ PartCategoriesController::class, 'create'])
-            ->name('bg.parts.categories.add');
+//        Route::post("/add_to_category", [ PartCategoriesController::class, 'store'])
+//            ->name('bg.parts.categories.store');
+//
+//        Route::delete("/remove_from_category", [ PartCategoriesController::class, 'delete'])
+//            ->name('bg.parts.categories.remove');
+//
+//        Route::get("/{bg_part}/add_to_category", [ PartCategoriesController::class, 'create'])
+//            ->name('bg.parts.categories.add');
 
         Route::get("/{bg_part}", [ ShowController::class, 'show'])
-            ->name('bg.parts.show');
+            ->name('bg.kits.show');
 
 
     });
