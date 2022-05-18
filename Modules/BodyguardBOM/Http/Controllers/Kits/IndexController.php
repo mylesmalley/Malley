@@ -3,19 +3,16 @@
 namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
 use Illuminate\Support\Facades\DB;
-use Modules\BodyguardBOM\Models\Category;
-use Modules\BodyguardBOM\Models\Part;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use function Clue\StreamFilter\fun;
 
 class IndexController extends Controller
 {
     use PartNumberComponentsTrait;
 
     /**
+     * @param Request $request
      * @return Response
      */
     public function show( Request $request ) : Response
@@ -37,7 +34,7 @@ class IndexController extends Controller
         $query->when($chassis, function( $query ) use ($chassis){
             if (strlen($chassis) === 3)
             {
-                $query->where('chassis', 'like', "{$chassis}%" );
+                $query->where('chassis', 'like', "$chassis%" );
             }
             else
             {
@@ -54,11 +51,11 @@ class IndexController extends Controller
         });
 
 
-        $type = ( $request->input('type' ) === "ALL")
-            ? null : $request->input('type' );
+        $kit_code = ( $request->input('kit_code' ) === "ALL")
+            ? null : $request->input('kit_code' );
 
-        $query->when($type, function( $query ) use ($type){
-            $query->where('type', '=', $type );
+        $query->when($kit_code, function( $query ) use ($kit_code){
+            $query->where('kit_code', '=', $kit_code );
         });
 
 
@@ -76,7 +73,7 @@ class IndexController extends Controller
             'colours' => $this->colours,
             'roof_heights' => $this->roof_heights,
             'kit_codes' => $this->kit_codes,
-            'wheelbases' => $this->wheelbases,
+            'chassis' => $this->chassis,
         ]);
     }
 

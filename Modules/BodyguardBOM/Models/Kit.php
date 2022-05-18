@@ -22,7 +22,7 @@ class Kit extends Model implements HasMedia
         'chassis',
         'roof_height',
         'colour',
-        'type', // type of kit - liner, liner with e-track
+        'kit_code', // type of kit - liner, liner with e-track
         'category', // BGK / BGC
     ];
 

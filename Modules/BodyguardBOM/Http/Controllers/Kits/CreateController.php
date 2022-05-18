@@ -2,8 +2,7 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
-use Modules\BodyguardBOM\Models\Category;
-use Modules\BodyguardBOM\Models\Part;
+use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -16,22 +15,18 @@ class CreateController extends Controller
     use PartNumberComponentsTrait;
 
     /**
-     * @param Request $request
      * @return Response
      */
-    public function create( Request $request ) : Response
+    public function create( ) : Response
     {
 
-        $category = $category->id ?? null;
 
         return response()->view('bodyguardbom::kits.create', [
-            'category' => $category,
-            'tree' => $this->category_tree(),
             'prefixes' => $this->prefix,
             'colours' => $this->colours,
             'roof_heights' => $this->roof_heights,
             'kit_codes' => $this->kit_codes,
-            'wheelbases' => $this->wheelbases,
+            'chassis' => $this->chassis,
         ]);
     }
 
@@ -40,20 +35,35 @@ class CreateController extends Controller
     public function store( Request $request ) : RedirectResponse
     {
         $request->validate([
-            'category_id' => 'required|integer',
             'part_number' => 'required|string|max:255',
             'description' => 'required|string|max:255',
+            'category' => 'required',
+            'colour' => 'required',
+            'kit_code' => 'required',
+            'chassis' => 'required',
+            'roof_height' => 'required',
         ]);
 
-        $part = Part::create( $request->only('part_number', 'description'));
+        Kit::create( $request->only([
+            'part_number',
+            'description',
+            'colour',
+            'category',
+            'kit_code',
+            'roof_height',
+            'category',
+            'chassis',
+        ]));
 
-        $category = Category::findOrFail( $request->input('category_id') );
 
-        $category->parts()
-            ->attach( $part );
 
         return redirect( )
-            ->route('bg.categories.show', [$category]);
+            ->route('bg.kits.home', [
+                'chassis' => $request->input('chassis'),
+                'roof_height' => $request->input('roof_height'),
+                'kit_code' => $request->input('kit_code'),
+                'colour' => $request->input('colour'),
+            ]);
     }
 
 

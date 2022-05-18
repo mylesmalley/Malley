@@ -25,7 +25,7 @@
                                      name="chassis"
                                      id="chassis">
                                     <option value="ALL">All</option>
-                                 @foreach( $wheelbases as $van => $options )
+                                 @foreach( $chassis as $van => $options )
                                      <optgroup label="{{ $van }}">
                                          @foreach( $options as $key => $desc)
                                              <option
@@ -56,16 +56,16 @@
 
 
                          <div class="col-3">
-                             <label for="type"
+                             <label for="kit_code"
                                     class="form-label">
                                  Kit Type</label>
                              <select class="form-control"
-                                     name="type"
-                                     id="type">
+                                     name="kit_code"
+                                     id="kit_code">
                                  <option value="ALL">All</option>
                                  @foreach( $kit_codes as $key => $val)
                                      <option
-                                             {{ request()->input('type') === $key ? " selected " : ""   }}
+                                             {{ request()->input('kit_code') === $key ? " selected " : ""   }}
                                              value="{{ $key }}">{{ $val['desc']  }}</option>
                                  @endforeach
                              </select>
@@ -148,7 +148,7 @@
             let query = new URLSearchParams();
             query.append('chassis', document.getElementById('chassis').value );
             query.append('colour', document.getElementById('colour').value );
-            query.append('type', document.getElementById('type').value );
+            query.append('kit_code', document.getElementById('kit_code').value );
             query.append('roof_height', document.getElementById('roof_height').value );
             document.getElementById('create_button').href = `{{ route('bg.kits.create') }}?${query}`;
         }
@@ -156,7 +156,7 @@
 
         document.getElementById('chassis').addEventListener('change', updateUrl);
         document.getElementById('colour').addEventListener('change', updateUrl);
-        document.getElementById('type').addEventListener('change', updateUrl);
+        document.getElementById('kit_code').addEventListener('change', updateUrl);
         document.getElementById('roof_height').addEventListener('change', updateUrl);
     </script>
 @endpush

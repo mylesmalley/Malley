@@ -99,7 +99,7 @@ trait PartNumberComponentsTrait {
 
 
 
-    protected array $wheelbases = [
+    protected array $chassis = [
         "Ford Transit" => [
             "FTR" => "Any wheelbase",
             "FTR130STD" => '130" regular wheelbase',

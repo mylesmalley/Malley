@@ -1,13 +1,29 @@
 @extends('bodyguardbom::layouts.master')
 
 @section('content')
-    <h1>New Part</h1>
+    <h1>New Bodyguard Kit</h1>
     @includeIf('app.components.errors')
+
+    <div class="card">
+        <div class="card-header">
+            Instructions
+        </div>
+        <div class="card-body">
+            <p>This page helps you create a part number for a new Bodyguard Kit.
+                Simply choose from the menus below. As you make selections,
+                the part number will be generated at the bottom of the page.</p>
+        </div>
+    </div>
+
+
+
 
     <form action="{{ route('bg.kits.store') }}"
           method="POST"
         class="form">
         @csrf
+        <input type="hidden" value="BGK" name="category">
+
 
         <div class="row">
 
@@ -15,19 +31,19 @@
 
     <div class="col-3">
 
-            @error('wheelbase') <span class="text-danger">{{ $message }}</span> @enderror
-            <label for="wheelbase"
+            @error('chassis') <span class="text-danger">{{ $message }}</span> @enderror
+            <label for="chassis"
                    class="form-label">
-                Roof Height</label>
+                Chassis &amp; chassis</label>
             <select class="form-control"
-                    name="wheelbase"
-                    id="wheelbase">
+                    name="chassis"
+                    id="chassis">
 
-                @foreach( $wheelbases as $van => $options )
+                @foreach( $chassis as $van => $options )
                     <optgroup label="{{ $van }}">
                         @foreach( $options as $key => $desc)
                             <option
-                                  {{ old('wheelbase', request()->input('wheelbase') ) == $key ? " selected " : ""   }}
+                                  {{ old('chassis', request()->input('chassis') ) == $key ? " selected " : ""   }}
                                     value="{{ $key ?? "aaa" }}">{{ $desc ?? 'bbb' }}</option>
                         @endforeach
                     </optgroup>
@@ -41,59 +57,6 @@
 
 
 
-        <div class="col-3">
-            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
-
-            <label for="description"
-                   class="form-label">
-                Description</label>
-            <input type="text"
-                   class="form-control"
-                   id="description"
-                   name="description"
-                   value="{{ old('description') }}"
-                   placeholder="Description">
-        </div>
-
-        <div class="col-3">
-            @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
-            <label for="category_id"
-                   class="form-label">
-                Category</label>
-            <select class="form-control"
-                    name="category_id"
-                    id="category_id">
-                @foreach( $tree as $k => $v )
-
-
-
-                    <option
-                            {{ $category && $category === $k ? " selected " : ""   }}
-                            value="{{ $k }}">{{ $v }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="col-2">
-                @error('prefix') <span class="text-danger">{{ $message }}</span> @enderror
-                <label for="prefix"
-                       class="form-label">
-                    Category</label>
-                <select class="form-control"
-                        name="prefix"
-                        id="prefix">
-                    @foreach( $prefixes as $k => $v )
-                        <option
-                            {{ old('prefix') === $k ? " selected " : ""   }}
-                            value="{{ $k }}">{{ $v }}</option>
-                    @endforeach
-                </select>
-            </div>
 
 
 
@@ -101,13 +64,13 @@
                 @error('colour') <span class="text-danger">{{ $message }}</span> @enderror
                 <label for="colour"
                        class="form-label">
-                    Colour</label>
+                    Colour of Material</label>
                 <select class="form-control"
                         name="colour"
                         id="colour">
                     @foreach( $colours as $k => $v )
                         <option
-                                {{ old('colour') === $k ? " selected " : ""   }}
+                                {{ old('colour', request()->input('colour')) === $k ? " selected " : ""   }}
                                 value="{{ $k }}">{{ $v }}</option>
                     @endforeach
                 </select>
@@ -131,9 +94,10 @@
 
         </div>
 
+        <br>
 
-        <div class="card">
-            <div class="card-header">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
                 <h5>Type of Product</h5>
             </div>
         <table class="table table-striped">
@@ -146,6 +110,8 @@
             <div class="form-check">
                 <input class="form-check-input"
                        type="radio"
+                       required
+                       {{ old('kit_code', request()->input('kit_code')) === $k ? " checked " : ""   }}
                        name="kit_code"
                        value="{{ $k }}"
                        id="kit_code{{ $k }}">
@@ -170,7 +136,7 @@
 
 
     <div class="row">
-        <div class="col-8">
+        <div class="col-10">
             @error('part_number') <span class="text-danger">{{ $message }}</span> @enderror
 
             <label for="part_number"
@@ -184,7 +150,29 @@
                    value="{{ old('part_number') }}"
                    placeholder="PART NUMBER">
         </div>
+
+
+
     </div>
+        <div class="row">
+            <div class="col-10">
+                @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+
+                <label for="description"
+                       class="form-label">
+                    Description</label>
+                <input type="text"
+                       class="form-control"
+                       id="description"
+                       name="description"
+                       value="{{ old('description') }}"
+                       placeholder="Description">
+            </div>
+
+        </div>
+
+
+
 
     <div class="row">
 
@@ -206,10 +194,6 @@
         function generate_part_number()
         {
 
-            let prefix_el = document.getElementById("prefix");
-            prefix_el.addEventListener('change', generate_part_number)
-            let prefix = prefix_el.options[prefix_el.selectedIndex].value;
-
             let colour_el = document.getElementById("colour");
             colour_el.addEventListener('change', generate_part_number);
             let colour = colour_el.options[colour_el.selectedIndex].value;
@@ -223,15 +207,17 @@
             kit_code_els.forEach(function(el){
                 el.addEventListener('change', generate_part_number);
             });
-            let kit_code = document.querySelector('input[name="kit_code"]:checked').value ?? "C1D";
+            let kit_code = document.querySelector('input[name="kit_code"]:checked') ?
+                document.querySelector('input[name="kit_code"]:checked').value :
+         "C1D";
 
-            let wheelbase_el = document.getElementById("wheelbase");
-            wheelbase_el.addEventListener('change', generate_part_number)
-            let wheelbase = wheelbase_el.options[wheelbase_el.selectedIndex].value;
+            let chassis_el = document.getElementById("chassis");
+            chassis_el.addEventListener('change', generate_part_number)
+            let chassis = chassis_el.options[chassis_el.selectedIndex].value;
 
 
 
-            document.getElementById('part_number').value = `${prefix}_${kit_code}_${colour}_${wheelbase}${roof_height}`;
+            document.getElementById('part_number').value = `BGK_${kit_code}_${colour}_${chassis}${roof_height}`;
         }
 
 
