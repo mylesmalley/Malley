@@ -56,7 +56,7 @@
 
 
                          <div class="col-3">
-                             <label for="roof_height"
+                             <label for="type"
                                     class="form-label">
                                  Kit Type</label>
                              <select class="form-control"
@@ -104,6 +104,7 @@
                         </div>
                          <div class="col-1 " >
                              <a href="{{ route('bg.kits.create') }}"
+                                id="create_button"
                                 class="btn btn-info">Add</a>
                          </div>
                     </form>
@@ -139,3 +140,23 @@
 
 
 @endsection
+
+@push('scripts')
+    <script>
+        function updateUrl()
+        {
+            let query = new URLSearchParams();
+            query.append('chassis', document.getElementById('chassis').value );
+            query.append('colour', document.getElementById('colour').value );
+            query.append('type', document.getElementById('type').value );
+            query.append('roof_height', document.getElementById('roof_height').value );
+            document.getElementById('create_button').href = `{{ route('bg.kits.create') }}?${query}`;
+        }
+
+
+        document.getElementById('chassis').addEventListener('change', updateUrl);
+        document.getElementById('colour').addEventListener('change', updateUrl);
+        document.getElementById('type').addEventListener('change', updateUrl);
+        document.getElementById('roof_height').addEventListener('change', updateUrl);
+    </script>
+@endpush
