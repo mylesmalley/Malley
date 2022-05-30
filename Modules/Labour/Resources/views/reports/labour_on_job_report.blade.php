@@ -19,13 +19,19 @@
                     </div>
                     <table class="table table-striped">
                         <tbody>
-                        @foreach( $unique_departments as $ud )
-                            <tr>
-                                <td>{{ $ud['name'] }}</td>
-                                <td>{{ $ud['elapsed_labour'] }}</td>
-                            </tr>
-                        @endforeach
+                            @foreach( $unique_departments as $ud )
+                                <tr>
+                                    <td>{{ $ud['name'] }}</td>
+                                    <td>{{ number_format( $ud['elapsed_labour'] / 3600, 1) }} Hrs</td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td>{{ number_format( $total_labour / 3600, 1) }} Hrs</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -37,13 +43,19 @@
                     </div>
                     <table class="table table-striped">
                         <tbody>
-                        @foreach( $unique_users as $uu )
-                            <tr>
-                                <td>{{ $uu['first_name'] . ' ' . $uu['last_name'] }}</td>
-                                <td>{{ $uu['elapsed_labour'] }}</td>
-                            </tr>
-                        @endforeach
+                            @foreach( $unique_users as $uu )
+                                <tr>
+                                    <td>{{ $uu['first_name'] . ' ' . $uu['last_name'] }}</td>
+                                    <td>{{ number_format( $uu['elapsed_labour'] / 3600, 1) }} Hrs</td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td>{{ number_format( $total_labour / 3600, 1) }} Hrs</td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

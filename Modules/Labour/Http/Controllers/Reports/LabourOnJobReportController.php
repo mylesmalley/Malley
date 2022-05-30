@@ -6,13 +6,15 @@ use App\Models\Department;
 use App\Models\Labour;
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Carbon\CarbonPeriod;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class LabourOnJobReportController extends Controller
 {
+
+    /**
+     * @param string|null $job
+     * @return Response
+     */
     public function show( string $job = null ): Response
     {
 
@@ -49,12 +51,15 @@ class LabourOnJobReportController extends Controller
             return $el;
         }, $unique_departments);
 
+        $total_labour = 0;
 
         // loop through the labour and add it on as needed.
         foreach( $labour as $l )
         {
-            $unique_departments[ $l['department_id'] ]['elapsed_labour'] += (int)$l->elapsed->totalSeconds;
-            $unique_users[ $l['user_id'] ]['elapsed_labour'] += (int)$l->elapsed->totalSeconds;
+            $elapsed_time = (int)$l->elapsed->totalSeconds;
+            $total_labour += $elapsed_time;
+            $unique_departments[ $l['department_id'] ]['elapsed_labour'] += $elapsed_time;
+            $unique_users[ $l['user_id'] ]['elapsed_labour'] += $elapsed_time;
         }
 
 
@@ -66,6 +71,7 @@ class LabourOnJobReportController extends Controller
             'labour' => $labour,
             'unique_departments' => $unique_departments,
             'unique_users' => $unique_users,
+            'total_labour' => $total_labour,
         ]);
 
     }
