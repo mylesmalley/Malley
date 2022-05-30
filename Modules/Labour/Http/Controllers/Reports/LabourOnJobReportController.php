@@ -51,19 +51,40 @@ class LabourOnJobReportController extends Controller
             return $el;
         }, $unique_departments);
 
+
+
+
+        $used_dates = [];
+
+
+
+
         $total_labour = 0;
 
         // loop through the labour and add it on as needed.
         foreach( $labour as $l )
         {
             $elapsed_time = (int)$l->elapsed->totalSeconds;
+
+            $date = $l->start->format('Y-m-d');
+
+            if ( !array_key_exists($date, $used_dates))
+            {
+                $used_dates[$date] = $elapsed_time;
+            }
+            else
+            {
+                $used_dates[$date] += $elapsed_time;
+            }
+
+
             $total_labour += $elapsed_time;
             $unique_departments[ $l['department_id'] ]['elapsed_labour'] += $elapsed_time;
             $unique_users[ $l['user_id'] ]['elapsed_labour'] += $elapsed_time;
         }
 
 
-
+        //dd( $used_dates );
 
 
         return response()->view('labour::reports.labour_on_job_report', [
@@ -71,6 +92,7 @@ class LabourOnJobReportController extends Controller
             'labour' => $labour,
             'unique_departments' => $unique_departments,
             'unique_users' => $unique_users,
+            'used_dates' => $used_dates,
             'total_labour' => $total_labour,
         ]);
 

@@ -12,7 +12,7 @@
 
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">
                         Departments
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card border-primary">
                     <div class="card-header bg-primary text-white">
                         Employees
@@ -51,13 +51,67 @@
                             @endforeach
                         </tbody>
                         <tfoot>
-                        <tr>
-                            <td></td>
-                            <td>{{ number_format( $total_labour / 3600, 1) }} Hrs</td>
-                        </tr>
+                            <tr>
+                                <td></td>
+                                <td>{{ number_format( $total_labour / 3600, 1) }} Hrs</td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        Dates
+                    </div>
+                    <table class="table table-striped">
+                        <tbody>
+                        @foreach( $used_dates as $date => $time )
+                            <tr>
+                                <td>{{ $date }}</td>
+                                <td>{{ number_format( $time / 3600, 1) }} Hrs</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td>{{ number_format( $total_labour / 3600, 1) }} Hrs</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">
+                        All Records
+                    </div>
+                    <table class="table table-sm table-hover table-striped">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            @foreach( $labour as $l )
+                                <tr>
+                                    <td>{{ $l->start->format('Y-m-d') }}</td>
+                                    <td>{{ $l->user->first_name . ' ' . $l->user->last_name }}</td>
+                                    <td>{{ $l->department->name }}</td>
+                                    <td>{{ $l->start->format('g:i A') }}</td>
+                                    <td>{{ $l->end->format('g:i A') ?? 'Ongoing' }}</td>
+                                    <td>{{ number_format( (int)$l->elapsed->totalSeconds / 3600, 1) }} Hrs</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
 
