@@ -15,22 +15,26 @@ class LabourOnJobReportController extends Controller
 {
     public function show( string $job = null ): Response
     {
+
+        // grab all the labour on the job
         $labour = Labour::where('job', $job )
             ->with('user', 'department')
             ->get();
 
+        // unique user ids based on the labour query
         $unique_users = User::select(['id','first_name','last_name','department_id'])
             ->whereIn('id', $labour->pluck('user_id')->unique())
             ->get()
             ->keyBy('id')
             ->toArray();
 
+        // add in an empty element to handle accumulated labour
         $unique_users = array_map( function( $el ){
             $el['elapsed_labour'] = 0;
             return $el;
         }, $unique_users);
 
-
+        // grab the departments used
         $unique_departments = Department::select(['id','name'])
             ->whereIn('id', $labour->pluck('department_id')
                 ->unique()
@@ -39,14 +43,14 @@ class LabourOnJobReportController extends Controller
             ->keyBy('id')
             ->toArray();
 
-
+        // add an empty labour field to catch accumulated time
         $unique_departments = array_map( function( $el ){
             $el['elapsed_labour'] = 0;
             return $el;
         }, $unique_departments);
 
 
-
+        // loop through the labour and add it on as needed.
         foreach( $labour as $l )
         {
             $unique_departments[ $l['department_id'] ]['elapsed_labour'] += (int)$l->elapsed->totalSeconds;
