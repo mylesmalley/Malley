@@ -4,6 +4,7 @@ namespace Modules\Labour\Http\Controllers\Reports;
 
 use App\Models\Department;
 use App\Models\Labour;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Carbon\CarbonPeriod;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -12,6 +13,58 @@ use Illuminate\Support\Facades\DB;
 
 class LabourOnJobReportController extends Controller
 {
+    public function show( string $job = null ): Response
+    {
+        $labour = Labour::where('job', $job )
+            ->with('user', 'department')
+            ->get();
+
+        $unique_users = User::select(['id','first_name','last_name','department_id'])
+            ->whereIn('id', $labour->pluck('user_id')->unique())
+            ->get()
+            ->keyBy('id')
+            ->toArray();
+
+        $unique_users = array_map( function( $el ){
+            $el['elapsed_labour'] = 0;
+            return $el;
+        }, $unique_users);
+
+
+        $unique_departments = Department::select(['id','name'])
+            ->whereIn('id', $labour->pluck('department_id')
+                ->unique()
+            )
+            ->get()
+            ->keyBy('id')
+            ->toArray();
+
+
+        $unique_departments = array_map( function( $el ){
+            $el['elapsed_labour'] = 0;
+            return $el;
+        }, $unique_departments);
+
+
+
+        foreach( $labour as $l )
+        {
+            $unique_departments[ $l['department_id'] ]['elapsed_labour'] += (int)$l->elapsed->totalSeconds;
+            $unique_users[ $l['user_id'] ]['elapsed_labour'] += (int)$l->elapsed->totalSeconds;
+        }
+
+
+
+
+
+        return response()->view('labour::reports.labour_on_job_report', [
+            'job' => $job,
+            'labour' => $labour,
+            'unique_departments' => $unique_departments,
+            'unique_users' => $unique_users,
+        ]);
+
+    }
 //
 //    /**
 //     * @param string|null $job
