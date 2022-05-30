@@ -59,6 +59,7 @@
                     <tr>
                         <th>Job</th>
                         <th>Description</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,8 @@
                         <tr>
                             <td>{{ $r->Job ?? 'Job Number' }}</td>
                             <td>{{ $r->JobDescription ?? "description" }}</td>
+                            <th><a class="btn btn-primary btn-sm"
+                                        href="{{ route('labour.reports.labour_on_job', [$r->Job]) }}">View Details</a></th>
                         </tr>
                         @endif
 

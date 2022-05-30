@@ -31,7 +31,7 @@
                             <td>{{ $l->user->first_name }}</td>
                             <td>{{ $l->user->last_name }}</td>
                             <td>{{ $l->user->department->name }}</td>
-                            <td>{{ $l->job }}</td>
+                            <td><a href="{{ route('labour.reports.labour_on_job', [$l->job]) }}">{{ $l->job }}</a></td>
                             <td>{{ $l->start->format('g:i a') }}</td>
                         </tr>
                     @empty
