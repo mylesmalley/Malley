@@ -133,6 +133,6 @@ class AllSysproJobs extends Component
      */
     public function render(): View|Factory|Application
     {
-        return view('labour::livewire.syspro-jobs');
+        return view('labour::livewire.all-syspro-jobs');
     }
 }

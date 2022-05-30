@@ -52,6 +52,9 @@ Route::prefix('labour')->group(function() {
             Route::get('clocked_in_users', [ ClockedInUsersController::class, 'clocked_in' ])
                 ->name('labour.reports.clocked_in');
 
+            Route::get('all_jobs', [ LabourOnJobReportController::class, 'index' ])
+                ->name('labour.reports.all_jobs');
+
             Route::get('labour_on_job/{job?}', [ LabourOnJobReportController::class, 'show' ])
                 ->name('labour.reports.labour_on_job');
         });
