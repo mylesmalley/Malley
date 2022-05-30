@@ -6,14 +6,9 @@
         </div>
         <div class="card-body">
             <ul class="nav nav-tabs">
+
                 <li class="nav-item">
-                    <button class="nav-link {{ ( 'RECENT' === $selectedTab) ? 'active' : '' }} "
-                       wire:click="clickTabRecent"
-                       dusk="clickTabRecent"
-                       >RECENT</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link {{ ( 'SEARCH' === $selectedTab) ? 'active' : '' }} "
+                    <button class="nav-link {{ ( 'SEARCH' === $selectedTab) ? 'active bg-danger text-white' : '' }} "
                        wire:click="clickTabSearch"
                        dusk="clickTabSearch"
                        >SEARCH &nbsp;
@@ -26,7 +21,7 @@
 
 
                     <li class="nav-item">
-                        <button class="nav-link {{ ( $prefix === $selectedTab) ? 'active' : '' }} "
+                        <button class="nav-link {{ ( $prefix === $selectedTab) ? 'active bg-danger text-white ' : '' }} "
                            wire:click="clickTab('{{ $prefix }}')"
                            dusk="clickTab{{ $prefix }}"
                            >{{ trim( $prefix, '0') }}</button>
@@ -64,7 +59,6 @@
                     <tr>
                         <th>Job</th>
                         <th>Description</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,9 +68,6 @@
                         <tr>
                             <td>{{ $r->Job ?? 'Job Number' }}</td>
                             <td>{{ $r->JobDescription ?? "description" }}</td>
-                            <td>
-
-                            </td>
                         </tr>
                         @endif
 
@@ -89,6 +80,19 @@
                         @endforelse
                 </tbody>
             </table>
+
+        <div class="card-foot text-center">
+            <p>Showing <b>{{ $offset }} to {{ min($number_of_results, $offset + 25 ) }}</b> of <b>{{ $number_of_results }}</b></p>
+
+            @if ( $offset )
+                <button class="btn btn-secondary" wire:click="decrement">previous</button>
+            @endif
+            @if ( $number_of_results >= ( 25 + $offset ) )
+                <button class='btn btn-secondary' wire:click="increment">next</button>
+            @endif
+        </div>
+
+
     </div>
 
 </div>
