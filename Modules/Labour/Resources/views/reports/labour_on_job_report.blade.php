@@ -11,6 +11,44 @@
         </div>
 
 
+        <div class="row">
+            <div class="col-6">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        Departments
+                    </div>
+                    <table class="table table-striped">
+                        <tbody>
+                        @foreach( $unique_departments as $ud )
+                            <tr>
+                                <td>{{ $ud['name'] }}</td>
+                                <td>{{ $ud['elapsed_labour'] }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        Employees
+                    </div>
+                    <table class="table table-striped">
+                        <tbody>
+                        @foreach( $unique_users as $uu )
+                            <tr>
+                                <td>{{ $uu['first_name'] . ' ' . $uu['last_name'] }}</td>
+                                <td>{{ $uu['elapsed_labour'] }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 {{--        <div class="row">--}}
 {{--            <div class="col-12">--}}
 {{--                <div class="card border-primary">--}}
