@@ -10,6 +10,9 @@
 			<li class="list-group-item">
 				<a href="{{ route('labour.management.home') }}" >Labour Management</a>
 			</li>
+			<li class="list-group-item">
+				<a href="{{ route('labour.reports.all_jobs') }}" >Look up Labour on Jobs</a>
+			</li>
 		</ul>
 	</div>
 	<br>

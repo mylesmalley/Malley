@@ -136,7 +136,7 @@ class RevisionController extends Controller
      */
     private function generate_revision( Request $request ) : Option
     {
-
+     //   die( "Disabled for syspro upgrade" );
 
         // base everything off of the newest revision prior to these changes.
         $old = Option::where('option_name', $request->input('option_name') )

@@ -73,7 +73,7 @@
 
 
                 @if(  config("app.env") != 'production' )
-                    <h1 class="text-white">{{ config('app.env') }} {{ config('database.default') }}</h1>
+                    <h5 class="text-white">{{ config('app.env') }}<br> {{ config('database.default') }}</h5>
                     @endif
 
 {{--                <li class="nav-item dropdown">--}}

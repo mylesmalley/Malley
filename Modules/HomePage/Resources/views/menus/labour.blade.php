@@ -32,7 +32,7 @@
                         <h4>Reports</h4>
                         <div class="list-group">
                             <a class="list-group-item list-group-item-action"
-                               href="{{ route('labour.reports.labour_on_job') }}">Labour on Job</a>
+                               href="{{ route('labour.reports.all_jobs') }}">Look up Labour on Jobs</a>
 
                         </div>
                     </div>

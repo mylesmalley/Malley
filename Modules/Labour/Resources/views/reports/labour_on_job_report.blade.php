@@ -104,7 +104,7 @@
                                     <td>{{ $l->user->first_name . ' ' . $l->user->last_name }}</td>
                                     <td>{{ $l->department->name }}</td>
                                     <td>{{ $l->start->format('g:i A') }}</td>
-                                    <td>{{ $l->end->format('g:i A') ?? 'Ongoing' }}</td>
+                                    <td>{{ $l->end ? $l->end->format('g:i A') : 'Ongoing' }}</td>
                                     <td>{{ number_format( (int)$l->elapsed->totalSeconds / 3600, 1) }} Hrs</td>
                                 </tr>
                             @endforeach
