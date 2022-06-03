@@ -73,6 +73,7 @@ class AllSysproJobs extends Component
                 ->table('WipMaster')
                 ->select('Job', 'JobDescription')
              //   ->where( 'Complete' , '=', 'N' ) // only show active jobs
+             ->orderBy('Job', 'DESC')
                 ->where('Job', 'like', '%' . strtoupper( $this->searchTerm ) .'%')
                 ->limit(10)
                 ->get();
@@ -101,7 +102,7 @@ class AllSysproJobs extends Component
                 ->table('WipMaster')
                 ->select('Job', 'JobDescription')
                 ->where('Job', 'like', $tab . "%")
-                ->orderBy('Job', 'ASC')
+                ->orderBy('Job', 'DESC')
                 ->limit(25)
                  ->offset( $this->offset )
                 ->get();
