@@ -60,7 +60,7 @@
 			height: 100vh;
 			display: grid;
 			grid-template-columns: 33% 34% 33%;
-			grid-template-rows: 30px 40% auto;
+			grid-template-rows: 40px auto auto;
 			grid-template-areas:
 				"top-menu top-menu top-menu"
 				"box1 box2 box3"

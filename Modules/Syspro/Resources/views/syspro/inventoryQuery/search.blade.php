@@ -20,7 +20,7 @@
 			height: 100%;
 			display: grid;
 			grid-template-columns: 100%;
-			grid-template-rows: 30px  auto;
+			grid-template-rows: 40px  100vh;
 			grid-template-areas:
 					"top-menu "
 					"results";
