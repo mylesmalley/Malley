@@ -1,4 +1,5 @@
 @extends('syspro::syspro.template')
+{{--@extends('index::app.main')--}}
 
 @section('stylesheet')
 	<!--
@@ -55,7 +56,7 @@
             overflow-y: auto;
         }
 
-		.container {
+		.parent {
 			height: 100vh;
 			display: grid;
 			grid-template-columns: 33% 34% 33%;
@@ -77,7 +78,7 @@
 @endsection
 
 @section("content")
-	<div class="container">
+	<div class="parent">
 
         <!--
             x x x
@@ -159,9 +160,9 @@
 @endsection
 
 @section('scripts')
-	<script>
-		document.getElementById('findButton').addEventListener('click', function(){
-			window.open("https://www.google.com");
-		});
-	</script>
+{{--	<script>--}}
+{{--		document.getElementById('findButton').addEventListener('click', function(){--}}
+{{--			window.open("https://www.google.com");--}}
+{{--		});--}}
+{{--	</script>--}}
 	@endsection
