@@ -17,7 +17,7 @@
                     <td></td>
                     <td>{{ $bin->Warehouse }} </td>
                     <td>{{ $bin->Bin }} </td>
-                    <td>{{ $bin->QtyOnHand1 }} {{ $inv->StockUom ?? "N/A" }} </td>
+                    <td>{{ number_format( $bin->QtyOnHand1, 3) }} {{ $inv->StockUom ?? "N/A" }} </td>
                 </tr>
                 </tbody>
 

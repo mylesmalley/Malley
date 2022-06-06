@@ -42,7 +42,7 @@
                 <td><a href="https://google.com/search?q={{ urlencode( $inv->SupplierChName . ' ' . $inv->SupCatalogueNum ?? '') }}">{{  $inv->SupplierChName?? ""  }} <br />Supplier # {{ $inv->SupCatalogueNum ??
  ''}}</a></td>
             </tr>
-x            <tr>
+           <tr>
                 <td>
                     Put a request<br /> for order
                 </td>
