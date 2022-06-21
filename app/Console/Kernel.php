@@ -31,10 +31,14 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Moncton');
 
         $schedule->command('blueprint:chassis-here')
+            ->weekdays()
+
             ->dailyAt('7:30')
             ->timezone('America/Moncton');
 
         $schedule->command('blueprint:vehicle-locations')
+            ->weekdays()
+
             ->dailyAt('7:31')
             ->timezone('America/Moncton');
 
