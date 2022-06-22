@@ -18,6 +18,8 @@
 
 
 @includeIf('homepage::malleyMenu')
+<br>
+<h4 class="text-secondary text-center">Bodyguard BOM</h4>
 
 <div class="container ">
     @yield('content')

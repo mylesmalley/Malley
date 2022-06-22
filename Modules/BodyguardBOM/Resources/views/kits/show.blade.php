@@ -1,7 +1,30 @@
 @extends('bodyguardbom::layouts.master')
 
 @section('content')
-    <h1>{{ $kit->part_number ?? "no part number?" }}</h1>
+
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>{{ $kit->part_number ?? "No part number selected?" }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2 text-primary">
+                            Description
+                        </div>
+                        <div class="col-10">
+                            {{ $kit->description }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     @includeIf('app.components.errors')
