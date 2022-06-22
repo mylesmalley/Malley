@@ -76,11 +76,13 @@ class Kit extends Model implements HasMedia
                     substr( $this->attributes['description'], 0, 100), // desc for short desc
                     substr( $this->attributes['description'], 0, 100), // desc for short desc
                 ]);
+
+            Log::info("Created syspro phantom {$this->attributes['part_number']}");
         }
         catch (Exception $e)
         {
-            Log::warning("Failed to insert phantom into syspro database kit id {$this->attributes['id']}");
-            Log::waring($e);
+            Log::warning("Failed to insert components into syspro phantom {$this->attributes['part_number']}");
+            Log::warning($e);
             return false;
         }
 
@@ -88,8 +90,68 @@ class Kit extends Model implements HasMedia
     }
 
 
+    /**
+     * @return bool
+     */
+    public function clear_components_from_syspro_phantom(): bool
+    {
+//        try {
+            DB::connection('syspro')
+                ->update("EXEC dbo.spBomStructClear
+                    @ParentPart = ?",[
+                    $this->attributes['part_number'],
+                ]);
 
+//            Log::info("Cleared syspro phantom components on {$this->attributes['part_number']}");
 //
-//EXEC dbo.spInsertPhantomComponent @ParentPart = 'MI-FAM1565', @Component = '10-50000', @QtyPer = '0.57', @CreateSubJob = ‘Y’
+//        }
+//        catch (Exception $e)
+//        {
+//            Log::warning("removed syspro components for phantom {$this->attributes['part_number']}");
+//            Log::warning($e);
+//            return false;
+//        }
+
+        return true;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function push_components_to_syspro(): bool
+    {
+        try {
+            $components = $this->components;
+
+            foreach( $components as $component )
+            {
+                DB::connection('syspro')
+                    ->update("EXEC dbo.spInsertPhantomComponent 
+                        @ParentPart = ?, 
+                        @Component = ?, 
+                        @QtyPer = ?, 
+                        @CreateSubJob = 'Y'",[
+                        $this->attributes['part_number'],
+                        $component->stock_code,
+                        $component->quantity,
+                    ]);
+
+
+                Log::info("Added {$component->stock_code} to {$this->attributes['part_number']} in Syspro ");
+
+            }
+
+        }
+        catch (Exception $e)
+        {
+            Log::warning("removed syspro components for phantom {$this->attributes['part_number']}");
+            Log::warning($e);
+            return false;
+        }
+
+        return true;
+    }
+
 
 }
