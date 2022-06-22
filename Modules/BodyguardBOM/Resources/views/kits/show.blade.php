@@ -30,7 +30,7 @@
 
     <div class="row">
         <div class="col-6">
-            @includeIf('bodyguardbom::kits.home_page_sections.components')
+            @includeIf('bodyguardbom::kits.home_page_sections.syspro_components' )
         </div>
     </div>
     
