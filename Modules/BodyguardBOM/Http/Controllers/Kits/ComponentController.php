@@ -53,14 +53,20 @@ class ComponentController extends Controller
         }
 
 
-    //    dd( $local_components );
-
-
         return response()->view('bodyguardbom::kits.components', [
             'kit' => $kit,
             'syspro_components' => $syspro_components,
             'local_components' => json_decode( json_encode($local_components) )
         ]);
+    }
+
+
+
+
+
+    public function add()
+    {
+
     }
 
 

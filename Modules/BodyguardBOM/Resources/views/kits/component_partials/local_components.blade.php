@@ -1,5 +1,5 @@
-<div class="card border-primary ">
-    <div class="card-header bg-primary text-white ">
+<div class="card border-secondary ">
+    <div class="card-header bg-secondary text-white ">
         Local Copy of Components
 
     </div>
@@ -10,6 +10,7 @@
             <th>Description</th>
             <th>Quantity</th>
             <th>UoM</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +22,16 @@
                 <td> {{ $component->description }} </td>
                 <td> {{ number_format( $component->quantity, 3) }} </td>
                 <td> {{ $component->uom }} </td>
+                <td>
+                    <form action="{{ route('bg.kits.components.delete', $kit->id) }}"
+                            method="POST">
+                        @method("DELETE")
+                        @csrf
+                        <input type="submit" class="btn btn-danger btn-sm" value="x">
+
+                    </form>
+                    
+                </td>
             </tr>
         @empty
             <tr>

@@ -15,11 +15,13 @@
 
     <div class="row">
         <div class="col-6">
-            @includeIf('bodyguardbom::kits.home_page_sections.syspro_components', ['show_edit_button' => false])
+            @includeIf('bodyguardbom::kits.component_partials.syspro_components', ['show_edit_button' => false])
         </div>
 
         <div class="col-6">
-            @includeIf('bodyguardbom::kits.home_page_sections.local_components' )
+            @includeIf('bodyguardbom::kits.component_partials.local_components' )
+            <br>
+            @includeIf('bodyguardbom::kits.component_partials.add_local_component' )
         </div>
     </div>
 

@@ -57,6 +57,14 @@ Route::prefix('bodyguardbom')->group(function() {
 
         Route::get("/{bg_kit}/components", [ ComponentController::class, 'show'])
             ->name('bg.kits.components');
+
+        Route::delete("/{bg_kit}/components", [ ComponentController::class, 'delete'])
+            ->name('bg.kits.components.delete');
+
+        Route::post("/{bg_kit}/components", [ ComponentController::class, 'add'])
+            ->name('bg.kits.components.add');
+
+
     });
 
 
