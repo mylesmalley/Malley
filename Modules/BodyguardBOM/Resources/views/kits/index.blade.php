@@ -123,7 +123,7 @@
             <table class="table table-hover table-striped">
                 <tbody>
                     @forelse( $results as $result )
-                        <tr>
+                        <tr onclick="location.href = '{{ route('bg.kits.show', $result->id) }}'">
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->part_number }}</td>
                             <td>{{ $result->description }}</td>

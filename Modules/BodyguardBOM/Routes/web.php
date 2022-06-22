@@ -51,7 +51,7 @@ Route::prefix('bodyguardbom')->group(function() {
 //        Route::get("/{bg_part}/add_to_category", [ PartCategoriesController::class, 'create'])
 //            ->name('bg.parts.categories.add');
 
-        Route::get("/{bg_part}", [ ShowController::class, 'show'])
+        Route::get("/{bg_kit}", [ ShowController::class, 'show'])
             ->name('bg.kits.show');
 
 

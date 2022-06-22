@@ -3,7 +3,7 @@
 namespace Modules\BodyguardBOM\Providers;
 
 use Modules\BodyguardBOM\Models\Category;
-use Modules\BodyguardBOM\Models\Part;
+use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Modules\BodyguardBOM\Http\Controllers';
+    protected string $moduleNamespace = 'Modules\BodyguardBOM\Http\Controllers';
 
     /**
      * Called before routes are registered.
@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::model("bg_category", Category::class );
-        Route::model("bg_part", Part::class );
+        Route::model("bg_kit", Kit::class );
     }
 
     /**

@@ -2,26 +2,24 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
-use Modules\BodyguardBOM\Models\Category;
-use Modules\BodyguardBOM\Models\Part;
-use Illuminate\Http\RedirectResponse;
+use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
 
     /**
+     * @param Kit $kit
      * @return Response
      */
-    public function show( Part $part ) : Response
+    public function show( Kit $kit ) : Response
     {
-        $part->load('categories');
+        $kit->load('categories');
 
-        return response()->view('bodyguardbom::parts.show', [
-            'part' => $part,
-            'categories' => $part->categories
+        return response()->view('bodyguardbom::kits.show', [
+            'kit' => $kit,
+          //  'categories' => $kit->categories
         ]);
     }
 
