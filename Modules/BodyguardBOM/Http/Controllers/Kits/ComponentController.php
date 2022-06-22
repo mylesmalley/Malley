@@ -117,6 +117,20 @@ class ComponentController extends Controller
     }
 
 
+    /**
+     * @param Kit $kit
+     * @return RedirectResponse
+     */
+    public function clear_local_stock_codes( Kit $kit ): RedirectResponse
+    {
+        Component::where('bg_kit_id', '=', $kit->id )
+            ->delete();
+
+        return redirect()
+            ->back();
+    }
+
+
 }
 
 
