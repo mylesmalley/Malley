@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use PHPUnit\Exception;
 
 class CreateController extends Controller
 {
@@ -44,7 +45,7 @@ class CreateController extends Controller
             'roof_height' => 'required',
         ]);
 
-        Kit::create( $request->only([
+        $kit = Kit::create( $request->only([
             'part_number',
             'description',
             'colour',
@@ -54,6 +55,15 @@ class CreateController extends Controller
             'category',
             'chassis',
         ]));
+
+
+        $kit->create_phantom_in_syspro();
+
+
+
+
+
+
 
 
 

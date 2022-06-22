@@ -144,7 +144,7 @@
                 Part Number</label>
             <input type="text"
                    class="form-control"
-                   readonly
+{{--                   readonly--}}
                    id="part_number"
                    name="part_number"
                    value="{{ old('part_number') }}"
