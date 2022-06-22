@@ -20,7 +20,7 @@ class ShowController extends Controller
 
         return response()->view('bodyguardbom::kits.show', [
             'kit' => $kit,
-            'components' => DB::connection('syspro')
+            'syspro_components' => DB::connection('syspro')
                 ->table('BomStructure')
                 ->select(['BomStructure.Component', 'BomStructure.QtyPer', 'InvMaster.Description', 'InvMaster.StockUom' ])
                 ->leftJoin('InvMaster', 'BomStructure.Component', '=', "InvMaster.StockCode")

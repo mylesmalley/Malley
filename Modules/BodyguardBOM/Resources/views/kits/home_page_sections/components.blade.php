@@ -1,9 +1,15 @@
+@php
+    $show_edit_button ?? true;
+
+@endphp
+
 <div class="card border-primary ">
     <div class="card-header bg-primary text-white ">
-        Components
-        <a href="{{ route('bg.kits.components', $kit->id) }}"
-           class='btn btn-sm btn-secondary float-end'>Edit</a>
-
+        Components in Syspro
+        @if( $show_edit_button )
+            <a href="{{ route('bg.kits.components', $kit->id) }}"
+               class='btn btn-sm btn-secondary float-end'>Edit</a>
+        @endif
     </div>
     <table class="table table-striped">
         <thead>
@@ -15,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        @forelse( $components as $component)
+        @forelse( $syspro_components as $component)
             <tr>
                 <td><a href="{{ route('stock_code_query', $component->Component ) }}">
                     {{ $component->Component }}
