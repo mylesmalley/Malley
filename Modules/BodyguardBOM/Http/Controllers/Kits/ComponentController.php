@@ -2,9 +2,14 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Modules\BodyguardBOM\Models\Kit;
+use Modules\BodyguardBOM\Models\Component;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class ComponentController extends Controller
@@ -44,6 +49,7 @@ class ComponentController extends Controller
         {
 
             $local_components[] = [
+                'id' => $stock->id,
                 'stock_code' =>   $stock->stock_code,
                 'description' => $syspro_records_for_local_components[ $stock->stock_code ]->Description,
                 'quantity' => $stock->quantity,
@@ -61,12 +67,53 @@ class ComponentController extends Controller
     }
 
 
-
-
-
-    public function add()
+    /**
+     * @param Kit $kit
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function add( Kit $kit, Request $request ): RedirectResponse
     {
+        $request->validate([
+            'stock_code' => 'required|exists:syspro.InvMaster,StockCode|string',
+            'quantity' => 'required|numeric',
+        ]);
 
+
+        Component::create([
+            'bg_kit_id' => $kit->id,
+            'stock_code' => $request->input('stock_code'),
+            'quantity' => $request->input('quantity'),
+        ]);
+
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * @param Kit $kit
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete(  Kit $kit, Request $request ) : RedirectResponse
+    {
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
+
+        try {
+            Component::where('id', '=', $request->input('id'))
+                ->delete();
+        } catch ( Exception $e )
+        {
+            Log::warning($e);
+        }
+
+        Log::info("Deleted component {$request->input('id')} from kit $kit->part_number");
+
+        return redirect()
+            ->back();
     }
 
 

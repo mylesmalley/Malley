@@ -27,6 +27,10 @@
                             method="POST">
                         @method("DELETE")
                         @csrf
+                        <input type="hidden"
+                               value="{{ $component->id }}"
+                               name="id"
+                               id="id">
                         <input type="submit" class="btn btn-danger btn-sm" value="x">
 
                     </form>
