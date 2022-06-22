@@ -26,6 +26,36 @@
         </div>
     </div>
 
+    <br>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card border-primary ">
+                <div class="card-header bg-primary text-white ">
+                    Components
+                    <a href="{{ route('bg.kits.components', $kit->id) }}"
+                       class='btn btn-sm btn-secondary float-end'>Edit</a>
+
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Part</th>
+                            <th>Quantity</th>
+                            <th>UoM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+
 
     @includeIf('app.components.errors')
     <ul>
