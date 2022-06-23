@@ -118,6 +118,8 @@ class ComponentController extends Controller
 
 
     /**
+     * deletes the locally staged stock codes
+     *
      * @param Kit $kit
      * @return RedirectResponse
      */
@@ -131,6 +133,12 @@ class ComponentController extends Controller
     }
 
 
+    /**
+     * clear out the stored components in syspro and replace with the local store
+     *
+     * @param Kit $kit
+     * @return RedirectResponse
+     */
     public function sync_local_components_to_syspro(  Kit $kit  )
     {
         $kit->clear_components_from_syspro_phantom();
@@ -139,6 +147,53 @@ class ComponentController extends Controller
         return redirect()
             ->back();
     }
+
+
+    /**
+     * accepts a known existing phantom and copies it's contents to this oen.
+     *
+     * @param Kit $kit
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function import_components_from_syspro_phantom( Kit $kit, Request $request ): RedirectResponse
+    {
+        $request->validate([
+            'phantom' => "required|string|exists:syspro.BomStructure,ParentPart",
+        ]);
+
+        // delete any existing components
+        Component::where('bg_kit_id', '=', $kit->id )
+            ->delete();
+
+        // get the components from syspro
+        $syspro = DB::connection('syspro')
+            ->table('BomStructure')
+            ->where('ParentPart', $request->input('phantom') )
+            ->leftJoin('InvMaster', 'BomStructure.Component', '=', 'InvMaster.StockCode')
+            ->get();
+
+        // redirect back if no results found
+        if (!$syspro->count() ) return back()->with('error','Valid but empty phantom.');
+
+
+        // loop through the components and add them each to the option
+        foreach($syspro as $sys)
+        {
+            Component::create([
+                'bg_kit_id' => $kit->id,
+                'stock_code' => $sys->Component,
+                'quantity' => $sys->QtyPer,
+            ]);
+        }
+
+        // return back
+        return back()
+            ->with('success','Imported Components.');
+
+    }
+
+
 
 
 }

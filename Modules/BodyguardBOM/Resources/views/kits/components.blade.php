@@ -10,6 +10,7 @@
 
         </div>
     </div>
+    @includeIf('app.components.errors')
 
     <br>
 
@@ -36,6 +37,11 @@
                     <small>Will overwrite whatever is currently in Syspro!</small>
                 </div>
             </div>
+
+            <br>
+
+            @includeIf('bodyguardbom::kits.component_partials.import_components' )
+
         </div>
     </div>
 
@@ -70,16 +76,5 @@
 
 
 
-
-
-    @includeIf('app.components.errors')
-    <ul>
-
-
-        <li class="row">
-
-        </li>
-
-    </ul>
 
 @endsection

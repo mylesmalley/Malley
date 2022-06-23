@@ -55,21 +55,35 @@ Route::prefix('bodyguardbom')->group(function() {
         Route::get("/{bg_kit}", [ ShowController::class, 'show'])
             ->name('bg.kits.show');
 
-        Route::get("/{bg_kit}/components", [ ComponentController::class, 'show'])
+
+
+
+        Route::get("/{bg_kit}/components",
+            [ ComponentController::class, 'show'])
             ->name('bg.kits.components');
 
-        Route::delete("/{bg_kit}/components", [ ComponentController::class, 'delete'])
+
+        Route::delete("/{bg_kit}/components",
+            [ ComponentController::class, 'delete'])
             ->name('bg.kits.components.delete');
 
-        Route::delete("/{bg_kit}/clear_local_stock_codes", [ ComponentController::class, 'clear_local_stock_codes'])
+        Route::delete("/{bg_kit}/clear_local_stock_codes",
+            [ ComponentController::class, 'clear_local_stock_codes'])
             ->name('bg.kits.components.clear_local_stock_codes');
 
-        Route::post("/{bg_kit}/components", [ ComponentController::class, 'add'])
+        Route::post("/{bg_kit}/components",
+            [ ComponentController::class, 'add'])
             ->name('bg.kits.components.add');
 
 
-        Route::post("/{bg_kit}/push_to_syspro", [ ComponentController::class, 'sync_local_components_to_syspro'])
+        Route::post("/{bg_kit}/push_to_syspro",
+            [ ComponentController::class, 'sync_local_components_to_syspro'])
             ->name('bg.kits.components.push_to_syspro');
+
+
+        Route::post("/{bg_kit}/import_components",
+            [ ComponentController::class, 'import_components_from_syspro_phantom'])
+            ->name('bg.kits.components.import');
 
 //
 //        Route::post("/{bg_kit}/push_to_syspro", [ ComponentController::class, 'push_to_syspro'])
