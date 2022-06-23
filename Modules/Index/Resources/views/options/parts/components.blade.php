@@ -26,6 +26,7 @@
 {{--            <th>Item<br /> Code</th>--}}
 {{--            <th>Where<br /> Built<br /> Location</th>--}}
 {{--            <th>Install<br /> Area</th>--}}
+            <th>Thumbnail</th>
         </tr>
         </thead>
         <tbody>
@@ -43,7 +44,10 @@
                 <td>{{ $component->component_description }}</td>
                 <td>{{ $component->component_part_category }}</td>
                 <td>{{ number_format( $component->totalCost, 2 ) }}</td>
-
+                <td>
+                        <img src="{{ route('stock_code_thumbnail', $component->component_stock_code) }}" style="width:125px;"
+                             alt="{{ $component->component_stock_code }} thumbnail">
+                </td>
 {{--                <td>{{ $component->component_revision }}</td>--}}
 {{--                <td>{{ $component->component_item_code }}</td>--}}
 {{--                <td>{{ $component->component_where_built_location }}</td>--}}
