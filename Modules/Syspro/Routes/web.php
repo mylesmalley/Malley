@@ -39,6 +39,9 @@ Route::group( ['prefix' => 'syspro'],  function () {
 
     // inventory query
     Route::get('inventoryQuery/', "Syspro\InventoryQueryController@show");
+    Route::get('inventoryQuery/{code}/thumbnail',
+        "Syspro\InventoryQueryController@thumbnail")
+        ->name('stock_code_thumbnail');
     Route::get('inventoryQuery/{code}', "Syspro\InventoryQueryController@get")->name('stock_code_query');
     Route::post('inventoryQuery', "Syspro\InventoryQueryController@show");
 

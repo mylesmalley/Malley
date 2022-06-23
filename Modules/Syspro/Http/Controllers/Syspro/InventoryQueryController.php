@@ -298,4 +298,31 @@ class InventoryQueryController extends Controller
 		]);
 	}
 
+
+    /**
+     * @param string $stock_code
+     * @return bool
+     */
+    public function thumbnail( string $stock_code ) : bool
+    {
+        $remoteFile = "http://mi-sr-dc02.mi.local/StockImages/" . strtoupper($stock_code) . '.JPG';
+        $handle = @fopen($remoteFile, 'r');// Check if file exists
+
+        if(!$handle){
+            $remoteFile = "http://mi-sr-dc02.mi.local/StockImages/image-unavailable.jpg";
+            $image = file_get_contents($remoteFile);
+            header('Content-type: image/jpeg;');
+            header("Content-Length: " . strlen($image));
+            echo $image;
+            return true;
+
+        }
+
+        $image = file_get_contents($remoteFile);
+        header('Content-type: image/jpeg;');
+        header("Content-Length: " . strlen($image));
+        echo $image;
+        return true;
+    }
+
 }

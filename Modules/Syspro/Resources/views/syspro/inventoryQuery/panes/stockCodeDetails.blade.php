@@ -1,11 +1,10 @@
 <div id="stockCodeDetails" class="syspro-window ">
     <div class="syspro-window-menu">Stock Code Details</div>
     <div class="syspro-window-content">
-        @if ($thumbnail )
-            <a style="float:right;" href="{{ $thumbnail_url }}">
-                {!!  $thumbnail !!}
+            <a style="float:right;" href="{{ route('stock_code_thumbnail', $inv->StockCode) }}">
+                <img src="{{ route('stock_code_thumbnail', $inv->StockCode) }}" style="width:165px;"
+                     alt="{{ $inv->StockCode }}">
             </a>
-        @endif
         <table>
             <tr>
                 <td>Stock Code</td>
