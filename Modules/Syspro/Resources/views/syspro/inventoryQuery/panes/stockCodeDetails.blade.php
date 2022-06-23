@@ -1,7 +1,11 @@
 <div id="stockCodeDetails" class="syspro-window ">
     <div class="syspro-window-menu">Stock Code Details</div>
     <div class="syspro-window-content">
-
+        @if ($thumbnail )
+            <a style="float:right;" href="{{ $thumbnail_url }}">
+                {!!  $thumbnail !!}
+            </a>
+        @endif
         <table>
             <tr>
                 <td>Stock Code</td>
@@ -15,6 +19,7 @@
                 <td> </td>
                 <td>{{ $inv->LongDesc ?? " " }}</td>
             </tr>
+
 
             @if( isset( $inv->SupplierChName))
             <tr>

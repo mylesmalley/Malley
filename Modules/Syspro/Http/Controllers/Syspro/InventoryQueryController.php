@@ -91,15 +91,37 @@ class InventoryQueryController extends Controller
 	 * @return Response
 	 */
 	public function get( string $query ): Response
-	{
-		// grab the stock code from the inv master table for a quick sanity check
-		$stockCode = DB::connection('syspro')
-			->table('InvMaster AS Inv')
-			->select(['Inv.StockCode','Inv.PartCategory','Inv.StockOnHold','PS.LastPricePaid'])
-			->leftJoin('PorSupStkInfo AS PS', 'Inv.StockCode', '=','PS.StockCode')
+    {
+        // grab the stock code from the inv master table for a quick sanity check
+        $stockCode = DB::connection('syspro')
+            ->table('InvMaster AS Inv')
+            ->select(['Inv.StockCode', 'Inv.PartCategory', 'Inv.StockOnHold', 'PS.LastPricePaid'])
+            ->leftJoin('PorSupStkInfo AS PS', 'Inv.StockCode', '=', 'PS.StockCode')
+            ->where('Inv.StockCode', $query)
+            ->first();
 
-			->where( 'Inv.StockCode', $query )
-			->first();
+
+        $thumbnail = null;
+
+        $image_url = "http://mi-sr-dc02.mi.local/StockImages/" . strtoupper($query) . '.JPG';
+// Read image path, convert to base64 encoding
+        try {
+            $imageData = base64_encode(file_get_contents($image_url));
+// Format the image SRC:  data:{mime};base64,{data};
+            $src = 'data: image/jpeg;base64,'.$imageData;
+
+// Echo out a sample image
+            $thumbnail = "<img style='width:125px;' src='" . $src ."'>";
+        } catch (\Exception $e )
+        {
+           // dd( $e );
+            $thumbnail = null;
+        }
+
+
+
+        //dd( $thumbnail );
+
 
 	//	dd( $stockCode);
 
@@ -266,6 +288,8 @@ class InventoryQueryController extends Controller
 			'inv' => $trimmed,
 			'raw'=> $raw,
 			'costs'=>$Costs,
+            'thumbnail' => $thumbnail,
+            'thumbnail_url' => $image_url,
 			"query"=>$query,
             "structure" => $structure,
             'whereUsed' => $whereUsed,
