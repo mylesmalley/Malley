@@ -67,6 +67,7 @@
 								<th>Description</th>
 								<th>Long Description</th>
                                 <th>Supplier Stock Code</th>
+								<th>Thumbnail</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -79,6 +80,11 @@
 									<td>{!! $res['Description'] !!}</td>
 									<td>{!! $res['LongDesc'] !!}</td>
                                     <td>{!! $res['SupCatalogueNum'] !!}</td>
+									<td>
+										<img src="{{ route('stock_code_thumbnail', $res['Code']) }}"
+											 style="width:70px;"
+											 alt="{{ $res['Code'] }}">
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
