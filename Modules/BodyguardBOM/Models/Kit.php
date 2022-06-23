@@ -95,24 +95,23 @@ class Kit extends Model implements HasMedia
      */
     public function clear_components_from_syspro_phantom(): bool
     {
-//        try {
+        try {
             DB::connection('syspro')
                 ->update("EXEC dbo.spBomStructClear
                     @ParentPart = ?",[
                     $this->attributes['part_number'],
                 ]);
 
-//            Log::info("Cleared syspro phantom components on {$this->attributes['part_number']}");
-//
-//        }
-//        catch (Exception $e)
-//        {
-//            Log::warning("removed syspro components for phantom {$this->attributes['part_number']}");
-//            Log::warning($e);
-//            return false;
-//        }
+            Log::info("Cleared syspro phantom components on {$this->attributes['part_number']}");
+            return true;
+        }
+        catch (Exception $e)
+        {
+            Log::warning("removed syspro components for phantom {$this->attributes['part_number']}");
+            Log::warning($e);
+            return false;
+        }
 
-        return true;
     }
 
 

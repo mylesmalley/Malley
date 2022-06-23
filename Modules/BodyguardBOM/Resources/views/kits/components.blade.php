@@ -33,6 +33,7 @@
                         @csrf
                         <input type="submit" class="btn btn-warning" value="Update Syspro with Your Changes">
                     </form>
+                    <small>Will overwrite whatever is currently in Syspro!</small>
                 </div>
             </div>
         </div>

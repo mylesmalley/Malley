@@ -11,6 +11,7 @@
             <th>Quantity</th>
             <th>UoM</th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,9 @@
                 <td> {{ $component->description }} </td>
                 <td> {{ number_format( $component->quantity, 3) }} </td>
                 <td> {{ $component->uom }} </td>
+                <td>
+                    <img style="width:100px;" src="{{ route('stock_code_thumbnail', trim($component->stock_code )) }}" alt="">
+                </td>
                 <td>
                     <form action="{{ route('bg.kits.components.delete', $kit->id) }}"
                             method="POST">

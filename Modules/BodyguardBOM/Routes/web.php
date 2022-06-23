@@ -68,8 +68,15 @@ Route::prefix('bodyguardbom')->group(function() {
             ->name('bg.kits.components.add');
 
 
-        Route::post("/{bg_kit}/push_to_syspro", [ ComponentController::class, 'push_to_syspro'])
+        Route::post("/{bg_kit}/push_to_syspro", [ ComponentController::class, 'sync_local_components_to_syspro'])
             ->name('bg.kits.components.push_to_syspro');
+
+//
+//        Route::post("/{bg_kit}/push_to_syspro", [ ComponentController::class, 'push_to_syspro'])
+//            ->name('bg.kits.components.push_to_syspro');
+
+
+
 
     });
 

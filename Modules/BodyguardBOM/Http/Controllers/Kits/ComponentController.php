@@ -131,6 +131,16 @@ class ComponentController extends Controller
     }
 
 
+    public function sync_local_components_to_syspro(  Kit $kit  )
+    {
+        $kit->clear_components_from_syspro_phantom();
+        $kit->push_components_to_syspro();
+
+        return redirect()
+            ->back();
+    }
+
+
 }
 
 
