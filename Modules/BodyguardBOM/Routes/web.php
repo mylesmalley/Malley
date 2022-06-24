@@ -109,8 +109,6 @@ Route::prefix('bodyguardbom')->group(function() {
             ->name('bg.parts.store');
 
 
-        Route::get("/{bg_kit}", [ PartsShowController::class, 'show'])
-            ->name('bg.parts.show');
 
     });
 

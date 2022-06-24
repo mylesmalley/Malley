@@ -3,11 +3,34 @@
 @section('content')
 
 
+
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col-2">
+        </div>
+        <div class="col-8 text-center">
             <h1>{{ $kit->part_number ?? "No part number selected?" }}</h1>
+            @if ( $kit->category === "BGC")
+                <h3 class="text-secondary ">
+                    Kit Part
+                </h3>
+            @endif
+            @if ( $kit->category === "BGK")
+                <h3 class="text-secondary ">
+                    Kit
+                </h3>
+            @endif
+
+            <br>
+
+        </div>
+        <div class="col-2">
+
         </div>
     </div>
+
+
+
+
     <div class="row">
         <div class="col-12">
             <div class="card border-primary">
@@ -32,6 +55,20 @@
         <div class="col-6">
             @includeIf('bodyguardbom::kits.component_partials.syspro_components' )
         </div>
+
+
+        @if( $kit->category === "BGC")
+            <div class="col-6">
+                <div class="card border-secondary">
+                    <div class="card-header bg-secondary text-white">
+                        Kits Using This Part
+                    </div>
+                    <table>
+
+                    </table>
+                </div>
+            </div>
+            @endif
     </div>
     
 
