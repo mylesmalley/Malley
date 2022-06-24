@@ -35,13 +35,15 @@ class ComponentController extends Controller
 
         $syspro_records_for_local_components = DB::connection('syspro')
             ->table('InvMaster')
-            ->select(['StockCode', 'Description', 'StockUom' ])
+            ->select([DB::Raw('RTRIM( StockCode ) as StockCode'), 'Description', 'StockUom' ])
             ->whereIn('StockCode', $local_codes )
             ->get()
             ->keyBy('StockCode')
             ->toArray() ;
 
-       // dd($local_staged_stock_codes, $local_codes,  $syspro_records_for_local_components);
+      //  dd( $syspro_records_for_local_components );
+
+     //  dd($local_staged_stock_codes, $local_codes,  $syspro_records_for_local_components);
         $local_components = [];
 
         foreach( $local_staged_stock_codes as $stock )
@@ -49,10 +51,10 @@ class ComponentController extends Controller
 
             $local_components[] = [
                 'id' => $stock->id,
-                'stock_code' =>   $stock->stock_code,
-                'description' => $syspro_records_for_local_components[ $stock->stock_code ]->Description,
+                'stock_code' =>  trim( $stock->stock_code ),
+                'description' => $syspro_records_for_local_components[ trim( $stock->stock_code ) ]->Description ?? "missing description",
                 'quantity' => $stock->quantity,
-                'uom' => $syspro_records_for_local_components[ $stock->stock_code ]->StockUom,
+                'uom' => $syspro_records_for_local_components[trim(  $stock->stock_code ) ]->StockUom ?? 'missing UOM',
             ];
 
         }
