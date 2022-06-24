@@ -66,7 +66,21 @@
 
                         <div class="row">
 
-
+                            <div class="col-2">
+                                @error('colour') <span class="text-danger">{{ $message }}</span> @enderror
+                                <label for="colour"
+                                       class="form-label">
+                                    Colour of Material</label>
+                                <select class="form-control"
+                                        name="colour"
+                                        id="colour">
+                                    @foreach( $colours as $k => $v )
+                                        <option
+                                                {{ old('colour', request()->input('colour')) === $k ? " selected " : ""   }}
+                                                value="{{ $k }}">{{ $v }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <div class="col-3">
 
@@ -110,10 +124,10 @@
                                         id="location">
 
                                     @foreach( $part_locations as $location => $options )
-                                        <optgroup label="{{ $van }}">
+                                        <optgroup label="{{ $location }}">
                                             @foreach( $options as $key => $desc)
                                                 <option
-                                                        {{ old('location', request()->input('location') ) == $key ? " location " : ""   }}
+                                                        {{ old('location', request()->input('location') ) == $key ? " selected " : ""   }}
                                                         value="{{ $key ?? "aaa" }}">{{ $desc ?? 'bbb' }}</option>
                                             @endforeach
                                         </optgroup>
@@ -125,22 +139,6 @@
                             </div>
 
 
-
-                            <div class="col-2">
-                                @error('location') <span class="text-danger">{{ $message }}</span> @enderror
-                                <label for="location"
-                                       class="form-label">
-                                    Install Location</label>
-                                <select class="form-control"
-                                        name="location"
-                                        id="location">
-                                    @foreach( $locations as $k => $v )
-                                        <option
-                                                {{ old('location', request()->input('location')) === $k ? " selected " : ""   }}
-                                                value="{{ $k }}">{{ $v }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
 
                             <div class="col-2">
@@ -283,7 +281,7 @@
     <script>
 
 
-        let kit_codes = @json( $kit_codes );
+        let kit_codes = @json( $part_codes );
 
         let colour_el = document.getElementById("colour");
         colour_el.addEventListener('change', generate_part_number);

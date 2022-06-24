@@ -7,7 +7,7 @@
         <div class="col-2">
         </div>
         <div class="col-8 text-center">
-            <h1>Bodyguard Part Index</h1>
+            <h1>Bodyguard Parts Index</h1>
             <h3 class="text-secondary ">
                 <br>
             </h3>
@@ -121,7 +121,7 @@
                                     class="btn btn-success">Go</button>
                         </div>
                          <div class="col-1 " >
-                             <a href="{{ route('bg.kits.create') }}"
+                             <a href="{{ route('bg.parts.create') }}"
                                 id="create_button"
                                 class="btn btn-info">Add</a>
                          </div>
@@ -135,7 +135,7 @@
                 <table class="table table-hover table-striped">
                     <tbody>
                     @forelse( $results as $result )
-                        <tr onclick="location.href = '{{ route('bg.kits.show', $result->id) }}'">
+                        <tr onclick="location.href = '{{ route('bg.parts.show', $result->id) }}'">
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->part_number }}</td>
                             <td>{{ $result->description }}</td>

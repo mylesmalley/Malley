@@ -27,7 +27,7 @@ class CreateController extends Controller
             'roof_heights' => $this->roof_heights,
             'part_codes' => $this->part_codes,
             'chassis' => $this->chassis,
-            'locations' => $this->part_locations,
+            'part_locations' => $this->part_locations,
         ]);
     }
 

@@ -115,14 +115,22 @@ trait PartNumberComponentsTrait {
 
 
     protected array $part_codes = [
-        "TRD" => "Trim Piece",
-        "WLC" => "Wall Liner Cargo Panel",
-        "WLE" => "Wall Liner with E-Track Panel",
-        "WLW" => "Wall Liner with Window Cutout Panel",
-        "CEI" => "Ceiling Piece",
-        "WIN" => "Window Panel",
-        "PAR" => "Partition Panel",
-        "OTH" => "Other type of part",
+        "TRD" => ['desc' => "Trim Piece",
+                'ext' => ''],
+        "WLC" => ['desc' =>"Wall Liner Cargo Panel",
+        'ext' => ''],
+        "WLE" => ['desc' =>"Wall Liner with E-Track Panel",
+                'ext' => ''],
+        "WLW" => ['desc' =>"Wall Liner with Window Cutout Panel",
+                'ext' => ''],
+        "CEI" => ['desc' =>"Ceiling Piece",
+                'ext' => ''],
+        "WIN" => ['desc' =>"Window Panel",
+                'ext' => ''],
+        "PAR" => ['desc' =>"Partition Panel",
+                'ext' => ''],
+        "OTH" => ['desc' =>"Other type of part",
+                'ext' => ''],
     ];
 
 
