@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Modules\BodyguardBOM\Models\Kit;
-use Modules\BodyguardBOM\Models\Component;
+use Modules\BodyguardBOM\Models\SysproStockCode;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -39,8 +39,7 @@ class ComponentController extends Controller
             ->whereIn('StockCode', $local_codes )
             ->get()
             ->keyBy('StockCode')
-            ->toArray()
-        ;
+            ->toArray() ;
 
        // dd($local_staged_stock_codes, $local_codes,  $syspro_records_for_local_components);
         $local_components = [];
@@ -80,7 +79,7 @@ class ComponentController extends Controller
         ]);
 
 
-        Component::create([
+        SysproStockCode::create([
             'bg_kit_id' => $kit->id,
             'stock_code' => $request->input('stock_code'),
             'quantity' => $request->input('quantity'),
@@ -103,7 +102,7 @@ class ComponentController extends Controller
         ]);
 
         try {
-            Component::where('id', '=', $request->input('id'))
+            SysproStockCode::where('id', '=', $request->input('id'))
                 ->delete();
         } catch ( Exception $e )
         {
@@ -125,7 +124,7 @@ class ComponentController extends Controller
      */
     public function clear_local_stock_codes( Kit $kit ): RedirectResponse
     {
-        Component::where('bg_kit_id', '=', $kit->id )
+        SysproStockCode::where('bg_kit_id', '=', $kit->id )
             ->delete();
 
         return redirect()
@@ -163,7 +162,7 @@ class ComponentController extends Controller
         ]);
 
         // delete any existing components
-        Component::where('bg_kit_id', '=', $kit->id )
+        SysproStockCode::where('bg_kit_id', '=', $kit->id )
             ->delete();
 
         // get the components from syspro
@@ -180,7 +179,7 @@ class ComponentController extends Controller
         // loop through the components and add them each to the option
         foreach($syspro as $sys)
         {
-            Component::create([
+            SysproStockCode::create([
                 'bg_kit_id' => $kit->id,
                 'stock_code' => $sys->Component,
                 'quantity' => $sys->QtyPer,

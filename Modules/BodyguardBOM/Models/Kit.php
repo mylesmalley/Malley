@@ -51,7 +51,7 @@ class Kit extends Model implements HasMedia
     public function components(): HasMany
     {
         return $this->hasMany(
-            Component::class,
+            SysproStockCode::class,
             'bg_kit_id',
             'id',
         );

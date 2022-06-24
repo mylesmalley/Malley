@@ -5,12 +5,12 @@ namespace Modules\BodyguardBOM\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
-class Component extends Model
+class SysproStockCode extends Model
 {
 
     public $timestamps = false;
 
-    protected $table = 'bg_components';
+    protected $table = 'bg_syspro_components';
 
     protected $fillable = [
         'stock_code',
