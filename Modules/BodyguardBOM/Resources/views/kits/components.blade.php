@@ -4,10 +4,18 @@
 
 
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col-2">
+        </div>
+        <div class="col-8 text-center">
             <h1>{{ $kit->part_number }}</h1>
-            <h3 class="text-secondary">Bill of Materials</h3>
+            <h3 class="text-secondary ">Bill of Materials
 
+            </h3>
+
+        </div>
+        <div class="col-2">
+            <a class='btn btn-secondary float-end'
+               href="{{ route('bg.kits.show', $kit) }}">Back to Kit</a>
         </div>
     </div>
     @includeIf('app.components.errors')
