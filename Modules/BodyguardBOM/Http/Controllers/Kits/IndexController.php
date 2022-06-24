@@ -2,10 +2,11 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Modules\BodyguardBOM\Http\Controllers\PartNumberComponentsTrait;
 
 class IndexController extends Controller
 {

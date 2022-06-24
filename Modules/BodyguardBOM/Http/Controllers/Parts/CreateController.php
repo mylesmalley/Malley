@@ -1,18 +1,17 @@
 <?php
 
-namespace Modules\BodyguardBOM\Http\Controllers\Kits;
+namespace Modules\BodyguardBOM\Http\Controllers\Parts;
 
+use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 use Modules\BodyguardBOM\Http\Controllers\PartNumberComponentsTrait;
-use Modules\BodyguardBOM\Models\Kit;
 
 class CreateController extends Controller
 {
 
-    use CategoryTreeTrait;
     use PartNumberComponentsTrait;
 
     /**
@@ -22,7 +21,7 @@ class CreateController extends Controller
     {
 
 
-        return response()->view('bodyguardbom::kits.create', [
+        return response()->view('bodyguardbom::parts.create', [
             'prefixes' => $this->prefix,
             'colours' => $this->colours,
             'roof_heights' => $this->roof_heights,

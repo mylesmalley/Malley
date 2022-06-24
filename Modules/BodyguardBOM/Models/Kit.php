@@ -28,21 +28,22 @@ class Kit extends Model implements HasMedia
         'colour',
         'kit_code', // type of kit - liner, liner with e-track
         'category', // BGK / BGC
+        'location',
     ];
 
 
-    /**
-     * @return BelongsToMany
-     */
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            Category::class,
-            'bg_category_parts',
-            'bg_part_id',
-            'bg_category_id',
-        );
-    }
+//    /**
+//     * @return BelongsToMany
+//     */
+//    public function categories(): BelongsToMany
+//    {
+//        return $this->belongsToMany(
+//            Category::class,
+//            'bg_category_parts',
+//            'bg_part_id',
+//            'bg_category_id',
+//        );
+//    }
 
 
     /**

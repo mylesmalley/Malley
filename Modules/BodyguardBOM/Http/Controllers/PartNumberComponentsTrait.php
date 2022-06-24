@@ -1,5 +1,5 @@
 <?php
-namespace Modules\BodyguardBOM\Http\Controllers\Kits;
+namespace Modules\BodyguardBOM\Http\Controllers;
 
 
 trait PartNumberComponentsTrait {
@@ -109,6 +109,20 @@ trait PartNumberComponentsTrait {
 //        'Ram ProMaster' => [
 //
 //        ]
+    ];
+
+
+
+
+    protected array $part_codes = [
+        "TRD" => "Trim Piece",
+        "WLC" => "Wall Liner Cargo Panel",
+        "WLE" => "Wall Liner with E-Track Panel",
+        "WLW" => "Wall Liner with Window Cutout Panel",
+        "CEI" => "Ceiling Piece",
+        "WIN" => "Window Panel",
+        "PAR" => "Partition Panel",
+        "OTH" => "Other type of part",
     ];
 
 
