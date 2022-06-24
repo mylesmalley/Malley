@@ -253,33 +253,51 @@
 
 @push('scripts')
     <script>
+
+
+        let kit_codes = @json( $kit_codes )
+
+        let colour_el = document.getElementById("colour");
+        colour_el.addEventListener('change', generate_part_number);
+
+        let roof_height_el = document.getElementById("roof_height");
+        roof_height_el.addEventListener('change', generate_part_number);
+
+        let kit_code_els = document.querySelectorAll('input[name="kit_code"]');
+        kit_code_els.forEach(function(el){
+            el.addEventListener('change', generate_part_number);
+        });
+
+        let chassis_el = document.getElementById("chassis");
+        chassis_el.addEventListener('change', generate_part_number)
+
         function generate_part_number()
         {
 
-            let colour_el = document.getElementById("colour");
-            colour_el.addEventListener('change', generate_part_number);
             let colour = colour_el.options[colour_el.selectedIndex].value;
+            let colour_desc = colour_el.options[colour_el.selectedIndex].text;
 
-            let roof_height_el = document.getElementById("roof_height");
-            roof_height_el.addEventListener('change', generate_part_number);
             let roof_height = roof_height_el.options[roof_height_el.selectedIndex].value;
+            let roof_height_desc = roof_height_el.options[roof_height_el.selectedIndex].text;
 
 
-            let kit_code_els = document.querySelectorAll('input[name="kit_code"]');
-            kit_code_els.forEach(function(el){
-                el.addEventListener('change', generate_part_number);
-            });
-            let kit_code = document.querySelector('input[name="kit_code"]:checked') ?
-                document.querySelector('input[name="kit_code"]:checked').value :
-         "C1D";
+            let kit_code = document.querySelector('input[name="kit_code"]:checked')
+                ? document.querySelector('input[name="kit_code"]:checked').value
+                : "C1D";
 
-            let chassis_el = document.getElementById("chassis");
-            chassis_el.addEventListener('change', generate_part_number)
+            let kit_code_desc = kit_codes[kit_code]['desc'];
+
             let chassis = chassis_el.options[chassis_el.selectedIndex].value;
+            let chassis_desc = chassis_el.options[chassis_el.selectedIndex].text;
 
+            let chassis_parent = document.querySelector('#chassis option:checked').parentElement.label;
 
 
             document.getElementById('part_number').value = `BGK_${kit_code}_${colour}_${chassis}${roof_height}`;
+            let text_description = `A ${colour_desc} ${kit_code_desc} kit for a ${roof_height_desc} ${chassis_desc} ${chassis_parent}`;
+
+            document.getElementById('description').value = text_description.toUpperCase();
+
         }
 
 
