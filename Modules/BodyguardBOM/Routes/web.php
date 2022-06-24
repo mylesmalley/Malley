@@ -4,6 +4,7 @@
 use Modules\BodyguardBOM\Http\Controllers\Kits\CreateController;
 use Modules\BodyguardBOM\Http\Controllers\Parts\CreateController as PartsCreateController;
 use Modules\BodyguardBOM\Http\Controllers\Parts\IndexController as PartsIndexController;
+use Modules\BodyguardBOM\Http\Controllers\Parts\ShowController as PartsShowController;
 use Modules\BodyguardBOM\Http\Controllers\Kits\ShowController;
 use Modules\BodyguardBOM\Http\Controllers\Kits\ComponentController;
 //use Modules\BodyguardBOM\Http\Controllers\Kits\PartCategoriesController;
@@ -107,6 +108,9 @@ Route::prefix('bodyguardbom')->group(function() {
         Route::post("", [ PartsCreateController::class, 'store'])
             ->name('bg.parts.store');
 
+
+        Route::get("/{bg_kit}", [ PartsShowController::class, 'show'])
+            ->name('bg.parts.show');
 
     });
 
