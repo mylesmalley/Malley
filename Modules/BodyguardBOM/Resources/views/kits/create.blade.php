@@ -14,7 +14,7 @@
         </div>
         <div class="col-2">
             <a class='btn btn-warning float-end'
-               href="{{ route('bg.kits.home', ) }}">Cancel</a>
+               href="{{ route('bg.kits.home' ) }}">Cancel</a>
         </div>
     </div>
 
@@ -255,7 +255,7 @@
     <script>
 
 
-        let kit_codes = @json( $kit_codes )
+        let kit_codes = @json( $kit_codes );
 
         let colour_el = document.getElementById("colour");
         colour_el.addEventListener('change', generate_part_number);
