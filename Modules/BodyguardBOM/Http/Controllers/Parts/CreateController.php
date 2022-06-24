@@ -25,55 +25,56 @@ class CreateController extends Controller
             'prefixes' => $this->prefix,
             'colours' => $this->colours,
             'roof_heights' => $this->roof_heights,
-            'kit_codes' => $this->kit_codes,
+            'part_codes' => $this->part_codes,
             'chassis' => $this->chassis,
+            'locations' => $this->part_locations,
         ]);
     }
 
-
-
-    public function store( Request $request ) : RedirectResponse
-    {
-        $request->validate([
-            'part_number' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'category' => 'required',
-            'colour' => 'required',
-            'kit_code' => 'required',
-            'chassis' => 'required',
-            'roof_height' => 'required',
-        ]);
-
-        $kit = Kit::create( $request->only([
-            'part_number',
-            'description',
-            'colour',
-            'category',
-            'kit_code',
-            'roof_height',
-            'category',
-            'chassis',
-        ]));
-
-
-        $kit->create_phantom_in_syspro();
-
-
-
-
-
-
-
-
-
-        return redirect( )
-            ->route('bg.kits.home', [
-                'chassis' => $request->input('chassis'),
-                'roof_height' => $request->input('roof_height'),
-                'kit_code' => $request->input('kit_code'),
-                'colour' => $request->input('colour'),
-            ]);
-    }
+//
+//
+//    public function store( Request $request ) : RedirectResponse
+//    {
+//        $request->validate([
+//            'part_number' => 'required|string|max:255',
+//            'description' => 'required|string|max:255',
+//            'category' => 'required',
+//            'colour' => 'required',
+//            'kit_code' => 'required',
+//            'chassis' => 'required',
+//            'roof_height' => 'required',
+//        ]);
+//
+//        $kit = Kit::create( $request->only([
+//            'part_number',
+//            'description',
+//            'colour',
+//            'category',
+//            'kit_code',
+//            'roof_height',
+//            'category',
+//            'chassis',
+//        ]));
+//
+//
+//        $kit->create_phantom_in_syspro();
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//        return redirect( )
+//            ->route('bg.kits.home', [
+//                'chassis' => $request->input('chassis'),
+//                'roof_height' => $request->input('roof_height'),
+//                'kit_code' => $request->input('kit_code'),
+//                'colour' => $request->input('colour'),
+//            ]);
+//    }
 
 
 

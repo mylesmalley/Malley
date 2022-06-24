@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BodyguardBOM\Http\Controllers\Kits;
+namespace Modules\BodyguardBOM\Http\Controllers\Parts;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -26,7 +26,7 @@ class IndexController extends Controller
 
 
         $query = DB::table('bg_kits')
-            ->where('category', '=', 'BGK');
+                ->where('category', '=', 'BGC');
 
         $chassis = ( $request->input('chassis' ) === "ALL")
             ? null : $request->input('chassis' );
@@ -68,7 +68,7 @@ class IndexController extends Controller
             $query->where('colour', '=', $colour );
         });
 
-        return response()->view('bodyguardbom::kits.index',[
+        return response()->view('bodyguardbom::parts.index',[
 //            'query' => $query->dump(),
             'results' => $query->get(),
             'prefixes' => $this->prefix,

@@ -2,6 +2,8 @@
 
 //use Modules\BodyguardBOM\Http\Controllers\Categories\CategoriesController;
 use Modules\BodyguardBOM\Http\Controllers\Kits\CreateController;
+use Modules\BodyguardBOM\Http\Controllers\Parts\CreateController as PartsCreateController;
+use Modules\BodyguardBOM\Http\Controllers\Parts\IndexController as PartsIndexController;
 use Modules\BodyguardBOM\Http\Controllers\Kits\ShowController;
 use Modules\BodyguardBOM\Http\Controllers\Kits\ComponentController;
 //use Modules\BodyguardBOM\Http\Controllers\Kits\PartCategoriesController;
@@ -12,8 +14,6 @@ Route::prefix('bodyguardbom')->group(function() {
     Route::get('/', [IndexController::class, 'show'])
         ->name('bg.kits.home');
 
-
-//
 //    Route::prefix('category')->group(function() {
 //
 //        Route::get('/{bg_category?}', [ CategoriesController::class, 'show' ])
@@ -90,6 +90,22 @@ Route::prefix('bodyguardbom')->group(function() {
 //            ->name('bg.kits.components.push_to_syspro');
 
 
+
+    });
+
+
+
+    Route::get('/parts', [PartsIndexController::class, 'show'])
+        ->name('bg.parts.home');
+
+
+    Route::prefix('parts')->group(function() {
+
+        Route::get("/create/{bg_category?}", [ PartsCreateController::class, 'create'])
+            ->name('bg.parts.create');
+
+        Route::post("", [ PartsCreateController::class, 'store'])
+            ->name('bg.parts.store');
 
 
     });

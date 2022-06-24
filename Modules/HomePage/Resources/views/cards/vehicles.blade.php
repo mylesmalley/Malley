@@ -27,7 +27,10 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <a href="{{ route('bg.kits.home') }}" >Parts </a>
+                <a href="{{ route('bg.kits.home') }}" >Kit Index </a>
+            </li>
+            <li class="list-group-item">
+                <a href="{{ route('bg.parts.home') }}" >Parts Index</a>
             </li>
         </ul>
     </div>

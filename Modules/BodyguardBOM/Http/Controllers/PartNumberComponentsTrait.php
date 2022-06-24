@@ -126,4 +126,14 @@ trait PartNumberComponentsTrait {
     ];
 
 
+    protected array $part_locations = [
+        "Driver Side" => [
+            "DSA" => "Driver Side",
+            "DSF" => "Driver Side Front (toward cab)",
+            "DSR" => "Driver Side Rear ",
+
+        ],
+    ];
+
+
 }
