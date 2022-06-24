@@ -67,7 +67,7 @@ class IndexController extends Controller
         });
 
         return response()->view('bodyguardbom::kits.index',[
-            'query' => $query->dump(),
+//            'query' => $query->dump(),
             'results' => $query->get(),
             'prefixes' => $this->prefix,
             'colours' => $this->colours,

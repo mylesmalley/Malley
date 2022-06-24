@@ -1,7 +1,25 @@
 @extends('bodyguardbom::layouts.master')
 
 @section('content')
-    <h1>Bodyguard Kit Index</h1>
+
+
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8 text-center">
+            <h1>Bodyguard Kit Index</h1>
+            <h3 class="text-secondary ">
+                <br>
+            </h3>
+
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+
+
+
     @includeIf('app.components.errors')
 
     <div class="row">
@@ -10,7 +28,7 @@
 
 
 
-                 <div class="card-body">
+                 <div class="card-header bg-primary text-white">
                      <form class="row row-cols-lg-auto g-3 align-items-end"
                           action="{{ route('bg.kits.home') }}"
                           method="GET">
@@ -100,7 +118,7 @@
                                     id="go"
                                     name="go"
                                     type="submit"
-                                    class="btn btn-primary">Go</button>
+                                    class="btn btn-success">Go</button>
                         </div>
                          <div class="col-1 " >
                              <a href="{{ route('bg.kits.create') }}"
@@ -113,15 +131,9 @@
 
 
                  </div>
-            </div>
-        </div>
-    </div>
 
-
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-hover table-striped">
-                <tbody>
+                <table class="table table-hover table-striped">
+                    <tbody>
                     @forelse( $results as $result )
                         <tr onclick="location.href = '{{ route('bg.kits.show', $result->id) }}'">
                             <td>{{ $result->id }}</td>
@@ -133,10 +145,13 @@
                             <td colspan="1000">No records matching</td>
                         </tr>
                     @endforelse
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
+
 
 
 @endsection
