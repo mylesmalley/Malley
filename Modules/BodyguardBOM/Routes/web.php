@@ -56,12 +56,17 @@ Route::prefix('bodyguardbom')->group(function() {
         Route::get("/{bg_kit}", [ ShowController::class, 'show'])
             ->name('bg.kits.show');
 
+        //  does the same as bg.kits.show but redirects after searching for the stock code and assoc id
+        Route::get("/{kit_number}/show_by_part_number", [ ShowController::class, 'show_by_part_number'])
+            ->name('bg.kits.show_by_part_number');
 
 
 
         Route::get("/{bg_kit}/components",
             [ ComponentController::class, 'show'])
             ->name('bg.kits.components');
+
+
 
 
         Route::delete("/{bg_kit}/components",
@@ -85,6 +90,10 @@ Route::prefix('bodyguardbom')->group(function() {
         Route::post("/{bg_kit}/import_components",
             [ ComponentController::class, 'import_components_from_syspro_phantom'])
             ->name('bg.kits.components.import');
+
+
+
+
 
 //
 //        Route::post("/{bg_kit}/push_to_syspro", [ ComponentController::class, 'push_to_syspro'])

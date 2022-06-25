@@ -20,7 +20,14 @@
         <tbody>
         @forelse( $syspro_components as $component)
             <tr>
-                <td><a href="{!! route('stock_code_query', rtrim( $component->Component ) ) !!}">
+                <td><a
+                    @if( str_starts_with( $component->Component , 'BGC') )
+                            href="{!! route('bg.kits.show_by_part_number', trim( $component->Component ) ) !!}">
+
+                        @else
+                            href="{!! route('stock_code_query', trim( $component->Component ) ) !!}">
+
+                     @endif
                     {{ $component->Component }}
                     </a></td>
                 <td> {{ $component->Description }} </td>

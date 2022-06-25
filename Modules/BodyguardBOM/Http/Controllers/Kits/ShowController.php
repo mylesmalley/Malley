@@ -2,6 +2,7 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Kits;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\Response;
@@ -39,6 +40,22 @@ class ShowController extends Controller
         ]);
     }
 
+
+    /**
+     * @param string $stock_code
+     * @return RedirectResponse
+     */
+    public function show_by_part_number( string $stock_code ): RedirectResponse
+    {
+        $kit = Kit::where( 'part_number', '=', $stock_code )->first();
+
+        if ( $kit )
+        {
+            return redirect()->route('bg.kits.show', $kit );
+        }
+
+        return redirect()->route('bg.kits.home');
+    }
 
 }
 
