@@ -39,8 +39,24 @@
                         <div class="col-2 text-primary">
                             Description
                         </div>
-                        <div class="col-10">
+                        <div class="col-6">
                             {{ $kit->description }}
+                        </div>
+                        <div class="col-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Kits</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Chassis</td>
+                                        <td>{{ $chassis }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 

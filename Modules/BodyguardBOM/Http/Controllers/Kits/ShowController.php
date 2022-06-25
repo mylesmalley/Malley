@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\BodyguardBOM\Http\Controllers\PartNumberComponentsTrait;
 
 class ShowController extends Controller
 {
+    use PartNumberComponentsTrait;
 
     /**
      * @param Kit $kit
@@ -36,7 +38,13 @@ class ShowController extends Controller
                 ->leftJoin('InvMaster', 'BomStructure.Component', '=', "InvMaster.StockCode")
                 ->where('ParentPart', $kit->part_number )
                 ->get(),
-            'where_used' => $where_used,
+//            'where_used' => $where_used,
+//            'prefixes' => $this->prefix,
+//            'colours' => $this->colours,
+//            'roof_heights' => $this->roof_heights,
+//            'kit_codes' => $this->kit_codes,
+            'chassis' => $this->get_chassis_by_key( $kit->chassis ),
+
         ]);
     }
 

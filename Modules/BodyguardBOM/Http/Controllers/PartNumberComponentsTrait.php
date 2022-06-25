@@ -18,6 +18,9 @@ trait PartNumberComponentsTrait {
         "BLK" => "Black",
     ];
 
+    /**
+     * @var array|string[]
+     */
     protected array $roof_heights = [
         "ALL" => "Not applicable",
         "HR" => "High Roof",
@@ -25,7 +28,9 @@ trait PartNumberComponentsTrait {
         "LR" => "Low Roof",
     ];
 
-
+    /**
+     * @var array|\string[][]
+     */
     protected array $kit_codes = [
         'C1D' => [
                 'desc' => '1 Piece ceiling with dome light',
@@ -99,6 +104,19 @@ trait PartNumberComponentsTrait {
 
 
 
+    /**
+     * @param string $kit_code
+     * @return string
+     */
+    public function get_kit_code_description( string $kit_code ): string
+    {
+        return $this->kit_codes[ $kit_code ]['desc'];
+    }
+
+
+    /**
+     * @var array|\string[][]
+     */
     protected array $chassis = [
         "Ford Transit" => [
             "FTR" => "Any wheelbase",
@@ -110,6 +128,23 @@ trait PartNumberComponentsTrait {
 //
 //        ]
     ];
+
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function get_chassis_by_key( string $string ): string
+    {
+        $flat_array_of_chassis = [];
+
+        foreach( $this->chassis as $sub )
+        {
+            $flat_array_of_chassis += $sub;
+        }
+
+        return $flat_array_of_chassis[ $string ];
+    }
 
 
 
@@ -134,6 +169,9 @@ trait PartNumberComponentsTrait {
     ];
 
 
+    /**
+     * @var array|\string[][]
+     */
     protected array $part_locations = [
         "Driver Side" => [
             "DSA" => "Driver Side",
@@ -142,6 +180,23 @@ trait PartNumberComponentsTrait {
 
         ],
     ];
+
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function get_part_location_by_key( string $string ): string
+    {
+        $flat_array_of_part_locations = [];
+
+        foreach( $this->part_locations as $sub )
+        {
+            $flat_array_of_part_locations += $sub;
+        }
+
+        return $flat_array_of_part_locations[ $string ];
+    }
 
 
 }
