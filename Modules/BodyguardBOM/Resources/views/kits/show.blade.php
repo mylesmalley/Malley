@@ -63,8 +63,17 @@
                     <div class="card-header bg-secondary text-white">
                         Kits Using This Part
                     </div>
-                    <table>
-
+                    <table class="table table-striped">
+                        @foreach( $where_used as $wu )
+                            <tr onclick="location.href = '{{ route('bg.kits.show', $wu) }}'">
+                                <td>
+                                    <strong>
+                                        {{ $wu->part_number }}
+                                    </strong> <br>
+                                    {{ $wu->description }}
+                                    </td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>

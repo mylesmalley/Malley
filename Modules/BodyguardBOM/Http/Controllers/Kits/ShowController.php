@@ -18,6 +18,15 @@ class ShowController extends Controller
     {
 //        $kit->load('categories');
 
+
+        $where_used_parents = DB::table('bg_syspro_components')
+            ->where('stock_code', '=', $kit->part_number)
+            ->pluck('bg_kit_id');
+
+        $where_used = Kit::whereIn('id', $where_used_parents)
+            ->get();
+
+
         return response()->view('bodyguardbom::kits.show', [
             'kit' => $kit,
             'syspro_components' => DB::connection('syspro')
@@ -26,6 +35,7 @@ class ShowController extends Controller
                 ->leftJoin('InvMaster', 'BomStructure.Component', '=', "InvMaster.StockCode")
                 ->where('ParentPart', $kit->part_number )
                 ->get(),
+            'where_used' => $where_used,
         ]);
     }
 
