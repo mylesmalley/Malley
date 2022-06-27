@@ -29,7 +29,11 @@
 
                      @endif
                     {{ $component->Component }}
-                    </a></td>
+                    </a>
+                    @if( str_starts_with( $component->Component , 'BGC') )
+                        <a  href="{!! route('stock_code_query', trim( $component->Component ) ) !!}">See in Syspro</a>
+                        @endif
+                </td>
                 <td> {{ $component->Description }} </td>
                 <td> {{ number_format( $component->QtyPer, 3) }} </td>
                 <td> {{ $component->StockUom }} </td>
