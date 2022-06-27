@@ -8,8 +8,8 @@
                 <div class="row">
 
                     <div class="col-2">
-                        @error('colour') <span class="text-danger">{{ $message }}</span> @enderror
-                        <label for="colour"
+                        @error('colour_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        <label for="colour_{{ $id }}"
                                class="form-label">
                             Colour of Material</label>
                         <select class="form-control form-control-sm"
@@ -26,8 +26,8 @@
 
                     <div class="col-2">
 
-                        @error('chassis') <span class="text-danger">{{ $message }}</span> @enderror
-                        <label for="chassis"
+                        @error('chassis_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        <label for="chassis_{{ $id }}"
                                class="form-label">
                             Chassis </label>
                         <select class="form-control form-control-sm"
@@ -53,8 +53,8 @@
 
                     <div class="col-3">
 
-                        @error('location') <span class="text-danger">{{ $message }}</span> @enderror
-                        <label for="location"
+                        @error('location_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        <label for="location_{{ $id }}"
                                class="form-label">
                             Install Location</label>
                         <select class="form-control form-control-sm"
@@ -78,8 +78,8 @@
 
 
                     <div class="col-3">
-                        @error('kit_code') <span class="text-danger">{{ $message }}</span> @enderror
-                        <label for="kit_code"
+                        @error('kit_code_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        <label for="kit_code_{{ $id }}"
                                class="form-label">
                             Part Type</label>
                         <select class="form-control form-control-sm"
@@ -97,8 +97,8 @@
 
 
                     <div class="col-2">
-                        @error('roof_height') <span class="text-danger">{{ $message }}</span> @enderror
-                        <label for="roof_height"
+                        @error('roof_height_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        <label for="roof_height_{{ $id }}"
                                class="form-label">
                             Roof Height</label>
                         <select class="form-control form-control-sm"
@@ -117,8 +117,23 @@
                 </div>
 
                 <div class="row">
-                    <input name="part_number[]" id="part_number_{{ $id }}">
-                    <input name="description[]" id="description_{{ $id }}">
+                    <div class="col-4">
+                        <label for="part_number_{{ $id }}"
+                               class="form-label">
+                            Part Number</label>
+                        <input class="form-control form-control-sm"
+                                name="part_number[]"
+                               readonly
+                               id="part_number_{{ $id }}">
+                    </div>
+                    <div class="col-6">
+                        <label for="description_{{ $id }}"
+                               class="form-label">
+                            Description</label>
+                        <input class="form-control form-control-sm"
+                               name="description[]"
+                               id="description_{{ $id }}">
+                    </div>
                 </div>
 
 
