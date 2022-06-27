@@ -71,7 +71,7 @@
                                 <label for="colour"
                                        class="form-label">
                                     Colour of Material</label>
-                                <select class="form-control"
+                                <select class="form-control form-control-sm"
                                         name="colour"
                                         id="colour">
                                     <option value=""></option>
@@ -83,13 +83,13 @@
                                 </select>
                             </div>
 
-                            <div class="col-3">
+                            <div class="col-2">
 
                                 @error('chassis') <span class="text-danger">{{ $message }}</span> @enderror
                                 <label for="chassis"
                                        class="form-label">
                                     Chassis </label>
-                                <select class="form-control"
+                                <select class="form-control form-control-sm"
                                         name="chassis"
                                         id="chassis">
                                     <option value=""></option>
@@ -110,18 +110,13 @@
                             </div>
 
 
-
-
-
-
-
                             <div class="col-3">
 
                                 @error('location') <span class="text-danger">{{ $message }}</span> @enderror
                                 <label for="location"
                                        class="form-label">
                                     Install Location</label>
-                                <select class="form-control"
+                                <select class="form-control form-control-sm"
                                         name="location"
                                         id="location">
                                     <option value=""></option>
@@ -141,6 +136,23 @@
                             </div>
 
 
+                            <div class="col-3">
+                                @error('kit_code') <span class="text-danger">{{ $message }}</span> @enderror
+                                <label for="kit_code"
+                                       class="form-label">
+                                    Part Type</label>
+                                <select class="form-control form-control-sm"
+                                        name="kit_code"
+                                        id="kit_code">
+                                    <option value=""></option>
+
+                                    @foreach( $kit_codes as $k => $v )
+                                        <option
+                                                {{ old('kit_code', request()->input('kit_code')) === $k ? " selected " : ""   }}
+                                                value="{{ $k }}">{{ $v['desc'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
 
                             <div class="col-2">
@@ -148,7 +160,7 @@
                                 <label for="roof_height"
                                        class="form-label">
                                     Roof Height</label>
-                                <select class="form-control"
+                                <select class="form-control form-control-sm"
                                         name="roof_height"
                                         id="roof_height">
                                     <option value=""></option>
@@ -162,7 +174,15 @@
                             </div>
 
                         </div>
+
+
+
+
                 </div>
+
+
+
+
 
 
             </div>
@@ -171,42 +191,42 @@
 
 
 
-        <br>
+{{--        <br>--}}
 
-        <div class="card border-secondary">
-            <div class="card-header bg-secondary text-white">
-                <h5>Type of Part</h5>
-            </div>
-            <table class="table table-striped">
+{{--        <div class="card border-secondary">--}}
+{{--            <div class="card-header bg-secondary text-white">--}}
+{{--                <h5>Type of Part</h5>--}}
+{{--            </div>--}}
+{{--            <table class="table table-striped">--}}
 
 
-            @foreach( $kit_codes as $k => $v )
-                <tr>
-                    <td>
+{{--            @foreach( $kit_codes as $k => $v )--}}
+{{--                <tr>--}}
+{{--                    <td>--}}
 
-                <div class="form-check">
-                    <input class="form-check-input"
-                           type="radio"
-                           {{ old('kit_code', request()->input('kit_code')) === $k ? " checked " : ""   }}
-                           name="kit_code"
-                           value="{{ $k }}"
-                           id="kit_code{{ $k }}">
-                    <label class="form-check-label" for="kit_code{{ $k }}">
-                        <strong>
-                            {{ $v['desc'] }}
-                        </strong>
-                        <br>
-                        {{ $v['ext'] }}
-                    </label>
-                </div>
-                    </td>
+{{--                <div class="form-check">--}}
+{{--                    <input class="form-check-input"--}}
+{{--                           type="radio"--}}
+{{--                           {{ old('kit_code', request()->input('kit_code')) === $k ? " checked " : ""   }}--}}
+{{--                           name="kit_code"--}}
+{{--                           value="{{ $k }}"--}}
+{{--                           id="kit_code{{ $k }}">--}}
+{{--                    <label class="form-check-label" for="kit_code{{ $k }}">--}}
+{{--                        <strong>--}}
+{{--                            {{ $v['desc'] }}--}}
+{{--                        </strong>--}}
+{{--                        <br>--}}
+{{--                        {{ $v['ext'] }}--}}
+{{--                    </label>--}}
+{{--                </div>--}}
+{{--                    </td>--}}
 
-                </tr>
+{{--                </tr>--}}
 
-                @endforeach
+{{--                @endforeach--}}
 
-            </table>
-        </div>
+{{--            </table>--}}
+{{--        </div>--}}
 
 
             <br>
