@@ -53,16 +53,26 @@
                         </div>
                         <div class="col-4">
                             <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Kits</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr>
                                         <td>Chassis</td>
-                                        <td>{{ $chassis }}</td>
+                                        <td>{{ $chassis ?? "NA" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Roof Height</td>
+                                        <td>{{ $roof_height ?? "NA" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type</td>
+                                        <td>{{ $kit_code ?? "NA" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>{{ $location  ?? "NA"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Colour</td>
+                                        <td>{{ $colour  ?? "NA"}}</td>
                                     </tr>
                                 </tbody>
                             </table>

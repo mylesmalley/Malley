@@ -19,6 +19,16 @@ trait PartNumberComponentsTrait {
     ];
 
     /**
+     * @param string|null $color_key
+     * @return mixed|string
+     */
+    public function get_colour_by_key( ?string $color_key )
+    {
+        return $this->colours[ $color_key ] ?? "Not Set";
+    }
+
+
+    /**
      * @var array|string[]
      */
     protected array $roof_heights = [
@@ -28,8 +38,19 @@ trait PartNumberComponentsTrait {
         "LR" => "Low Roof",
     ];
 
+
     /**
-     * @var array|\string[][]
+     * @param string|null $key
+     * @return string
+     */
+    public function get_roof_height_by_key( ?string $key ): string
+    {
+        return $this->roof_heights[ $key ] ?? "Not Set";
+    }
+
+
+    /**
+     * @var array
      */
     protected array $kit_codes = [
         'C1D' => [
@@ -103,19 +124,18 @@ trait PartNumberComponentsTrait {
     ];
 
 
-
     /**
-     * @param string $kit_code
+     * @param string|null $kit_code
      * @return string
      */
-    public function get_kit_code_description( string $kit_code ): string
+    public function get_kit_code_description( ?string $kit_code ): string
     {
-        return $this->kit_codes[ $kit_code ]['desc'];
+        return $this->kit_codes[ $kit_code ]['desc'] ?? "Not Set";
     }
 
 
     /**
-     * @var array|\string[][]
+     * @var array
      */
     protected array $chassis = [
         "Ford Transit" => [
@@ -177,7 +197,7 @@ trait PartNumberComponentsTrait {
 
 
     /**
-     * @var array|\string[][]
+     * @var array
      */
     protected array $part_locations = [
         "Driver Side" => [
@@ -190,10 +210,10 @@ trait PartNumberComponentsTrait {
 
 
     /**
-     * @param string $string
+     * @param string|null $string $string
      * @return string
      */
-    protected function get_part_location_by_key( string $string ): string
+    protected function get_part_location_by_key( ?string $string ): string
     {
         $flat_array_of_part_locations = [];
 
@@ -207,7 +227,7 @@ trait PartNumberComponentsTrait {
             $flat_array_of_part_locations += $sub;
         }
 
-        return $flat_array_of_part_locations[ $string ];
+        return $flat_array_of_part_locations[ $string ] ?? "Not Applicable";
     }
 
 

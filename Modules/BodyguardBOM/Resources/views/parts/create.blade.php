@@ -50,8 +50,8 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="card border-primary ">
-                <div class="card-header bg-primary text-white">
+            <div class="card border-secondary ">
+                <div class="card-header bg-secondary text-white">
                     Part Details
                 </div>
                 <div class="card-body">
@@ -173,8 +173,8 @@
 
         <br>
 
-        <div class="card border-primary">
-            <div class="card-header bg-primary text-white">
+        <div class="card border-secondary">
+            <div class="card-header bg-secondary text-white">
                 <h5>Type of Part</h5>
             </div>
             <table class="table table-striped">

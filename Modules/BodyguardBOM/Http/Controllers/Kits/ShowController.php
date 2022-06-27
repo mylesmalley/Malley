@@ -38,11 +38,13 @@ class ShowController extends Controller
                 ->leftJoin('InvMaster', 'BomStructure.Component', '=', "InvMaster.StockCode")
                 ->where('ParentPart', $kit->part_number )
                 ->get(),
-//            'where_used' => $where_used,
-//            'prefixes' => $this->prefix,
-//            'colours' => $this->colours,
-//            'roof_heights' => $this->roof_heights,
-//            'kit_codes' => $this->kit_codes,
+            'where_used' => $where_used,
+//            'prefix' => $this->prefix,
+//            'colour' => $this->colours,
+            'colour' => $this->get_colour_by_key( $kit->colour ),
+            'location' => $this->get_part_location_by_key( $kit->location ),
+            'roof_height' => $this->get_roof_height_by_key($kit->roof_height),
+            'kit_code' => $this->get_kit_code_description($kit->kit_code ),
             'chassis' => $this->get_chassis_by_key( $kit->chassis ),
 
         ]);
