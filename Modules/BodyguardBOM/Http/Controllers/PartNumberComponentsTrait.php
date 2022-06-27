@@ -85,10 +85,17 @@ trait PartNumberComponentsTrait {
                 'desc' => 'solid partition',
                 'ext' => "Contains a single sheet of moulded ABS Plastic with the potential of a stiffening metal rib, a bottom metal floor bracket. Does not contain a window",
                 'template' => [
+                    'colour' => true,
+                    'parts' =>
                         [
-                            'description' => 'Partition panel',
-                            'kit_code' => 'PAR',
-                            'colour' => 'GRY',
+                            [
+                                'description' => 'Partition panel',
+                                'kit_code' => 'PAR',
+                            ],
+                            [
+                                'description' => 'Other type of part',
+                                'kit_code' => 'OTH',
+                            ]
                         ]
                     ],
             ],
@@ -214,8 +221,13 @@ trait PartNumberComponentsTrait {
             "DSA" => "All",
             "DSF" => "Front (toward cab)",
             "DSR" => "Rear ",
-
         ],
+        'Partition' => [
+            'PAA' => "Full width",
+            "PAD" => "Driver Side",
+            "PAC" => "Centre",
+            "PAP" => "Passenger side",
+        ]
     ];
 
 

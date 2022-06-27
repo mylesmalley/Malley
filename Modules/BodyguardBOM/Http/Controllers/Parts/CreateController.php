@@ -72,17 +72,40 @@ class CreateController extends Controller
     }
 
 
-
-
-
-
     /**
      * @param Kit $kit
-     * @return void
+     * @return Response|void
      */
-    public function create_components_from_template( Kit $kit )
+    public function create_components_from_template( Kit $kit ): Response
     {
-        dd(   $this->kit_codes[ $kit->kit_code ]   );
+
+        $template = $this->kit_codes[ $kit->kit_code ] ?? null;
+
+        if (!$template)
+        {
+            die("no template set for this");
+        }
+
+    //    dd( $template );
+
+
+        return response()->view('bodyguardbom::parts.create_from_template', [
+                'kit' => $kit,
+                'template' => $template['template'],
+
+                'colours' => $this->colours,
+                'roof_heights' => $this->roof_heights,
+                'kit_codes' => $this->part_codes,
+                'chassis_list' => $this->chassis,
+                'part_locations' => $this->part_locations,
+
+                'chassis' => $kit->chassis,
+                'roof_height' => $kit->roof_height,
+                'location' => $kit->location,
+                'kit_code' => $kit->kit_code,
+                'colour' => $kit->colour,
+            ]);
+        //dd(      );
     }
 
 
