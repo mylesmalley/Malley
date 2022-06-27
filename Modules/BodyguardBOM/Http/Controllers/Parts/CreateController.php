@@ -74,7 +74,7 @@ class CreateController extends Controller
 
     /**
      * @param Kit $kit
-     * @return Response|void
+     * @return Response
      */
     public function create_components_from_template( Kit $kit ): Response
     {
@@ -112,6 +112,21 @@ class CreateController extends Controller
     public function store_bulk_components( Request $request )
     {
         dd( $request->all() );
+    }
+
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function check_if_part_exists( Request $request ): bool
+    {
+        $request->validate([
+            'part_number' => 'required|string',
+        ]);
+
+        return Kit::where('part_number', '=', $request->input('part_number'))
+            ->count() > 0;
     }
 
 

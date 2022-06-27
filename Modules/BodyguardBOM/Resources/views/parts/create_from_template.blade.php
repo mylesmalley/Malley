@@ -111,7 +111,46 @@
                             let text_description = `A ${colour_desc} ${kit_code_desc} part for a ${roof_height_desc} ${chassis_desc} ${chassis_parent} at ${location_desc}`;
     
                             document.getElementById('description_{{ $loop->index }}').value = text_description.toUpperCase();
-    
+
+
+
+
+
+
+
+
+                            // check if the part number exists already
+                            let request = new XMLHttpRequest();
+                            request.open('GET', '/my/url', true);
+
+                            request.onload = function() {
+                                if (this.status >= 200 && this.status < 400) {
+                                    // Success!
+                                    var resp = this.response;
+                                } else {
+                                    // We reached our target server, but it returned an error
+
+                                }
+                            };
+
+                            request.onerror = function() {
+                                // There was a connection error of some sort
+                            };
+
+                            request.send();
+
+
+
+
+
+
+
+
+
+
+
+
+
                         }
     
     

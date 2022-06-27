@@ -53,6 +53,9 @@ Route::prefix('bodyguardbom')->group(function() {
 
 
 
+        Route::get("check_if_part_exists",
+            [ PartsCreateController::class, 'check_if_part_exists'])
+            ->name('bg.kits.check_if_part_exists');
 
 
 
