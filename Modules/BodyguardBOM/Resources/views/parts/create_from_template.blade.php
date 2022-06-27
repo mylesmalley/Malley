@@ -38,73 +38,91 @@
     <br>
 
 
+    @push('scripts')
+        <script>
+            let kit_codes = @json( $kit_codes );
+        </script>
+@endpush
+    <form method="POST"
+          action="{{ route('bg.kits.store_bulk_components', $kit) }}">
+        @csrf
+            @foreach($template['parts'] as $part)
+                @includeIf('bodyguardbom::parts.component_partials.create_component_in_bulk', [
+                    'part' => $part,
+                    'id' => $loop->index
+                ])
+                @push('scripts')
+                    <script>
 
-    @foreach($template['parts'] as $part)
-        @includeIf('bodyguardbom::parts.component_partials.create_component_in_bulk', ['part' => $part] )
-    @endforeach
-
+                        let colour_el_{{ $loop->index }} = document.getElementById("colour_{{ $loop->index }}");
+                        colour_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }});
+    
+                        let roof_height_el_{{ $loop->index }} = document.getElementById("roof_height_{{ $loop->index }}");
+                        roof_height_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }});
+    
+                        let kit_code_els_{{ $loop->index }} = document.querySelectorAll('input[id="kit_code_{{ $loop->index }}"]');
+                        kit_code_els_{{ $loop->index }}.forEach(function(el){
+                            el.addEventListener('change', generate_part_number_{{ $loop->index }});
+                        });
+    
+                        let chassis_el_{{ $loop->index }} = document.getElementById("chassis_{{ $loop->index }}");
+                        chassis_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }})
+    
+    
+                        let location_el_{{ $loop->index }} = document.getElementById("location_{{ $loop->index }}");
+                        location_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }})
+    
+    
+                        function generate_part_number_{{ $loop->index }}()
+                        {
+    
+                            let colour = colour_el_{{ $loop->index }}
+                                .options[colour_el_{{ $loop->index }}.selectedIndex].value;
+                            let colour_desc = colour_el_{{ $loop->index }}
+                                .options[colour_el_{{ $loop->index }}.selectedIndex].text;
+    
+                            let roof_height = roof_height_el_{{ $loop->index }}
+                                .options[roof_height_el_{{ $loop->index }}.selectedIndex].value;
+                            let roof_height_desc = roof_height_el_{{ $loop->index }}
+                                .options[roof_height_el_{{ $loop->index }}.selectedIndex].text;
+    
+    
+                            let kit_code = document.querySelector('input[name="kit_code"]:checked')
+                                ? document.querySelector('input[name="kit_code"]:checked').value
+                                : "TRD";
+    
+                            let kit_code_desc = kit_codes[kit_code]['desc'];
+    
+                            let chassis = chassis_el_{{ $loop->index }}
+                                .options[chassis_el_{{ $loop->index }}.selectedIndex].value;
+                            let chassis_desc = chassis_el_{{ $loop->index }}
+                                .options[chassis_el_{{ $loop->index }}.selectedIndex].text;
+    
+                            let location = location_el_{{ $loop->index }}
+                                .options[location_el_{{ $loop->index }}.selectedIndex].value;
+                            let location_desc = location_el_{{ $loop->index }}
+                                .options[location_el_{{ $loop->index }}.selectedIndex].text;
+    
+    
+                            let chassis_parent = document.querySelector('#chassis_{{ $loop->index }} option:checked').parentElement.label;
+    
+    
+                            document.getElementById('part_number_{{ $loop->index }}').value = `BGC_${kit_code}_${location}_${colour}_${chassis}${roof_height}`;
+                            let text_description = `A ${colour_desc} ${kit_code_desc} part for a ${roof_height_desc} ${chassis_desc} ${chassis_parent} at ${location_desc}`;
+    
+                            document.getElementById('description_{{ $loop->index }}').value = text_description.toUpperCase();
+    
+                        }
+    
+    
+                        generate_part_number_{{ $loop->index }}();
+                    </script>
+                @endpush
+                
+                
+            @endforeach
+        <input type="submit">
+    </form>
 
 @endsection
 
-@push('scripts')
-    <script>
-
-
-{{--        let kit_codes = @json( $kit_codes );--}}
-
-{{--        let colour_el = document.getElementById("colour");--}}
-{{--        colour_el.addEventListener('change', generate_part_number);--}}
-
-{{--        let roof_height_el = document.getElementById("roof_height");--}}
-{{--        roof_height_el.addEventListener('change', generate_part_number);--}}
-
-{{--        let kit_code_els = document.querySelectorAll('input[name="kit_code"]');--}}
-{{--        kit_code_els.forEach(function(el){--}}
-{{--            el.addEventListener('change', generate_part_number);--}}
-{{--        });--}}
-
-{{--        let chassis_el = document.getElementById("chassis");--}}
-{{--        chassis_el.addEventListener('change', generate_part_number)--}}
-
-
-{{--        let location_el = document.getElementById("location");--}}
-{{--        location_el.addEventListener('change', generate_part_number)--}}
-
-
-{{--        function generate_part_number()--}}
-{{--        {--}}
-
-{{--            let colour = colour_el.options[colour_el.selectedIndex].value;--}}
-{{--            let colour_desc = colour_el.options[colour_el.selectedIndex].text;--}}
-
-{{--            let roof_height = roof_height_el.options[roof_height_el.selectedIndex].value;--}}
-{{--            let roof_height_desc = roof_height_el.options[roof_height_el.selectedIndex].text;--}}
-
-
-{{--            let kit_code = document.querySelector('input[name="kit_code"]:checked')--}}
-{{--                ? document.querySelector('input[name="kit_code"]:checked').value--}}
-{{--                : "TRD";--}}
-
-{{--            let kit_code_desc = kit_codes[kit_code]['desc'];--}}
-
-{{--            let chassis = chassis_el.options[chassis_el.selectedIndex].value;--}}
-{{--            let chassis_desc = chassis_el.options[chassis_el.selectedIndex].text;--}}
-
-{{--            let location = location_el.options[location_el.selectedIndex].value;--}}
-{{--            let location_desc = location_el.options[location_el.selectedIndex].text;--}}
-
-
-{{--            let chassis_parent = document.querySelector('#chassis option:checked').parentElement.label;--}}
-
-
-{{--            document.getElementById('part_number').value = `BGC_${kit_code}_${location}_${colour}_${chassis}${roof_height}`;--}}
-{{--            let text_description = `A ${colour_desc} ${kit_code_desc} part for a ${roof_height_desc} ${chassis_desc} ${chassis_parent} at ${location_desc}`;--}}
-
-{{--            document.getElementById('description').value = text_description.toUpperCase();--}}
-
-{{--        }--}}
-
-
-{{--        generate_part_number();--}}
-    </script>
-@endpush

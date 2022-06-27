@@ -109,6 +109,13 @@ class CreateController extends Controller
     }
 
 
+    public function store_bulk_components( Request $request )
+    {
+        dd( $request->all() );
+    }
+
+
+
 }
 
 

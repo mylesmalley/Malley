@@ -13,8 +13,8 @@
                                class="form-label">
                             Colour of Material</label>
                         <select class="form-control form-control-sm"
-                                name="colour"
-                                id="colour">
+                                name="colour[{{ $id }}]"
+                                id="colour_{{ $id }}">
                             <option value=""></option>
                             @foreach( $colours as $k => $v )
                                 <option
@@ -31,8 +31,8 @@
                                class="form-label">
                             Chassis </label>
                         <select class="form-control form-control-sm"
-                                name="chassis"
-                                id="chassis">
+                                name="chassis[{{ $id }}]"
+                                id="chassis_{{ $id }}">
                             <option value=""></option>
 
                             @foreach( $chassis_list as $van => $options )
@@ -58,8 +58,8 @@
                                class="form-label">
                             Install Location</label>
                         <select class="form-control form-control-sm"
-                                name="location"
-                                id="location">
+                                name="location[{{ $id }}]"
+                                id="location_{{ $id }}">
                             <option value=""></option>
                             @foreach( $part_locations as $location => $options )
                                 <optgroup label="{{ $location }}">
@@ -83,8 +83,8 @@
                                class="form-label">
                             Part Type</label>
                         <select class="form-control form-control-sm"
-                                name="kit_code"
-                                id="kit_code">
+                                name="kit_code[{{ $id }}]"
+                                id="kit_code_{{ $id }}">
                             <option value=""></option>
 
                             @foreach( $kit_codes as $k => $v )
@@ -102,8 +102,8 @@
                                class="form-label">
                             Roof Height</label>
                         <select class="form-control form-control-sm"
-                                name="roof_height"
-                                id="roof_height">
+                                name="roof_height[{{ $id }}]"
+                                id="roof_height_{{ $id }}">
                             <option value=""></option>
 
                             @foreach( $roof_heights as $k => $v )
@@ -116,7 +116,10 @@
 
                 </div>
 
-
+                <div class="row">
+                    <input name="part_number[]" id="part_number_{{ $id }}">
+                    <input name="description[]" id="description_{{ $id }}">
+                </div>
 
 
             </div>

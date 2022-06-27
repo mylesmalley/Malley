@@ -47,6 +47,9 @@ Route::prefix('bodyguardbom')->group(function() {
             [ PartsCreateController::class, 'create_components_from_template'])
             ->name('bg.kits.components_from_template');
 
+        Route::post("/{bg_kit}/components_from_template",
+            [ PartsCreateController::class, 'store_bulk_components'])
+            ->name('bg.kits.store_bulk_components');
 
 
 
