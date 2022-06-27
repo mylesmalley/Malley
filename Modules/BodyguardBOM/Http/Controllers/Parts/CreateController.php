@@ -73,6 +73,19 @@ class CreateController extends Controller
 
 
 
+
+
+
+    /**
+     * @param Kit $kit
+     * @return void
+     */
+    public function create_components_from_template( Kit $kit )
+    {
+        dd(   $this->kit_codes[ $kit->kit_code ]   );
+    }
+
+
 }
 
 

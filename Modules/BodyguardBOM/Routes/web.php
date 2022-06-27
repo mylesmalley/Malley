@@ -42,8 +42,17 @@ Route::prefix('bodyguardbom')->group(function() {
         Route::post("/", [ CreateController::class, 'store'])
             ->name('bg.kits.store');
 
-        Route::get("/{bg_kit}/components_from_template", [ CreateController::class, 'create_components_from_template'])
+
+        Route::get("/{bg_kit}/components_from_template",
+            [ PartsCreateController::class, 'create_components_from_template'])
             ->name('bg.kits.components_from_template');
+
+
+
+
+
+
+
 
 
 //        Route::post("/add_to_category", [ PartCategoriesController::class, 'store'])
