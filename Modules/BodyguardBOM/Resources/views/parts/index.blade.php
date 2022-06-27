@@ -18,7 +18,15 @@
         </div>
     </div>
 
-
+    <div class="row">
+        <div class="col-12 text-center">
+            <a class="btn btn-primary"
+               href="{{ route('bg.kits.home') }}">Bodyguard Kits Index</a>
+            <a class="btn btn-secondary"
+               href="{{ route('bg.parts.home') }}">Bodyguard Parts Index</a>
+        </div>
+    </div>
+    <br>
 
     @includeIf('app.components.errors')
 
