@@ -29,7 +29,7 @@ trait PartNumberComponentsTrait {
 
 
     /**
-     * @var array|string[]
+     * @var array
      */
     protected array $roof_heights = [
         "ALL" => "Not applicable",
@@ -139,6 +139,9 @@ trait PartNumberComponentsTrait {
     {
         return $this->kit_codes[ $kit_code ]['desc'] ?? "Not Set";
     }
+
+
+
 
 
     /**

@@ -61,7 +61,17 @@ class CreateController extends Controller
 
 
 
-
+        if ( isset( $this->kit_codes[ $request->input('kit_code')]['template'] ) )
+        {
+            return redirect( )
+                ->route('bg.kits.components_from_template', [
+                    'bg_kit' => $kit->id,
+                    'chassis' => $request->input('chassis'),
+                    'roof_height' => $request->input('roof_height'),
+                    'kit_code' => $request->input('kit_code'),
+                    'colour' => $request->input('colour'),
+                ]);
+        }
 
 
 
@@ -77,6 +87,14 @@ class CreateController extends Controller
     }
 
 
+    /**
+     * @param Kit $kit
+     * @return void
+     */
+    public function create_components_from_template( Kit $kit )
+    {
+        dd(   $this->kit_codes[ $kit->kit_code ]   );
+    }
 
 }
 

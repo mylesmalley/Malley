@@ -187,7 +187,6 @@
                 <div class="form-check">
                     <input class="form-check-input"
                            type="radio"
-{{--                           required--}}
                            {{ old('kit_code', request()->input('kit_code')) === $k ? " checked " : ""   }}
                            name="kit_code"
                            value="{{ $k }}"
