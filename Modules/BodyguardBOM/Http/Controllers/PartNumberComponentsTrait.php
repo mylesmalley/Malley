@@ -138,8 +138,15 @@ trait PartNumberComponentsTrait {
     {
         $flat_array_of_chassis = [];
 
-        foreach( $this->chassis as $sub )
+        foreach( $this->chassis as $key => $sub )
         {
+
+            // gets the parent key and prepends it to the final description.
+            // array_walk modifies an existing array whereas array_map returns a new one.
+            array_walk( $sub, function(&$el) use ($key){
+                $el = "$key, $el";
+            });
+
             $flat_array_of_chassis += $sub;
         }
 
