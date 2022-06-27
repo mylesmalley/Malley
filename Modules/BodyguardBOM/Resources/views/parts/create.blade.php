@@ -74,6 +74,7 @@
                                 <select class="form-control"
                                         name="colour"
                                         id="colour">
+                                    <option value=""></option>
                                     @foreach( $colours as $k => $v )
                                         <option
                                                 {{ old('colour', request()->input('colour')) === $k ? " selected " : ""   }}
@@ -91,6 +92,7 @@
                                 <select class="form-control"
                                         name="chassis"
                                         id="chassis">
+                                    <option value=""></option>
 
                                     @foreach( $chassis as $van => $options )
                                         <optgroup label="{{ $van }}">
@@ -118,11 +120,11 @@
                                 @error('location') <span class="text-danger">{{ $message }}</span> @enderror
                                 <label for="location"
                                        class="form-label">
-                                    Chassis &amp; chassis</label>
+                                    Install Location</label>
                                 <select class="form-control"
                                         name="location"
                                         id="location">
-
+                                    <option value=""></option>
                                     @foreach( $part_locations as $location => $options )
                                         <optgroup label="{{ $location }}">
                                             @foreach( $options as $key => $desc)
@@ -149,7 +151,9 @@
                                 <select class="form-control"
                                         name="roof_height"
                                         id="roof_height">
-                                    @foreach( $roof_heights as $k => $v )
+                                    <option value=""></option>
+
+                                @foreach( $roof_heights as $k => $v )
                                         <option
                                                 {{ old('roof_height', request()->input('roof_height')) === $k ? " selected " : ""   }}
                                                 value="{{ $k }}">{{ $v }}</option>
@@ -171,7 +175,7 @@
 
         <div class="card border-primary">
             <div class="card-header bg-primary text-white">
-                <h5>Type of Product</h5>
+                <h5>Type of Part</h5>
             </div>
             <table class="table table-striped">
 
@@ -183,7 +187,7 @@
                 <div class="form-check">
                     <input class="form-check-input"
                            type="radio"
-                           required
+{{--                           required--}}
                            {{ old('kit_code', request()->input('kit_code')) === $k ? " checked " : ""   }}
                            name="kit_code"
                            value="{{ $k }}"

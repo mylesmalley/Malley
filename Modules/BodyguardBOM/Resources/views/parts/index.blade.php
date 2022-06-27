@@ -36,7 +36,7 @@
 
 
 
-                 <div class="card-header bg-primary text-white">
+                 <div class="card-header bg-secondary text-white">
                      <form class="row row-cols-lg-auto g-3 align-items-end"
                           action="{{ route('bg.parts.home') }}"
                           method="GET">
@@ -129,7 +129,7 @@
                                     class="btn btn-success">Go</button>
                         </div>
                          <div class="col-1 " >
-                             <a href="{{ route('bg.kits.create') }}"
+                             <a href="{{ route('bg.parts.create') }}"
                                 id="create_button"
                                 class="btn btn-info">Add</a>
                          </div>

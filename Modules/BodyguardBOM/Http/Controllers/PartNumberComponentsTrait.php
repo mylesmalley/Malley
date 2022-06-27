@@ -181,9 +181,9 @@ trait PartNumberComponentsTrait {
      */
     protected array $part_locations = [
         "Driver Side" => [
-            "DSA" => "Driver Side",
-            "DSF" => "Driver Side Front (toward cab)",
-            "DSR" => "Driver Side Rear ",
+            "DSA" => "All",
+            "DSF" => "Front (toward cab)",
+            "DSR" => "Rear ",
 
         ],
     ];
@@ -197,8 +197,13 @@ trait PartNumberComponentsTrait {
     {
         $flat_array_of_part_locations = [];
 
-        foreach( $this->part_locations as $sub )
+        foreach( $this->part_locations as $key => $sub )
         {
+
+            array_walk( $sub, function(&$el) use ($key){
+                $el = "$key, $el";
+            });
+
             $flat_array_of_part_locations += $sub;
         }
 
