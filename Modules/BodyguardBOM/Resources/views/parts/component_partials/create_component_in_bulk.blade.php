@@ -134,6 +134,9 @@
                                name="description[]"
                                id="description_{{ $id }}">
                     </div>
+                    <div class="col-4">
+                        <span id="status_{{ $id }}"></span>
+                    </div>
                 </div>
 
 

@@ -2,6 +2,7 @@
 
 namespace Modules\BodyguardBOM\Http\Controllers\Parts;
 
+use Illuminate\Http\JsonResponse;
 use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -117,16 +118,16 @@ class CreateController extends Controller
 
     /**
      * @param Request $request
-     * @return bool
+     * @return JsonResponse
      */
-    public function check_if_part_exists( Request $request ): bool
+    public function check_if_part_exists( Request $request ): JsonResponse
     {
         $request->validate([
             'part_number' => 'required|string',
         ]);
 
-        return Kit::where('part_number', '=', $request->input('part_number'))
-            ->count() > 0;
+        return response()->json( Kit::where('part_number', '=', $request->input('part_number'))
+            ->count() > 0 );
     }
 
 

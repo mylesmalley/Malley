@@ -59,11 +59,15 @@
     
                         let roof_height_el_{{ $loop->index }} = document.getElementById("roof_height_{{ $loop->index }}");
                         roof_height_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }});
-    
-                        let kit_code_els_{{ $loop->index }} = document.querySelectorAll('input[id="kit_code_{{ $loop->index }}"]');
-                        kit_code_els_{{ $loop->index }}.forEach(function(el){
-                            el.addEventListener('change', generate_part_number_{{ $loop->index }});
-                        });
+
+                        let kit_code_el_{{ $loop->index }} = document.getElementById("kit_code_{{ $loop->index }}");
+                        kit_code_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }});
+
+
+                        {{--let kit_code_els_{{ $loop->index }} = document.querySelectorAll('input[id="kit_code_{{ $loop->index }}"]');--}}
+                        {{--kit_code_els_{{ $loop->index }}.forEach(function(el){--}}
+                        {{--    el.addEventListener('change', generate_part_number_{{ $loop->index }});--}}
+                        {{--});--}}
     
                         let chassis_el_{{ $loop->index }} = document.getElementById("chassis_{{ $loop->index }}");
                         chassis_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }})
@@ -85,13 +89,19 @@
                                 .options[roof_height_el_{{ $loop->index }}.selectedIndex].value;
                             let roof_height_desc = roof_height_el_{{ $loop->index }}
                                 .options[roof_height_el_{{ $loop->index }}.selectedIndex].text;
+
+
+                            let kit_code = kit_code_el_{{ $loop->index }}
+                                .options[kit_code_el_{{ $loop->index }}.selectedIndex].value;
+                            let kit_code_desc = kit_code_el_{{ $loop->index }}
+                                .options[kit_code_el_{{ $loop->index }}.selectedIndex].text;
+
+                            
+                            {{--let kit_code = document.querySelector('#kit_code_{{ $loop->index }} option:checked')--}}
+                            {{--    ? document.querySelector('#kit_code_{{ $loop->index }} option:checked').value--}}
+                            {{--    : "TRD";--}}
     
-    
-                            let kit_code = document.querySelector('input[name="kit_code"]:checked')
-                                ? document.querySelector('input[name="kit_code"]:checked').value
-                                : "TRD";
-    
-                            let kit_code_desc = kit_codes[kit_code]['desc'];
+                          //  let kit_code_desc = kit_codes[kit_code]['desc'];
     
                             let chassis = chassis_el_{{ $loop->index }}
                                 .options[chassis_el_{{ $loop->index }}.selectedIndex].value;
@@ -106,38 +116,38 @@
     
                             let chassis_parent = document.querySelector('#chassis_{{ $loop->index }} option:checked').parentElement.label;
     
-    
-                            document.getElementById('part_number_{{ $loop->index }}').value = `BGC_${kit_code}_${location}_${colour}_${chassis}${roof_height}`;
+
+                            let assembled_part_number = `BGC_${kit_code}_${location}_${colour}_${chassis}${roof_height}`;
+
+                            document.getElementById('part_number_{{ $loop->index }}').value = assembled_part_number;
                             let text_description = `A ${colour_desc} ${kit_code_desc} part for a ${roof_height_desc} ${chassis_desc} ${chassis_parent} at ${location_desc}`;
     
                             document.getElementById('description_{{ $loop->index }}').value = text_description.toUpperCase();
 
 
 
+                            fetch(`{{ route("bg.kits.check_if_part_exists") }}?part_number=${assembled_part_number}`,
+                                {
+                                    method: "GET",
+                                }).then(function( response ){
+                            return response.json();
+                        }).then(function(res){
+                                console.log( res );
+                                let status_block = document.getElementById('status_{{ $loop->index }}');
+                                if (res === true)
+                                {
+                                    status_block.innerHTML = "Already created.";
 
-
-
-
-
-                            // check if the part number exists already
-                            let request = new XMLHttpRequest();
-                            request.open('GET', '/my/url', true);
-
-                            request.onload = function() {
-                                if (this.status >= 200 && this.status < 400) {
-                                    // Success!
-                                    var resp = this.response;
                                 } else {
-                                    // We reached our target server, but it returned an error
+                                    status_block.innerHTML = "Will be created";
 
                                 }
-                            };
 
-                            request.onerror = function() {
-                                // There was a connection error of some sort
-                            };
 
-                            request.send();
+                            }).catch( function(){
+                                console.log('error')
+                        });
+
 
 
 
