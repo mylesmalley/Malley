@@ -167,6 +167,7 @@
             query.append('roof_height', document.getElementById('roof_height').value );
             document.getElementById('create_button').href = `{{ route('bg.kits.create') }}?${query}`;
         }
+        updateUrl();
 
 
         document.getElementById('chassis').addEventListener('change', updateUrl);

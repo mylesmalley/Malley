@@ -77,6 +77,7 @@
                                 <select class="form-control"
                                         name="chassis"
                                         id="chassis">
+                                    <option value=""></option>
 
                                     @foreach( $chassis as $van => $options )
                                         <optgroup label="{{ $van }}">
@@ -107,7 +108,9 @@
                                 <select class="form-control"
                                         name="colour"
                                         id="colour">
-                                    @foreach( $colours as $k => $v )
+                                    <option value=""></option>
+
+                                @foreach( $colours as $k => $v )
                                         <option
                                                 {{ old('colour', request()->input('colour')) === $k ? " selected " : ""   }}
                                                 value="{{ $k }}">{{ $v }}</option>
@@ -123,7 +126,9 @@
                                 <select class="form-control"
                                         name="roof_height"
                                         id="roof_height">
-                                    @foreach( $roof_heights as $k => $v )
+                                    <option value=""></option>
+
+                                @foreach( $roof_heights as $k => $v )
                                         <option
                                                 {{ old('roof_height', request()->input('roof_height')) === $k ? " selected " : ""   }}
                                                 value="{{ $k }}">{{ $v }}</option>

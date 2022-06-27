@@ -173,9 +173,10 @@
             query.append('colour', document.getElementById('colour').value );
             query.append('kit_code', document.getElementById('kit_code').value );
             query.append('roof_height', document.getElementById('roof_height').value );
-            document.getElementById('create_button').href = `{{ route('bg.kits.create') }}?${query}`;
+            document.getElementById('create_button').href = `{{ route('bg.parts.create') }}?${query}`;
         }
 
+        updateUrl();
 
         document.getElementById('chassis').addEventListener('change', updateUrl);
         document.getElementById('colour').addEventListener('change', updateUrl);
