@@ -51,6 +51,9 @@
                     'part' => $part,
                     'id' => $loop->index
                 ])
+            <br>
+
+
                 @push('scripts')
                     <script>
 

@@ -117,6 +117,10 @@ class CreateController extends Controller
             'description.*' => 'required|string',
             'chassis.*' => 'required|string',
             'roof_height.*' => 'required|string',
+            'location.*' => 'required|string',
+            'colour.*' => 'required|string',
+            'include.*' => 'required|boolean',
+            'kit_code.*' => 'required|string',
         ]);
 
         dd( $request->all() );

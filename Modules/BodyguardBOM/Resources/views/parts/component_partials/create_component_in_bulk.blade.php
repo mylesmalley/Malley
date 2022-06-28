@@ -6,13 +6,29 @@
             </div>
             <div class="card-body">
                 <div class="row">
+                    <div class="col-1">
 
+                        <label for="include_{{ $id }}"
+                               class="form-label">
+                            Include?</label>
+                        <select class="form-control form-control-sm"
+                                name="include[{{ $id }}]"
+                                id="include_{{ $id }}">
+                            @foreach( ['true' => 'Yes', 'false' => 'No'] as $k => $v )
+                                <option
+                                        {{ old('include.'.$id, $kit->colour ) === $k ? " selected " : ""   }}
+                                        value="{{ $k }}">{{ $v }}</option>
+                            @endforeach
+                        </select>
+
+
+                    </div>
                     <div class="col-2">
 
                         @error('colour.'.$id )
                         <span class="text-danger">
                                 This field is required
-                            </span>
+                            </span><br>
                         @enderror
 
                         <label for="colour_{{ $id }}"
@@ -24,7 +40,7 @@
                             <option value=""></option>
                             @foreach( $colours as $k => $v )
                                 <option
-                                        {{ old('colour', $kit->colour ) === $k ? " selected " : ""   }}
+                                        {{ old('colour.'.$id, $kit->colour ) === $k ? " selected " : ""   }}
                                         value="{{ $k }}">{{ $v }}</option>
                             @endforeach
                         </select>
@@ -35,7 +51,7 @@
                         @error('chassis.'.$id )
                         <span class="text-danger">
                                 This field is required
-                            </span>
+                            </span><br>
                         @enderror
 
                         <label for="chassis_{{ $id }}"
@@ -50,7 +66,7 @@
                                 <optgroup label="{{ $van }}">
                                     @foreach( $options as $key => $desc)
                                         <option
-                                                {{ old('chassis', request()->input('chassis') ) == $key ? " selected " : ""   }}
+                                                {{ old('chassis.'.$id, request()->input('chassis') ) == $key ? " selected " : ""   }}
                                                 value="{{ $key ?? "aaa" }}">{{ $desc ?? 'bbb' }}</option>
                                     @endforeach
                                 </optgroup>
@@ -62,12 +78,12 @@
                     </div>
 
 
-                    <div class="col-3">
+                    <div class="col-2">
 
                         @error('location.'.$id )
                         <span class="text-danger">
                                 This field is required
-                            </span>
+                            </span><br>
                         @enderror
                         <label for="location_{{ $id }}"
                                class="form-label">
@@ -80,7 +96,7 @@
                                 <optgroup label="{{ $location }}">
                                     @foreach( $options as $key => $desc)
                                         <option
-                                                {{ old('location', request()->input('location') ) == $key ? " selected " : ""   }}
+                                                {{ old('location.'.$id, request()->input('location') ) == $key ? " selected " : ""   }}
                                                 value="{{ $key ?? "aaa" }}">{{ $desc ?? 'bbb' }}</option>
                                     @endforeach
                                 </optgroup>
@@ -96,7 +112,7 @@
                         @error('kit_code.'.$id )
                         <span class="text-danger">
                                 This field is required
-                            </span>
+                            </span><br>
                         @enderror
 
                         <label for="kit_code_{{ $id }}"
@@ -109,7 +125,7 @@
 
                             @foreach( $kit_codes as $k => $v )
                                 <option
-                                        {{ old('kit_code', $part['kit_code']) === $k ? " selected " : ""   }}
+                                        {{ old('kit_code.'.$id, $part['kit_code']) === $k ? " selected " : ""   }}
                                         value="{{ $k }}">{{ $v['desc'] }}</option>
                             @endforeach
                         </select>
@@ -120,7 +136,7 @@
                         @error('roof_height.'.$id )
                             <span class="text-danger">
                                 This field is required
-                            </span>
+                            </span><br>
                         @enderror
                         <label for="roof_height_{{ $id }}"
                                class="form-label">
@@ -132,7 +148,7 @@
 
                             @foreach( $roof_heights as $k => $v )
                                 <option
-                                        {{ old('roof_height', request()->input('roof_height')) === $k ? " selected " : ""   }}
+                                        {{ old('roof_height.'.$id, request()->input('roof_height')) === $k ? " selected " : ""   }}
                                         value="{{ $k }}">{{ $v }}</option>
                             @endforeach
                         </select>
@@ -141,7 +157,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-4">
+                    <div class="offset-1 col-3">
                         <label for="part_number_{{ $id }}"
                                class="form-label">
                             Part Number</label>
@@ -158,7 +174,7 @@
                                name="description[]"
                                id="description_{{ $id }}">
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <span id="status_{{ $id }}"></span>
                     </div>
                 </div>
