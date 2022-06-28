@@ -8,7 +8,13 @@
                 <div class="row">
 
                     <div class="col-2">
-                        @error('colour_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+
+                        @error('colour.'.$id )
+                        <span class="text-danger">
+                                This field is required
+                            </span>
+                        @enderror
+
                         <label for="colour_{{ $id }}"
                                class="form-label">
                             Colour of Material</label>
@@ -26,7 +32,12 @@
 
                     <div class="col-2">
 
-                        @error('chassis_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('chassis.'.$id )
+                        <span class="text-danger">
+                                This field is required
+                            </span>
+                        @enderror
+
                         <label for="chassis_{{ $id }}"
                                class="form-label">
                             Chassis </label>
@@ -53,7 +64,11 @@
 
                     <div class="col-3">
 
-                        @error('location_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('location.'.$id )
+                        <span class="text-danger">
+                                This field is required
+                            </span>
+                        @enderror
                         <label for="location_{{ $id }}"
                                class="form-label">
                             Install Location</label>
@@ -78,7 +93,12 @@
 
 
                     <div class="col-3">
-                        @error('kit_code_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('kit_code.'.$id )
+                        <span class="text-danger">
+                                This field is required
+                            </span>
+                        @enderror
+
                         <label for="kit_code_{{ $id }}"
                                class="form-label">
                             Part Type</label>
@@ -97,7 +117,11 @@
 
 
                     <div class="col-2">
-                        @error('roof_height_'. $id ) <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('roof_height.'.$id )
+                            <span class="text-danger">
+                                This field is required
+                            </span>
+                        @enderror
                         <label for="roof_height_{{ $id }}"
                                class="form-label">
                             Roof Height</label>

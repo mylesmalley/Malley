@@ -85,7 +85,6 @@ trait PartNumberComponentsTrait {
                 'desc' => 'solid partition',
                 'ext' => "Contains a single sheet of moulded ABS Plastic with the potential of a stiffening metal rib, a bottom metal floor bracket. Does not contain a window",
                 'template' => [
-                    'colour' => true,
                     'parts' =>
                         [
                             [

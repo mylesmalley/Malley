@@ -112,6 +112,13 @@ class CreateController extends Controller
 
     public function store_bulk_components( Request $request )
     {
+        $request->validate([
+            'part_number.*' => 'required|string',
+            'description.*' => 'required|string',
+            'chassis.*' => 'required|string',
+            'roof_height.*' => 'required|string',
+        ]);
+
         dd( $request->all() );
     }
 
