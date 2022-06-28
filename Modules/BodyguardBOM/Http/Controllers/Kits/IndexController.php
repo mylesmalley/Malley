@@ -34,9 +34,10 @@ class IndexController extends Controller
 
 
         $query->when($chassis, function( $query ) use ($chassis){
-            if (strlen($chassis) === 3)
+            if (str_contains($chassis,'ALL'))
             {
-                $query->where('chassis', 'like', "$chassis%" );
+                $remove_all = str_replace("ALL", "", $chassis);
+                $query->where('chassis', 'like', "$remove_all%" );
             }
             else
             {

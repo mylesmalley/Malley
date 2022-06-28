@@ -173,13 +173,13 @@ trait PartNumberComponentsTrait {
      */
     protected array $chassis = [
         "Ford Transit" => [
-            "FTR" => "Any wheelbase",
+            "FTRALL" => "Any wheelbase",
             "FTR130STD" => '130" regular wheelbase',
             "FTR148STD" => '148" regular wheelbase',
             "FTR148EXT" => '148" extended wheelbase',
         ],
         "Ford Transit Connect (2014)" => [
-            "2014FTC" => "Any wheelbase",
+            "2014FTCALL" => "Any wheelbase",
             "2014FTC105" => "Short wheelbase",
             "2014FTC121" => "Long wheelbase",
         ]

@@ -156,7 +156,7 @@ class CreateController extends Controller
                     "part_number" => $request->input( "part_number.$i"),
                     "description" => $request->input( "description.$i"),
                     "colour" => $request->input( "colour.$i"),
-                    "category" => $request->input( "category.$i"),
+                    "category" => "BGC",
                     "kit_code" => $request->input( "kit_code.$i"),
                     "roof_height" => $request->input( "roof_height.$i"),
                     "location" => $request->input( "location.$i"),
