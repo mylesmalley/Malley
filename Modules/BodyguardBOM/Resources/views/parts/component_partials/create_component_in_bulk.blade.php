@@ -18,9 +18,6 @@
                                class="form-label">
                             Include?</label>
 
-
-                            {{ old('include.'.$id, 'na') }}
-
                         <select class="form-control form-control-sm"
                                 name="include[{{ $id }}]"
                                 id="include_{{ $id }}">

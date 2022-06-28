@@ -4,13 +4,13 @@ namespace Modules\BodyguardBOM\Http\Controllers\Parts;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Modules\BodyguardBOM\Http\Controllers\PartNumberComponentsTrait;
+use Modules\BodyguardBOM\Models\SysproStockCode;
 
 class CreateController extends Controller
 {
@@ -112,7 +112,12 @@ class CreateController extends Controller
     }
 
 
-    public function store_bulk_components( Request $request )
+    /**
+     * @param Kit $kit
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store_bulk_components(Kit $kit, Request $request )
     {
         $number_of_rows = count($request->input('include.*'));
 
@@ -129,63 +134,55 @@ class CreateController extends Controller
                 "roof_height.$i"  => "exclude_if:include.$i,==,false|string",
                 "location.$i"  => "exclude_if:include.$i,==,false|string",
                 "kit_code.$i"  => "exclude_if:include.$i,==,false|string",
-
-//                "part_number.$i" => [
-//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
-//                 //   'required',
-//                    'string',
-//                ],
-//                "description.$i" => [
-//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
-//              //      'required',
-//                    'string',
-//                ],
-//                "chassis.$i"  => [
-//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
-//                //    'required',
-//                    'string',
-//                ],
-//                "roof_height.$i"  => [
-//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
-//                 //   'required',
-//                    'string',
-//                ],
-//                "location.$i"  => [
-//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
-//
-//             //       'required',
-//                    'string',
-//                ],
-
-//                "kit_code.$i"  => [
-//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
-//            //        'required',
-//                    'string',
-//                ],
             ];
         }
 
-      //  dd( $request->all() );
+        Validator::make( $request->all(), $rules )->validate();
 
-//        $request->validate([
-//            'part_number.*' => 'required|string',
-//            'description.*' => 'required|string',
-//            'chassis.*' => 'required|string',
-//            'roof_height.*' => 'required|string',
-//            'location.*' => 'required|string',
-//            'colour.*' => 'required|string',
-//            'include.*' => 'required|boolean',
-//            'kit_code.*' => 'required|string',
-//        ]);
 
-        //dd( (bool)$request->input('include.1'), $request->input('colour.1'), $request->all(), $rules );
+        for ($i = 0; $i < $number_of_rows; $i++)
+        {
 
-     //   $request->validate( $rules );
-        $validator = Validator::make($request->all(),
-            $rules
-        );//->stopOnFirstFailure(true);
+            if ( (bool)$request->input("include.$i") === false ) continue;
 
-        $validator->validate();
+            // first check if the component already exists. 
+            $existing_part = Kit::where('part_number', '=', $request->input('part_number'))
+                    ->count() > 0;
+
+            // part doesn't exist and needs to be created
+            if (!$existing_part) {
+                // create the part in the local database
+                $new_component = Kit::create([
+                    "part_number" => $request->input( "part_number.$i"),
+                    "description" => $request->input( "description.$i"),
+                    "colour" => $request->input( "colour.$i"),
+                    "category" => $request->input( "category.$i"),
+                    "kit_code" => $request->input( "kit_code.$i"),
+                    "roof_height" => $request->input( "roof_height.$i"),
+                    "location" => $request->input( "location.$i"),
+                    "chassis" => $request->input( "chassis.$i"),
+                ]);
+
+                //push to syspro
+                $new_component->create_phantom_in_syspro();
+
+            }
+
+            // add the part to the kit
+            SysproStockCode::create([
+                'bg_kit_id' => $kit->id,
+                'stock_code' => $request->input("part_number.$i"),
+                'quantity' => 1,
+            ]);
+
+        }
+
+
+        $kit->clear_components_from_syspro_phantom();
+        $kit->push_components_to_syspro();
+
+
+        return redirect()->route('bg.kits.show', $kit );
     }
 
 
