@@ -20,7 +20,7 @@
 
 
 
-{{--    @includeIf('app.components.errors')--}}
+    @includeIf('app.components.errors')
 
     <div class="row">
         <div class="offset-2 col-8">

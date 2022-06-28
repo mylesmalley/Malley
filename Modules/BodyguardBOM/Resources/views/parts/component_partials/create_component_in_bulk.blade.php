@@ -8,15 +8,25 @@
                 <div class="row">
                     <div class="col-1">
 
+                        @error('include.'.$id )
+                        <span class="text-danger">
+                                This field is required
+                            </span><br>
+                        @enderror
+
                         <label for="include_{{ $id }}"
                                class="form-label">
                             Include?</label>
+
+
+                            {{ old('include.'.$id, 'na') }}
+
                         <select class="form-control form-control-sm"
                                 name="include[{{ $id }}]"
                                 id="include_{{ $id }}">
-                            @foreach( ['true' => 'Yes', 'false' => 'No'] as $k => $v )
+                            @foreach( [1 => 'Yes', 0 => 'No'] as $k => $v )
                                 <option
-                                        {{ old('include.'.$id, $kit->colour ) === $k ? " selected " : ""   }}
+                                        {{ old('include.'.$id, 1 ) == $k ? " selected " : ""   }}
                                         value="{{ $k }}">{{ $v }}</option>
                             @endforeach
                         </select>

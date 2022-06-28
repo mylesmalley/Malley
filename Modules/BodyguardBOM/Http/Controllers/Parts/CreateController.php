@@ -3,6 +3,8 @@
 namespace Modules\BodyguardBOM\Http\Controllers\Parts;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Modules\BodyguardBOM\Models\Kit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -112,18 +114,78 @@ class CreateController extends Controller
 
     public function store_bulk_components( Request $request )
     {
-        $request->validate([
-            'part_number.*' => 'required|string',
-            'description.*' => 'required|string',
-            'chassis.*' => 'required|string',
-            'roof_height.*' => 'required|string',
-            'location.*' => 'required|string',
-            'colour.*' => 'required|string',
-            'include.*' => 'required|boolean',
-            'kit_code.*' => 'required|string',
-        ]);
+        $number_of_rows = count($request->input('include.*'));
 
-        dd( $request->all() );
+        $rules = [];
+
+        for ($i = 0; $i < $number_of_rows; $i++)
+        {
+            $rules += [
+                "include.$i" => "required|boolean",
+                "colour.$i"  => "exclude_if:include.$i,==,false|string",
+                "part_number.$i"  => "exclude_if:include.$i,==,false|string",
+                "description.$i"  => "exclude_if:include.$i,==,false|string",
+                "chassis.$i"  => "exclude_if:include.$i,==,false|string",
+                "roof_height.$i"  => "exclude_if:include.$i,==,false|string",
+                "location.$i"  => "exclude_if:include.$i,==,false|string",
+                "kit_code.$i"  => "exclude_if:include.$i,==,false|string",
+
+//                "part_number.$i" => [
+//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
+//                 //   'required',
+//                    'string',
+//                ],
+//                "description.$i" => [
+//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
+//              //      'required',
+//                    'string',
+//                ],
+//                "chassis.$i"  => [
+//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
+//                //    'required',
+//                    'string',
+//                ],
+//                "roof_height.$i"  => [
+//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
+//                 //   'required',
+//                    'string',
+//                ],
+//                "location.$i"  => [
+//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
+//
+//             //       'required',
+//                    'string',
+//                ],
+
+//                "kit_code.$i"  => [
+//                    Rule::requiredIf( (bool)$request->input("include.$i") ) ,
+//            //        'required',
+//                    'string',
+//                ],
+            ];
+        }
+
+      //  dd( $request->all() );
+
+//        $request->validate([
+//            'part_number.*' => 'required|string',
+//            'description.*' => 'required|string',
+//            'chassis.*' => 'required|string',
+//            'roof_height.*' => 'required|string',
+//            'location.*' => 'required|string',
+//            'colour.*' => 'required|string',
+//            'include.*' => 'required|boolean',
+//            'kit_code.*' => 'required|string',
+//        ]);
+
+        //dd( (bool)$request->input('include.1'), $request->input('colour.1'), $request->all(), $rules );
+
+     //   $request->validate( $rules );
+        $validator = Validator::make($request->all(),
+            $rules
+        );//->stopOnFirstFailure(true);
+
+        $validator->validate();
     }
 
 
