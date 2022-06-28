@@ -146,7 +146,7 @@ class CreateController extends Controller
             if ( (bool)$request->input("include.$i") === false ) continue;
 
             // first check if the component already exists. 
-            $existing_part = Kit::where('part_number', '=', $request->input('part_number'))
+            $existing_part = Kit::where('part_number', '=', $request->input('part_number.'.$i))
                     ->count() > 0;
 
             // part doesn't exist and needs to be created

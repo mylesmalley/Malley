@@ -124,8 +124,26 @@ trait PartNumberComponentsTrait {
             ],
         'WLC' => [
                 'desc' => 'wall liner',
-                'ext' => "Contains a complete set of moulded ABS Plastic sheets to cover the Driver and Passenger side walls. Windows are not cut out"
-            ],
+                'ext' => "Contains a complete set of moulded ABS Plastic sheets to cover the Driver and Passenger side walls. Windows are not cut out",
+                'template' => [
+                    'parts' =>
+                        [
+                            [
+                                'description' => 'Driver Side Panel (Rear)',
+                                'kit_code' => 'WLC',
+                            ],
+                            [
+                                'description' => 'Driver Side Panel (Front toward Cab)',
+                                'kit_code' => 'WLC',
+                            ],
+                            [
+                                'description' => 'Passenger Side Panel',
+                                'kit_code' => 'WLC',
+                            ],
+                        ]
+                    ],
+
+        ],
         'WLE' => [
                 'desc' => 'wall liner with E-Track',
                 'ext' => "Contains a complete set of moulded ABS Plastic sheets to cover the Driver and Passenger side walls. Windows are not cut out, and brackets and E-Track are included"
@@ -155,11 +173,16 @@ trait PartNumberComponentsTrait {
      */
     protected array $chassis = [
         "Ford Transit" => [
-            "FTRALL" => "Any wheelbase",
+            "FTR" => "Any wheelbase",
             "FTR130STD" => '130" regular wheelbase',
             "FTR148STD" => '148" regular wheelbase',
             "FTR148EXT" => '148" extended wheelbase',
         ],
+        "Ford Transit Connect (2014)" => [
+            "2014FTC" => "Any wheelbase",
+            "2014FTC105" => "Short wheelbase",
+            "2014FTC121" => "Long wheelbase",
+        ]
 //        'Ram ProMaster' => [
 //
 //        ]
@@ -195,8 +218,7 @@ trait PartNumberComponentsTrait {
     protected array $part_codes = [
         "TRD" => ['desc' => "Trim Piece",
                 'ext' => ''],
-        "WLC" => ['desc' =>"Wall Liner Cargo Panel",
-        'ext' => ''],
+        "WLC" => ['desc' =>"Wall Liner Cargo Panel",  'ext' => ''],
         "WLE" => ['desc' =>"Wall Liner with E-Track Panel",
                 'ext' => ''],
         "WLW" => ['desc' =>"Wall Liner with Window Cutout Panel",
@@ -217,9 +239,14 @@ trait PartNumberComponentsTrait {
      */
     protected array $part_locations = [
         "Driver Side" => [
-            "DSA" => "All",
+            "DSA" => "Full length",
             "DSF" => "Front (toward cab)",
             "DSR" => "Rear ",
+        ],
+        "Passenger Side" => [
+            "PSA" => "Full length",
+            "PSF" => "Front (toward cab)",
+            "PSR" => "Rear ",
         ],
         'Partition' => [
             'PAA' => "Full width",
