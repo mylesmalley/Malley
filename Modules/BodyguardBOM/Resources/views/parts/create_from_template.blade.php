@@ -29,7 +29,9 @@
                     Instructions
                 </div>
                 <div class="card-body">
-                    <p>Based on your kit type, these are probably the components that will be part of it. You can add or remove afterwards if needed.</p>
+                    <p>Based on your kit type, these are <b>probably</b> the components that will be part of it. You can add or remove afterwards if needed. You can skip this step entirely if you prefer and get back to this page by editing a kit's components. </p>
+                    <p>Next to each suggested component is the option to include it or not. If you do not need a part, answer no. </p>
+                    <p>As you configure the component, the system will check if it exists already. If so, it will be added automatically to the kit. If it does not exist, it will be created for you. You will still need to add parts to the components that are created.</p>
                 </div>
             </div>
         </div>
@@ -46,7 +48,7 @@
     <form method="POST"
           action="{{ route('bg.kits.store_bulk_components', $kit) }}">
         @csrf
-            @foreach($template['parts'] as $part)
+            @forelse($template['parts'] as $part)
                 @includeIf('bodyguardbom::parts.component_partials.create_component_in_bulk', [
                     'part' => $part,
                     'id' => $loop->index
@@ -170,11 +172,17 @@
                         generate_part_number_{{ $loop->index }}();
                     </script>
                 @endpush
-                
-                
-            @endforeach
-        <input type="submit">
+
+            @empty
+                Sorry, but no template exists for this yet.
+            @endforelse
+        <input class="btn btn-success" type="submit">
+        <br>
+
+        <a class="btn btn-warning" href="{{ route('bg.kits.show', $kit) }}">Skip This Step</a>
     </form>
+
+
 
 @endsection
 

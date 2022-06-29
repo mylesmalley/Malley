@@ -178,7 +178,8 @@ class CreateController extends Controller
         }
 
 
-        $kit->clear_components_from_syspro_phantom();
+        // maybe don't clear components just yet so that things aren't overwritten.
+      //  $kit->clear_components_from_syspro_phantom();
         $kit->push_components_to_syspro();
 
 

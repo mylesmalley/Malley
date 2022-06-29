@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
+        <div class="card border-dark">
+            <div class="card-header bg-dark text-white">
                 {{ $part['description'] }}
             </div>
             <div class="card-body">
