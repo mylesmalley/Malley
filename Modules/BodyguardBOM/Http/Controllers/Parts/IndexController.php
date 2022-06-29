@@ -68,13 +68,22 @@ class IndexController extends Controller
             $query->where('colour', '=', $colour );
         });
 
+        $location = ( $request->input('location' ) === "ALL")
+            ? null : $request->input('location' );
+
+        $query->when($location, function( $query ) use ($location){
+            $query->where('location', '=', $location );
+        });
+
+
         return response()->view('bodyguardbom::parts.index',[
 //            'query' => $query->dump(),
             'results' => $query->get(),
             'prefixes' => $this->prefix,
             'colours' => $this->colours,
             'roof_heights' => $this->roof_heights,
-            'kit_codes' => $this->kit_codes,
+            'kit_codes' => $this->part_codes,
+            'locations' => $this->part_locations,
             'chassis' => $this->chassis,
         ]);
     }

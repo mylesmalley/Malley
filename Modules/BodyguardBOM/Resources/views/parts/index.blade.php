@@ -75,7 +75,7 @@
                 </div>
 
 
-                <div class="col-2">
+                <div class="col-1">
                     <label for="roof_height"
                            class="form-label">
                         Roof Height</label>
@@ -92,10 +92,10 @@
                 </div>
 
 
-                <div class="col-3">
+                <div class="col-2">
                     <label for="kit_code"
                            class="form-label">
-                        Kit Type</label>
+                        Part Type</label>
                     <select class="form-control"
                             name="kit_code"
                             id="kit_code">
@@ -128,7 +128,25 @@
                     </select>
                 </div>
 
-
+                <div class="col-2">
+                    <label for="location"
+                           class="form-label">
+                        Location</label>
+                    <select class="form-control"
+                            name="location"
+                            id="location">
+                        <option value="ALL">All</option>
+                            @foreach( $locations as $van => $options )
+                                <optgroup label="{{ $van }}">
+                                    @foreach( $options as $key => $desc)
+                                        <option
+                                                {{ request()->input('location') === $key ? " selected " : ""   }}
+                                                value="{{ $key }}">{{ $desc  }}</option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                    </select>
+                </div>
 
 
 
@@ -195,6 +213,7 @@
             query.append('colour', document.getElementById('colour').value );
             query.append('kit_code', document.getElementById('kit_code').value );
             query.append('roof_height', document.getElementById('roof_height').value );
+            query.append('location', document.getElementById('location').value );
             document.getElementById('create_button').href = `{{ route('bg.parts.create') }}?${query}`;
         }
 
@@ -204,5 +223,6 @@
         document.getElementById('colour').addEventListener('change', updateUrl);
         document.getElementById('kit_code').addEventListener('change', updateUrl);
         document.getElementById('roof_height').addEventListener('change', updateUrl);
+        document.getElementById('location').addEventListener('change', updateUrl);
     </script>
 @endpush
