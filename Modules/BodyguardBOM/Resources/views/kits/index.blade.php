@@ -22,121 +22,140 @@
 
     @includeIf('app.components.errors')
 
+    <div class="card border-primary">
+
+        <div class="card-header bg-primary   ">
+            <ul class="nav nav-tabs card-header-tabs ">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="{{ route('bg.kits.home') }}">Kit Index</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{ route('bg.parts.home') }}">Components Index</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="card-body ">
+            <form class="row row-cols-lg-auto g-3 align-items-end"
+                  action="{{ route('bg.kits.home') }}"
+                  method="GET">
+
+                @csrf
+
+                <div class="col-2">
+                    <label for="chassis"
+                           class="form-label">
+                        Chassis & Wheelbase</label>
+                    <select class="form-control"
+                            name="chassis"
+                            id="chassis">
+                        <option value="ALL">All</option>
+                        @foreach( $chassis as $van => $options )
+                            <optgroup label="{{ $van }}">
+                                @foreach( $options as $key => $desc)
+                                    <option
+                                            {{ request()->input('chassis') === $key ? " selected " : ""   }}
+                                            value="{{ $key }}">{{ $desc  }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="col-2">
+                    <label for="roof_height"
+                           class="form-label">
+                        Roof Height</label>
+                    <select class="form-control"
+                            name="roof_height"
+                            id="roof_height">
+                        <option value="ALL">All</option>
+                        @foreach( $roof_heights as $key => $desc)
+                            <option
+                                    {{ request()->input('roof_height') === $key ? " selected " : ""   }}
+                                    value="{{ $key }}">{{ $desc  }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="col-3">
+                    <label for="kit_code"
+                           class="form-label">
+                        Kit Type</label>
+                    <select class="form-control"
+                            name="kit_code"
+                            id="kit_code">
+                        <option value="ALL">All</option>
+                        @foreach( $kit_codes as $key => $val)
+                            <option
+                                    {{ request()->input('kit_code') === $key ? " selected " : ""   }}
+                                    value="{{ $key }}">{{ $val['desc']  }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+
+
+
+                <div class="col-2">
+                    <label for="colour"
+                           class="form-label">
+                        Colour</label>
+                    <select class="form-control"
+                            name="colour"
+                            id="colour">
+                        <option value="ALL">All</option>
+                        @foreach( $colours as $key => $desc)
+                            <option
+                                    {{ request()->input('colour') === $key ? " selected " : ""   }}
+                                    value="{{ $key }}">{{ $desc  }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+
+
+
+                <div class="col-1 " >
+                    <button
+                            id="go"
+                            name="go"
+                            type="submit"
+                            class="btn btn-success">Filter</button>
+                </div>
+                <div class="col-1 " >
+                    <a href="{{ route('bg.kits.create') }}"
+                       id="create_button"
+                       class="btn btn-info">Add</a>
+                </div>
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+
+
+
     <div class="row">
         <div class="col-12">
             <div class="card border-primary">
 
 
-
-                 <div class="card-header bg-primary text-white">
-                     <form class="row row-cols-lg-auto g-3 align-items-end"
-                          action="{{ route('bg.kits.home') }}"
-                          method="GET">
-
-                        @csrf
-
-                         <div class="col-2">
-                             <label for="chassis"
-                                    class="form-label">
-                                 Chassis & Wheelbase</label>
-                             <select class="form-control"
-                                     name="chassis"
-                                     id="chassis">
-                                    <option value="ALL">All</option>
-                                 @foreach( $chassis as $van => $options )
-                                     <optgroup label="{{ $van }}">
-                                         @foreach( $options as $key => $desc)
-                                             <option
-                                                     {{ request()->input('chassis') === $key ? " selected " : ""   }}
-                                                     value="{{ $key }}">{{ $desc  }}</option>
-                                         @endforeach
-                                     </optgroup>
-                                 @endforeach
-                             </select>
-                         </div>
-
-
-                         <div class="col-2">
-                             <label for="roof_height"
-                                    class="form-label">
-                                 Roof Height</label>
-                             <select class="form-control"
-                                     name="roof_height"
-                                     id="roof_height">
-                                 <option value="ALL">All</option>
-                                 @foreach( $roof_heights as $key => $desc)
-                                     <option
-                                         {{ request()->input('roof_height') === $key ? " selected " : ""   }}
-                                         value="{{ $key }}">{{ $desc  }}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-
-                         <div class="col-3">
-                             <label for="kit_code"
-                                    class="form-label">
-                                 Kit Type</label>
-                             <select class="form-control"
-                                     name="kit_code"
-                                     id="kit_code">
-                                 <option value="ALL">All</option>
-                                 @foreach( $kit_codes as $key => $val)
-                                     <option
-                                             {{ request()->input('kit_code') === $key ? " selected " : ""   }}
-                                             value="{{ $key }}">{{ $val['desc']  }}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-
-
-
-
-                         <div class="col-2">
-                             <label for="colour"
-                                    class="form-label">
-                                 Colour</label>
-                             <select class="form-control"
-                                     name="colour"
-                                     id="colour">
-                                 <option value="ALL">All</option>
-                                 @foreach( $colours as $key => $desc)
-                                     <option
-                                             {{ request()->input('colour') === $key ? " selected " : ""   }}
-                                             value="{{ $key }}">{{ $desc  }}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-
-
-
-
-                        <div class="col-1 " >
-                            <button
-                                    id="go"
-                                    name="go"
-                                    type="submit"
-                                    class="btn btn-success">Go</button>
-                        </div>
-                         <div class="col-1 " >
-                             <a href="{{ route('bg.kits.create') }}"
-                                id="create_button"
-                                class="btn btn-info">Add</a>
-                         </div>
-                    </form>
-
-
-
-
-                 </div>
-
                 <table class="table table-hover table-striped">
                     <tbody>
                     @forelse( $results as $result )
                         <tr onclick="location.href = '{{ route('bg.kits.show', $result->id) }}'">
-                            <td>{{ $result->id }}</td>
+{{--                            <td>{{ $result->id }}</td>--}}
                             <td>{{ $result->part_number }}</td>
                             <td>{{ $result->description }}</td>
                         </tr>
