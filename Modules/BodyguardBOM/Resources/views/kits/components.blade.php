@@ -52,11 +52,15 @@
 
             <br>
 
+            @if( str_starts_with( $kit->part_number, 'BGK' ))
+
             <div class="card bg-dark border-dark text-white">
                 <div class="card-body">
                     <a class="btn btn-light" href="{{ route('bg.kits.components_from_template', $kit ) }}">Add Components from Template</a>
                 </div>
             </div>
+
+                @endif
 
         </div>
     </div>

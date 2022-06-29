@@ -115,7 +115,7 @@
                             let chassis_parent = document.querySelector('#chassis_{{ $loop->index }} option:checked').parentElement.label;
     
 
-                            let assembled_part_number = `BGC_${kit_code}_${location}_${colour}_${chassis}${roof_height}`;
+                            let assembled_part_number = `BGC-${kit_code}-${location}-${colour}-${chassis}${roof_height}`;
 
                             document.getElementById('part_number_{{ $loop->index }}').value = assembled_part_number;
                             let text_description = `A ${colour_desc} ${kit_code_desc} part for a ${roof_height_desc} ${chassis_desc} ${chassis_parent} at ${location_desc}`;

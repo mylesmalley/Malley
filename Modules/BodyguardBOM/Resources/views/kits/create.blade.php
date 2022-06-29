@@ -298,7 +298,7 @@
             let chassis_parent = document.querySelector('#chassis option:checked').parentElement.label;
 
 
-            document.getElementById('part_number').value = `BGK_${kit_code}_${colour}_${chassis}${roof_height}`;
+            document.getElementById('part_number').value = `BGK-${kit_code}-${colour}-${chassis}${roof_height}`;
             let text_description = `A ${colour_desc} ${kit_code_desc} kit for a ${roof_height_desc} ${chassis_desc} ${chassis_parent}`;
 
             document.getElementById('description').value = text_description.toUpperCase();

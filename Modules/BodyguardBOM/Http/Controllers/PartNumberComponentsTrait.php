@@ -146,8 +146,25 @@ trait PartNumberComponentsTrait {
         ],
         'WLE' => [
                 'desc' => 'wall liner with E-Track',
-                'ext' => "Contains a complete set of moulded ABS Plastic sheets to cover the Driver and Passenger side walls. Windows are not cut out, and brackets and E-Track are included"
-            ],
+                'ext' => "Contains a complete set of moulded ABS Plastic sheets to cover the Driver and Passenger side walls. Windows are not cut out, and brackets and E-Track are included",
+                        'template' => [
+                    'parts' =>
+                        [
+                            [
+                                'description' => 'Driver Side Panel (Rear)',
+                                'kit_code' => 'WLW',
+                            ],
+                            [
+                                'description' => 'Driver Side Panel (Front toward Cab)',
+                                'kit_code' => 'WLW',
+                            ],
+                            [
+                                'description' => 'Passenger Side Panel',
+                                'kit_code' => 'WLW',
+                            ],
+                        ]
+                    ],
+        ],
         'WLW' => [
                 'desc' => 'wall liner with windows',
                 'ext' => "Contains a complete set of moulded ABS Plastic sheets to cover the Driver and Passenger side walls. Windows are cut out"
@@ -173,15 +190,24 @@ trait PartNumberComponentsTrait {
      */
     protected array $chassis = [
         "Ford Transit" => [
-            "FTRALL" => "Any wheelbase",
+            "FTRALL" => "All Transit Wheelbases",
             "FTR130STD" => '130" regular wheelbase',
             "FTR148STD" => '148" regular wheelbase',
             "FTR148EXT" => '148" extended wheelbase',
         ],
         "Ford Transit Connect (2014)" => [
-            "2014FTCALL" => "Any wheelbase",
+            "2014FTCALL" => "All Transit Connect Wheelbases",
             "2014FTC105" => "Short wheelbase",
             "2014FTC121" => "Long wheelbase",
+        ],
+        "Nissan NV" => [
+            "NNVALL" => "All Nissan NV Wheelbases"
+        ],
+        "Ram ProMaster" => [
+            "RPMALL" => "All ProMaster Wheelbases",
+            "RPM136STD" => "136\" regular wheelbase",
+            "RPM159STD" => "159\" regular wheelbase",
+            "RPM159EXT" => "159\" extended wheelbase",
         ]
 //        'Ram ProMaster' => [
 //
