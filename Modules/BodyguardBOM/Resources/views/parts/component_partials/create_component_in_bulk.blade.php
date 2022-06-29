@@ -27,7 +27,7 @@
                                         value="{{ $k }}">{{ $v }}</option>
                             @endforeach
                         </select>
-
+                        <span id="status_{{ $id }}"></span>
 
                     </div>
                     <div class="col-2">
@@ -181,9 +181,7 @@
                                name="description[]"
                                id="description_{{ $id }}">
                     </div>
-                    <div class="col-2">
-                        <span id="status_{{ $id }}"></span>
-                    </div>
+
                 </div>
 
 

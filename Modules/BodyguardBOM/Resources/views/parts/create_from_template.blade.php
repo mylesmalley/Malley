@@ -59,6 +59,11 @@
                 @push('scripts')
                     <script>
 
+
+                        document.getElementById("include_{{ $loop->index }}")
+                            .addEventListener('change', generate_part_number_{{ $loop->index }});
+
+
                         let colour_el_{{ $loop->index }} = document.getElementById("colour_{{ $loop->index }}");
                         colour_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }});
     
@@ -68,11 +73,6 @@
                         let kit_code_el_{{ $loop->index }} = document.getElementById("kit_code_{{ $loop->index }}");
                         kit_code_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }});
 
-
-                        {{--let kit_code_els_{{ $loop->index }} = document.querySelectorAll('input[id="kit_code_{{ $loop->index }}"]');--}}
-                        {{--kit_code_els_{{ $loop->index }}.forEach(function(el){--}}
-                        {{--    el.addEventListener('change', generate_part_number_{{ $loop->index }});--}}
-                        {{--});--}}
     
                         let chassis_el_{{ $loop->index }} = document.getElementById("chassis_{{ $loop->index }}");
                         chassis_el_{{ $loop->index }}.addEventListener('change', generate_part_number_{{ $loop->index }})
@@ -101,13 +101,6 @@
                             let kit_code_desc = kit_code_el_{{ $loop->index }}
                                 .options[kit_code_el_{{ $loop->index }}.selectedIndex].text;
 
-                            
-                            {{--let kit_code = document.querySelector('#kit_code_{{ $loop->index }} option:checked')--}}
-                            {{--    ? document.querySelector('#kit_code_{{ $loop->index }} option:checked').value--}}
-                            {{--    : "TRD";--}}
-    
-                          //  let kit_code_desc = kit_codes[kit_code]['desc'];
-    
                             let chassis = chassis_el_{{ $loop->index }}
                                 .options[chassis_el_{{ $loop->index }}.selectedIndex].value;
                             let chassis_desc = chassis_el_{{ $loop->index }}
@@ -131,20 +124,42 @@
 
 
 
+
+                            let include_row =   document.getElementById('include_{{ $loop->index }}').value;
+
                             fetch(`{{ route("bg.kits.check_if_part_exists") }}?part_number=${assembled_part_number}`,
                                 {
                                     method: "GET",
                                 }).then(function( response ){
                             return response.json();
                         }).then(function(res){
-                                console.log( res );
+                             //   console.log( res );
                                 let status_block = document.getElementById('status_{{ $loop->index }}');
-                                if (res === true)
-                                {
-                                    status_block.innerHTML = "Already created.";
 
-                                } else {
-                                    status_block.innerHTML = "Will be created";
+
+
+                                status_block.className = '';
+
+                                if ( include_row === '1' )
+                                {
+
+                                    if (res === true)
+                                    {
+                                        status_block.classList.add('text-success')
+                                        status_block.innerHTML = "Already created.";
+
+                                    } else {
+                                        status_block.classList.add('text-info')
+
+                                        status_block.innerHTML = "Will be created";
+
+                                    }
+                                }
+                                else
+                                {
+                                    status_block.classList.add('text-danger')
+
+                                    status_block.innerHTML = "This row will be skipped";
 
                                 }
 
