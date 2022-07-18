@@ -80,14 +80,7 @@
                            class="form-control">
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label" for="refurb_number">Refurb Number</label>
-                    <input type="text"
-                           value="{{ old('refurb_number') ?? $vehicle->refurb_number ?? "" }}"
-                           name="refurb_number"
-                           id="refurb_number"
-                           class="form-control">
-                </div>
+
 {{--                <div class="form-group">--}}
 {{--                    <label class="control-label" for="location">Location</label>--}}
 {{--                    <select name="location" id="location" class="form-control">--}}
@@ -239,7 +232,50 @@
 
 
             </div>
+
+
+
+
+            <div class='col-md-4'>
+                <h3>Refurb Details</h3>
+
+                <div class="form-group">
+                    <label class="control-label" for="refurb_number">Refurb Number</label>
+                    <input type="text"
+                           value="{{ old('refurb_number') ?? $vehicle->refurb_number ?? "" }}"
+                           name="refurb_number"
+                           id="refurb_number"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="refurb_customer_name">Refurb Customer</label>
+                    <input type="text"
+                           name="refurb_customer_name"
+                           value="{{ old('refurb_customer_name') ?? $vehicle->refurb_customer_name ?? "" }}"
+                           id="refurb_customer_name"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="refurb_dealer_name">Refurb Dealer</label>
+                    <input type="text"
+                           name="refurb_dealer_name"
+                           value="{{ old('refurb_dealer_name') ?? $vehicle->refurb_dealer_name ?? "" }}"
+                           id="refurb_dealer_name"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="arf_job_number">ARF Job Number</label>
+                    <input type="text"
+                           name="arf_job_number"
+                           value="{{ old('arf_job_number') ?? $vehicle->arf_job_number ?? "" }}"
+                           id="arf_job_number"
+                           class="form-control">
+                </div>
+
+
         </div>
+            <br>
         <br />
         <div class='row'>
             <div class='col-md-12'>
@@ -248,12 +284,10 @@
             </div>
         </div>
 
-
+        </div>
 
     </form>
 
 
-            </div>
-            </div>
     <br /><br />
 @endsection

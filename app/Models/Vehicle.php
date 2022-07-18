@@ -281,6 +281,11 @@ class Vehicle extends Model implements HasMedia
 
         // 2021-10-15
         'weight_of_options', // added for BNQ compliance sticker
+
+        // 2022-07-17 added per request from Michelle
+        "refurb_customer_name",
+        'refurb_dealer_name',
+        'arf_job_number',
     ];
 
     public static function serialFields(): array

@@ -240,7 +240,12 @@ class VehiclesController extends Controller
             'notes' => 'nullable|string',
             'work_order'=> ['nullable', new Delimited('alpha_num') ],
             'country' => 'nullable|string',
-            'oem_dealer' => 'nullable|string|max:255,'
+            'oem_dealer' => 'nullable|string|max:255,',
+
+            // added 2022-07-17 as per request from michelle
+            'refurb_dealer_name' => 'nullable|string',
+            'refurb_customer_name' => 'nullable|string',
+            'arf_job_number' => 'nullable|alpha_num',
         //    'customer_name' => "nullable|string|max:100",
         ];
 
