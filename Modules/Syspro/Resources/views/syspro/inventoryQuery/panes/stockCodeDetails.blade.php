@@ -1,8 +1,8 @@
 <div id="stockCodeDetails" class="syspro-window ">
     <div class="syspro-window-menu">Stock Code Details</div>
     <div class="syspro-window-content">
-            <a style="float:right;" href="{{ route('stock_code_thumbnail', $inv->StockCode) }}">
-                <img src="{{ route('stock_code_thumbnail', $inv->StockCode) }}" style="width:165px;"
+            <a style="float:right;" href="{{ route('stock_code_thumbnail', trim( $inv->StockCode) ) }}">
+                <img src="{{ route('stock_code_thumbnail', trim( $inv->StockCode )) }}" style="width:165px;"
                      alt="{{ $inv->StockCode }}">
             </a>
         <table>

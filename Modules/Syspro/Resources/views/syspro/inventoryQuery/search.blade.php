@@ -81,7 +81,7 @@
 									<td>{!! $res['LongDesc'] !!}</td>
                                     <td>{!! $res['SupCatalogueNum'] !!}</td>
 									<td>
-										<img src="{{ route('stock_code_thumbnail', $res['Code']) }}"
+										<img src="{{ route('stock_code_thumbnail',trim( $res['Code'] )) }}"
 											 style="width:70px;"
 											 alt="{{ $res['Code'] }}">
 									</td>
