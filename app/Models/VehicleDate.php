@@ -71,6 +71,10 @@ class VehicleDate extends BaseModel
         'work_expected_to_be_completed', // Work Estimated to be Completed
         'work_scheduled', // Work Scheduled
         'work_started', // Work Started
+
+        // added 2022-07-17 as per request from michelle
+        'returned_for_refurb',
+        'delivered_as_refurb',
     ];
 
     /**
