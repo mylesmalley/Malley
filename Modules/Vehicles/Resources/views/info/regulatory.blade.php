@@ -217,6 +217,27 @@
                                class="form-control">
                     </div>
                 </div>
+                <div class='col-md-2'>
+                    <div class="form-group">
+                        <label class="control-label" for="fully_certified_to_gvs_standard">Certified to GVS STD</label>
+                        <select name="fully_certified_to_gvs_standard"
+                                class="form-control"
+                                id="fully_certified_to_gvs_standard">
+                            @foreach([""=> "", "N" => "No", "Y" => "Yes"] as $k => $v)
+                                <option
+                                        {{ old('fully_certified_to_gvs_standard', $vehicle->fully_certified_to_gvs_standard) === $k ? "selected" :"" }}
+                                        value="{{ $k }}">{{ $v }}</option>
+                            @endforeach
+
+                        </select>
+
+{{--                        <input type="text"--}}
+{{--                               name="fully_certified_to_gvs_standard"--}}
+{{--                               value=" {{ old('fully_certified_to_gvs_standard', $vehicle->fully_certified_to_gvs_standard ?? "") ??  "" }}"--}}
+{{--                               id="fully_certified_to_gvs_standard"--}}
+{{--                               class="form-control">--}}
+                    </div>
+                </div>
 
                 <div class='col-md-4'>
                     <div class="form-group">

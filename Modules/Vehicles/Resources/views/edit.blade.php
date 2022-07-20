@@ -272,7 +272,14 @@
                            id="arf_job_number"
                            class="form-control">
                 </div>
-
+                <div class="form-group">
+                    <label class="control-label" for="refurb_odometer">Odometer</label>
+                    <input type="number"
+                           name="refurb_odometer"
+                           value="{{ old('refurb_odometer') ?? $vehicle->refurb_odometer ?? "" }}"
+                           id="refurb_odometer"
+                           class="form-control">
+                </div>
 
         </div>
             <br>

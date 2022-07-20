@@ -246,6 +246,7 @@ class VehiclesController extends Controller
             'refurb_dealer_name' => 'nullable|string',
             'refurb_customer_name' => 'nullable|string',
             'arf_job_number' => 'nullable|alpha_num',
+            'refurb_odometer' => 'nullable|integer',
         //    'customer_name' => "nullable|string|max:100",
         ];
 
