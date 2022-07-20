@@ -9,6 +9,7 @@ use Modules\Vehicles\Http\Controllers\RegulatoryController;
 use Modules\Vehicles\Http\Controllers\Reporting\FordMilestoneComplianceReport;
 use Modules\Vehicles\Http\Controllers\Reporting\PendingFordMilestoneNotificationsReport;
 use Modules\Vehicles\Http\Controllers\Reporting\VehicleLocationReport;
+use Modules\Vehicles\Http\Controllers\Reporting\RefurbReport;
 use Modules\Vehicles\Http\Controllers\SerialsController;
 use Modules\Vehicles\Http\Controllers\Warranty\ClaimController;
 use Modules\Vehicles\Http\Controllers\Warranty\WorkOrderFromWarrantyClaimController;
@@ -61,6 +62,12 @@ Route::group(['prefix'=>'vehicles'], function () {
     Route::get('/reports/vehicle_location',    [VehicleLocationReport::class, "view" ])
         ->name('vehicles.reports.location');
 
+
+
+
+
+    Route::get('/reports/refurb_report',    [RefurbReport::class, "view" ])
+        ->name('vehicles.reports.refurb_report');
 
 
 

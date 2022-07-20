@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleDate;
 use App\Models\VehicleSerial;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -51,7 +52,7 @@ class RegulatoryController extends Controller
 
         try {
             $vehicle->update( $request->except(['CAAS_GVS_label_serial', 'o2_test_date', 'load_test_date']) );
-        } catch( \Exception $e )
+        } catch( Exception $e )
         {
             Log::error("failed to update regulatory for vehicle $vehicle->id". $e);
         }
@@ -63,7 +64,7 @@ class RegulatoryController extends Controller
                     ->updateOrCreate(['key'=> strtoupper('CAAS_GVS_label_serial')],
                         ['value' => $request->input('CAAS_GVS_label_serial')
                     ]);
-            } catch(\Exception $e )
+            } catch(Exception $e )
             {
                 Log::error("failed to update CAAS details for vehicle $vehicle->id". $e);
             }
@@ -84,7 +85,7 @@ class RegulatoryController extends Controller
                     'submitted_to_ford' => false,
                     'current' => 1,
                 ]);
-            } catch(\Exception $e )
+            } catch(Exception $e )
             {
                 Log::error("failed to update o2_test details for vehicle $vehicle->id". $e);
             }
@@ -107,7 +108,7 @@ class RegulatoryController extends Controller
                     'submitted_to_ford' => false,
                     'current' => 1,
                 ]);
-            } catch(\Exception $e )
+            } catch(Exception $e )
             {
                 Log::error("failed to update load_test_date details for vehicle $vehicle->id". $e);
             }
