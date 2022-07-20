@@ -286,6 +286,10 @@ class Vehicle extends Model implements HasMedia
         "refurb_customer_name",
         'refurb_dealer_name',
         'arf_job_number',
+
+        // 2022-07-20 added for michelle and kulbushan
+        'fully_certified_to_gvs_standard', // for Y/N flag
+        'refurb_odometer',
     ];
 
     public static function serialFields(): array
