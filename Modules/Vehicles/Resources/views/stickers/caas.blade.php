@@ -29,9 +29,9 @@
     let caasline = 49;
 
     caas.fillText("{{ $vehicle->year }} {{ $vehicle->make }} {{ strtoupper( $vehicle->model ) }}", 0, caasline );//x: 206 y: 154
-    caas.fillText("{{ $vehicle->vin ?? "XXXXXXXXXXXXXXX"  }}", 0, caasline * 2);//x: 206 y: 154
-    caas.fillText("{{ $vehicle->ambulance_type }} {{ $vehicle->malley_number ?? "XXXXXXXXXXXXXXX"  }}", 0, caasline * 3);//x: 206 y: 154
+    caas.fillText("{{ $vehicle->vin ?? "NOT SET"  }}", 0, caasline * 2);//x: 206 y: 154
+    caas.fillText("{{ $vehicle->ambulance_type }} {{ $vehicle->malley_number ?? "NOT SET"  }}", 0, caasline * 3);//x: 206 y: 154
     caas.fillText("{{ $vehicle->milestone('chassis_manufactured') ?? "DATE_FINISHED" }}", 0, caasline * 4);//x: 206 y: 154
-    caas.fillText("{{ $vehicle->payload ?? "XXXXXXXXXXXXXXX" }}", 0, caasline * 5);//x: 206 y: 154
-    caas.fillText("Y", 0, caasline * 6);//x: 206 y: 154
+    caas.fillText("{{ $vehicle->payload ?? "NOT SET" }}", 0, caasline * 5);//x: 206 y: 154
+    caas.fillText("{{ $vehicle->fully_certified_to_gvs_standard ?? "NOT SET" }}", 0, caasline * 6);//x: 206 y: 154
 </script>
